@@ -165,7 +165,7 @@ def angleLimiting(a):
 
 
 if __name__=="__main__":
-    setting_file = open(os.path.join(os.path.expanduser('~'),"Rfly_OBS/src","settings.json"))
+    setting_file = open(os.path.join(os.path.expanduser('~'),"Rfly_Attack/src","settings.json"))
     setting = json.load(setting_file)
     print(json.dumps(setting, indent=4))
 

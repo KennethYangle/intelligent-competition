@@ -10,7 +10,7 @@ import rospy
 from geometry_msgs.msg import PoseStamped, TwistStamped
 from std_msgs.msg import Float32MultiArray
 from mavros_msgs.msg import HomePosition
-sys.path.append("/home/t/Rfly_OBS/src/offboard_pkg/script")
+sys.path.append("/home/t/Rfly_Attack/src/offboard_pkg/script")
 from utils import Utils
 
 # JMAVSIM or GAZEBO
@@ -92,7 +92,7 @@ def talker():
         rate.sleep()
 
 if __name__ == '__main__':
-    setting_file = open(os.path.join(os.path.expanduser('~'),"Rfly_OBS/src","settings.json"))
+    setting_file = open(os.path.join(os.path.expanduser('~'),"Rfly_Attack/src","settings.json"))
     setting = json.load(setting_file)
     u = Utils(setting["Utils"])
 

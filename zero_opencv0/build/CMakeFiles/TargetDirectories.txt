@@ -1,3 +1,0 @@
-/home/t/RYSX_ws/src/zero_opencv0/build/CMakeFiles/rebuild_cache.dir
-/home/t/RYSX_ws/src/zero_opencv0/build/CMakeFiles/test.dir
-/home/t/RYSX_ws/src/zero_opencv0/build/CMakeFiles/edit_cache.dir
