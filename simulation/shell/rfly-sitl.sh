@@ -11,7 +11,7 @@
 # sleep 2s
 roslaunch simulation rflysim_sphere.launch & PID1=$!
 sleep 2s
-roslaunch simulation sim_gazebo.launch & PID2=$!
+roslaunch simulation sim_rfly.launch & PID2=$!
 
 # exit
 wait

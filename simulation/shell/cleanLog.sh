@@ -1,4 +1,4 @@
 #! /bin/bash
 
-cd ~/RYSX_ws/src/simulation/log
+cd ~/Rfly_Attack/src/simulation/log
 rm -rf *.log

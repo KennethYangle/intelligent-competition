@@ -1,0 +1,14 @@
+.vscode/
+.idea/
+.catkin_tools/
+build/
+cmake-build-debug/
+devel/
+*.zip
+simulation/log/
+offboard/log/
+data.mat
+*.pyc
+*.bag
+*.bmp
+*.png

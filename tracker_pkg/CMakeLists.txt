@@ -151,8 +151,8 @@ link_libraries(YEAD)
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
 # add_executable(${PROJECT_NAME}_node src/tracker_pkg_node.cpp)
-add_executable(listener_node src/listener.cpp)
-add_executable(commander_node src/commander.cpp)
+#add_executable(listener_node src/listener.cpp)
+#add_executable(commander_node src/commander.cpp)
 #add_executable(colortrack_node src/color_track.cpp)
 add_executable(colortrack_node src/color_track_V2.cpp)
 
@@ -171,8 +171,8 @@ add_executable(colortrack_node src/color_track_V2.cpp)
 # target_link_libraries(${PROJECT_NAME}_node
 #   ${catkin_LIBRARIES}
 # )
-target_link_libraries(listener_node ${catkin_LIBRARIES})
-target_link_libraries(commander_node ${catkin_LIBRARIES})
+#target_link_libraries(listener_node ${catkin_LIBRARIES})
+#target_link_libraries(commander_node ${catkin_LIBRARIES})
 target_link_libraries(colortrack_node ${catkin_LIBRARIES} ${OpenCV_LIBS} YEAD)
 #target_link_libraries(colortrack_node_V2 ${catkin_LIBRARIES} ${OpenCV_LIBS} YEAD)
 
