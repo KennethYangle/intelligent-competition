@@ -47,7 +47,7 @@ home_dx, home_dy = 0, 0
 depth = -1
 original_offset = np.array([0, 0, 0])
 
-sphere_pos_x, sphere_pos_y, sphere_pos_z = -0.1, 7.2, 2.43  #-0.065, 7, 2.43 
+sphere_pos_x, sphere_pos_y, sphere_pos_z = -0.1, 15, 2.43  #-0.065, 7, 2.43 
 sphere_vx, sphere_vy, sphere_vz = -1, 0, 0
 
 sphere_feb_pos = PoseStamped()
@@ -140,9 +140,9 @@ def sphere_control():
     obj_msg.position.x = sphere_pos_x
     obj_msg.position.y = sphere_pos_y
     obj_msg.position.z = sphere_pos_z
-    obj_msg.size.x = 0.05
-    obj_msg.size.y = 0.05
-    obj_msg.size.z = 0.05
+    obj_msg.size.x = 0.2
+    obj_msg.size.y = 0.2
+    obj_msg.size.z = 0.2
 
     sphere_pub.publish(obj_msg)
 
@@ -188,8 +188,10 @@ if __name__=="__main__":
     is_HIL = False
     if MODE == "RealFlight":
         rospy.Subscriber("mavros/rc/in", RCIn, rcin_cb)
+        image_center = [setting["Utils"]["WIDTH"] / 2, setting["Utils"]["HEIGHT"] / 2]
     elif MODE == "Simulation":
         sphere_pub = rospy.Publisher("ue4_ros/obj", Obj, queue_size=10)
+        image_center = [setting["Simulation"]["WIDTH"] / 2.0, setting["Simulation"]["HEIGHT"] / 2.0]
 
         if is_HIL == True:
             rospy.Subscriber("mavros/rc/in", RCIn, rcin_cb)
@@ -232,7 +234,7 @@ if __name__=="__main__":
     while not rospy.is_shutdown():
         cnt += 1
         # sphere_control()
-        if MODE == "Simulation" and ch8 != 0 and mav_pos[1] > 6:
+        if MODE == "Simulation" and ch8 != 0:
             sphere_control()
             rate.sleep()
             
@@ -254,7 +256,8 @@ if __name__=="__main__":
         
         pos_info = {"mav_pos": mav_pos, "mav_vel": mav_vel, "mav_R": mav_R, "R_bc": np.array([[0,0,1], [1,0,0], [0,1,0]]), 
                     "mav_original_angle": mav_original_angle, "Initial_pos": Initial_pos}
-        cmd = u.DockingControllerFusion(pos_info, pos_i)
+        # cmd = u.DockingControllerFusion(pos_info, pos_i)
+        cmd = u.BasicAttackController(pos_info, pos_i, image_center)
 
         target_distance = 12
         dx = target_distance*np.cos(mav_original_angle[0])
@@ -269,17 +272,18 @@ if __name__=="__main__":
         vel_e = mav_R.dot(vel_body)
 
         if ch7 == 1:
-            #识别到图像才进行角速度控制
+            # 识别到图像才进行角速度控制
             if pos_i[1] != 0: 
                 command.twist.linear.x = cmd[0]
                 command.twist.linear.y = cmd[1]
                 command.twist.linear.z = cmd[2]
                 command.twist.angular.z = cmd[3]
+            # 否则飞向预设目标点
             else:
-                command.twist.linear.x = cmd_vel[0]
-                command.twist.linear.y = cmd_vel[1]
-                command.twist.linear.z = cmd_vel[2]
-                command.twist.angular.z = cmd_yaw
+                command.twist.linear.x = 0
+                command.twist.linear.y = 0
+                command.twist.linear.z = 0
+                command.twist.angular.z = 0
         else:
             mav_original_angle = [mav_yaw, mav_pitch, mav_roll]
             Initial_pos = mav_pos

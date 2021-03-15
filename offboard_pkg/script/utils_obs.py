@@ -136,6 +136,12 @@ class Utils(object):
         print("v:{}".format(v))
         return [v[0], v[1], v[2], 0]
 
+    def BasicAttackController(self, pos_info, pos_i, image_center):
+        yaw = pos_info["mav_original_angle"][0]
+        cmd = [5*np.cos(yaw), 5*np.sin(yaw), 0.01*(image_center[1] - pos_i[1]), 0.01*(image_center[0] - pos_i[0])]
+        print("pos_i: {}, image_center: {}, cmd: {}".format(pos_i, image_center, cmd))
+        return cmd
+
     #期望位置，反馈位置，位置比例系数，速读限幅
     def pos_control(self, target_pos, feb_pos, kp, sat_vel):
         err_pos = target_pos - feb_pos

@@ -34,6 +34,8 @@
     },
     "Simulation": {
         "GPS_offset": [0.5, 0.5, 0],
-        "cam_lose_cnt": 1200
+        "cam_lose_cnt": 1200,
+        "WIDTH": 720,
+        "HEIGHT": 405
     }
 }
