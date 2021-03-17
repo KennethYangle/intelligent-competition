@@ -47,7 +47,7 @@ home_dx, home_dy = 0, 0
 depth = -1
 original_offset = np.array([0, 0, 0])
 
-sphere_pos_x, sphere_pos_y, sphere_pos_z = -0.1, 15, 2.43  #-0.065, 7, 2.43 
+sphere_pos_x, sphere_pos_y, sphere_pos_z = -5, 15, 4  #-0.065, 7, 2.43 
 sphere_vx, sphere_vy, sphere_vz = -1, 0, 0
 
 sphere_feb_pos = PoseStamped()
@@ -257,7 +257,8 @@ if __name__=="__main__":
         pos_info = {"mav_pos": mav_pos, "mav_vel": mav_vel, "mav_R": mav_R, "R_bc": np.array([[0,0,1], [1,0,0], [0,1,0]]), 
                     "mav_original_angle": mav_original_angle, "Initial_pos": Initial_pos}
         # cmd = u.DockingControllerFusion(pos_info, pos_i)
-        cmd = u.BasicAttackController(pos_info, pos_i, image_center)
+        # cmd = u.BasicAttackController(pos_info, pos_i, image_center)
+        cmd = u.RotateAttackController(pos_info, pos_i, image_center)
 
         target_distance = 12
         dx = target_distance*np.cos(mav_original_angle[0])
@@ -278,7 +279,7 @@ if __name__=="__main__":
                 command.twist.linear.y = cmd[1]
                 command.twist.linear.z = cmd[2]
                 command.twist.angular.z = cmd[3]
-            # 否则飞向预设目标点
+            # # 否则hover
             else:
                 command.twist.linear.x = 0
                 command.twist.linear.y = 0
@@ -292,6 +293,7 @@ if __name__=="__main__":
             command.twist.linear.z = 0
             command.twist.angular.z = 0
         obs_pos = np.array([sphere_pos_x, sphere_pos_y, sphere_pos_z]) 
+        print(command)
         local_vel_pub.publish(command)
         rate.sleep()
     rospy.spin()

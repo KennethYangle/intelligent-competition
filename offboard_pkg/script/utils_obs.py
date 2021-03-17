@@ -52,6 +52,7 @@ class Utils(object):
         self.v0 = self.h/2
         self.x0 = self.u0
         self.y0 = self.v0
+        self.cnt = 1
         #realsense: fx:632.9640658678117  fy:638.2668942402212
         self.f = 632 #346.6  # 这个需要依据实际情况进行设定flength=(width/2)/tan(hfov/2),不同仿真环境以及真机实验中需要依据实际情况进行修改
         #camrea frame to mavros_body frame
@@ -141,6 +142,32 @@ class Utils(object):
         cmd = [5*np.cos(yaw), 5*np.sin(yaw), 0.01*(image_center[1] - pos_i[1]), 0.01*(image_center[0] - pos_i[0])]
         print("pos_i: {}, image_center: {}, cmd: {}".format(pos_i, image_center, cmd))
         return cmd
+
+    def RotateAttackController(self, pos_info, pos_i, image_center):
+        #calacute nc,the first idex(c:camera,b:body,e:earth) represent the frmae, the second idex(c,o) represent the camera or obstacle
+        n_bc = self.R_cb.dot(self.n_cc)
+        n_ec = pos_info["mav_R"].dot(n_bc)
+        
+        #calacute the no
+        n_co = np.array([pos_i[0] - self.u0, pos_i[1] - self.v0, self.f], dtype=np.float64)
+        n_co /= np.linalg.norm(n_co)
+        n_bo = self.R_cb.dot(n_co)
+        n_eo = pos_info["mav_R"].dot(n_bo)
+
+        cos_beta = n_bo.dot(n_bc)
+        v_b = 7.5*(n_bo*cos_beta - n_bc)
+        
+        self.cnt += 1
+        # v_b[1] = v_b[1] * 0.1/(1.01-cos_beta) + self.sat(self.cnt * 0.1,10)
+        v_b[1] = self.sat(self.cnt * 0.02, 10)
+        # v_b[0] = v_b[0]
+        # v_b[2] = 0
+        v = pos_info["mav_R"].dot(v_b)
+        v = self.sat(v,10)
+        yaw_rate = 0.01*(image_center[0] - pos_i[0])
+        
+        print("v:{}".format(v))
+        return [v[0], v[1], v[2], yaw_rate]
 
     #期望位置，反馈位置，位置比例系数，速读限幅
     def pos_control(self, target_pos, feb_pos, kp, sat_vel):
