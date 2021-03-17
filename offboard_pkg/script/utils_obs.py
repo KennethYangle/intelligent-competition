@@ -42,8 +42,8 @@ def matrix(B, C):
 
 class Utils(object):
     def __init__(self, params):
-        self.WIDTH = 720 #simulation 720  Real_flight:640
-        self.HEIGHT = 405 #simulation 405  Real_flight:405
+        self.WIDTH = params["WIDTH"] #simulation 720  Real_flight:640
+        self.HEIGHT = params["HEIGHT"] #simulation 405  Real_flight:405
 
         self.circlex = None
         self.circley = None

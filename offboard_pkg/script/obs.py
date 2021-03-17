@@ -175,7 +175,10 @@ if __name__=="__main__":
     follow_mode = setting["follow_mode"]
     follow_distance = setting["follow_distance"]
     FLIGHT_H = setting["FLIGHT_H"]
-    u = Utils(setting["Utils"])
+    if MODE == "RealFlight":
+        u = Utils(setting["Utils"])
+    elif MODE == "Simulation":
+        u = Utils(setting["Simulation"])
 
     rospy.init_node('offb_node', anonymous=True)
     spin_thread = threading.Thread(target = spin)
