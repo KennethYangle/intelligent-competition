@@ -158,12 +158,15 @@ class Utils(object):
         v_b = 7.5*(n_bo*cos_beta - n_bc)
         
         self.cnt += 1
-        # v_b[1] = v_b[1] * 0.1/(1.01-cos_beta) + self.sat(self.cnt * 0.1,10)
-        v_b[1] = self.sat(self.cnt * 0.02, 10)
-        # v_b[0] = v_b[0]
-        # v_b[2] = 0
-        v = pos_info["mav_R"].dot(v_b)
-        v = self.sat(v,10)
+        # v_m[1] = v_b[1] * 0.1/(1.01-cos_beta) + self.sat(self.cnt * 0.1,10)
+        v_m = np.array([0., 0., 0.])
+        v_m[1] = self.sat(self.cnt * 0.02, 10)
+        v_m[0] = v_b[0]
+        v_m[2] = v_b[2]
+        # v_f = self.sat(self.cnt*0.02*np.array([0.,1.,0.]), 10)
+        # v_m = (1-cos_beta)*v_b + (cos_beta)*v_f
+        v = pos_info["mav_R"].dot(v_m)
+        v = self.sat(v,15)
         yaw_rate = 0.01*(image_center[0] - pos_i[0])
         
         print("v:{}".format(v))
