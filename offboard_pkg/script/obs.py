@@ -47,7 +47,7 @@ home_dx, home_dy = 0, 0
 depth = -1
 original_offset = np.array([0, 0, 0])
 
-sphere_pos_x, sphere_pos_y, sphere_pos_z = -5, 15, 4  #-0.065, 7, 2.43 
+sphere_pos_x, sphere_pos_y, sphere_pos_z = -5, 15, 1  #-0.065, 7, 2.43 
 sphere_vx, sphere_vy, sphere_vz = -1, 0, 0
 
 sphere_feb_pos = PoseStamped()
@@ -131,12 +131,13 @@ def pos_image_cb(msg):
     is_initialize_img = True
     pos_i = msg.data
 
-def sphere_control():
+def sphere_control(cnt):
     global sphere_pos_x, sphere_pos_y, sphere_pos_z
     obj_msg = Obj()
     
     obj_msg.id = 100
     obj_msg.type = 152
+    # obj_msg.position.x = sphere_pos_x + 5*np.sin(cnt*1.0/100)
     obj_msg.position.x = sphere_pos_x
     obj_msg.position.y = sphere_pos_y
     obj_msg.position.z = sphere_pos_z
@@ -238,9 +239,8 @@ if __name__=="__main__":
         print("time: {}".format(rospy.Time.now().to_sec() - last_request.to_sec()))
         cnt += 1
         # sphere_control()
-        if MODE == "Simulation" and ch8 != 0:
-            sphere_control()
-            rate.sleep()
+        if MODE == "Simulation":
+            sphere_control(cnt)
             
         if ch8 == 0:
             if current_state.mode == "OFFBOARD":
