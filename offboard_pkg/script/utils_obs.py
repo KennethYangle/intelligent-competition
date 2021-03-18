@@ -156,12 +156,12 @@ class Utils(object):
         n_eo = pos_info["mav_R"].dot(n_bo)
 
         cos_beta = n_bo.dot(n_bc)
-        v_b = 7.5*(n_bo*cos_beta - n_bc)
+        v_b = 10*(n_bo*cos_beta - n_bc)
         
         self.cnt += 1
         # v_m[1] = v_b[1] * 0.1/(1.01-cos_beta) + self.sat(self.cnt * 0.1,10)
         v_m = np.array([0., 0., 0.])
-        v_m[1] = self.sat(self.cnt * 0.02, 10)
+        v_m[1] = self.sat(self.cnt * 0.05, 10)
         v_m[0] = v_b[0]
         v_m[2] = v_b[2]
         # v_f = self.sat(self.cnt*0.02*np.array([0.,1.,0.]), 10)
