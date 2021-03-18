@@ -235,6 +235,7 @@ if __name__=="__main__":
     # start
     cnt = -1
     while not rospy.is_shutdown():
+        print("time: {}".format(rospy.Time.now().to_sec() - last_request.to_sec()))
         cnt += 1
         # sphere_control()
         if MODE == "Simulation" and ch8 != 0:
@@ -259,6 +260,10 @@ if __name__=="__main__":
         
         pos_info = {"mav_pos": mav_pos, "mav_vel": mav_vel, "mav_R": mav_R, "R_bc": np.array([[0,0,1], [1,0,0], [0,1,0]]), 
                     "mav_original_angle": mav_original_angle, "Initial_pos": Initial_pos}
+
+        dlt_pos = np.array([sphere_pos_x, sphere_pos_y, sphere_pos_z]) - np.array(mav_pos)
+        print("dlt_pos: {}".format(dlt_pos))
+        
         # cmd = u.DockingControllerFusion(pos_info, pos_i)
         # cmd = u.BasicAttackController(pos_info, pos_i, image_center)
         cmd = u.RotateAttackController(pos_info, pos_i, image_center)
@@ -296,7 +301,7 @@ if __name__=="__main__":
             command.twist.linear.z = 0
             command.twist.angular.z = 0
         obs_pos = np.array([sphere_pos_x, sphere_pos_y, sphere_pos_z]) 
-        print(command)
+        # print(command)
         local_vel_pub.publish(command)
         rate.sleep()
     rospy.spin()

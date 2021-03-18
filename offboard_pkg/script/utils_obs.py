@@ -140,11 +140,12 @@ class Utils(object):
     def BasicAttackController(self, pos_info, pos_i, image_center):
         yaw = pos_info["mav_original_angle"][0]
         cmd = [5*np.cos(yaw), 5*np.sin(yaw), 0.01*(image_center[1] - pos_i[1]), 0.01*(image_center[0] - pos_i[0])]
-        print("pos_i: {}, image_center: {}, cmd: {}".format(pos_i, image_center, cmd))
+        print("pos_i: {}\nimage_center: {}\ncmd: {}".format(pos_i, image_center, cmd))
         return cmd
 
     def RotateAttackController(self, pos_info, pos_i, image_center):
         #calacute nc,the first idex(c:camera,b:body,e:earth) represent the frmae, the second idex(c,o) represent the camera or obstacle
+        print("pos_i: {}".format(pos_i))
         n_bc = self.R_cb.dot(self.n_cc)
         n_ec = pos_info["mav_R"].dot(n_bc)
         
@@ -169,7 +170,7 @@ class Utils(object):
         v = self.sat(v,15)
         yaw_rate = 0.01*(image_center[0] - pos_i[0])
         
-        print("v:{}".format(v))
+        print("v_b:{}\nv_m:{}\nv:{}".format(v_b, v_m, v))
         return [v[0], v[1], v[2], yaw_rate]
 
     #期望位置，反馈位置，位置比例系数，速读限幅
