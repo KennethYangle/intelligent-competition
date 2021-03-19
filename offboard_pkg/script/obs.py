@@ -189,7 +189,7 @@ if __name__=="__main__":
     rospy.Subscriber("mavros/local_position/pose", PoseStamped, mav_pose_cb)
     rospy.Subscriber("mavros/local_position/velocity_local", TwistStamped, mav_vel_cb)
     #HIL使用遥控器进行控制
-    is_HIL = False
+    IsRC = setting["IsRC"]
     if MODE == "RealFlight":
         rospy.Subscriber("mavros/rc/in", RCIn, rcin_cb)
         image_center = [setting["Utils"]["WIDTH"] / 2, setting["Utils"]["HEIGHT"] / 2]
@@ -197,7 +197,7 @@ if __name__=="__main__":
         sphere_pub = rospy.Publisher("ue4_ros/obj", Obj, queue_size=10)
         image_center = [setting["Simulation"]["WIDTH"] / 2.0, setting["Simulation"]["HEIGHT"] / 2.0]
 
-        if is_HIL == True:
+        if IsRC == True:
             rospy.Subscriber("mavros/rc/in", RCIn, rcin_cb)
         else:
             inputThread = threading.Thread(target=read_kbd_input)
@@ -258,6 +258,10 @@ if __name__=="__main__":
                     print("Offboard enabled")
                 last_request = rospy.Time.now()
         
+        if ch7 == 0:
+            rate.sleep()
+            continue
+
         pos_info = {"mav_pos": mav_pos, "mav_vel": mav_vel, "mav_R": mav_R, "R_bc": np.array([[0,0,1], [1,0,0], [0,1,0]]), 
                     "mav_original_angle": mav_original_angle, "Initial_pos": Initial_pos}
 
