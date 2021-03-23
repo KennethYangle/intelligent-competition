@@ -38,9 +38,6 @@ Initial_pos = [0, 0, 0]
 pos_i = [0, 0, 0, 0, 0]
 state_name = "InitializeState"
 command = TwistStamped()
-command_rate = TwistStamped()
-command_angle = PoseStamped()
-command_thrust = Thrust()
 q = Queue()
 maxQ = 100
 sumQ = 0.0
@@ -193,7 +190,7 @@ if __name__=="__main__":
     IsRC = setting["IsRC"]
     if MODE == "RealFlight":
         rospy.Subscriber("mavros/rc/in", RCIn, rcin_cb)
-        image_center = [setting["Utils"]["WIDTH"] / 2, setting["Utils"]["HEIGHT"] / 2]
+        image_center = [setting["Utils"]["WIDTH"] / 2.0, setting["Utils"]["HEIGHT"] / 2.0]
     elif MODE == "Simulation":
         sphere_pub = rospy.Publisher("ue4_ros/obj", Obj, queue_size=10)
         image_center = [setting["Simulation"]["WIDTH"] / 2.0, setting["Simulation"]["HEIGHT"] / 2.0]
@@ -256,7 +253,6 @@ if __name__=="__main__":
                 resp1 = set_mode_client(0, "POSCTL")	# (uint8 base_mode, string custom_mode)
             if cnt % 10 == 0:
                 print("Enter MANUAL mode")
-            mav_original_angle = [mav_yaw, mav_pitch, mav_roll]
             Initial_pos = mav_pos
             rate.sleep()
             continue
@@ -267,9 +263,9 @@ if __name__=="__main__":
                     print("Offboard enabled")
                 last_request = rospy.Time.now()
         
-        if ch7 == 0:
-            rate.sleep()
-            continue
+        # if ch7 == 0:
+        #     rate.sleep()
+        #     continue
 
         # if current_state.mode == "OFFBOARD" and cnt % 100 == 0:
         #     resp_frame = frame_client(8)
@@ -288,38 +284,26 @@ if __name__=="__main__":
         # cmd = u.BasicAttackController(pos_info, pos_i, image_center)
         cmd = u.RotateAttackController(pos_info, pos_i, image_center)
 
-        target_distance = 12
-        dx = target_distance*np.cos(mav_original_angle[0])
-        dy = target_distance*np.sin(mav_original_angle[0])
-        # target_pos = np.array([Initial_pos[0] + dx, Initial_pos[1] + dy, Initial_pos[2]])   #initialize pos:[0, 12, 2.5]
-        target_pos = np.array([0, 20, 2.5])
-        feb_pos = np.array([mav_pos[0], mav_pos[1], mav_pos[2]])
-        cmd_vel = u.pos_control(target_pos,feb_pos,1.0,1.5)  #(1,1.5)
-        cmd_yaw = u.yaw_control(mav_original_angle[0], mav_yaw, 0.8, 0.8)
-
-        vel_body = np.array([0, 1, 0])
-        vel_e = mav_R.dot(vel_body)
-
-        if ch7 == 1:
+        if ch7 >= 1:
             # 识别到图像才进行角速度控制
             if pos_i[1] != 0: 
                 command.twist.linear.x = cmd[0]
                 command.twist.linear.y = cmd[1]
                 command.twist.linear.z = cmd[2]
                 command.twist.angular.z = cmd[3]
+                print("cmd: {}".format(cmd))
             # # 否则hover
             else:
-                command.twist.linear.x = 0
-                command.twist.linear.y = 0
-                command.twist.linear.z = 0
-                command.twist.angular.z = 0
+                command.twist.linear.x = 0.
+                command.twist.linear.y = 0.
+                command.twist.linear.z = 0.
+                command.twist.angular.z = 0.
         else:
-            mav_original_angle = [mav_yaw, mav_pitch, mav_roll]
             Initial_pos = mav_pos
-            command.twist.linear.x = 0
-            command.twist.linear.y = 0
-            command.twist.linear.z = 0
-            command.twist.angular.z = 0
+            command.twist.linear.x = 0.
+            command.twist.linear.y = 0.
+            command.twist.linear.z = 0.
+            command.twist.angular.z = 0.
         obs_pos = np.array([sphere_pos_x, sphere_pos_y, sphere_pos_z]) 
         # print(command)
         local_vel_pub.publish(command)

@@ -13,12 +13,20 @@
 
 using namespace std;
 using namespace cv;
-const int lowh = 0;
-const int lows = 40;
+// Board
+// const int lowh = 174;
+// const int lows = 130;
+// const int lowv = 100;
+// const int highh = 181;
+// const int highs = 220;
+// const int highv = 255;
+// Ballon
+const int lowh = 172;
+const int lows = 90;
 const int lowv = 100;
-const int highh = 10;
-const int highs = 90;
-const int highv = 200;
+const int highh = 181;
+const int highs = 180;
+const int highv = 256;
 ros::Publisher centerPointPub;
 
 string gstreamer_pipeline (int capture_width, int capture_height, int display_width, int display_height, int framerate, int flip_method)
@@ -95,7 +103,7 @@ int main( int argc, char** argv )
         Moments moment;
         moment = moments(imgThresholded, true);
         m00 = moment.m00; //cvGetSpatialMoment( &moment, 0, 0 );
-        if( m00 >= 200) 
+        if( m00 >= 10) 
         {
             m10 =moment.m10;// cvGetSpatialMoment( &moment, 1, 0 );
             m01 = moment.m01;//cvGetSpatialMoment( &moment, 0, 1 );
