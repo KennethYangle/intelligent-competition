@@ -209,13 +209,13 @@ if __name__=="__main__":
     local_vel_pub = rospy.Publisher('mavros/setpoint_velocity/cmd_vel', TwistStamped, queue_size=10)
     print("Publisher and Subscriber Created")
 
-    rospy.wait_for_service("mavros/setpoint_velocity/mav_frame")
-    frame_client = rospy.ServiceProxy('mavros/setpoint_velocity/mav_frame', SetMavFrame)
-    resp_frame = frame_client(8)
-    if resp_frame.success:
-        print("Set earth_FLU success!")
-    else:
-        print("Set frame failed!")
+    # rospy.wait_for_service("mavros/setpoint_velocity/mav_frame")
+    # frame_client = rospy.ServiceProxy('mavros/setpoint_velocity/mav_frame', SetMavFrame)
+    # resp_frame = frame_client(8)
+    # if resp_frame.success:
+    #     print("Set earth_FLU success!")
+    # else:
+    #     print("Set frame failed!")
 
     rospy.wait_for_service("mavros/cmd/arming")
     arming_client = rospy.ServiceProxy('mavros/cmd/arming', CommandBool)
