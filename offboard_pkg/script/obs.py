@@ -14,6 +14,7 @@ from std_msgs.msg import Float32MultiArray
 from std_srvs.srv import Empty
 from mavros_msgs.srv import CommandBool
 from mavros_msgs.srv import SetMode
+from mavros_msgs.srv import SetMavFrame
 from mavros_msgs.msg import State, RCIn, HomePosition
 from mavros_msgs.msg import Thrust
 from utils_obs import Utils
@@ -208,6 +209,14 @@ if __name__=="__main__":
     local_vel_pub = rospy.Publisher('mavros/setpoint_velocity/cmd_vel', TwistStamped, queue_size=10)
     print("Publisher and Subscriber Created")
 
+    rospy.wait_for_service("mavros/setpoint_velocity/mav_frame")
+    frame_client = rospy.ServiceProxy('mavros/setpoint_velocity/mav_frame', SetMavFrame)
+    resp_frame = frame_client(8)
+    if resp_frame.success:
+        print("Set earth_FLU success!")
+    else:
+        print("Set frame failed!")
+
     rospy.wait_for_service("mavros/cmd/arming")
     arming_client = rospy.ServiceProxy('mavros/cmd/arming', CommandBool)
     rospy.wait_for_service("mavros/set_mode")
@@ -261,6 +270,13 @@ if __name__=="__main__":
         if ch7 == 0:
             rate.sleep()
             continue
+
+        # if current_state.mode == "OFFBOARD" and cnt % 100 == 0:
+        #     resp_frame = frame_client(8)
+        #     if resp_frame.success:
+        #         print("Set earth_FLU success!")
+        #     else:
+        #         print("Set frame failed!")
 
         pos_info = {"mav_pos": mav_pos, "mav_vel": mav_vel, "mav_R": mav_R, "R_bc": np.array([[0,0,1], [1,0,0], [0,1,0]]), 
                     "mav_original_angle": mav_original_angle, "Initial_pos": Initial_pos}

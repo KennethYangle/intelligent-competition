@@ -163,18 +163,22 @@ class Utils(object):
         v_m = np.array([0., 0., 0.])
         # case1: (0.02, 3, 10)
         # case2: (0.05, 3, 12)
-        v_m[1] = self.sat(self.cnt * 0.02, 10)
-        v_m[0] = 3*v_b[0]
+        v_m[0] = self.sat(self.cnt * 0.02, 10)
+        v_m[1] = -5*v_b[0]
         v_m[2] = 5*v_b[2]
         # v_f = self.sat(self.cnt*0.02*np.array([0.,1.,0.]), 10)
         # v_m = (1-cos_beta)*v_b + (cos_beta)*v_f
-        v = pos_info["mav_R"].dot(v_m)
-        v = self.sat(v,15)
+
+        # v = pos_info["mav_R"].dot(v_m)
+        # v = self.sat(v,15)
         yaw_rate = 0.002*(image_center[0] - pos_i[0])
         
-        print("v_b: {}\nv_m: {}\nv: {}".format(v_b, v_m, v))
+        # print("v_b: {}\nv_m: {}\nv: {}".format(v_b, v_m, v))
         print("yaw_rate: {}".format(yaw_rate))
-        return [v[0], v[1], v[2], yaw_rate]
+        # return [v[0], v[1], v[2], yaw_rate]
+
+        print("v_m: {}\n".format(v_m))
+        return [v_m[0], v_m[1], v_m[2], yaw_rate]
 
     #期望位置，反馈位置，位置比例系数，速读限幅
     def pos_control(self, target_pos, feb_pos, kp, sat_vel):
