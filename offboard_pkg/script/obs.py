@@ -36,6 +36,7 @@ mav_yaw = 0
 mav_R = np.zeros((3,3))
 Initial_pos = [0, 0, 0]
 pos_i = [0, 0, 0, 0, 0]
+image_failed_cnt = 0
 state_name = "InitializeState"
 command = TwistStamped()
 q = Queue()
@@ -125,9 +126,19 @@ def read_kbd_input():
     win.mainloop()
 
 def pos_image_cb(msg):
-    global is_initialize_img, pos_i
+    global is_initialize_img, pos_i, image_failed_cnt
     is_initialize_img = True
-    pos_i = msg.data
+    print("msg_data: {}".format(msg.data))
+    if msg.data[0] <= 0:
+        image_failed_cnt += 1
+    else:
+        image_failed_cnt = 0
+    if image_failed_cnt <= 20 and image_failed_cnt > 0:
+        pass
+    else:
+        pos_i = msg.data
+    print("pos_i: {}".format(pos_i))
+
 
 def sphere_control(cnt):
     global sphere_pos_x, sphere_pos_y, sphere_pos_z
@@ -286,7 +297,7 @@ if __name__=="__main__":
 
         if ch7 >= 1:
             # 识别到图像才进行角速度控制
-            if pos_i[1] != 0: 
+            if pos_i[1] > 0: 
                 command.twist.linear.x = cmd[0]
                 command.twist.linear.y = cmd[1]
                 command.twist.linear.z = cmd[2]
@@ -305,7 +316,7 @@ if __name__=="__main__":
             command.twist.linear.z = 0.
             command.twist.angular.z = 0.
         obs_pos = np.array([sphere_pos_x, sphere_pos_y, sphere_pos_z]) 
-        # print(command)
+        print("command: {}".format([command.twist.linear.x, command.twist.linear.y, command.twist.linear.z, command.twist.angular.z]))
         local_vel_pub.publish(command)
         rate.sleep()
     rospy.spin()

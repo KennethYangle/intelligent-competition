@@ -109,7 +109,7 @@ int main( int argc, char** argv )
             m01 = moment.m01;//cvGetSpatialMoment( &moment, 0, 1 );
             xy.x = (int) (m10/m00);
             xy.y = (int) (m01/m00);
-            cout<<xy.x<<","<<xy.y<<endl;
+            std::cout<<xy.x<<","<<xy.y<<endl;
             float zhiling = 0.0;
             std_msgs::Float32MultiArray msg;
             msg.data.push_back(xy.x);
@@ -123,6 +123,13 @@ int main( int argc, char** argv )
         }
         else{
             std::cout<<" ------>>m00 = 0"<<std::endl;
+            std_msgs::Float32MultiArray msg;
+            msg.data.push_back(-1.0);
+            msg.data.push_back(-1.0);
+            msg.data.push_back(-1.0);
+            msg.data.push_back(-1.0);
+            msg.data.push_back(-1.0);
+            centerPointPub.publish(msg);
         }
         imshow( "imgThresholded", imgThresholded );
         imshow("CSI Camera",img);

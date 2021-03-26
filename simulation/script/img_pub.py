@@ -30,7 +30,7 @@ def image_callback(data):
 
     hue_image = cv2.cvtColor(cv_img, cv2.COLOR_BGR2HSV)
     low_range = np.array([0, 200, 40])   #[0, 230, 80]
-    high_range = np.array([180, 255, 210]) # [5, 256, 200]
+    high_range = np.array([10, 255, 210]) # [5, 256, 200]
     th = cv2.inRange(hue_image, low_range, high_range)
     dilated = cv2.dilate(th, cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (3, 3)), iterations=2)
     cv2.imshow("hsv", dilated)
@@ -39,7 +39,7 @@ def image_callback(data):
     if M["m00"] != 0:
         img_pos.data = [int(M["m10"] / M["m00"]), int(M["m01"] / M["m00"]), np.sqrt(2*M["m00"]), np.sqrt(2*M["m00"]), 0.8]
     else:
-        img_pos.data = [0, 0, 0, 0, 0]
+        img_pos.data = [-1.0, -1.0, -1.0, -1.0, -1.0]
 
     # if cnt > params["cam_lose_cnt"]:
     #     img_pos.data = [0, 0, 0, 0, 0]

@@ -145,7 +145,6 @@ class Utils(object):
 
     def RotateAttackController(self, pos_info, pos_i, image_center):
         #calacute nc,the first idex(c:camera,b:body,e:earth) represent the frmae, the second idex(c,o) represent the camera or obstacle
-        print("pos_i: {}".format(pos_i))
         n_bc = self.R_cb.dot(self.n_cc)
         n_ec = pos_info["mav_R"].dot(n_bc)
         
