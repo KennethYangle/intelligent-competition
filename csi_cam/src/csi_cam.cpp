@@ -45,12 +45,12 @@ int main( int argc, char** argv )
 
     centerPointPub = nh.advertise<std_msgs::Float32MultiArray>("/tracker/pos_image",1);
 
-    int capture_width = 640 ;
-    int capture_height = 360 ;
-    int display_width = 640 ;
-    int display_height = 360 ;
+    int capture_width = 480 ;
+    int capture_height = 640 ;
+    int display_width = 480 ;
+    int display_height = 640 ;
     int framerate = 60 ;
-    int flip_method = 2 ;
+    int flip_method = 1 ;
 
     //创建管道
     string pipeline = gstreamer_pipeline(capture_width,
