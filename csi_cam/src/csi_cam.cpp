@@ -33,8 +33,7 @@ string gstreamer_pipeline (int capture_width, int capture_height, int display_wi
 {
     return "nvarguscamerasrc ! video/x-raw(memory:NVMM), width=(int)" + to_string(capture_width) + ", height=(int)" +
            to_string(capture_height) + ", format=(string)NV12, framerate=(fraction)" + to_string(framerate) +
-           "/1 ! nvvidconv flip-method=" + to_string(flip_method) + " ! video/x-raw, width=(int)" + to_string(display_width) + ", height=(int)" +
-           to_string(display_height) + ", format=(string)BGRx ! videoconvert ! video/x-raw, format=(string)BGR ! appsink";
+           "/1 ! nvvidconv flip-method=" + to_string(flip_method) + ", format=(string)BGRx ! videoconvert ! video/x-raw, format=(string)BGR ! appsink";
 }
 
 int main( int argc, char** argv )
@@ -45,12 +44,12 @@ int main( int argc, char** argv )
 
     centerPointPub = nh.advertise<std_msgs::Float32MultiArray>("/tracker/pos_image",1);
 
-    int capture_width = 480 ;
-    int capture_height = 640 ;
+    int capture_width = 640 ;
+    int capture_height = 360 ;
     int display_width = 480 ;
     int display_height = 640 ;
     int framerate = 60 ;
-    int flip_method = 1 ;
+    int flip_method = 0 ;
 
     //创建管道
     string pipeline = gstreamer_pipeline(capture_width,
@@ -71,16 +70,18 @@ int main( int argc, char** argv )
 
     //创建显示窗口
     // namedWindow("CSI Camera", WINDOW_AUTOSIZE);
-    Mat img;
+    Mat img_origin, img;
 
     //逐帧显示
     while(ros::ok())
     {
-        if (!cap.read(img))
+        if (!cap.read(img_origin))
         {
             std::cout<<"捕获失败"<<std::endl;
             break;
         }
+        transpose(img_origin, img);
+        flip(img, img, 0);
 
         Mat imgHSV;
         vector<Mat> hsvSplit;
