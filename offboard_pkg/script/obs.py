@@ -293,9 +293,9 @@ if __name__=="__main__":
         
         # cmd = u.DockingControllerFusion(pos_info, pos_i)
         # cmd = u.BasicAttackController(pos_info, pos_i, image_center)
-        cmd = u.RotateAttackController(pos_info, pos_i, image_center)
 
         if ch7 >= 1:
+            cmd = u.RotateAttackController(pos_info, pos_i, image_center)
             # 识别到图像才进行角速度控制
             if pos_i[1] > 0: 
                 command.twist.linear.x = cmd[0]
