@@ -53,6 +53,8 @@ class Utils(object):
         self.x0 = self.u0
         self.y0 = self.v0
         self.cnt = 1
+        self.cnt_WP = 1
+        self.v_norm_d = 20
         #realsense: fx:632.9640658678117  fy:638.2668942402212
         self.f = 632 #346.6  # 这个需要依据实际情况进行设定flength=(width/2)/tan(hfov/2),不同仿真环境以及真机实验中需要依据实际情况进行修改
         #camrea frame to mavros_body frame
@@ -169,6 +171,48 @@ class Utils(object):
         # v_m = (1-cos_beta)*v_b + (cos_beta)*v_f
         v = pos_info["mav_R"].dot(v_m)
         v = self.sat(v, 8)
+        yaw_rate = 0.002*(image_center[0] - pos_i[0])
+        
+        print("v_b: {}\nv_m: {}\nv: {}".format(v_b, v_m, v))
+        print("yaw_rate: {}".format(yaw_rate))
+        return [v[0], v[1], v[2], yaw_rate]
+
+    def WPController(self, pos_info, target_position_local):
+        self.cnt_WP += 1
+
+        direction = np.array([target_position_local[0] - pos_info["mav_pos"][0], target_position_local[1] - pos_info["mav_pos"][1]])
+        direction /= np.linalg(direction)
+        v_horizontal = self.sat(self.cnt_WP * 0.05, self.v_norm_d) * direction
+
+        return [v_horizontal[0], v_horizontal[1], 0, yaw_rate]
+
+    def RotateHighspeedAttackController(self, pos_info, pos_i, image_center):
+        #calacute nc,the first idex(c:camera,b:body,e:earth) represent the frmae, the second idex(c,o) represent the camera or obstacle
+        n_bc = self.R_cb.dot(self.n_cc)
+        n_ec = pos_info["mav_R"].dot(n_bc)
+        
+        #calacute the no
+        n_co = np.array([pos_i[0] - self.u0, pos_i[1] - self.v0, self.f], dtype=np.float64)
+        n_co /= np.linalg.norm(n_co)
+        n_bo = self.R_cb.dot(n_co)
+        n_eo = pos_info["mav_R"].dot(n_bo)
+
+        cos_beta = n_bo.dot(n_bc)
+        v_b = n_bo*cos_beta - n_bc
+        
+        self.cnt += 1
+        v_forward_base = pos_info["mav_R"].T.dot(pos_info["mav_vel"])[1]
+        # v_m[1] = v_b[1] * 0.1/(1.01-cos_beta) + self.sat(self.cnt * 0.1,10)
+        v_m = np.array([0., 0., 0.])
+        # case1: (0.02, 3, 10)
+        # case2: (0.05, 3, 12)
+        v_m[1] = self.v_norm_d
+        v_m[0] = 3*v_b[0]
+        v_m[2] = 12*v_b[2]
+        # v_f = self.sat(self.cnt*0.02*np.array([0.,1.,0.]), 10)
+        # v_m = (1-cos_beta)*v_b + (cos_beta)*v_f
+        v = pos_info["mav_R"].dot(v_m)
+        v = self.sat(v, self.v_norm_d+5)
         yaw_rate = 0.002*(image_center[0] - pos_i[0])
         
         print("v_b: {}\nv_m: {}\nv: {}".format(v_b, v_m, v))
