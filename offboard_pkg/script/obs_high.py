@@ -46,7 +46,7 @@ home_dx, home_dy = 0, 0
 depth = -1
 original_offset = np.array([0, 0, 0])
 
-sphere_pos_x, sphere_pos_y, sphere_pos_z = -5, 15, 1  #-0.065, 7, 2.43 
+sphere_pos_x, sphere_pos_y, sphere_pos_z = -5, 15, 3  #-0.065, 7, 2.43 
 sphere_vx, sphere_vy, sphere_vz = -1, 0, 0
 
 sphere_feb_pos = PoseStamped()
@@ -255,7 +255,6 @@ if __name__=="__main__":
     target_position_local = list()
     controller_state = 0
     while not rospy.is_shutdown():
-        print("time: {}".format(rospy.Time.now().to_sec() - last_request.to_sec()))
         cnt += 1
         # sphere_control()
         if MODE == "Simulation":
@@ -280,6 +279,7 @@ if __name__=="__main__":
                 if resp1.mode_sent:
                     print("Offboard enabled")
                 last_request = rospy.Time.now()
+            print("time: {}".format(rospy.Time.now().to_sec() - last_request.to_sec()))
         
         # if ch7 == 0:
         #     rate.sleep()
@@ -297,6 +297,7 @@ if __name__=="__main__":
 
         dlt_pos = np.array([sphere_pos_x, sphere_pos_y, sphere_pos_z]) - np.array(mav_pos)
         print("dlt_pos: {}".format(dlt_pos))
+        print("mav_pos: {}\nmav_vel: {}".format(mav_pos, mav_vel))
         
         # stages transition
         if controller_state == 0 and target_position_local != list() and \
@@ -314,7 +315,7 @@ if __name__=="__main__":
             elif controller_state == 1:
                 cmd = u.RotateHighspeedAttackController(pos_info, pos_i, image_center)
             else:
-                cmd = [0., 0., 0.]
+                cmd = [0., 0., 0., 0.]
 
             command.twist.linear.x = cmd[0]
             command.twist.linear.y = cmd[1]

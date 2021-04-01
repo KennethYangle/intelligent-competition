@@ -163,7 +163,7 @@ class Utils(object):
         # v_m[1] = v_b[1] * 0.1/(1.01-cos_beta) + self.sat(self.cnt * 0.1,10)
         v_m = np.array([0., 0., 0.])
         # case1: (0.02, 3, 10)
-        # case2: (0.05, 3, 12)
+        # case2: (0.04, 3, 12)
         v_m[1] = self.sat(self.cnt * 0.04, 6)
         v_m[0] = 3*v_b[0]
         v_m[2] = 12*v_b[2]
@@ -181,10 +181,10 @@ class Utils(object):
         self.cnt_WP += 1
 
         direction = np.array([target_position_local[0] - pos_info["mav_pos"][0], target_position_local[1] - pos_info["mav_pos"][1]])
-        direction /= np.linalg(direction)
+        direction /= np.linalg.norm(direction)
         v_horizontal = self.sat(self.cnt_WP * 0.05, self.v_norm_d) * direction
 
-        return [v_horizontal[0], v_horizontal[1], 0, yaw_rate]
+        return [v_horizontal[0], v_horizontal[1], 0, 0]
 
     def RotateHighspeedAttackController(self, pos_info, pos_i, image_center):
         #calacute nc,the first idex(c:camera,b:body,e:earth) represent the frmae, the second idex(c,o) represent the camera or obstacle
@@ -207,7 +207,7 @@ class Utils(object):
         # case1: (0.02, 3, 10)
         # case2: (0.05, 3, 12)
         v_m[1] = self.v_norm_d
-        v_m[0] = 3*v_b[0]
+        v_m[0] = 9*v_b[0]
         v_m[2] = 12*v_b[2]
         # v_f = self.sat(self.cnt*0.02*np.array([0.,1.,0.]), 10)
         # v_m = (1-cos_beta)*v_b + (cos_beta)*v_f
