@@ -54,7 +54,7 @@ class Utils(object):
         self.y0 = self.v0
         self.cnt = 1
         self.cnt_WP = 1
-        self.v_norm_d = 20
+        self.v_norm_d = 10
         #realsense: fx:632.9640658678117  fy:638.2668942402212
         self.f = 632 #346.6  # 这个需要依据实际情况进行设定flength=(width/2)/tan(hfov/2),不同仿真环境以及真机实验中需要依据实际情况进行修改
         #camrea frame to mavros_body frame
