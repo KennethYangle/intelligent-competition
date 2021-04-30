@@ -72,7 +72,6 @@ void img_imu_ekf::set_Q_matrix(double dt)
 void img_imu_ekf::sensor_init(Vector4d q, Vector3d pos, Vector3d vel, Vector2d img)
 {
     kf = eskf(dim);
-
     // this->q = q;
     // Eigen::Quaterniond q2(Vector4d(x, y, z, w)); // 第二种方式
     //mavros读取四元数的顺序是(q.w, q.x, q.y, q.z)？？？这个需要确认，目前是按照这种方式读取的
@@ -82,6 +81,15 @@ void img_imu_ekf::sensor_init(Vector4d q, Vector3d pos, Vector3d vel, Vector2d i
     this->q.x() = q(1);
     this->q.y() = q(2);
     this->q.z() = q(3);
+    cout << "First quaterniond is init!!!" << endl;
+    cout << "First quaterniond:" << q << endl;
+    cout << "First 0:" << q(0) << endl;
+    cout << "First 1:" << q(1) << endl;
+    cout << "First 2:" << q(2) << endl;
+    cout << "First 3:" << q(3) << endl;
+    cout << "First pos:" << pos  << endl;
+    cout << "First vel:" << vel << endl;
+    cout << "First img:" << img << endl;
     this->pos = pos;
     this->vel = vel;
     this->img = img;
@@ -130,14 +138,15 @@ void img_imu_ekf::update_Phi(Vector3d w, Vector3d vel, Vector3d acc, double dt)
     F_q_gyr = MatrixXd::Zero(4, 3);
     R_eb = MatrixXd::Zero(3, 3);
     // w:为传入进来的角速度值，this->w：为角度变化值
-    Vector3d pre_w(this->w(0), this->w(1), this->w(2));
-    // Vector3d pre_w(this->w(0) * dt - kf.x(12), this->w(1) * dt - kf.x(13), this->w(2) * dt - kf.x(14));
-    // Vector3d pre_w_b(kf.x(12), kf.x(13), kf.x(14));
+    Vector3d pre_w_nobias(this->w(0), this->w(1), this->w(2));
+    // Vector3d pre_w(this->w(0), this->w(1), this->w(2));
+    Vector3d pre_w(this->w(0) * dt - kf.x(12), this->w(1) * dt - kf.x(13), this->w(2) * dt - kf.x(14));
     dMq_pre << 1, -pre_w(0) / 2, -pre_w(1) / 2, -pre_w(2) / 2,
         pre_w(0) / 2, 1, pre_w(2) / 2, -pre_w(1) / 2,
         pre_w(1) / 2, -pre_w(2) / 2, 1, pre_w(0) / 2,
         pre_w(2) / 2, pre_w(1) / 2, -pre_w(0) / 2, 1;
     this->w = w;
+    cout << "dMq_pre:" << dMq_pre << endl; 
 
     F_q = dMq_pre;
     // Vector4d pre_q(this->q.w(), this->q.x(), this->q.y(), this->q.z());
@@ -181,8 +190,8 @@ void img_imu_ekf::update_Phi(Vector3d w, Vector3d vel, Vector3d acc, double dt)
         pre_q.z(), pre_q.w(), -pre_q.x(),
         -pre_q.w(), pre_q.z(), -pre_q.y(),
         pre_q.x(), pre_q.y(), pre_q.z();
+    cout << "Phi_1 is ok!!" << endl;
 
-    
     // 方法一：直接从mavros读取速度值获取速度增量？？
     // Vector3d pre_vel(kf.x(7), kf.x(8), kf.x(9));
     // Vector3d dv = vel - pre_vel;
@@ -241,7 +250,7 @@ void img_imu_ekf::update_Phi(Vector3d w, Vector3d vel, Vector3d acc, double dt)
     //w_c:为相机坐标系下的角度变化
     Vector3d w_c,v_c;
     // w_c = R_bc.transpose()* this->w;
-    w_c = R_bc.transpose() * pre_w;//2021.04.28
+    w_c = R_bc.transpose() * pre_w_nobias; //2021.04.28
     v_c = R_bc.transpose() * R_eb.transpose() * pre_vel;
     F_img << v_c(0)/P_c(2) + pre_img(1)*w_c(0)-2*pre_img(0)*w_c(1), pre_img(0)*w_c(0) + w_c(2),
             -pre_img(1)*w_c(1) - w_c(2), v_c(2)/P_c(2) + 2*pre_img(1)*w_c(0) - pre_img(0)*w_c(1);

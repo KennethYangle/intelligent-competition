@@ -54,6 +54,10 @@ Vector4d mav_q;
 
 int loop_cnt = 0;
 bool is_img_come = false;
+bool get_img = false;
+bool get_orientation = false;
+bool get_vel = false;
+bool get_sensor = false;
 
 MatrixXd Phi[50];
 VectorXd ZZ[50];
@@ -80,29 +84,36 @@ void loop_img(int loop)
     //PP为第一次img没来，imu产生的协方差预测
     if(loop == 1)
     {
+        // ZZ[loop].segment(10, 2) = mav_img;
         // KK = PP * img_imu.kf.H.transpose()*(img_imu.kf.H * PP * img_imu.kf.H.transpose() + img_imu.Q).reverse();
         KK = PP * img_imu.kf.H.transpose() * (img_imu.kf.H * PP * img_imu.kf.H.transpose() + img_imu.Q).inverse();
         img_imu.kf.update(PP, img_imu.kf.H, img_imu.Q, img_imu.kf.x, KK, ZZ[loop_cnt]);
-        // cout << "Phi:" << img_imu.Phi << endl;
-        // cout << "P:" << img_imu.kf.P << endl;
-        // cout << "R:" << img_imu.R << endl;
+        cout << "Phi:" << img_imu.Phi << endl;
+        cout << "Covariance:" << img_imu.kf.P << endl;
+        cout << "R:" << img_imu.R << endl;
+        cout << "State:" << img_imu.kf.x << endl;
         cout << "k_10:" << KK(10,10) << endl;
         cout << "k_11:" << KK(11, 11) << endl;
     }
     else
     {
         // img_imu.kf.predict(Phi[loop], img_imu.kf.x, img_imu.kf.P, img_imu.G, img_imu.Q);
-        img_imu.kf.predict(Phi[loop - 1], img_imu.kf.x, img_imu.kf.P, GG[loop], img_imu.Q);
+        img_imu.kf.predict(Phi[loop - 1], img_imu.kf.x, img_imu.kf.P, GG[loop - 1], img_imu.Q);
         // // KK = img_imu.kf.P * img_imu.kf.H.transpose() * (img_imu.kf.H * img_imu.kf.P * img_imu.kf.H.transpose() + img_imu.Q).reverse();
         // KK = img_imu.kf.P * img_imu.kf.H.transpose() * (img_imu.kf.H * img_imu.kf.P * img_imu.kf.H.transpose() + img_imu.Q).inverse();
-        // // cout << "Phi:" << img_imu.Phi << endl;
-        // // cout << "P:" << img_imu.kf.P << endl;
-        // // cout << "R:" << img_imu.R << endl;
+        cout << "Phi:" << img_imu.Phi << endl;
+        cout << "Covariance:" << img_imu.kf.P << endl;
+        cout << "R:" << img_imu.R << endl;
+        cout << "State:" << img_imu.kf.x << endl;
         // img_imu.kf.update(img_imu.kf.P, img_imu.kf.H, img_imu.R, img_imu.kf.x, KK, ZZ[loop - 1]);
         // if (loop == loop_cnt)
         // {
         //     img_imu.kf.predict(Phi[loop], img_imu.kf.x, img_imu.kf.P, GG[loop_cnt], img_imu.Q);
         // }
+        if(loop == loop_cnt)
+        {
+            img_imu.Phi = Phi[loop];
+        }
         cout << "k_11:" << KK(11, 11) << endl;
     }
     cout << "loop:" << loop << endl;
@@ -120,11 +131,14 @@ void mav_pose_cb(const geometry_msgs::PoseStamped::ConstPtr &msg)
     mav_q(1) = msg->pose.orientation.x;
     mav_q(2) = msg->pose.orientation.y;
     mav_q(3) = msg->pose.orientation.z;
+    cout << "mav_q" << mav_q << endl;
+    get_orientation = true;
     // current_state = *msg;
 }
 
 void mav_vel_cb(const geometry_msgs::TwistStamped::ConstPtr &msg)
 {
+    get_vel = true;
     // cout << "Mav_vel is ok!" << endl;
     vel_ref_time = msg->header.stamp.toSec();
     mav_vel(0) = msg->twist.linear.x;
@@ -138,6 +152,10 @@ void mav_vel_cb(const geometry_msgs::TwistStamped::ConstPtr &msg)
 void mav_imu_cb(const sensor_msgs::Imu::ConstPtr &msg)
 {
     
+    if(get_img && get_orientation && get_vel)
+    {
+        get_sensor = true;
+    }
     cout << "Imu is subcribing!!!!!" << endl;
     // cout << "is_img_come state:" << is_img_come << endl;
     Matrix3d I3 = Matrix3d::Identity(); //定义单位矩阵
@@ -161,8 +179,8 @@ void mav_imu_cb(const sensor_msgs::Imu::ConstPtr &msg)
     gyro(0) = msg->angular_velocity.x;
     gyro(1) = msg->angular_velocity.y;
     gyro(2) = msg->angular_velocity.z;
-    
-    if(img_imu.is_init_done == false)
+
+    if (img_imu.is_init_done == false && get_sensor == true)
     {
         //初始化的时候应该更新状态X:img_imu.kf.x
         img_imu.sensor_init(mav_q, mav_pos - target_pos, mav_vel, mav_img);
@@ -175,7 +193,9 @@ void mav_imu_cb(const sensor_msgs::Imu::ConstPtr &msg)
         is_img_come = false;//防止未初始化时，Img先于Imu来临。
         cout << "Init is success!!" << endl;
     }
-    else
+    cout << "img_imu is init:" << img_imu.is_init_done << endl;
+    cout << "Step1!!!!:" << endl;
+    if (img_imu.is_init_done == true && get_sensor == true)
     {
         //执行矫正过程
         if (is_img_come)
@@ -251,14 +271,16 @@ void mav_imu_cb(const sensor_msgs::Imu::ConstPtr &msg)
             // }
         }
         cout << "loop_cnt:" << loop_cnt << endl;
+        cout << "Step2!!!!:" << endl;
+        // cout << "is_img_come:" << is_img_come << endl;
+        imu_pre_time = imu_ref_time;
+        img_predict.width = img_imu.kf.x(10);
+        img_predict.height = img_imu.kf.x(11);
+        cout << "ekf_x:" << img_imu.kf.x(10) << endl;
+        cout << "ekf_y:" << img_imu.kf.x(11) << endl;
+        // pub_img_pos.publish(img_predict);
     }
-    // cout << "is_img_come:" << is_img_come << endl;
-    imu_pre_time = imu_ref_time;
-    img_predict.width = img_imu.kf.x(10);
-    img_predict.height = img_imu.kf.x(11);
-    cout << "ekf_x:" << img_imu.kf.x(10) << endl;
-    cout << "ekf_y:" << img_imu.kf.x(11) << endl;
-    // pub_img_pos.publish(img_predict);
+    
 }
 
 void mav_img_cb(const sensor_msgs::Image::ConstPtr &msg)
@@ -268,6 +290,7 @@ void mav_img_cb(const sensor_msgs::Image::ConstPtr &msg)
     img_ref_time = msg->header.stamp.toSec();
     mav_img(0) = msg->width;
     mav_img(1) = msg->height;
+    get_img = true;
     cout << "img_x:" << mav_img(0) << endl;
     cout << "img_y:" << mav_img(1) << endl;
 }
