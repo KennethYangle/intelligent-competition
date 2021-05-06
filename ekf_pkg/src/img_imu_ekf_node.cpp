@@ -47,10 +47,13 @@ bool time_flag = false;
 Vector3d acc;
 Vector3d gyro;
 Vector2d mav_img;
+Vector2d img0(320,210);
+int img_f = 320;
 Vector3d mav_vel;
 Vector3d mav_pos;
 Vector3d target_pos(-5,15,1);
 Vector4d mav_q;
+Vector4d mav_qq;
 
 int loop_cnt = 0;
 bool is_img_come = false;
@@ -84,10 +87,9 @@ void loop_img(int loop)
     //PP为第一次img没来，imu产生的协方差预测
     if(loop == 1)
     {
-        // ZZ[loop].segment(10, 2) = mav_img;
-        // KK = PP * img_imu.kf.H.transpose()*(img_imu.kf.H * PP * img_imu.kf.H.transpose() + img_imu.Q).reverse();
+        
         KK = PP * img_imu.kf.H.transpose() * (img_imu.kf.H * PP * img_imu.kf.H.transpose() + img_imu.Q).inverse();
-        img_imu.kf.update(PP, img_imu.kf.H, img_imu.Q, img_imu.kf.x, KK, ZZ[loop_cnt]);
+        img_imu.kf.update(PP, img_imu.kf.H, img_imu.Q, img_imu.kf.x, KK, ZZ[loop_cnt]);//状态观测为图像来临时的观测
         cout << "Phi:" << img_imu.Phi << endl;
         cout << "Covariance:" << img_imu.kf.P << endl;
         cout << "R:" << img_imu.R << endl;
@@ -97,23 +99,15 @@ void loop_img(int loop)
     }
     else
     {
-        // img_imu.kf.predict(Phi[loop], img_imu.kf.x, img_imu.kf.P, img_imu.G, img_imu.Q);
         img_imu.kf.predict(Phi[loop - 1], img_imu.kf.x, img_imu.kf.P, GG[loop - 1], img_imu.Q);
-        // // KK = img_imu.kf.P * img_imu.kf.H.transpose() * (img_imu.kf.H * img_imu.kf.P * img_imu.kf.H.transpose() + img_imu.Q).reverse();
-        // KK = img_imu.kf.P * img_imu.kf.H.transpose() * (img_imu.kf.H * img_imu.kf.P * img_imu.kf.H.transpose() + img_imu.Q).inverse();
+        if (loop == loop_cnt)
+        {
+            img_imu.Phi = Phi[loop];
+        }
         cout << "Phi:" << img_imu.Phi << endl;
         cout << "Covariance:" << img_imu.kf.P << endl;
         cout << "R:" << img_imu.R << endl;
         cout << "State:" << img_imu.kf.x << endl;
-        // img_imu.kf.update(img_imu.kf.P, img_imu.kf.H, img_imu.R, img_imu.kf.x, KK, ZZ[loop - 1]);
-        // if (loop == loop_cnt)
-        // {
-        //     img_imu.kf.predict(Phi[loop], img_imu.kf.x, img_imu.kf.P, GG[loop_cnt], img_imu.Q);
-        // }
-        if(loop == loop_cnt)
-        {
-            img_imu.Phi = Phi[loop];
-        }
         cout << "k_11:" << KK(11, 11) << endl;
     }
     cout << "loop:" << loop << endl;
@@ -127,11 +121,6 @@ void mav_pose_cb(const geometry_msgs::PoseStamped::ConstPtr &msg)
     mav_pos(0) = msg->pose.position.x;
     mav_pos(1) = msg->pose.position.y;
     mav_pos(2) = msg->pose.position.z;
-    mav_q(0) = msg->pose.orientation.w;
-    mav_q(1) = msg->pose.orientation.x;
-    mav_q(2) = msg->pose.orientation.y;
-    mav_q(3) = msg->pose.orientation.z;
-    cout << "mav_q" << mav_q << endl;
     get_orientation = true;
     // current_state = *msg;
 }
@@ -146,9 +135,6 @@ void mav_vel_cb(const geometry_msgs::TwistStamped::ConstPtr &msg)
     mav_vel(2) = msg->twist.linear.z;
 }
 
-// geometry_msgs::Vector3 sensor_msgs::Imu::linear_acceleration
-
-
 void mav_imu_cb(const sensor_msgs::Imu::ConstPtr &msg)
 {
     
@@ -157,11 +143,9 @@ void mav_imu_cb(const sensor_msgs::Imu::ConstPtr &msg)
         get_sensor = true;
     }
     cout << "Imu is subcribing!!!!!" << endl;
+    cout << "get_sensor：" << get_sensor << endl;
     // cout << "is_img_come state:" << is_img_come << endl;
     Matrix3d I3 = Matrix3d::Identity(); //定义单位矩阵
-    MatrixXd Test; //定义单位矩阵
-    Vector3d test_aaaaa(1,1,1);
-    Test = MatrixXd::Identity(18,18);
 
     imu_ref_time = msg->header.stamp.toSec();
 
@@ -179,19 +163,19 @@ void mav_imu_cb(const sensor_msgs::Imu::ConstPtr &msg)
     gyro(0) = msg->angular_velocity.x;
     gyro(1) = msg->angular_velocity.y;
     gyro(2) = msg->angular_velocity.z;
+    mav_q(0) = msg->orientation.w;
+    mav_q(1) = msg->orientation.x;
+    mav_q(2) = msg->orientation.y;
+    mav_q(3) = msg->orientation.z;
+    cout << "mav_q" << mav_q << endl;
 
     if (img_imu.is_init_done == false && get_sensor == true)
     {
         //初始化的时候应该更新状态X:img_imu.kf.x
-        img_imu.sensor_init(mav_q, mav_pos - target_pos, mav_vel, mav_img);
-        // cout << "enter init" << endl;
-        // cout << "dt:" << imu_ref_time - imu_pre_time << endl;
+        img_imu.sensor_init(mav_q, -mav_pos + target_pos, mav_vel, mav_img);
         //初始化的时候应该更新下Phi:img_imu.Phi
         img_imu.update_Phi(gyro, mav_vel, acc, imu_ref_time - imu_pre_time);
-        // img_imu.update_Phi(test_aaaaa, test_aaaaa, imu_ref_time - imu_pre_time);
-        // cout << "first update phi" << endl;
         is_img_come = false;//防止未初始化时，Img先于Imu来临。
-        cout << "Init is success!!" << endl;
     }
     cout << "img_imu is init:" << img_imu.is_init_done << endl;
     cout << "Step1!!!!:" << endl;
@@ -207,7 +191,7 @@ void mav_imu_cb(const sensor_msgs::Imu::ConstPtr &msg)
             ACC[loop_cnt] = acc;
             ZZ[loop_cnt] = VectorXd::Ones(18);
             ZZ[loop_cnt].segment(0, 4) = mav_q;
-            ZZ[loop_cnt].segment(4, 3) = mav_pos;
+            ZZ[loop_cnt].segment(4, 3) = -mav_pos + target_pos;
             ZZ[loop_cnt].segment(7, 3) = mav_vel;
             ZZ[loop_cnt].segment(10, 2) = mav_img;
             ZZ[loop_cnt].segment(12, 3) = Vector3d::Ones();
@@ -231,18 +215,17 @@ void mav_imu_cb(const sensor_msgs::Imu::ConstPtr &msg)
                 img_imu.kf.predict(img_imu.Phi, img_imu.kf.x, img_imu.kf.P, img_imu.G, img_imu.Q);
                 //保存这一次的预测协方差阵P,当图像来临时，第一次预测更新用这个协方差阵进行计算
                 PP = img_imu.kf.P;
-                // cout << "dt:" << imu_ref_time - imu_pre_time << endl;
                 img_imu.update_Phi(gyro, mav_vel, acc, imu_ref_time - imu_pre_time);
                 Phi[loop_cnt] = img_imu.Phi;
                 GG[loop_cnt] = img_imu.G;
-                ACC[loop_cnt] = acc;
-                ZZ[loop_cnt] = VectorXd::Ones(18);
-                ZZ[loop_cnt].segment(0, 4) = mav_q;
-                ZZ[loop_cnt].segment(4, 3) = mav_pos;
-                ZZ[loop_cnt].segment(7, 3) = mav_vel;
-                ZZ[loop_cnt].segment(10, 2) = mav_img;
-                ZZ[loop_cnt].segment(12, 3) = Vector3d::Ones();
-                ZZ[loop_cnt].segment(15, 3) = Vector3d::Ones();
+                // ACC[loop_cnt] = acc;
+                // ZZ[loop_cnt] = VectorXd::Ones(18);
+                // ZZ[loop_cnt].segment(0, 4) = mav_q;
+                // ZZ[loop_cnt].segment(4, 3) = -mav_pos + target_pos;
+                // ZZ[loop_cnt].segment(7, 3) = mav_vel;
+                // ZZ[loop_cnt].segment(10, 2) = mav_img;
+                // ZZ[loop_cnt].segment(12, 3) = Vector3d::Ones();
+                // ZZ[loop_cnt].segment(15, 3) = Vector3d::Ones();
                 cout << "Predict is success!!!!" << endl;
                 // cout << "loop_cnt = 0! The loop_cnt is : " << loop_cnt << endl;
             }
@@ -252,14 +235,14 @@ void mav_imu_cb(const sensor_msgs::Imu::ConstPtr &msg)
                 img_imu.update_Phi(gyro, mav_vel, acc, imu_ref_time - imu_pre_time);
                 Phi[loop_cnt] = img_imu.Phi;
                 GG[loop_cnt] = img_imu.G;
-                ACC[loop_cnt] = acc;
-                ZZ[loop_cnt] = VectorXd::Ones(18);
-                ZZ[loop_cnt].segment(0, 4) = mav_q;
-                ZZ[loop_cnt].segment(4, 3) = mav_pos;
-                ZZ[loop_cnt].segment(7, 3) = mav_vel;
-                ZZ[loop_cnt].segment(10, 2) = mav_img;
-                ZZ[loop_cnt].segment(12, 3) = Vector3d::Ones();
-                ZZ[loop_cnt].segment(15, 3) = Vector3d::Ones();
+                // ACC[loop_cnt] = acc;
+                // ZZ[loop_cnt] = VectorXd::Ones(18);
+                // ZZ[loop_cnt].segment(0, 4) = mav_q;
+                // ZZ[loop_cnt].segment(4, 3) = -mav_pos + target_pos;
+                // ZZ[loop_cnt].segment(7, 3) = mav_vel;
+                // ZZ[loop_cnt].segment(10, 2) = mav_img;
+                // ZZ[loop_cnt].segment(12, 3) = Vector3d::Ones();
+                // ZZ[loop_cnt].segment(15, 3) = Vector3d::Ones();
                 // cout << "enter image loop!" << endl;
                 // cout << "loop_cnt = 0! The loop_cnt is : " << loop_cnt << endl;
             }
@@ -271,13 +254,11 @@ void mav_imu_cb(const sensor_msgs::Imu::ConstPtr &msg)
             // }
         }
         cout << "loop_cnt:" << loop_cnt << endl;
-        cout << "Step2!!!!:" << endl;
-        // cout << "is_img_come:" << is_img_come << endl;
         imu_pre_time = imu_ref_time;
         img_predict.width = img_imu.kf.x(10);
         img_predict.height = img_imu.kf.x(11);
-        cout << "ekf_x:" << img_imu.kf.x(10) << endl;
-        cout << "ekf_y:" << img_imu.kf.x(11) << endl;
+        cout << "ekf_x:" << img_imu.kf.x(10) * img_f + img0(0) << endl;
+        cout << "ekf_y:" << img_imu.kf.x(11) * img_f + img0(1) << endl;
         // pub_img_pos.publish(img_predict);
     }
     
@@ -288,20 +269,22 @@ void mav_img_cb(const sensor_msgs::Image::ConstPtr &msg)
     cout << "IMG is coming!!!!!" << endl;
     is_img_come = true;
     img_ref_time = msg->header.stamp.toSec();
-    mav_img(0) = msg->width;
-    mav_img(1) = msg->height;
+    mav_img(0) = (msg->width - img0(0)) / img_f;
+    mav_img(1) = (msg->height - img0(1)) / img_f;
     get_img = true;
-    cout << "img_x:" << mav_img(0) << endl;
-    cout << "img_y:" << mav_img(1) << endl;
+    cout << "img_x:" << mav_img(0) * img_f + img0(0) << endl;
+    cout << "img_y:" << mav_img(1) * img_f + img0(1) << endl;
 }
 
 void img_show_cb(const sensor_msgs::CompressedImage::ConstPtr &msg)
 {
     cv_bridge::CvImagePtr cv_ptr_compressed = cv_bridge::toCvCopy(msg, sensor_msgs::image_encodings::BGR8);
     imgCallback = cv_ptr_compressed->image;
-
-    cv::circle(imgCallback, cv::Point(img_imu.kf.x(10), img_imu.kf.x(11)), 5, cv::Scalar(255, 0, 0), 2);
-    cv::circle(imgCallback, cv::Point(mav_img(0), mav_img(1)), 5, cv::Scalar(255, 255, 0), 1);
+    if (get_sensor)
+    {
+        cv::circle(imgCallback, cv::Point(img_imu.kf.x(10) * img_f + img0(0), img_imu.kf.x(11) * img_f + img0(1)), 5, cv::Scalar(255, 0, 0), 2);
+        cv::circle(imgCallback, cv::Point(mav_img(0) * img_f + img0(0), mav_img(1) * img_f + img0(1)), 5, cv::Scalar(255, 255, 0), 1);
+    }
     // cv::circle(imgCallback, cv::Point(360, 210), 5, cv::Scalar(255, 0, 0), 2);
 
     cv::imshow("imgCallback", imgCallback);

@@ -56,7 +56,7 @@ void img_imu_ekf::set_Q_matrix(double dt)
     Q.block(10, 10, 2, 2) = I2 * img_noise * img_noise;             //img
     Q.block(12, 12, 3, 3) = I3 * gyro_bias_noise * gyro_bias_noise; //b_gyr
     Q.block(15, 15, 3, 3) = I3 * acc_bias_noise * acc_bias_noise;   //b_acc
-    Q = 100* Q;
+    Q = 0.001* Q;
 
     //定义测量方差阵
     R = MatrixXd::Zero(dim, dim);
@@ -66,7 +66,7 @@ void img_imu_ekf::set_Q_matrix(double dt)
     R.block(10, 10, 2, 2) = 0.001 * I2;//100 * I2 * img_noise * img_noise;             //img
     R.block(12, 12, 3, 3) = I3 * gyro_bias_noise * gyro_bias_noise * dt; //b_gyr
     R.block(15, 15, 3, 3) = I3 * acc_bias_noise * acc_bias_noise * dt;   //b_acc
-    R = 0.001 * R;
+    R = R;
 }
 
 void img_imu_ekf::sensor_init(Vector4d q, Vector3d pos, Vector3d vel, Vector2d img)
@@ -77,23 +77,23 @@ void img_imu_ekf::sensor_init(Vector4d q, Vector3d pos, Vector3d vel, Vector2d i
     //mavros读取四元数的顺序是(q.w, q.x, q.y, q.z)？？？这个需要确认，目前是按照这种方式读取的
     // Quaterniond vec_q(q(0), q(1), q(2), q(3));
     // this->q = vec_q;
-    this->q.w() = q(0);
-    this->q.x() = q(1);
-    this->q.y() = q(2);
-    this->q.z() = q(3);
-    cout << "First quaterniond is init!!!" << endl;
-    cout << "First quaterniond:" << q << endl;
-    cout << "First 0:" << q(0) << endl;
-    cout << "First 1:" << q(1) << endl;
-    cout << "First 2:" << q(2) << endl;
-    cout << "First 3:" << q(3) << endl;
-    cout << "First pos:" << pos  << endl;
-    cout << "First vel:" << vel << endl;
-    cout << "First img:" << img << endl;
-    this->pos = pos;
-    this->vel = vel;
-    this->img = img;
-    is_init_done = true;
+    // this->q.w() = q(0);
+    // this->q.x() = q(1);
+    // this->q.y() = q(2);
+    // this->q.z() = q(3);
+    // cout << "First quaterniond is init!!!" << endl;
+    // cout << "First quaterniond:" << q << endl;
+    // cout << "First 0:" << q(0) << endl;
+    // cout << "First 1:" << q(1) << endl;
+    // cout << "First 2:" << q(2) << endl;
+    // cout << "First 3:" << q(3) << endl;
+    // cout << "First pos:" << pos  << endl;
+    // cout << "First vel:" << vel << endl;
+    // cout << "First img:" << img << endl;
+    // this->pos = pos;
+    // this->vel = vel;
+    // this->img = img;
+    // is_init_done = true;
     // kf
     //p.segment(0, 4) = Vector4d::Ones() * gyro_noise * gyro_noise;
     //将q，pos，vel，img，b_gyr，b_acc转换成状态变量x,这里即为初始化状态向量x
@@ -102,8 +102,9 @@ void img_imu_ekf::sensor_init(Vector4d q, Vector3d pos, Vector3d vel, Vector2d i
     kf.x.segment(4, 3) = pos;
     kf.x.segment(7, 3) = vel;
     kf.x.segment(10, 2) = img;
-    kf.x.segment(12, 3) = Vector3d::Ones() * 0.01 * 0.01;
-    kf.x.segment(15, 3) = Vector3d::Ones() * 0.01 * 0.01;
+    kf.x.segment(12, 3) = Vector3d::Zero() * 0.01 * 0.01;
+    kf.x.segment(15, 3) = Vector3d::Zero() * 0.01 * 0.01;
+    is_init_done = true;
 
     Matrix2d I2 = Matrix2d::Identity(); //定义单位矩阵
     kf.H = MatrixXd::Zero(dim, dim);
@@ -124,9 +125,6 @@ void img_imu_ekf::update_Phi(Vector3d w, Vector3d vel, Vector3d acc, double dt)
 
     MatrixXd R_bc;
     R_bc = MatrixXd::Zero(3, 3);
-    // R_bc << 1,0,0,
-    //         0,0,1,
-    //         0,-1,0;
     R_bc << 0,1,0,
             0,0,-1,
             1,0,0;
@@ -140,7 +138,7 @@ void img_imu_ekf::update_Phi(Vector3d w, Vector3d vel, Vector3d acc, double dt)
     // w:为传入进来的角速度值，this->w：为角度变化值
     Vector3d pre_w_nobias(this->w(0), this->w(1), this->w(2));
     // Vector3d pre_w(this->w(0), this->w(1), this->w(2));
-    Vector3d pre_w(this->w(0) * dt - kf.x(12), this->w(1) * dt - kf.x(13), this->w(2) * dt - kf.x(14));
+    Vector3d pre_w(this->w(0) * dt - kf.x(12), this->w(1) * dt - -kf.x(13), this->w(2) * dt - -kf.x(14));
     dMq_pre << 1, -pre_w(0) / 2, -pre_w(1) / 2, -pre_w(2) / 2,
         pre_w(0) / 2, 1, pre_w(2) / 2, -pre_w(1) / 2,
         pre_w(1) / 2, -pre_w(2) / 2, 1, pre_w(0) / 2,
@@ -163,11 +161,6 @@ void img_imu_ekf::update_Phi(Vector3d w, Vector3d vel, Vector3d acc, double dt)
         -pre_q.w() / 2, pre_q.z() / 2, -pre_q.y() / 2,
         -pre_q.z() / 2, -pre_q.w() / 2, pre_q.x() / 2,
         pre_q.y() / 2, -pre_q.x() / 2, -pre_q.w() / 2;
-
-    // this->q = F_q * this->q + F_q_gyr * this->gyro_bias;
-
-    //predict pos
-    // pos += this->vel * dt;
 
     //predict v
     //mavros读取四元数的顺序是(q.w, q.x, q.y, q.z)？？？这个需要确认，目前是按照这种方式读取的
@@ -206,6 +199,7 @@ void img_imu_ekf::update_Phi(Vector3d w, Vector3d vel, Vector3d acc, double dt)
     F_vel_q << (Phi_1 * dv)(0), (Phi_1 * dv)(1), (Phi_1 * dv)(2), (Phi_1 * dv)(3),
         (Phi_2 * dv)(0), (Phi_2 * dv)(1), (Phi_2 * dv)(2), (Phi_2 * dv)(3),
         (Phi_3 * dv)(0), (Phi_3 * dv)(1), (Phi_3 * dv)(2), (Phi_3 * dv)(3);
+    F_vel_q = 2 * F_vel_q;
     MatrixXd F_v_dv;
     F_v_dv = MatrixXd::Zero(3, 3);
     F_v_dv = -R_eb;
@@ -219,7 +213,7 @@ void img_imu_ekf::update_Phi(Vector3d w, Vector3d vel, Vector3d acc, double dt)
     F_img_v = MatrixXd::Zero(2, 3);
     F_img_gyr = MatrixXd::Zero(2, 3);
     F_img = MatrixXd::Zero(2, 2);
-    Vector2d pre_img(kf.x(10) / img_f, kf.x(11) / img_f); // img_f为相机焦距,pre_img为归一化后的像素坐标
+    Vector2d pre_img(kf.x(10), kf.x(11)); // img_f为相机焦距,pre_img为归一化后的像素坐标
 
     //状态x：3——5为分别为位置变量
     //P_c(2)为P_cz
@@ -245,7 +239,7 @@ void img_imu_ekf::update_Phi(Vector3d w, Vector3d vel, Vector3d acc, double dt)
         (pre_img(0) * pre_q.z() + pre_q.w()) * pre_vel(0) + (pre_img(0) * pre_q.w() + pre_q.z()) * pre_vel(1) + (pre_img(0) * pre_q.x() - pre_q.y()) * pre_vel(2),
         (pre_img(1) * pre_q.z() - pre_q.x()) * pre_vel(0) + (pre_img(1) * pre_q.w() - pre_q.y()) * pre_vel(1) + (pre_img(1) * pre_q.x() - pre_q.z()) * pre_vel(2);
 
-    F_img_q = 2 * dt * F_img_q_process.transpose() / P_c(2);
+    F_img_q = dt * F_img_q_process.transpose() / P_c(2);
 
     //w_c:为相机坐标系下的角度变化
     Vector3d w_c,v_c;

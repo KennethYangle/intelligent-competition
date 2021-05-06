@@ -24,7 +24,7 @@ public:
     const int dim = 18;
     double imu_freq = 50;
     double img_freq = 100;
-    double img_f = 632; //相机焦距
+    double img_f = 360; //相机焦距
     double timestamp;
 
     const Vector3d gravity = Vector3d(0, 0, -9.8);
