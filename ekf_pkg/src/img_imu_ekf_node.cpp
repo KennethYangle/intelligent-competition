@@ -47,8 +47,8 @@ bool time_flag = false;
 Vector3d acc;
 Vector3d gyro;
 Vector2d mav_img;
-Vector2d img0(320,210);
-int img_f = 320;
+Vector2d img0(360,202.5);//图像分别率
+int img_f = 360;
 Vector3d mav_vel;
 Vector3d mav_pos;
 Vector3d target_pos(-5,15,1);
@@ -218,16 +218,7 @@ void mav_imu_cb(const sensor_msgs::Imu::ConstPtr &msg)
                 img_imu.update_Phi(gyro, mav_vel, acc, imu_ref_time - imu_pre_time);
                 Phi[loop_cnt] = img_imu.Phi;
                 GG[loop_cnt] = img_imu.G;
-                // ACC[loop_cnt] = acc;
-                // ZZ[loop_cnt] = VectorXd::Ones(18);
-                // ZZ[loop_cnt].segment(0, 4) = mav_q;
-                // ZZ[loop_cnt].segment(4, 3) = -mav_pos + target_pos;
-                // ZZ[loop_cnt].segment(7, 3) = mav_vel;
-                // ZZ[loop_cnt].segment(10, 2) = mav_img;
-                // ZZ[loop_cnt].segment(12, 3) = Vector3d::Ones();
-                // ZZ[loop_cnt].segment(15, 3) = Vector3d::Ones();
                 cout << "Predict is success!!!!" << endl;
-                // cout << "loop_cnt = 0! The loop_cnt is : " << loop_cnt << endl;
             }
             else
             {
@@ -235,16 +226,6 @@ void mav_imu_cb(const sensor_msgs::Imu::ConstPtr &msg)
                 img_imu.update_Phi(gyro, mav_vel, acc, imu_ref_time - imu_pre_time);
                 Phi[loop_cnt] = img_imu.Phi;
                 GG[loop_cnt] = img_imu.G;
-                // ACC[loop_cnt] = acc;
-                // ZZ[loop_cnt] = VectorXd::Ones(18);
-                // ZZ[loop_cnt].segment(0, 4) = mav_q;
-                // ZZ[loop_cnt].segment(4, 3) = -mav_pos + target_pos;
-                // ZZ[loop_cnt].segment(7, 3) = mav_vel;
-                // ZZ[loop_cnt].segment(10, 2) = mav_img;
-                // ZZ[loop_cnt].segment(12, 3) = Vector3d::Ones();
-                // ZZ[loop_cnt].segment(15, 3) = Vector3d::Ones();
-                // cout << "enter image loop!" << endl;
-                // cout << "loop_cnt = 0! The loop_cnt is : " << loop_cnt << endl;
             }
             // loop_cnt++;
             

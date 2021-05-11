@@ -5,10 +5,12 @@
 #define ACC_NOISE_DENSITY 1.86e-02 //unit: m/(s^2) / sqrt(Hz), continuous-time
 #define ACC_RANDOM_WALK 4.33e-03   //unit: m/(s^3) / sqrt(Hz)
 #define ACC_CONST_BIAS_MAX 0.01    //unit: m / (s^2)
+#define ACC_BIAS_WALK 2.66e-05    //unit: rad/(s^2)/sqrt(Hz)
 
 #define GYRO_NOISE_DENSITY 1.87e-03 //unit: rad/s/sqrt(Hz), continuous-time
 #define GYRO_RANDOM_WALK 2.66e-03   //unit: rad/(s^2)/sqrt(Hz)
 #define GYRO_CONST_BIAS_MAX 0.015   //unit: rad/s
+#define GYRO_BIAS_WALK 2.66e-05   //unit: rad/(s^2)/sqrt(Hz)
 
 #define IMG_NOISE_DENSITY 1.87e-03 //unit: rad/s
 #define IMG_RANDOM_WALK 2.66e-03   //unit: rad/

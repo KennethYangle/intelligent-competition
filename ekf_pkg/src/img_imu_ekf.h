@@ -20,6 +20,7 @@ public:
     Vector3d acc_bias;
     Vector3d gyro_bias;
     Vector3d w;
+    Vector3d acc;
 
     const int dim = 18;
     double imu_freq = 50;
@@ -29,9 +30,9 @@ public:
 
     const Vector3d gravity = Vector3d(0, 0, -9.8);
     const Vector3d magnetic = Vector3d(1, 0, 0);
-    const double gyro_bias_noise = GYRO_RANDOM_WALK;
+    const double gyro_bias_noise = GYRO_BIAS_WALK;
     const double gyro_noise = GYRO_NOISE_DENSITY;
-    const double acc_noise = ACC_NOISE_DENSITY;
+    const double acc_noise = ACC_BIAS_WALK;
     const double acc_bias_noise = ACC_RANDOM_WALK;
     const double mag_noise = MAG_NOISE_DENSITY;
     const double gps_pos_noise = GPS_POS_NOISE_DENSITY;

@@ -13,7 +13,7 @@ img_imu_ekf::img_imu_ekf()
 {
     is_init_done = false;
     is_atti_init_done = false;
-    this->q.setIdentity(); //四元数初始化为0
+    this->q.setIdentity(); //四元数初始化为单位向量
     this->pos.setZero();
     this->vel.setZero();
     this->img.setZero();
@@ -33,9 +33,8 @@ void img_imu_ekf::set_P_matrix()
     p.segment(4, 3) = Vector3d::Ones() * gps_pos_noise * gps_pos_noise;
     p.segment(7, 3) = Vector3d::Ones() * gps_vel_noise * gps_vel_noise;
     p.segment(10, 2) = Vector2d::Ones() * img_noise * img_noise;
-    p.segment(12, 3) = Vector3d::Ones() * 0.01 * 0.01;
-    p.segment(15, 3) = Vector3d::Ones() * 0.01 * 0.01;
-    // kf
+    p.segment(12, 3) = Vector3d::Ones() * gyro_bias_noise * gyro_bias_noise;
+    p.segment(15, 3) = Vector3d::Ones() * acc_bias_noise * acc_bias_noise;
 
     kf.eskf_init_P(p);
 }
@@ -66,44 +65,21 @@ void img_imu_ekf::set_Q_matrix(double dt)
     R.block(10, 10, 2, 2) = 0.001 * I2;//100 * I2 * img_noise * img_noise;             //img
     R.block(12, 12, 3, 3) = I3 * gyro_bias_noise * gyro_bias_noise * dt; //b_gyr
     R.block(15, 15, 3, 3) = I3 * acc_bias_noise * acc_bias_noise * dt;   //b_acc
-    R = R;
+    R = 100*R;
 }
 
 void img_imu_ekf::sensor_init(Vector4d q, Vector3d pos, Vector3d vel, Vector2d img)
 {
     kf = eskf(dim);
-    // this->q = q;
-    // Eigen::Quaterniond q2(Vector4d(x, y, z, w)); // 第二种方式
-    //mavros读取四元数的顺序是(q.w, q.x, q.y, q.z)？？？这个需要确认，目前是按照这种方式读取的
-    // Quaterniond vec_q(q(0), q(1), q(2), q(3));
-    // this->q = vec_q;
-    // this->q.w() = q(0);
-    // this->q.x() = q(1);
-    // this->q.y() = q(2);
-    // this->q.z() = q(3);
-    // cout << "First quaterniond is init!!!" << endl;
-    // cout << "First quaterniond:" << q << endl;
-    // cout << "First 0:" << q(0) << endl;
-    // cout << "First 1:" << q(1) << endl;
-    // cout << "First 2:" << q(2) << endl;
-    // cout << "First 3:" << q(3) << endl;
-    // cout << "First pos:" << pos  << endl;
-    // cout << "First vel:" << vel << endl;
-    // cout << "First img:" << img << endl;
-    // this->pos = pos;
-    // this->vel = vel;
-    // this->img = img;
-    // is_init_done = true;
-    // kf
-    //p.segment(0, 4) = Vector4d::Ones() * gyro_noise * gyro_noise;
+    
     //将q，pos，vel，img，b_gyr，b_acc转换成状态变量x,这里即为初始化状态向量x
     kf.x = VectorXd::Ones(18);
     kf.x.segment(0, 4) = q;
     kf.x.segment(4, 3) = pos;
     kf.x.segment(7, 3) = vel;
     kf.x.segment(10, 2) = img;
-    kf.x.segment(12, 3) = Vector3d::Zero() * 0.01 * 0.01;
-    kf.x.segment(15, 3) = Vector3d::Zero() * 0.01 * 0.01;
+    kf.x.segment(12, 3) = Vector3d::Zero();
+    kf.x.segment(15, 3) = Vector3d::Zero();
     is_init_done = true;
 
     Matrix2d I2 = Matrix2d::Identity(); //定义单位矩阵
@@ -125,9 +101,9 @@ void img_imu_ekf::update_Phi(Vector3d w, Vector3d vel, Vector3d acc, double dt)
 
     MatrixXd R_bc;
     R_bc = MatrixXd::Zero(3, 3);
-    R_bc << 0,1,0,
-            0,0,-1,
-            1,0,0;
+    R_bc << 0,0,1,
+            -1,0,0,
+            0,-1,0;
 
     //predict q
     //R_eb:机体系到世界系下的旋转矩阵，F_q：四元数到四元数的状态方程，F_q_gyr：陀螺仪到四元数的旋转矩阵
@@ -138,7 +114,7 @@ void img_imu_ekf::update_Phi(Vector3d w, Vector3d vel, Vector3d acc, double dt)
     // w:为传入进来的角速度值，this->w：为角度变化值
     Vector3d pre_w_nobias(this->w(0), this->w(1), this->w(2));
     // Vector3d pre_w(this->w(0), this->w(1), this->w(2));
-    Vector3d pre_w(this->w(0) * dt - kf.x(12), this->w(1) * dt - -kf.x(13), this->w(2) * dt - -kf.x(14));
+    Vector3d pre_w(this->w(0) * dt - kf.x(12), this->w(1) * dt - kf.x(13), this->w(2) * dt - kf.x(14));
     dMq_pre << 1, -pre_w(0) / 2, -pre_w(1) / 2, -pre_w(2) / 2,
         pre_w(0) / 2, 1, pre_w(2) / 2, -pre_w(1) / 2,
         pre_w(1) / 2, -pre_w(2) / 2, 1, pre_w(0) / 2,
@@ -155,7 +131,19 @@ void img_imu_ekf::update_Phi(Vector3d w, Vector3d vel, Vector3d acc, double dt)
     pre_q.x() = kf.x(1);
     pre_q.y() = kf.x(2);
     pre_q.z() = kf.x(3);
-    R_eb = pre_q.toRotationMatrix();
+    // R_ae = np.array([[q0**2+q1**2-q2**2-q3**2, 2*(q1*q2-q0*q3), 2*(q1*q3+q0*q2)],
+    //                   [2*(q1*q2+q0*q3), q0**2-q1**2+q2**2-q3**2, 2*(q2*q3-q0*q1)],
+    //                   [2*(q1*q3-q0*q2), 2*(q2*q3+q0*q1), q0**2-q1**2-q2**2+q3**2]])
+    // R_eb = pre_q.toRotationMatrix();
+    R_eb << pre_q.w() * pre_q.w() + pre_q.x() * pre_q.x() - pre_q.y() * pre_q.y() - pre_q.z() * pre_q.z(),
+        2 * (pre_q.x() * pre_q.y() - pre_q.w() * pre_q.z()),
+        2 * (pre_q.x() * pre_q.z() + pre_q.w() * pre_q.y()), //the first row
+        2 * (pre_q.x() * pre_q.y() + pre_q.w() * pre_q.z()),
+        pre_q.w() * pre_q.w() - pre_q.x() * pre_q.x() + pre_q.y() * pre_q.y() - pre_q.z() * pre_q.z(),
+        2 * (pre_q.y() * pre_q.z() - pre_q.w() * pre_q.x()), //the second row
+        2 * (pre_q.x() * pre_q.z() - pre_q.w() * pre_q.y()),
+        2 * (pre_q.y() * pre_q.z() + pre_q.w() * pre_q.x()),
+        pre_q.w() * pre_q.w() - pre_q.x() * pre_q.x() - pre_q.y() * pre_q.y() + pre_q.z() * pre_q.z();
 
     F_q_gyr << pre_q.x() / 2, pre_q.y() / 2, pre_q.z() / 2,
         -pre_q.w() / 2, pre_q.z() / 2, -pre_q.y() / 2,
@@ -193,7 +181,9 @@ void img_imu_ekf::update_Phi(Vector3d w, Vector3d vel, Vector3d acc, double dt)
     //      步骤二：将机体系下的速度增量转移到世界系下（东北天坐标系）
     Vector3d vel_acc(kf.x(15), kf.x(16), kf.x(17));
     Vector3d pre_vel(kf.x(7), kf.x(8), kf.x(9));
-    Vector3d dv = R_eb * (acc * dt - vel_acc);
+    // Vector3d dv = R_eb * (acc * dt - vel_acc);//去掉R_eb
+    Vector3d dv = this->acc * dt - vel_acc; //去掉R_eb
+    this->acc = acc;
     MatrixXd F_vel_q;
     F_vel_q = MatrixXd::Zero(3, 4);
     F_vel_q << (Phi_1 * dv)(0), (Phi_1 * dv)(1), (Phi_1 * dv)(2), (Phi_1 * dv)(3),
@@ -215,14 +205,14 @@ void img_imu_ekf::update_Phi(Vector3d w, Vector3d vel, Vector3d acc, double dt)
     F_img = MatrixXd::Zero(2, 2);
     Vector2d pre_img(kf.x(10), kf.x(11)); // img_f为相机焦距,pre_img为归一化后的像素坐标
 
-    //状态x：3——5为分别为位置变量
+    //状态x：4——6为分别为位置变量
     //P_c(2)为P_cz
-    Vector3d P_pre(kf.x(3), kf.x(4), kf.x(5));
+    Vector3d P_pre(kf.x(4), kf.x(5), kf.x(6));
     Vector3d P_c = R_bc.transpose() * R_eb.transpose()* P_pre;
 
     F_img_v << -1 / P_c(2), 0, pre_img(0) / P_c(2),
         0, -1 / P_c(2), pre_img(1) / P_c(2);
-    F_img_v = F_img_v*R_bc.transpose()*R_eb.transpose();
+    F_img_v = F_img_v*R_bc.transpose()*R_eb.transpose()*dt;
 
     F_img_gyr << pre_img(0) * pre_img(1), -(1 + pre_img(0) * pre_img(0)), pre_img(1),
         1 + pre_img(1) * pre_img(1), -pre_img(0) * pre_img(1), -pre_img(0);
@@ -239,19 +229,19 @@ void img_imu_ekf::update_Phi(Vector3d w, Vector3d vel, Vector3d acc, double dt)
         (pre_img(0) * pre_q.z() + pre_q.w()) * pre_vel(0) + (pre_img(0) * pre_q.w() + pre_q.z()) * pre_vel(1) + (pre_img(0) * pre_q.x() - pre_q.y()) * pre_vel(2),
         (pre_img(1) * pre_q.z() - pre_q.x()) * pre_vel(0) + (pre_img(1) * pre_q.w() - pre_q.y()) * pre_vel(1) + (pre_img(1) * pre_q.x() - pre_q.z()) * pre_vel(2);
 
-    F_img_q = dt * F_img_q_process.transpose() / P_c(2);
+    F_img_q = 2 * dt * F_img_q_process.transpose() / P_c(2);
 
     //w_c:为相机坐标系下的角度变化
     Vector3d w_c,v_c;
-    // w_c = R_bc.transpose()* this->w;
-    w_c = R_bc.transpose() * pre_w_nobias; //2021.04.28
+    w_c = R_bc.transpose() * pre_w;
+    // w_c = R_bc.transpose() * pre_w_nobias; //2021.04.28
     v_c = R_bc.transpose() * R_eb.transpose() * pre_vel;
-    F_img << v_c(0)/P_c(2) + pre_img(1)*w_c(0)-2*pre_img(0)*w_c(1), pre_img(0)*w_c(0) + w_c(2),
-            -pre_img(1)*w_c(1) - w_c(2), v_c(2)/P_c(2) + 2*pre_img(1)*w_c(0) - pre_img(0)*w_c(1);
-    F_img = I2 + F_img * dt;
-    // F_img << dt * v_c(0) / P_c(2) + pre_img(1) * w_c(0) - 2 * pre_img(0) * w_c(1), pre_img(0) * w_c(0) + w_c(2),
-    //     -pre_img(1) * w_c(1) - w_c(2), dt * v_c(2) / P_c(2) + 2 * pre_img(1) * w_c(0) - pre_img(0) * w_c(1);
-    // F_img = I2 + F_img;
+    // F_img << v_c(2)/P_c(2) + pre_img(1)*w_c(0)-2*pre_img(0)*w_c(1), pre_img(0)*w_c(0) + w_c(2),
+    //         -pre_img(1)*w_c(1) - w_c(2), v_c(2)/P_c(2) + 2*pre_img(1)*w_c(0) - pre_img(0)*w_c(1);
+    // F_img = I2 + F_img * dt;
+    F_img << dt * v_c(2) / P_c(2) + pre_img(1) * w_c(0) - 2 * pre_img(0) * w_c(1), pre_img(0) * w_c(0) + w_c(2),
+        -pre_img(1) * w_c(1) - w_c(2), dt * v_c(2) / P_c(2) + 2 * pre_img(1) * w_c(0) - pre_img(0) * w_c(1);
+    F_img = I2 + F_img;
 
     // F_img = F_img_v * R_be.transpose() * this->vel + R_be.transpose() * w;
     // this->img = F_img_v * pre_vel + F_img * this->img + F_img_gyr * this->gyro_bias;
