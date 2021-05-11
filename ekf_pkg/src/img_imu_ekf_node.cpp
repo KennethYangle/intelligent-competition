@@ -85,30 +85,39 @@ void loop_img(int loop)
     //img来了之后，迭代n次
     //第一次迭代只有更新步骤，没有预测步骤
     //PP为第一次img没来，imu产生的协方差预测
+    
     if(loop == 1)
     {
-        
-        KK = PP * img_imu.kf.H.transpose() * (img_imu.kf.H * PP * img_imu.kf.H.transpose() + img_imu.Q).inverse();
+        cout << "loop_img step1 is success!!!!" << endl;
+        cout << "Matrix H:" << img_imu.kf.H << endl;
+        cout << "Matrix PP:" << PP << endl;
+        cout << "Matrix QQ:" << img_imu.R << endl;
+        KK = PP * img_imu.kf.H.transpose() * (img_imu.kf.H * PP * img_imu.kf.H.transpose() + img_imu.R).inverse();
+        cout << "loop KK success!!!!" << endl;
         img_imu.kf.update(PP, img_imu.kf.H, img_imu.Q, img_imu.kf.x, KK, ZZ[loop_cnt]);//状态观测为图像来临时的观测
-        cout << "Phi:" << img_imu.Phi << endl;
-        cout << "Covariance:" << img_imu.kf.P << endl;
-        cout << "R:" << img_imu.R << endl;
-        cout << "State:" << img_imu.kf.x << endl;
-        cout << "k_10:" << KK(10,10) << endl;
-        cout << "k_11:" << KK(11, 11) << endl;
+        cout << "loop step1 success!!!!" << loop << endl;
+        // cout << "Phi:" << img_imu.Phi << endl;
+        // cout << "Covariance:" << img_imu.kf.P << endl;
+        // cout << "R:" << img_imu.R << endl;
+        // cout << "State:" << img_imu.kf.x << endl;
+        // cout << "k_10:" << KK(10,10) << endl;
+        // cout << "k_11:" << KK(11, 11) << endl;
     }
     else
     {
-        img_imu.kf.predict(Phi[loop - 1], img_imu.kf.x, img_imu.kf.P, GG[loop - 1], img_imu.Q);
+        cout << "loop_img step2 is success!!!!" << endl;
+        // img_imu.kf.predict(Phi[loop - 1], img_imu.kf.x, img_imu.kf.P, GG[loop - 1], img_imu.Q);
+        img_imu.kf.predict(Phi[loop], img_imu.kf.x, img_imu.kf.P, GG[loop], img_imu.Q);
         if (loop == loop_cnt)
         {
             img_imu.Phi = Phi[loop];
         }
-        cout << "Phi:" << img_imu.Phi << endl;
-        cout << "Covariance:" << img_imu.kf.P << endl;
-        cout << "R:" << img_imu.R << endl;
-        cout << "State:" << img_imu.kf.x << endl;
-        cout << "k_11:" << KK(11, 11) << endl;
+        cout << "loop step2 success!!!!" << loop << endl;
+        // cout << "Phi:" << img_imu.Phi << endl;
+        // cout << "Covariance:" << img_imu.kf.P << endl;
+        // cout << "R:" << img_imu.R << endl;
+        // cout << "State:" << img_imu.kf.x << endl;
+        // cout << "k_11:" << KK(11, 11) << endl;
     }
     cout << "loop:" << loop << endl;
 }
@@ -189,13 +198,14 @@ void mav_imu_cb(const sensor_msgs::Imu::ConstPtr &msg)
             Phi[loop_cnt] = img_imu.Phi;
             GG[loop_cnt] = img_imu.G;
             ACC[loop_cnt] = acc;
-            ZZ[loop_cnt] = VectorXd::Ones(18);
-            ZZ[loop_cnt].segment(0, 4) = mav_q;
-            ZZ[loop_cnt].segment(4, 3) = -mav_pos + target_pos;
-            ZZ[loop_cnt].segment(7, 3) = mav_vel;
-            ZZ[loop_cnt].segment(10, 2) = mav_img;
-            ZZ[loop_cnt].segment(12, 3) = Vector3d::Ones();
-            ZZ[loop_cnt].segment(15, 3) = Vector3d::Ones();
+            ZZ[loop_cnt] = VectorXd::Ones(2);
+            ZZ[loop_cnt].segment(0, 2) = mav_img;
+            // ZZ[loop_cnt].segment(0, 4) = mav_q;
+            // ZZ[loop_cnt].segment(4, 3) = -mav_pos + target_pos;
+            // ZZ[loop_cnt].segment(7, 3) = mav_vel;
+            // ZZ[loop_cnt].segment(10, 2) = mav_img;
+            // ZZ[loop_cnt].segment(12, 3) = Vector3d::Ones();
+            // ZZ[loop_cnt].segment(15, 3) = Vector3d::Ones();
             // while (loop_cnt--)
             for (int circle = 1; circle <= loop_cnt; circle++)
             {
@@ -212,6 +222,7 @@ void mav_imu_cb(const sensor_msgs::Imu::ConstPtr &msg)
                 loop_cnt++;
                 // img_imu.kf.predict(img_imu.Phi, img_imu.kf.x, img_imu.kf.P, img_imu.G, img_imu.Q);  Test
                 //Phi是上一时刻获得的，因此要先进行预测步骤，在更新Phi，同时还需要保存本次更新的Phi
+                cout << "Predict is entering!!!!" << endl;
                 img_imu.kf.predict(img_imu.Phi, img_imu.kf.x, img_imu.kf.P, img_imu.G, img_imu.Q);
                 //保存这一次的预测协方差阵P,当图像来临时，第一次预测更新用这个协方差阵进行计算
                 PP = img_imu.kf.P;
@@ -226,6 +237,7 @@ void mav_imu_cb(const sensor_msgs::Imu::ConstPtr &msg)
                 img_imu.update_Phi(gyro, mav_vel, acc, imu_ref_time - imu_pre_time);
                 Phi[loop_cnt] = img_imu.Phi;
                 GG[loop_cnt] = img_imu.G;
+                cout << "update_Phi is success!!!!" << endl;
             }
             // loop_cnt++;
             

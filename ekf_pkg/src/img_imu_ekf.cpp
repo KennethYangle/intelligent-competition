@@ -42,30 +42,34 @@ void img_imu_ekf::set_P_matrix()
 //定义各常熟矩阵   Q:过程噪声，G：系统噪声阵   R：测量噪声
 void img_imu_ekf::set_Q_matrix(double dt)
 {
-    Q = MatrixXd::Zero(dim, dim);
+    Q = MatrixXd::Zero(6, 6);
     Matrix2d I2 = Matrix2d::Identity(); //定义单位矩阵
     Matrix3d I3 = Matrix3d::Identity(); //定义单位矩阵
     Matrix4d I4 = Matrix4d::Identity(); //定义单位矩阵
+    Q.block(0, 0, 3, 3) = I3 * gyro_bias_noise * gyro_bias_noise; //b_gyr
+    Q.block(3, 3, 3, 3) = I3 * acc_bias_noise * acc_bias_noise; //b_acc
     //状态的顺序为：q,p,v,img,b_gyr,b_acc
     //其中，四元数用欧拉角表示
     //目前这个是随意设置的，不一定正确,四元数直接从mavros中读取
-    Q.block(0, 0, 4, 4) = I4 * gyro_noise * gyro_noise;             //q
-    Q.block(4, 4, 3, 3) = I3 * gps_vel_noise * gps_vel_noise;       //pos
-    Q.block(7, 7, 3, 3) = I3 * acc_noise * acc_noise;               //v
-    Q.block(10, 10, 2, 2) = I2 * img_noise * img_noise;             //img
-    Q.block(12, 12, 3, 3) = I3 * gyro_bias_noise * gyro_bias_noise; //b_gyr
-    Q.block(15, 15, 3, 3) = I3 * acc_bias_noise * acc_bias_noise;   //b_acc
-    Q = 0.001* Q;
+    // Q.block(0, 0, 4, 4) = I4 * gyro_noise * gyro_noise;             //q
+    // Q.block(4, 4, 3, 3) = I3 * gps_vel_noise * gps_vel_noise;       //pos
+    // Q.block(7, 7, 3, 3) = I3 * acc_noise * acc_noise;               //v
+    // Q.block(10, 10, 2, 2) = I2 * img_noise * img_noise;             //img
+    // Q.block(12, 12, 3, 3) = I3 * gyro_bias_noise * gyro_bias_noise; //b_gyr
+    // Q.block(15, 15, 3, 3) = I3 * acc_bias_noise * acc_bias_noise;   //b_acc
+    Q = 100 * Q;
 
     //定义测量方差阵
-    R = MatrixXd::Zero(dim, dim);
-    R.block(0, 0, 4, 4) = I4 * gyro_noise * gyro_noise;             //q
-    R.block(4, 4, 3, 3) = I3 * gps_vel_noise * gps_vel_noise;       //pos
-    R.block(7, 7, 3, 3) = I3 * acc_noise * acc_noise;               //v
-    R.block(10, 10, 2, 2) = 0.001 * I2;//100 * I2 * img_noise * img_noise;             //img
-    R.block(12, 12, 3, 3) = I3 * gyro_bias_noise * gyro_bias_noise * dt; //b_gyr
-    R.block(15, 15, 3, 3) = I3 * acc_bias_noise * acc_bias_noise * dt;   //b_acc
-    R = 100*R;
+    R = MatrixXd::Zero(2, 2);
+    R.block(0, 0, 2, 2) = I2 * img_noise * img_noise;
+    //100 * I2 * img_noise * img_noise;             //img
+    // R.block(0, 0, 4, 4) = I4 * gyro_noise * gyro_noise;             //q
+    // R.block(4, 4, 3, 3) = I3 * gps_vel_noise * gps_vel_noise;       //pos
+    // R.block(7, 7, 3, 3) = I3 * acc_noise * acc_noise;               //v
+    // R.block(10, 10, 2, 2) = 0.001 * I2;//100 * I2 * img_noise * img_noise;             //img
+    // R.block(12, 12, 3, 3) = I3 * gyro_bias_noise * gyro_bias_noise * dt; //b_gyr
+    // R.block(15, 15, 3, 3) = I3 * acc_bias_noise * acc_bias_noise * dt;   //b_acc
+    R = 0.001 * R;
 }
 
 void img_imu_ekf::sensor_init(Vector4d q, Vector3d pos, Vector3d vel, Vector2d img)
@@ -83,8 +87,8 @@ void img_imu_ekf::sensor_init(Vector4d q, Vector3d pos, Vector3d vel, Vector2d i
     is_init_done = true;
 
     Matrix2d I2 = Matrix2d::Identity(); //定义单位矩阵
-    kf.H = MatrixXd::Zero(dim, dim);
-    kf.H.block(10,10,2,2) = I2;
+    kf.H = MatrixXd::Zero(2, dim);
+    kf.H.block(0,10,2,2) = I2;
 
     this->set_Q_matrix(1.0 / imu_freq);
     this->set_P_matrix();
@@ -270,11 +274,12 @@ void img_imu_ekf::update_Phi(Vector3d w, Vector3d vel, Vector3d acc, double dt)
     Phi.block(12, 12, 3, 3) = I3;
     //acc part
     Phi.block(15, 15, 3, 3) = I3;
-
+    cout << "Phi all is ok!!" << endl;
     //定义系统噪声阵，目前认为为单位阵
     // G = MatrixXd::Identity(dim, dim);
-    G = MatrixXd::Zero(dim, dim);
-    G.block(0, 12, 4, 3) = F_q_gyr;
-    G.block(7, 15, 3, 3) = F_v_dv;
-    G.block(10, 12, 2, 3) = F_img_gyr;
+    G = MatrixXd::Zero(dim, 6);
+    G.block(0, 0, 4, 3) = F_q_gyr;
+    G.block(7, 3, 3, 3) = F_v_dv;
+    G.block(10, 0, 2, 3) = F_img_gyr;
+    cout << "GG all is ok!!" << endl;
 }
