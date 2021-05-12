@@ -19,6 +19,9 @@ img_imu_ekf::img_imu_ekf()
     this->img.setZero();
     this->acc_bias.setZero();
     this->gyro_bias.setZero();
+
+    this->Phi = MatrixXd::Identity(dim, dim);
+    this->G = MatrixXd::Zero(dim, 6);
 }
 
 img_imu_ekf::~img_imu_ekf()
@@ -57,7 +60,7 @@ void img_imu_ekf::set_Q_matrix(double dt)
     // Q.block(10, 10, 2, 2) = I2 * img_noise * img_noise;             //img
     // Q.block(12, 12, 3, 3) = I3 * gyro_bias_noise * gyro_bias_noise; //b_gyr
     // Q.block(15, 15, 3, 3) = I3 * acc_bias_noise * acc_bias_noise;   //b_acc
-    Q = 100 * Q;
+    Q = Q;
 
     //定义测量方差阵
     R = MatrixXd::Zero(2, 2);
@@ -69,7 +72,7 @@ void img_imu_ekf::set_Q_matrix(double dt)
     // R.block(10, 10, 2, 2) = 0.001 * I2;//100 * I2 * img_noise * img_noise;             //img
     // R.block(12, 12, 3, 3) = I3 * gyro_bias_noise * gyro_bias_noise * dt; //b_gyr
     // R.block(15, 15, 3, 3) = I3 * acc_bias_noise * acc_bias_noise * dt;   //b_acc
-    R = 0.001 * R;
+    R = 0.001*R;
 }
 
 void img_imu_ekf::sensor_init(Vector4d q, Vector3d pos, Vector3d vel, Vector2d img)
@@ -250,7 +253,7 @@ void img_imu_ekf::update_Phi(Vector3d w, Vector3d vel, Vector3d acc, double dt)
     // F_img = F_img_v * R_be.transpose() * this->vel + R_be.transpose() * w;
     // this->img = F_img_v * pre_vel + F_img * this->img + F_img_gyr * this->gyro_bias;
 
-    Phi = MatrixXd::Identity(dim, dim);
+    // Phi = MatrixXd::Identity(dim, dim);
 
     //quaternioned part
     Phi.block(0, 0, 4, 4) = F_q;
@@ -277,7 +280,7 @@ void img_imu_ekf::update_Phi(Vector3d w, Vector3d vel, Vector3d acc, double dt)
     cout << "Phi all is ok!!" << endl;
     //定义系统噪声阵，目前认为为单位阵
     // G = MatrixXd::Identity(dim, dim);
-    G = MatrixXd::Zero(dim, 6);
+    // G = MatrixXd::Zero(dim, 6);
     G.block(0, 0, 4, 3) = F_q_gyr;
     G.block(7, 3, 3, 3) = F_v_dv;
     G.block(10, 0, 2, 3) = F_img_gyr;
