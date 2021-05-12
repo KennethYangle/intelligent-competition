@@ -38,9 +38,9 @@ sensor_msgs::Image img_predict;
 
 double pos_ref_time = 0;
 double vel_ref_time = 0;
-double imu_ref_time = 0;
-double imu_pre_time = 1.61916e+09;//这个为系统时钟
-double last_time = 0; //这个为系统时钟
+double imu_ref_time;
+double imu_pre_time; //这个为系统时钟
+double last_time;    //这个为系统时钟
 double img_ref_time = 0;
 bool time_flag = false;
 
@@ -141,7 +141,8 @@ void mav_imu_cb(const sensor_msgs::Imu::ConstPtr &msg)
     // cout << "is_img_come state:" << is_img_come << endl;
     Matrix3d I3 = Matrix3d::Identity(); //定义单位矩阵
 
-    imu_ref_time = msg->header.stamp.toSec();
+    // imu_ref_time = msg->header.stamp.toSec();
+    imu_ref_time = ros::Time::now().toSec();
 
     if (time_flag == false)
     {
@@ -166,7 +167,7 @@ void mav_imu_cb(const sensor_msgs::Imu::ConstPtr &msg)
     if (img_imu.is_init_done == false && get_sensor == true)
     {
         //初始化的时候应该更新状态X:img_imu.kf.x
-        img_imu.sensor_init(mav_q, -mav_pos + target_pos, mav_vel, mav_img);
+        img_imu.sensor_init(mav_q, mav_pos - target_pos, mav_vel, mav_img);
         //初始化的时候应该更新下Phi:img_imu.Phi
         img_imu.update_Phi(gyro, mav_vel, acc, imu_ref_time - imu_pre_time);
         is_img_come = false;//防止未初始化时，Img先于Imu来临。
@@ -185,6 +186,8 @@ void mav_imu_cb(const sensor_msgs::Imu::ConstPtr &msg)
             ACC[loop_cnt] = acc;
             ZZ[loop_cnt] = VectorXd::Ones(2);
             ZZ[loop_cnt].segment(0, 2) = mav_img;
+            cout << "IMG_x:" << mav_img(0) * img_f + img0(0) << endl;
+            cout << "IMG_y:" << mav_img(1) * img_f + img0(1) << endl;
             for (int circle = 1; circle <= loop_cnt; circle++)
             {
                 loop_img(circle);
@@ -206,7 +209,7 @@ void mav_imu_cb(const sensor_msgs::Imu::ConstPtr &msg)
             cout << "Pre_x:" << img_imu.kf.x(10) * img_f + img0(0) << endl;
             cout << "Pre_y:" << img_imu.kf.x(11) * img_f + img0(1) << endl;
             //保存这一次的预测协方差阵P,当图像来临时，第一次预测更新用这个协方差阵进行计算
-            if(loop_cnt)
+            if(loop_cnt == 1)
                 PP = img_imu.kf.P;
             
             Phi[loop_cnt] = img_imu.Phi;
@@ -217,6 +220,7 @@ void mav_imu_cb(const sensor_msgs::Imu::ConstPtr &msg)
         imu_pre_time = imu_ref_time;
         img_predict.width = img_imu.kf.x(10);
         img_predict.height = img_imu.kf.x(11);
+        
         cout << "ekf_x:" << img_imu.kf.x(10) * img_f + img0(0) << endl;
         cout << "ekf_y:" << img_imu.kf.x(11) * img_f + img0(1) << endl;
         // pub_img_pos.publish(img_predict);
@@ -226,6 +230,8 @@ void mav_imu_cb(const sensor_msgs::Imu::ConstPtr &msg)
 
 void mav_img_cb(const sensor_msgs::Image::ConstPtr &msg)
 {
+    // imu_ref_time = ros::Time::now().toSec();
+    // cout << "time:" << imu_ref_time - last_time << endl;
     cout << "IMG is coming!!!!!" << endl;
     is_img_come = true;
     img_ref_time = msg->header.stamp.toSec();
@@ -234,6 +240,7 @@ void mav_img_cb(const sensor_msgs::Image::ConstPtr &msg)
     get_img = true;
     cout << "img_x:" << mav_img(0) * img_f + img0(0) << endl;
     cout << "img_y:" << mav_img(1) * img_f + img0(1) << endl;
+    // last_time = imu_ref_time;
 }
 
 void img_show_cb(const sensor_msgs::CompressedImage::ConstPtr &msg)

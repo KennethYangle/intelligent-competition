@@ -51,28 +51,12 @@ void img_imu_ekf::set_Q_matrix(double dt)
     Matrix4d I4 = Matrix4d::Identity(); //定义单位矩阵
     Q.block(0, 0, 3, 3) = I3 * gyro_bias_noise * gyro_bias_noise; //b_gyr
     Q.block(3, 3, 3, 3) = I3 * acc_bias_noise * acc_bias_noise; //b_acc
-    //状态的顺序为：q,p,v,img,b_gyr,b_acc
-    //其中，四元数用欧拉角表示
-    //目前这个是随意设置的，不一定正确,四元数直接从mavros中读取
-    // Q.block(0, 0, 4, 4) = I4 * gyro_noise * gyro_noise;             //q
-    // Q.block(4, 4, 3, 3) = I3 * gps_vel_noise * gps_vel_noise;       //pos
-    // Q.block(7, 7, 3, 3) = I3 * acc_noise * acc_noise;               //v
-    // Q.block(10, 10, 2, 2) = I2 * img_noise * img_noise;             //img
-    // Q.block(12, 12, 3, 3) = I3 * gyro_bias_noise * gyro_bias_noise; //b_gyr
-    // Q.block(15, 15, 3, 3) = I3 * acc_bias_noise * acc_bias_noise;   //b_acc
     Q = Q;
 
     //定义测量方差阵
     R = MatrixXd::Zero(2, 2);
     R.block(0, 0, 2, 2) = I2 * img_noise * img_noise;
-    //100 * I2 * img_noise * img_noise;             //img
-    // R.block(0, 0, 4, 4) = I4 * gyro_noise * gyro_noise;             //q
-    // R.block(4, 4, 3, 3) = I3 * gps_vel_noise * gps_vel_noise;       //pos
-    // R.block(7, 7, 3, 3) = I3 * acc_noise * acc_noise;               //v
-    // R.block(10, 10, 2, 2) = 0.001 * I2;//100 * I2 * img_noise * img_noise;             //img
-    // R.block(12, 12, 3, 3) = I3 * gyro_bias_noise * gyro_bias_noise * dt; //b_gyr
-    // R.block(15, 15, 3, 3) = I3 * acc_bias_noise * acc_bias_noise * dt;   //b_acc
-    R = 0.001*R;
+    R = 0*R;
 }
 
 void img_imu_ekf::sensor_init(Vector4d q, Vector3d pos, Vector3d vel, Vector2d img)
@@ -214,7 +198,7 @@ void img_imu_ekf::update_Phi(Vector3d w, Vector3d vel, Vector3d acc, double dt)
 
     //状态x：4——6为分别为位置变量
     //P_c(2)为P_cz
-    Vector3d P_pre(kf.x(4), kf.x(5), kf.x(6));
+    Vector3d P_pre(-kf.x(4), -kf.x(5), -kf.x(6));
     Vector3d P_c = R_bc.transpose() * R_eb.transpose()* P_pre;
 
     F_img_v << -1 / P_c(2), 0, pre_img(0) / P_c(2),
