@@ -42,7 +42,7 @@ void img_imu_ekf::set_P_matrix()
     kf.eskf_init_P(p);
 }
 
-//定义各常熟矩阵   Q:过程噪声，G：系统噪声阵   R：测量噪声
+//定义各常数矩阵   Q:过程噪声，G：系统噪声阵   R：测量噪声
 void img_imu_ekf::set_Q_matrix(double dt)
 {
     Q = MatrixXd::Zero(6, 6);
@@ -111,7 +111,7 @@ void img_imu_ekf::update_Phi(Vector3d w, Vector3d vel, Vector3d acc, double dt)
         pre_w(1) / 2, -pre_w(2) / 2, 1, pre_w(0) / 2,
         pre_w(2) / 2, pre_w(1) / 2, -pre_w(0) / 2, 1;
     this->w = w;
-    cout << "dMq_pre:" << dMq_pre << endl; 
+    // cout << "dMq_pre:" << dMq_pre << endl; 
 
     F_q = dMq_pre;
     // Vector4d pre_q(this->q.w(), this->q.x(), this->q.y(), this->q.z());
@@ -162,7 +162,7 @@ void img_imu_ekf::update_Phi(Vector3d w, Vector3d vel, Vector3d acc, double dt)
         pre_q.z(), pre_q.w(), -pre_q.x(),
         -pre_q.w(), pre_q.z(), -pre_q.y(),
         pre_q.x(), pre_q.y(), pre_q.z();
-    cout << "Phi_1 is ok!!" << endl;
+    // cout << "Phi_1 is ok!!" << endl;
 
     // 方法一：直接从mavros读取速度值获取速度增量？？
     // Vector3d pre_vel(kf.x(7), kf.x(8), kf.x(9));
@@ -208,17 +208,17 @@ void img_imu_ekf::update_Phi(Vector3d w, Vector3d vel, Vector3d acc, double dt)
     F_img_gyr << pre_img(0) * pre_img(1), -(1 + pre_img(0) * pre_img(0)), pre_img(1),
         1 + pre_img(1) * pre_img(1), -pre_img(0) * pre_img(1), -pre_img(0);
     
-    F_img_gyr = - F_img_gyr*R_bc.transpose();
+    F_img_gyr = -F_img_gyr * R_bc.transpose();
 
     
-    F_img_q_process << (pre_img(0) * pre_q.w() + pre_q.z()) * pre_vel(0) + (pre_img(0) * pre_q.z() - pre_q.w()) * pre_vel(1) + (-pre_img(0) * pre_q.y() - pre_q.x()) * pre_vel(2),
-        (pre_img(1) * pre_q.w() - pre_q.y()) * pre_vel(0) + (pre_img(1) * pre_q.z() + pre_q.x()) * pre_vel(1) + (-pre_img(1) * pre_q.y() - pre_q.w()) * pre_vel(2),
-        (pre_img(0) * pre_q.x() - pre_q.y()) * pre_vel(0) + (pre_img(0) * pre_q.y() + pre_q.x()) * pre_vel(1) + (pre_img(0) * pre_q.z() - pre_q.w()) * pre_vel(2),
-        (pre_img(1) * pre_q.x() - pre_q.z()) * pre_vel(0) + (pre_img(1) * pre_q.y() + pre_q.w()) * pre_vel(1) + (pre_img(1) * pre_q.z() + pre_q.x()) * pre_vel(2),
-        (pre_img(0) * pre_q.y() - pre_q.x()) * pre_vel(0) + (pre_img(0) * pre_q.x() - pre_q.y()) * pre_vel(1) + (-pre_img(0) * pre_q.w() - pre_q.z()) * pre_vel(2),
-        (pre_img(1) * pre_q.y() - pre_q.w()) * pre_vel(0) + (pre_img(1) * pre_q.x() - pre_q.z()) * pre_vel(1) + (-pre_img(1) * pre_q.w() + pre_q.y()) * pre_vel(2),
-        (pre_img(0) * pre_q.z() + pre_q.w()) * pre_vel(0) + (pre_img(0) * pre_q.w() + pre_q.z()) * pre_vel(1) + (pre_img(0) * pre_q.x() - pre_q.y()) * pre_vel(2),
-        (pre_img(1) * pre_q.z() - pre_q.x()) * pre_vel(0) + (pre_img(1) * pre_q.w() - pre_q.y()) * pre_vel(1) + (pre_img(1) * pre_q.x() - pre_q.z()) * pre_vel(2);
+    F_img_q_process << (pre_img(0) * pre_q.w() - pre_q.z()) * pre_vel(0) + (pre_img(0) * pre_q.z() + pre_q.w()) * pre_vel(1) + (-pre_img(0) * pre_q.y() + pre_q.x()) * pre_vel(2),
+        (pre_img(1) * pre_q.w() + pre_q.y()) * pre_vel(0) + (pre_img(1) * pre_q.z() - pre_q.x()) * pre_vel(1) + (-pre_img(1) * pre_q.y() + pre_q.w()) * pre_vel(2),
+        (pre_img(0) * pre_q.x() + pre_q.y()) * pre_vel(0) + (pre_img(0) * pre_q.y() - pre_q.x()) * pre_vel(1) + (pre_img(0) * pre_q.z() + pre_q.w()) * pre_vel(2),
+        (pre_img(1) * pre_q.x() + pre_q.z()) * pre_vel(0) + (pre_img(1) * pre_q.y() - pre_q.w()) * pre_vel(1) + (pre_img(1) * pre_q.z() - pre_q.x()) * pre_vel(2),
+        (-pre_img(0) * pre_q.y() + pre_q.x()) * pre_vel(0) + (pre_img(0) * pre_q.x() + pre_q.y()) * pre_vel(1) + (-pre_img(0) * pre_q.w() + pre_q.z()) * pre_vel(2),
+        (-pre_img(1) * pre_q.y() + pre_q.w()) * pre_vel(0) + (pre_img(1) * pre_q.x() + pre_q.z()) * pre_vel(1) + (-pre_img(1) * pre_q.w() - pre_q.y()) * pre_vel(2),
+        (-pre_img(0) * pre_q.z() - pre_q.w()) * pre_vel(0) + (pre_img(0) * pre_q.w() - pre_q.z()) * pre_vel(1) + (pre_img(0) * pre_q.x() + pre_q.y()) * pre_vel(2),
+        (-pre_img(1) * pre_q.z() + pre_q.x()) * pre_vel(0) + (pre_img(1) * pre_q.w() + pre_q.y()) * pre_vel(1) + (pre_img(1) * pre_q.x() + pre_q.z()) * pre_vel(2);
 
     F_img_q = 2 * dt * F_img_q_process.transpose() / P_c(2);
 
@@ -233,11 +233,6 @@ void img_imu_ekf::update_Phi(Vector3d w, Vector3d vel, Vector3d acc, double dt)
     F_img << dt * v_c(2) / P_c(2) + pre_img(1) * w_c(0) - 2 * pre_img(0) * w_c(1), pre_img(0) * w_c(0) + w_c(2),
         -pre_img(1) * w_c(1) - w_c(2), dt * v_c(2) / P_c(2) + 2 * pre_img(1) * w_c(0) - pre_img(0) * w_c(1);
     F_img = I2 + F_img;
-
-    // F_img = F_img_v * R_be.transpose() * this->vel + R_be.transpose() * w;
-    // this->img = F_img_v * pre_vel + F_img * this->img + F_img_gyr * this->gyro_bias;
-
-    // Phi = MatrixXd::Identity(dim, dim);
 
     //quaternioned part
     Phi.block(0, 0, 4, 4) = F_q;
@@ -261,12 +256,12 @@ void img_imu_ekf::update_Phi(Vector3d w, Vector3d vel, Vector3d acc, double dt)
     Phi.block(12, 12, 3, 3) = I3;
     //acc part
     Phi.block(15, 15, 3, 3) = I3;
-    cout << "Phi all is ok!!" << endl;
+    // cout << "Phi all is ok!!" << endl;
     //定义系统噪声阵，目前认为为单位阵
     // G = MatrixXd::Identity(dim, dim);
     // G = MatrixXd::Zero(dim, 6);
     G.block(0, 0, 4, 3) = F_q_gyr;
     G.block(7, 3, 3, 3) = F_v_dv;
     G.block(10, 0, 2, 3) = F_img_gyr;
-    cout << "GG all is ok!!" << endl;
+    // cout << "GG all is ok!!" << endl;
 }

@@ -38,11 +38,12 @@ sensor_msgs::Image img_predict;
 
 double pos_ref_time = 0;
 double vel_ref_time = 0;
-double imu_ref_time;
-double imu_pre_time; //这个为系统时钟
+double imu_ref_time = 0;
+double imu_pre_time = 0; //这个为系统时钟
 double last_time;    //这个为系统时钟
 double img_ref_time = 0;
 bool time_flag = false;
+bool cnt_flag = false;
 
 Vector3d acc;
 Vector3d gyro;
@@ -55,7 +56,8 @@ Vector3d target_pos(-5,15,1);
 Vector4d mav_q;
 Vector4d mav_qq;
 
-int loop_cnt = 0;
+int loop_cnt = 3;
+int img_cnt = 0;
 bool is_img_come = false;
 bool get_img = false;
 bool get_orientation = false;
@@ -66,7 +68,7 @@ MatrixXd Phi[50];
 VectorXd ZZ[50];
 MatrixXd GG[50];
 Vector3d ACC[50];
-MatrixXd PP;//有Img后，第一次使用的P
+MatrixXd PP[50]; //有Img后，第一次使用的P
 MatrixXd KK;
 // MatrixXd GG;
 
@@ -85,26 +87,42 @@ void loop_img(int loop)
     //img来了之后，迭代n次
     //第一次迭代只有更新步骤，没有预测步骤
     //PP为第一次img没来，imu产生的协方差预测
-    
-    if(loop == 1)
+    int cnt;
+    cnt = img_cnt - loop_cnt + loop + 1;
+    if (cnt < 0)
     {
-        KK = PP * img_imu.kf.H.transpose() * (img_imu.kf.H * PP * img_imu.kf.H.transpose() + img_imu.R).inverse();
-        cout << "loop KK success!!!!" << endl;
-        img_imu.kf.update(PP, img_imu.kf.H, img_imu.Q, img_imu.kf.x, KK, ZZ[loop_cnt]);//状态观测为图像来临时的观测
-        cout << "loop step1 success!!!!" << loop << endl;
+        cout << "lalallal:" << cnt << endl;
+        cnt += 50;
+        cout << "lalallal:" << cnt << endl;
+    }
+    cout << "cnt:" << cnt << endl;
+    cout << "img_cnt:" << img_cnt << endl;
+    cout << "Loop circle:" << loop << endl;
+    cout << "PP[cnt]:" << PP[cnt] << endl;
+    cout << "ZZ[img_cnt]:" << ZZ[img_cnt] << endl;
+    cout << "Phi[cnt]:" << Phi[cnt] << endl;
+    cout << "GG[cnt]:" << GG[cnt] << endl;
+
+    if(loop == 0)
+    {
+        KK = PP[cnt] * img_imu.kf.H.transpose() * (img_imu.kf.H * PP[cnt] * img_imu.kf.H.transpose() + img_imu.R).inverse();
+        img_imu.kf.update(PP[cnt], img_imu.kf.H, img_imu.Q, img_imu.kf.x, KK, ZZ[img_cnt]); //状态观测为图像来临时的观测
+        // PP[img_cnt] = img_imu.kf.P;
+        cout << "loop step1 success!!!!" << endl;
     }
     else
     {
         cout << "loop_img step2 is success!!!!" << endl;
-        // img_imu.kf.predict(Phi[loop - 1], img_imu.kf.x, img_imu.kf.P, GG[loop - 1], img_imu.Q);
-        img_imu.kf.predict(Phi[loop], img_imu.kf.x, img_imu.kf.P, GG[loop], img_imu.Q);
-        // if (loop == loop_cnt)
-        // {
-        //     img_imu.Phi = Phi[loop];
-        // }
-        cout << "loop step2 success!!!!" << loop << endl;
+        img_imu.kf.predict(Phi[cnt], img_imu.kf.x, img_imu.kf.P, GG[cnt], img_imu.Q);
+        cout << "state loop2:" << img_imu.kf.x << endl;
+        if(loop == loop_cnt - 1)
+        {
+            PP[img_cnt] = img_imu.kf.P;
+            cout << "PP img_cnt!!!!" << endl;
+            cout << "PP circle:" << loop << endl;
+        }
     }
-    cout << "loop:" << loop << endl;
+    
 }
 
 
@@ -131,7 +149,9 @@ void mav_vel_cb(const geometry_msgs::TwistStamped::ConstPtr &msg)
 
 void mav_imu_cb(const sensor_msgs::Imu::ConstPtr &msg)
 {
-    
+    img_cnt = (img_cnt + 1)%50;
+    cout << "img_cnt:" << img_cnt << endl;
+
     if(get_img && get_orientation && get_vel)
     {
         get_sensor = true;
@@ -150,7 +170,11 @@ void mav_imu_cb(const sensor_msgs::Imu::ConstPtr &msg)
         imu_pre_time = imu_ref_time;
         time_flag = true;
     }
+    cout << "last_time:" << last_time << endl;
+    cout << "imu_ref_time:" << imu_ref_time << endl;
+    cout << "imu_pre_time:" << imu_pre_time << endl;
     cout << "time:" << imu_ref_time - last_time << endl;
+    cout << "dt:" << imu_ref_time - imu_pre_time << endl;
 
     acc(0) = msg->linear_acceleration.x;
     acc(1) = msg->linear_acceleration.y;
@@ -171,7 +195,21 @@ void mav_imu_cb(const sensor_msgs::Imu::ConstPtr &msg)
         //初始化的时候应该更新下Phi:img_imu.Phi
         img_imu.update_Phi(gyro, mav_vel, acc, imu_ref_time - imu_pre_time);
         is_img_come = false;//防止未初始化时，Img先于Imu来临。
+        img_cnt = 0;
+        Phi[img_cnt] = img_imu.Phi;
+        GG[img_cnt] = img_imu.G;
+        ZZ[img_cnt] = VectorXd::Ones(2);
+        ZZ[img_cnt].segment(0, 2) = mav_img;
+        // PP[img_cnt] = MatrixXd::Zero(18, 18);
+        PP[img_cnt] = img_imu.kf.P;
     }
+
+    if (img_cnt <= loop_cnt && cnt_flag == false)
+    {
+        is_img_come = false;
+        cnt_flag == true;
+    }
+
     cout << "img_imu is init:" << img_imu.is_init_done << endl;
     cout << "Step1!!!!:" << endl;
     if (img_imu.is_init_done == true && get_sensor == true)
@@ -179,48 +217,55 @@ void mav_imu_cb(const sensor_msgs::Imu::ConstPtr &msg)
         //执行矫正过程
         if (is_img_come)
         {
-            loop_cnt++;
+            // loop_cnt++;
             img_imu.update_Phi(gyro, mav_vel, acc, imu_ref_time - imu_pre_time);
-            Phi[loop_cnt] = img_imu.Phi;
-            GG[loop_cnt] = img_imu.G;
-            ACC[loop_cnt] = acc;
-            ZZ[loop_cnt] = VectorXd::Ones(2);
-            ZZ[loop_cnt].segment(0, 2) = mav_img;
+            // PP[img_cnt] = img_imu.kf.P;
+            // img_imu.kf.predict(img_imu.Phi, img_imu.kf.x, img_imu.kf.P, img_imu.G, img_imu.Q);
+            Phi[img_cnt] = img_imu.Phi;
+            GG[img_cnt] = img_imu.G;
+            // PP[img_cnt] = img_imu.kf.P;
+            ZZ[img_cnt] = VectorXd::Ones(2);
+            ZZ[img_cnt].segment(0, 2) = mav_img;
             cout << "IMG_x:" << mav_img(0) * img_f + img0(0) << endl;
             cout << "IMG_y:" << mav_img(1) * img_f + img0(1) << endl;
-            for (int circle = 1; circle <= loop_cnt; circle++)
+            for (int circle = 0; circle < loop_cnt; circle++)
             {
+                cout << "Enter circle!!!!:" << endl;
                 loop_img(circle);
+                cout << "Out circle!!!!:" << endl;
             }
             cout << "update_x:" << img_imu.kf.x(10) * img_f + img0(0) << endl;
             cout << "update_y:" << img_imu.kf.x(11) * img_f + img0(1) << endl;
             is_img_come = false;
-            loop_cnt = 0;
             cout << "Img has been dealing!" << endl;
         }
         else
         {
-            loop_cnt++;
+            // loop_cnt++;
             // img_imu.kf.predict(img_imu.Phi, img_imu.kf.x, img_imu.kf.P, img_imu.G, img_imu.Q);  Test
             //Phi是上一时刻获得的，因此要先进行预测步骤，在更新Phi，同时还需要保存本次更新的Phi
             cout << "Predict is entering!!!!" << endl;
             img_imu.update_Phi(gyro, mav_vel, acc, imu_ref_time - imu_pre_time);
+            // PP[img_cnt] = img_imu.kf.P;
             img_imu.kf.predict(img_imu.Phi, img_imu.kf.x, img_imu.kf.P, img_imu.G, img_imu.Q);
             cout << "Pre_x:" << img_imu.kf.x(10) * img_f + img0(0) << endl;
             cout << "Pre_y:" << img_imu.kf.x(11) * img_f + img0(1) << endl;
             //保存这一次的预测协方差阵P,当图像来临时，第一次预测更新用这个协方差阵进行计算
-            if(loop_cnt == 1)
-                PP = img_imu.kf.P;
-            
-            Phi[loop_cnt] = img_imu.Phi;
-            GG[loop_cnt] = img_imu.G;
+            // if(loop_cnt == 1)
+            //     PP = img_imu.kf.P;
+            PP[img_cnt] = img_imu.kf.P;
+            Phi[img_cnt] = img_imu.Phi;
+            GG[img_cnt] = img_imu.G;
             cout << "Predict is success!!!!" << endl;
         }
-        cout << "loop_cnt:" << loop_cnt << endl;
+        // cout << "loop_cnt:" << loop_cnt << endl;
         imu_pre_time = imu_ref_time;
-        img_predict.width = img_imu.kf.x(10);
-        img_predict.height = img_imu.kf.x(11);
-        
+        img_predict.width = img_imu.kf.x(10) * img_f + img0(0);
+        img_predict.height = img_imu.kf.x(11) * img_f + img0(1);
+        cout << "state loop1:" << img_imu.kf.x << endl;
+
+        cout << "img_x:" << mav_img(0) * img_f + img0(0) << endl;
+        cout << "img_y:" << mav_img(1) * img_f + img0(1) << endl;
         cout << "ekf_x:" << img_imu.kf.x(10) * img_f + img0(0) << endl;
         cout << "ekf_y:" << img_imu.kf.x(11) * img_f + img0(1) << endl;
         // pub_img_pos.publish(img_predict);
@@ -238,8 +283,8 @@ void mav_img_cb(const sensor_msgs::Image::ConstPtr &msg)
     mav_img(0) = (msg->width - img0(0)) / img_f;
     mav_img(1) = (msg->height - img0(1)) / img_f;
     get_img = true;
-    cout << "img_x:" << mav_img(0) * img_f + img0(0) << endl;
-    cout << "img_y:" << mav_img(1) * img_f + img0(1) << endl;
+    // cout << "img_x:" << mav_img(0) * img_f + img0(0) << endl;
+    // cout << "img_y:" << mav_img(1) * img_f + img0(1) << endl;
     // last_time = imu_ref_time;
 }
 
