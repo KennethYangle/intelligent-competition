@@ -47,6 +47,7 @@ bool cnt_flag = false;
 
 Vector3d acc;
 Vector3d gyro;
+Vector2d mav_img_pre;
 Vector2d mav_img;
 Vector2d img0(360,202.5);//图像分别率
 int img_f = 360;
@@ -226,6 +227,8 @@ void mav_imu_cb(const sensor_msgs::Imu::ConstPtr &msg)
             // PP[img_cnt] = img_imu.kf.P;
             ZZ[img_cnt] = VectorXd::Ones(2);
             ZZ[img_cnt].segment(0, 2) = mav_img;
+            cout << "IMG_x:" << mav_img_pre(0) * img_f + img0(0) << endl;
+            cout << "IMG_y:" << mav_img_pre(1) * img_f + img0(1) << endl;
             cout << "IMG_x:" << mav_img(0) * img_f + img0(0) << endl;
             cout << "IMG_y:" << mav_img(1) * img_f + img0(1) << endl;
             for (int circle = 0; circle < loop_cnt; circle++)
@@ -277,6 +280,7 @@ void mav_img_cb(const sensor_msgs::Image::ConstPtr &msg)
 {
     // imu_ref_time = ros::Time::now().toSec();
     // cout << "time:" << imu_ref_time - last_time << endl;
+    mav_img_pre = mav_img;
     cout << "IMG is coming!!!!!" << endl;
     is_img_come = true;
     img_ref_time = msg->header.stamp.toSec();
