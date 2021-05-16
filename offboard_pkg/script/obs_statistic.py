@@ -21,6 +21,7 @@ from utils_obs import Utils
 from Queue import Queue
 from rflysim_ros_pkg.msg import Obj
 from R_Client import RClient
+import pickle
 
 
 # Simulation of RealFlight
@@ -48,11 +49,13 @@ home_dx, home_dy = 0, 0
 depth = -1
 original_offset = np.array([0, 0, 0])
 
-sphere_pos_x, sphere_pos_y, sphere_pos_z = -5, 15, 1  #-0.065, 7, 2.43 
+sphere_pos_x, sphere_pos_y, sphere_pos_z = -5, 15, 2  #-0.065, 7, 2.43 
 sphere_vx, sphere_vy, sphere_vz = -1, 0, 0
 
 sphere_feb_pos = PoseStamped()
 # obj_state = ModelState()
+
+CEP_raw = list()
 
 def spin():
     rospy.spin()
@@ -294,15 +297,21 @@ if __name__=="__main__":
 
     # start
     statistic_state = "start"
+    episode = 0
+    dlt_pos_stash = list()
     cnt = -1
     while not rospy.is_shutdown():
         print("time: {}".format(rospy.Time.now().to_sec() - last_request.to_sec()))
+        print("episode: {}".format(episode))
         cnt += 1
-        # sphere_control()
-        if MODE == "Simulation":
-            sphere_control(cnt)
-            
+
         if statistic_state == "start":
+            if episode > 0:
+                r.Start()
+                time.sleep(30)
+            # sphere_control()
+            sphere_control(cnt)
+            time.sleep(0.2)
             setArm()
             time.sleep(0.2)
             # Enter Offboard mode
@@ -320,8 +329,10 @@ if __name__=="__main__":
 
             dlt_pos = np.array([sphere_pos_x, sphere_pos_y, sphere_pos_z]) - np.array(mav_pos)
             print("dlt_pos: {}".format(dlt_pos))
+            dlt_pos_stash.append(np.linalg.norm(dlt_pos))
 
             cmd = u.RotateAttackController(pos_info, pos_i, image_center)
+            # cmd = u.BasicAttackController(pos_info, pos_i, image_center)
             # 识别到图像才进行角速度控制
             if pos_i[1] > 0: 
                 command.twist.linear.x = cmd[0]
@@ -335,8 +346,29 @@ if __name__=="__main__":
                 command.twist.linear.y = 0.
                 command.twist.linear.z = 0.
                 command.twist.angular.z = 0.
+                statistic_state = "stop"
 
             obs_pos = np.array([sphere_pos_x, sphere_pos_y, sphere_pos_z]) 
             print("command: {}".format([command.twist.linear.x, command.twist.linear.y, command.twist.linear.z, command.twist.angular.z]))
             local_vel_pub.publish(command)
             rate.sleep()
+
+        if statistic_state == "stop":
+            r.Stop()
+            time.sleep(0.2)
+            if current_state.mode == "OFFBOARD":
+                resp1 = set_mode_client(0, "POSCTL")	# (uint8 base_mode, string custom_mode)
+                print("Enter MANUAL mode")
+
+            min_distance = min(dlt_pos_stash)
+            print("min_distance: {}".format(min_distance))
+            CEP_raw.append(min_distance)
+            f = open(os.path.join(os.path.expanduser('~'),"Rfly_Attack/src","CEP_raw"), 'w')
+            pickle.dump(CEP_raw.pkl, f)
+            f.close()
+
+            dlt_pos_stash = list()
+            statistic_state = "start"
+            episode += 1
+            if episode > 60:
+                break

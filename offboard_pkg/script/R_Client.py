@@ -36,13 +36,21 @@ class RClient:
 
     def Start(self):
         self.client.sendall(self.D_cmd["strat"])
+        print("Client Start!")
     def Stop(self):
         self.client.sendall(self.D_cmd["stop"])
+        print("Client Stop!")
     def End(self):
         self.client.sendall(self.D_cmd["end"])
+        print("Client End!")
 
 if __name__=="__main__":
     r = RClient()
-    r.Start()
-    time.sleep(15)
+    # r.Start()
+    # time.sleep(15)
     # r.Stop()
+    # time.sleep(0.2)
+    # r.Start()
+    # time.sleep(15)
+    r.Stop()
+    time.sleep(0.2)
