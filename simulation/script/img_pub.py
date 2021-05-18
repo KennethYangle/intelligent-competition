@@ -15,16 +15,12 @@ from gazebo_msgs.srv import *
 
 cnt = 0
 def image_callback(data):
-    
-    img_pos = Float32MultiArray()
-    img_pos2 = Image()
     # define picture to_down' coefficient of ratio
-    img_pos2.header.stamp = rospy.Time.now()
     scaling_factor = 0.5
     global bridge, cnt, params
     cnt += 1
 
-    
+    img_pos = Float32MultiArray()
     #the process of the data
     # cv_img = bridge.imgmsg_to_cv2(data, "bgr8")
     np_arr = np.fromstring(data.data, np.uint8)
@@ -41,19 +37,13 @@ def image_callback(data):
     cv2.waitKey(1)
     M = cv2.moments(dilated, binaryImage = True)
     if M["m00"] != 0:
-        # img_pos2.header.stamp = rospy.Time.now()
-        img_pos2.width = int(M["m10"] / M["m00"])
-        img_pos2.height = int(M["m01"] / M["m00"])
         img_pos.data = [int(M["m10"] / M["m00"]), int(M["m01"] / M["m00"]), np.sqrt(2*M["m00"]), np.sqrt(2*M["m00"]), 0.8]
     else:
-        # img_pos2.header.stamp = rospy.Time.now()
-        img_pos2.width = 0
-        img_pos2.height = 0
         img_pos.data = [-1.0, -1.0, -1.0, -1.0, -1.0]
 
     # if cnt > params["cam_lose_cnt"]:
     #     img_pos.data = [0, 0, 0, 0, 0]
-    imag_pub.publish(img_pos2)
+    imag_pub.publish(img_pos)
 
 
 if __name__ == '__main__':
@@ -63,7 +53,7 @@ if __name__ == '__main__':
     params = setting["Simulation"]
 
     global imag_pub
-    imag_pub = rospy.Publisher("tracker/pos_image", Image, queue_size=10)  # 发送图像位置
+    imag_pub = rospy.Publisher("tracker/pos_image", Float32MultiArray, queue_size=10)  # 发送图像位置
     rospy.init_node('iris_fpv_cam', anonymous=True)
 
     global bridge

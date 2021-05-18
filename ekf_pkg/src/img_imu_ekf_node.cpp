@@ -9,6 +9,7 @@
 #include <algorithm>
 
 #include <ros/ros.h>
+#include <std_msgs/Float32MultiArray.h>
 #include <geometry_msgs/PoseStamped.h>
 #include <geometry_msgs/TwistStamped.h>
 #include <mavros_msgs/CommandBool.h>
@@ -34,7 +35,7 @@ using namespace Eigen;
 
 // roslaunch ekf_pkg img_ekf.launch | tee -a `roscd ekf_pkg/log/ && pwd`/`date +%Y%m%d_%H%M%S_fly.log`
 img_imu_ekf img_imu;
-sensor_msgs::Image img_predict;
+std_msgs::Float32MultiArray img_predict;
 
 double pos_ref_time = 0;
 double vel_ref_time = 0;
@@ -57,7 +58,7 @@ Vector3d target_pos(-5,15,1);
 Vector4d mav_q;
 Vector4d mav_qq;
 
-int loop_cnt = 3;
+int loop_cnt = 2;
 int img_cnt = 0;
 bool is_img_come = false;
 bool get_img = false;
@@ -192,7 +193,8 @@ void mav_imu_cb(const sensor_msgs::Imu::ConstPtr &msg)
     if (img_imu.is_init_done == false && get_sensor == true)
     {
         //初始化的时候应该更新状态X:img_imu.kf.x
-        img_imu.sensor_init(mav_q, mav_pos - target_pos, mav_vel, mav_img);
+        img_imu.sensor_init(mav_q, Vector3d(1,5,0), mav_vel, mav_img);
+        // img_imu.sensor_init(mav_q, mav_pos - target_pos, mav_vel, mav_img);
         //初始化的时候应该更新下Phi:img_imu.Phi
         img_imu.update_Phi(gyro, mav_vel, acc, imu_ref_time - imu_pre_time);
         is_img_come = false;//防止未初始化时，Img先于Imu来临。
@@ -263,8 +265,10 @@ void mav_imu_cb(const sensor_msgs::Imu::ConstPtr &msg)
         }
         // cout << "loop_cnt:" << loop_cnt << endl;
         imu_pre_time = imu_ref_time;
-        img_predict.width = img_imu.kf.x(10) * img_f + img0(0);
-        img_predict.height = img_imu.kf.x(11) * img_f + img0(1);
+        img_predict.data.push_back(img_imu.kf.x(10) * img_f + img0(0));
+        img_predict.data.push_back(img_imu.kf.x(11) * img_f + img0(1));
+        // img_predict.width = img_imu.kf.x(10) * img_f + img0(0);
+        // img_predict.height = img_imu.kf.x(11) * img_f + img0(1);
         cout << "state loop1:" << img_imu.kf.x << endl;
 
         cout << "img_x:" << mav_img(0) * img_f + img0(0) << endl;
@@ -276,16 +280,20 @@ void mav_imu_cb(const sensor_msgs::Imu::ConstPtr &msg)
     
 }
 
-void mav_img_cb(const sensor_msgs::Image::ConstPtr &msg)
+void mav_img_cb(const std_msgs::Float32MultiArray::ConstPtr &msg)
 {
-    // imu_ref_time = ros::Time::now().toSec();
-    // cout << "time:" << imu_ref_time - last_time << endl;
     mav_img_pre = mav_img;
+    if (msg->data[0] < 0)
+    {
+        cout << "IMG_x:" << msg->data[0] << endl;
+        cout << "IMG_y:" << msg->data[1] << endl;
+        return;
+    }
     cout << "IMG is coming!!!!!" << endl;
     is_img_come = true;
-    img_ref_time = msg->header.stamp.toSec();
-    mav_img(0) = (msg->width - img0(0)) / img_f;
-    mav_img(1) = (msg->height - img0(1)) / img_f;
+    // img_ref_time = msg->header.stamp.toSec();
+    mav_img(0) = (msg->data[0] - img0(0)) / img_f;
+    mav_img(1) = (msg->data[1] - img0(1)) / img_f;
     get_img = true;
     // cout << "img_x:" << mav_img(0) * img_f + img0(0) << endl;
     // cout << "img_y:" << mav_img(1) * img_f + img0(1) << endl;
@@ -320,15 +328,18 @@ int main(int argc, char **argv)
     //             ("/mavros/imu/data", 10, mav_imu_cb);             //50hz
     ros::Subscriber imu_sub = ekf_img.subscribe<sensor_msgs::Imu>
                 ("/mavros/imu/data", 10, mav_imu_cb); //50hz
-    ros::Subscriber img_sub = ekf_img.subscribe<sensor_msgs::Image>
+    ros::Subscriber img_sub = ekf_img.subscribe<std_msgs::Float32MultiArray>
                 ("tracker/pos_image", 10, mav_img_cb);          //23hz
     ros::Subscriber img_show_sub = ekf_img.subscribe<sensor_msgs::CompressedImage>
                 ("/camera/left/compressed", 10, img_show_cb); //21hz
 
-    ros::Publisher pub_img_pos = ekf_img.advertise<sensor_msgs::Image>
+    ros::Publisher pub_img_pos = ekf_img.advertise<std_msgs::Float32MultiArray>
                 ("tracker/pos_image_ekf", 10);
 
-    ros::spin();
+    // ros::spin();
+    ros::AsyncSpinner spinner(4);
+    spinner.start();
+    ros::waitForShutdown();
 
     return 0;
 }
