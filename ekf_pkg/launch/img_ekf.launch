@@ -1,0 +1,8 @@
+<launch>
+  <node name="ekf_node" pkg="ekf_pkg" type="ekf_node" output="screen"/>
+  <!-- <node pkg="rosbag" type="play" name="bag_play" args="$(find offboard_pkg)/bag/2021-04-06-21-23-04.bag"/> -->
+  <!-- <node pkg="rosbag" type="play" name="bag_play" args="$(find offboard_pkg)/bag/2021-04-06-21-30-06.bag"/> -->
+  <node pkg="rosbag" type="play" name="bag_play" args="/home/wsh/database/EKF_test.bag"/>
+  <!-- <node pkg="rosbag" type="play" name="bag_play" args="/home/wsh/database/data_170_raw_200.bag"/> -->
+  <!-- <node pkg="rosbag" type="play" name="bag_play" args="/home/wsh/database/data_100_raw_100.bag"/> -->
+</launch>
