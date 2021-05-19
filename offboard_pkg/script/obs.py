@@ -20,7 +20,6 @@ from mavros_msgs.msg import Thrust
 from utils_obs import Utils
 from Queue import Queue
 from rflysim_ros_pkg.msg import Obj
-from sensor_msgs.msg import Image
 
 
 # Simulation of RealFlight
@@ -130,16 +129,14 @@ def pos_image_cb(msg):
     global is_initialize_img, pos_i, image_failed_cnt
     is_initialize_img = True
     print("msg_data: {}".format(msg.data))
-    if msg.height <= 0:
+    if msg.data[0] <= 0:
         image_failed_cnt += 1
     else:
         image_failed_cnt = 0
     if image_failed_cnt <= 20 and image_failed_cnt > 0:
         pass
     else:
-        # pos_i = msg.data
-        pos_i[0] = msg.width
-        pos_i[1] = msg.height
+        pos_i = msg.data
     print("pos_i: {}".format(pos_i))
 
 
@@ -216,7 +213,7 @@ if __name__=="__main__":
             inputThread.start()
     else:
         raise Exception("Invalid MODE!", MODE)
-    rospy.Subscriber("tracker/pos_image", Image, pos_image_cb)
+    rospy.Subscriber("tracker/pos_image", Float32MultiArray, pos_image_cb)
     local_vel_pub = rospy.Publisher('mavros/setpoint_velocity/cmd_vel', TwistStamped, queue_size=10)
     print("Publisher and Subscriber Created")
 

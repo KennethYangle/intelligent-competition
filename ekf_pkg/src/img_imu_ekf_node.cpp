@@ -35,7 +35,6 @@ using namespace Eigen;
 
 // roslaunch ekf_pkg img_ekf.launch | tee -a `roscd ekf_pkg/log/ && pwd`/`date +%Y%m%d_%H%M%S_fly.log`
 img_imu_ekf img_imu;
-std_msgs::Float32MultiArray img_predict;
 
 double pos_ref_time = 0;
 double vel_ref_time = 0;
@@ -265,6 +264,7 @@ void mav_imu_cb(const sensor_msgs::Imu::ConstPtr &msg)
         }
         // cout << "loop_cnt:" << loop_cnt << endl;
         imu_pre_time = imu_ref_time;
+        std_msgs::Float32MultiArray img_predict;
         img_predict.data.push_back(img_imu.kf.x(10) * img_f + img0(0));
         img_predict.data.push_back(img_imu.kf.x(11) * img_f + img0(1));
         // img_predict.width = img_imu.kf.x(10) * img_f + img0(0);
@@ -275,7 +275,7 @@ void mav_imu_cb(const sensor_msgs::Imu::ConstPtr &msg)
         cout << "img_y:" << mav_img(1) * img_f + img0(1) << endl;
         cout << "ekf_x:" << img_imu.kf.x(10) * img_f + img0(0) << endl;
         cout << "ekf_y:" << img_imu.kf.x(11) * img_f + img0(1) << endl;
-        // pub_img_pos.publish(img_predict);
+        pub_img_pos.publish(img_predict);
     }
     
 }
@@ -333,7 +333,7 @@ int main(int argc, char **argv)
     ros::Subscriber img_show_sub = ekf_img.subscribe<sensor_msgs::CompressedImage>
                 ("/camera/left/compressed", 10, img_show_cb); //21hz
 
-    ros::Publisher pub_img_pos = ekf_img.advertise<std_msgs::Float32MultiArray>
+    pub_img_pos = ekf_img.advertise<std_msgs::Float32MultiArray>
                 ("tracker/pos_image_ekf", 10);
 
     // ros::spin();
