@@ -36,6 +36,8 @@ mav_yaw = 0
 mav_R = np.zeros((3,3))
 Initial_pos = [0, 0, 0]
 pos_i = [0, 0, 0, 0, 0]
+pos_i_raw = [0, 0, 0, 0, 0]
+pos_i_ekf = [0, 0, 0, 0, 0]
 image_failed_cnt = 0
 state_name = "InitializeState"
 command = TwistStamped()
@@ -126,7 +128,7 @@ def read_kbd_input():
     win.mainloop()
 
 def pos_image_cb(msg):
-    global is_initialize_img, pos_i, image_failed_cnt
+    global is_initialize_img, pos_i_raw, pos_i, image_failed_cnt
     is_initialize_img = True
     print("msg_data: {}".format(msg.data))
     if msg.data[0] <= 0:
@@ -136,8 +138,18 @@ def pos_image_cb(msg):
     if image_failed_cnt <= 20 and image_failed_cnt > 0:
         pass
     else:
-        pos_i = msg.data
-    print("pos_i: {}".format(pos_i))
+        pos_i_raw = msg.data
+        pos_i = pos_i_raw
+    print("pos_i_raw: {}".format(pos_i_raw))
+
+def pos_image_ekf_cb(msg):
+    global pos_i_ekf, pos_i_raw, pos_i
+    pos_i_ekf = msg.data
+    # If we don't consider the safety of the aircraft when the target is lost, use pos_i_ekf when pos_i_raw[0]<0.
+    if abs(pos_i_ekf[0] - pos_i_raw[0]) < 10 and abs(pos_i_ekf[1] - pos_i_raw[1]) < 10:
+        pos_i = pos_i_ekf
+    else:
+        pos_i = pos_i_raw
 
 
 def sphere_control(cnt):
@@ -214,6 +226,7 @@ if __name__=="__main__":
     else:
         raise Exception("Invalid MODE!", MODE)
     rospy.Subscriber("tracker/pos_image", Float32MultiArray, pos_image_cb)
+    rospy.Subscriber("tracker/pos_image_ekf", Float32MultiArray, pos_image_ekf_cb)
     local_vel_pub = rospy.Publisher('mavros/setpoint_velocity/cmd_vel', TwistStamped, queue_size=10)
     print("Publisher and Subscriber Created")
 
@@ -291,8 +304,8 @@ if __name__=="__main__":
         dlt_pos = np.array([sphere_pos_x, sphere_pos_y, sphere_pos_z]) - np.array(mav_pos)
         print("dlt_pos: {}".format(dlt_pos))
         
-        # cmd = u.DockingControllerFusion(pos_info, pos_i)
-        # cmd = u.BasicAttackController(pos_info, pos_i, image_center)
+        # cmd = u.DockingControllerFusion(pos_info, pos_i_raw)
+        # cmd = u.BasicAttackController(pos_info, pos_i_raw, image_center)
 
         if ch7 >= 1:
             cmd = u.RotateAttackController(pos_info, pos_i, image_center)
