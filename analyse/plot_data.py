@@ -69,7 +69,18 @@ def main(args):
             plt.legend()
         plt.show()
 
-    if not args.self and not args.plotxy:
+    if args.subplot > 0:
+        fig = plt.figure()
+        gap = nvar // args.subplot
+        ax = []
+        for i in range(1, args.subplot+1):
+            ax.append( fig.add_subplot(args.subplot*100 + 10 + i) )
+            for v in range((i-1)*gap, i*gap):
+                ax[i-1].plot(index[v], datas[v][0], label="{}".format(args.variable[v]), linewidth=args.linewidth)
+            ax[i-1].legend()
+        plt.show()
+
+    if not args.self and not args.plotxy and args.subplot<=0:
         for i in range(len(datas[0])):
             plt.figure(i)
             for v in range(nvar):
@@ -91,6 +102,7 @@ if __name__ == "__main__":
     parser.add_argument('-l', '--linewidth', default=2, type=float, help='line width')
     parser.add_argument('-r', '--range', default=None, help='axises range, work with plotxy. usage: "xmin xmax ymin ymax"')
     parser.add_argument('-t', '--time', default=None, help='time range. usage: "tmin tmax" or tmin')
+    parser.add_argument('--subplot', default=0, type=int, help='subplot number')
     args = parser.parse_args()
     print(args)
     main(args)

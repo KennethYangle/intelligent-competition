@@ -150,6 +150,8 @@ def pos_image_ekf_cb(msg):
         pos_i = pos_i_ekf
     else:
         pos_i = pos_i_raw
+    print("pos_i_ekf: {}".format(pos_i_ekf))
+    print("pos_i: {}".format(pos_i))
 
 
 def sphere_control(cnt):
@@ -303,6 +305,7 @@ if __name__=="__main__":
 
         dlt_pos = np.array([sphere_pos_x, sphere_pos_y, sphere_pos_z]) - np.array(mav_pos)
         print("dlt_pos: {}".format(dlt_pos))
+        print("mav_pos: {}".format(mav_pos))
         
         # cmd = u.DockingControllerFusion(pos_info, pos_i_raw)
         # cmd = u.BasicAttackController(pos_info, pos_i_raw, image_center)
