@@ -135,7 +135,7 @@ void mav_pose_cb(const geometry_msgs::PoseStamped::ConstPtr &msg)
     mav_pos(1) = msg->pose.position.y;
     mav_pos(2) = msg->pose.position.z;
     get_orientation = true;
-    // current_state = *msg;
+    cout << "mav_pos: " << mav_pos(0) << ", " << mav_pos(1) << ", " << mav_pos(2) << endl;
 }
 
 void mav_vel_cb(const geometry_msgs::TwistStamped::ConstPtr &msg)

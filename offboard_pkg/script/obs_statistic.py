@@ -23,6 +23,7 @@ from rflysim_ros_pkg.msg import Obj
 from R_Client import RClient
 import pickle
 
+np.random.seed(777)
 
 # Simulation of RealFlight
 current_state = State()
@@ -49,7 +50,7 @@ home_dx, home_dy = 0, 0
 depth = -1
 original_offset = np.array([0, 0, 0])
 
-sphere_pos_x, sphere_pos_y, sphere_pos_z = -5, 15, 2  #-0.065, 7, 2.43 
+sphere_pos_x, sphere_pos_y, sphere_pos_z = np.random.uniform(-5,5), 18+np.random.uniform(-5,5), 2  #-0.065, 7, 2.43 
 sphere_vx, sphere_vy, sphere_vz = -1, 0, 0
 
 sphere_feb_pos = PoseStamped()
@@ -162,10 +163,12 @@ def setDisarm():
    except rospy.ServiceException, e:
        print "Service arm call failed: %s"%e
 
-def setTakeoff():
+def setTakeoff(offb_set_mode):
     diff_pos = np.array([mav_pos[0], mav_pos[1], 4.0]) - np.array(mav_pos)
     # for i in range(150):
     while np.linalg.norm(diff_pos) > 0.1:
+        if not current_state.armed: setArm()
+        if current_state.mode != "OFFBOARD": set_mode_client( 0,offb_set_mode.custom_mode )
         tkcmd = diff_pos
         takeoff_command.twist.linear.x = tkcmd[0]
         takeoff_command.twist.linear.y = tkcmd[1]
@@ -308,19 +311,18 @@ if __name__=="__main__":
         if statistic_state == "start":
             if episode > 0:
                 r.Start()
-                time.sleep(30)
+                time.sleep(20)
             # sphere_control()
             sphere_control(cnt)
             time.sleep(0.2)
             setArm()
-            time.sleep(0.2)
             # Enter Offboard mode
             if current_state.mode != "OFFBOARD":
                 resp1 = set_mode_client( 0,offb_set_mode.custom_mode )
                 if resp1.mode_sent:
                     print("Offboard enabled")
                 last_request = rospy.Time.now()
-            setTakeoff()
+            setTakeoff(offb_set_mode)
             statistic_state = "mission"
 
         if statistic_state == "mission":
@@ -355,19 +357,21 @@ if __name__=="__main__":
 
         if statistic_state == "stop":
             r.Stop()
-            time.sleep(0.2)
+            time.sleep(1)
             if current_state.mode == "OFFBOARD":
                 resp1 = set_mode_client(0, "POSCTL")	# (uint8 base_mode, string custom_mode)
                 print("Enter MANUAL mode")
 
             min_distance = min(dlt_pos_stash)
+            print("dlt_pos_stash: {}".format(dlt_pos_stash))
             print("min_distance: {}".format(min_distance))
             CEP_raw.append(min_distance)
-            f = open(os.path.join(os.path.expanduser('~'),"Rfly_Attack/src","CEP_raw"), 'w')
-            pickle.dump(CEP_raw.pkl, f)
+            f = open(os.path.join(os.path.expanduser('~'),"Rfly_Attack/src","CEP_raw.pkl"), 'w')
+            pickle.dump(CEP_raw, f)
             f.close()
 
             dlt_pos_stash = list()
+            sphere_pos_x, sphere_pos_y, sphere_pos_z = np.random.uniform(-5,5), 20+np.random.uniform(-5,5), 2  #-0.065, 7, 2.43 
             statistic_state = "start"
             episode += 1
             if episode > 60:
