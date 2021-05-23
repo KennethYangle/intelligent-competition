@@ -10,6 +10,7 @@
 
 #include <ros/ros.h>
 #include <std_msgs/Float32MultiArray.h>
+#include <std_msgs/UInt64.h>
 #include <geometry_msgs/PoseStamped.h>
 #include <geometry_msgs/TwistStamped.h>
 #include <mavros_msgs/CommandBool.h>
@@ -315,6 +316,15 @@ void img_show_cb(const sensor_msgs::CompressedImage::ConstPtr &msg)
     cv::waitKey(1);
 }
 
+void ekf_state_cb(const std_msgs::UInt64::ConstPtr &msg)
+{
+    if (msg->data == 0)
+    {
+        img_imu.is_init_done = false;
+        cout << "img_imu is_init_done false" << endl;
+    }
+}
+
 int main(int argc, char **argv)
 {
     ros::init(argc, argv, "ekf_node");
@@ -332,6 +342,8 @@ int main(int argc, char **argv)
                 ("tracker/pos_image", 10, mav_img_cb);          //23hz
     ros::Subscriber img_show_sub = ekf_img.subscribe<sensor_msgs::CompressedImage>
                 ("/camera/left/compressed", 10, img_show_cb); //21hz
+    ros::Subscriber ekf_state_sub = ekf_img.subscribe<std_msgs::UInt64>
+                ("ekf/state", 1, ekf_state_cb); //21hz
 
     pub_img_pos = ekf_img.advertise<std_msgs::Float32MultiArray>
                 ("tracker/pos_image_ekf", 10);
