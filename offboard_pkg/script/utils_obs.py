@@ -183,6 +183,7 @@ class Utils(object):
         direction = np.array([target_position_local[0] - pos_info["mav_pos"][0], target_position_local[1] - pos_info["mav_pos"][1]])
         direction /= np.linalg.norm(direction)
         v_horizontal = self.sat(self.cnt_WP * 0.05, self.v_norm_d) * direction
+        yaw_d = np.atan2(direction[1]/direction[0])
 
         return [v_horizontal[0], v_horizontal[1], 0, 0]
 
