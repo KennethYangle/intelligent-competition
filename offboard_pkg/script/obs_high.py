@@ -228,7 +228,9 @@ if __name__=="__main__":
     else:
         raise Exception("Invalid MODE!", MODE)
     rospy.Subscriber("tracker/pos_image", Float32MultiArray, pos_image_cb)
-    rospy.Subscriber("tracker/pos_image_ekf", Float32MultiArray, pos_image_ekf_cb)
+    UseEKF = setting["UseEKF"]
+    if UseEKF == True:
+        rospy.Subscriber("tracker/pos_image_ekf", Float32MultiArray, pos_image_ekf_cb)
     local_vel_pub = rospy.Publisher('mavros/setpoint_velocity/cmd_vel', TwistStamped, queue_size=10)
     ekf_state_pub = rospy.Publisher('ekf/state', UInt64, queue_size=1)
     print("Publisher and Subscriber Created")
