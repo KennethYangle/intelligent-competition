@@ -10,7 +10,7 @@ import time
 import threading
 import Tkinter
 from geometry_msgs.msg import *
-from std_msgs.msg import Float32MultiArray
+from std_msgs.msg import Float32MultiArray, UInt64
 from std_srvs.srv import Empty
 from mavros_msgs.srv import CommandBool
 from mavros_msgs.srv import SetMode
@@ -36,6 +36,8 @@ mav_yaw = 0
 mav_R = np.zeros((3,3))
 Initial_pos = [0, 0, 0]
 pos_i = [0, 0, 0, 0, 0]
+pos_i_raw = [0, 0, 0, 0, 0]
+pos_i_ekf = [0, 0, 0, 0, 0]
 image_failed_cnt = 0
 state_name = "InitializeState"
 command = TwistStamped()
@@ -126,9 +128,9 @@ def read_kbd_input():
     win.mainloop()
 
 def pos_image_cb(msg):
-    global is_initialize_img, pos_i, image_failed_cnt
+    global is_initialize_img, pos_i, pos_i_raw, image_failed_cnt
     is_initialize_img = True
-    print("msg_data: {}".format(msg.data))
+    # print("msg_data: {}".format(msg.data))
     if msg.data[0] <= 0:
         image_failed_cnt += 1
     else:
@@ -136,7 +138,19 @@ def pos_image_cb(msg):
     if image_failed_cnt <= 20 and image_failed_cnt > 0:
         pass
     else:
-        pos_i = msg.data
+        pos_i_raw = msg.data
+        pos_i = pos_i_raw
+    print("pos_i_raw: {}".format(pos_i_raw))
+
+def pos_image_ekf_cb(msg):
+    global pos_i_ekf, pos_i_raw, pos_i
+    pos_i_ekf = msg.data
+    # If we don't consider the safety of the aircraft when the target is lost, use pos_i_ekf when pos_i_raw[0]<0.
+    if abs(pos_i_ekf[0] - pos_i_raw[0]) < 10 and abs(pos_i_ekf[1] - pos_i_raw[1]) < 10:
+        pos_i = pos_i_ekf
+    else:
+        pos_i = pos_i_raw
+    print("pos_i_ekf: {}".format(pos_i_ekf))
     print("pos_i: {}".format(pos_i))
 
 
@@ -214,7 +228,9 @@ if __name__=="__main__":
     else:
         raise Exception("Invalid MODE!", MODE)
     rospy.Subscriber("tracker/pos_image", Float32MultiArray, pos_image_cb)
+    rospy.Subscriber("tracker/pos_image_ekf", Float32MultiArray, pos_image_ekf_cb)
     local_vel_pub = rospy.Publisher('mavros/setpoint_velocity/cmd_vel', TwistStamped, queue_size=10)
+    ekf_state_pub = rospy.Publisher('ekf/state', UInt64, queue_size=1)
     print("Publisher and Subscriber Created")
 
     # rospy.wait_for_service("mavros/setpoint_velocity/mav_frame")
@@ -303,9 +319,11 @@ if __name__=="__main__":
         if controller_state == 0 and target_position_local != list() and \
            np.linalg.norm([mav_pos[0]-target_position_local[0], mav_pos[1]-target_position_local[1]]) < 20 and pos_i[1] > 0:
             controller_state = 1
+            ekf_state_pub.publish(UInt64(1))
         elif controller_state == 1 and pos_i[1] <= 0:
             controller_state = 2
         else:
+            ekf_state_pub.publish(UInt64(0))
             pass
 
         # controllers
