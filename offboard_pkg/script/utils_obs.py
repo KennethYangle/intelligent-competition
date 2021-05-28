@@ -183,9 +183,10 @@ class Utils(object):
         direction = np.array([target_position_local[0] - pos_info["mav_pos"][0], target_position_local[1] - pos_info["mav_pos"][1]])
         direction /= np.linalg.norm(direction)
         v_horizontal = self.sat(self.cnt_WP * 0.05, self.v_norm_d) * direction
-        yaw_d = np.atan2(direction[1]/direction[0])
+        yaw_d = math.atan2(direction[1], direction[0])
+        cmd_yaw = self.yaw_control(yaw_d, pos_info["mav_yaw"], 0.2, 1.0)
 
-        return [v_horizontal[0], v_horizontal[1], 0, 0]
+        return [v_horizontal[0], v_horizontal[1], 0, cmd_yaw]
 
     def RotateHighspeedAttackController(self, pos_info, pos_i, image_center):
         #calacute nc,the first idex(c:camera,b:body,e:earth) represent the frmae, the second idex(c,o) represent the camera or obstacle
