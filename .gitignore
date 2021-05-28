@@ -18,8 +18,8 @@ data.mat
 *.png
 *.pkl
 
-# configs
-settings.json
-simulation/launch/rflysim_sphere.launch
-simulation/shell/rfly-sitl.sh
-offboard_pkg/script/R_Client.py
+# # configs
+# settings.json
+# simulation/launch/rflysim_sphere.launch
+# simulation/shell/rfly-sitl.sh
+# offboard_pkg/script/R_Client.py
