@@ -1,5 +1,5 @@
 <launch>
-    <!-- <node name="fake_pub" pkg="offboard_pkg" type="fake_pub.py" /> -->
+    <node name="ekf_node" pkg="ekf_pkg" type="ekf_node" respawn ="true"/>
     <node name="main_node" pkg="offboard_pkg" type="obs.py" output="screen" />
-    <!-- <node name="main_node" pkg="offboard_pkg" type="main.py" output="screen" /> -->
+    <node pkg="rosbag" type="record" name="bag_record" args="-a -o $(find offboard)/bag/fly"/>
 </launch>
