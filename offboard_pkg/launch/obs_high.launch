@@ -1,5 +1,5 @@
 <launch>
-    <node name="ekf_node" pkg="ekf_pkg" type="ekf_node" respawn ="true"/>
+    <node name="ekf_node" pkg="ekf_pkg" type="ekf_node" respawn ="true" output="screen"/>
     <node name="main_node" pkg="offboard_pkg" type="obs_high.py" output="screen" />
-    <node pkg="rosbag" type="record" name="bag_record" args="-a -o $(find offboard)/bag/fly_high"/>
+    <node pkg="rosbag" type="record" name="bag_record" args="-a -o $(find offboard_pkg)/bag/fly_high"/>
 </launch>

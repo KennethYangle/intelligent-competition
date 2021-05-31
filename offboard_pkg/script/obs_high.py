@@ -320,7 +320,7 @@ if __name__=="__main__":
         
         # stages transition
         if controller_state == 0 and target_position_local != list() and \
-           np.linalg.norm([mav_pos[0]-target_position_local[0], mav_pos[1]-target_position_local[1]]) < 8 and pos_i[1] > 0:
+           np.linalg.norm([mav_pos[0]-target_position_local[0], mav_pos[1]-target_position_local[1]]) < 10 and pos_i[1] > 0:
             controller_state = 1
             ekf_state_pub.publish(UInt64(1))
         elif controller_state == 1 and pos_i[1] <= 0:
