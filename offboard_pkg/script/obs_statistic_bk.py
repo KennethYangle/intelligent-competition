@@ -10,7 +10,7 @@ import time
 import threading
 import Tkinter
 from geometry_msgs.msg import *
-from std_msgs.msg import Float32MultiArray, UInt64
+from std_msgs.msg import Float32MultiArray
 from std_srvs.srv import Empty
 from mavros_msgs.srv import CommandBool, CommandTOL
 from mavros_msgs.srv import SetMode
@@ -39,8 +39,6 @@ mav_yaw = 0
 mav_R = np.zeros((3,3))
 Initial_pos = [0, 0, 0]
 pos_i = [0, 0, 0, 0, 0]
-pos_i_raw = [0, 0, 0, 0, 0]
-pos_i_ekf = [0, 0, 0, 0, 0]
 image_failed_cnt = 0
 state_name = "InitializeState"
 command = TwistStamped()
@@ -52,16 +50,13 @@ home_dx, home_dy = 0, 0
 depth = -1
 original_offset = np.array([0, 0, 0])
 
-sphere_pos_x, sphere_pos_y, sphere_pos_z = 0, 18, 3  #-0.065, 7, 2.43 
-vec = np.random.randn(3)
-vec /= np.linalg.norm(vec)
-v_x, v_y, v_z = vec[0], vec[1], vec[2]
+sphere_pos_x, sphere_pos_y, sphere_pos_z = np.random.uniform(-5,5), 18+np.random.uniform(-5,5), 2  #-0.065, 7, 2.43 
 sphere_vx, sphere_vy, sphere_vz = -1, 0, 0
 
 sphere_feb_pos = PoseStamped()
 # obj_state = ModelState()
 
-datas = []
+CEP_raw = list()
 
 def spin():
     rospy.spin()
@@ -137,7 +132,7 @@ def read_kbd_input():
     win.mainloop()
 
 def pos_image_cb(msg):
-    global is_initialize_img, pos_i, pos_i_raw, image_failed_cnt
+    global is_initialize_img, pos_i, image_failed_cnt
     is_initialize_img = True
     # print("msg_data: {}".format(msg.data))
     if msg.data[0] <= 0:
@@ -147,21 +142,8 @@ def pos_image_cb(msg):
     if image_failed_cnt <= 20 and image_failed_cnt > 0:
         pass
     else:
-        pos_i_raw = msg.data
-        pos_i = pos_i_raw
-    print("pos_i_raw: {}".format(pos_i_raw))
-
-def pos_image_ekf_cb(msg):
-    global pos_i_ekf, pos_i_raw, pos_i
-    pos_i_ekf = msg.data
-    # If we don't consider the safety of the aircraft when the target is lost, use pos_i_ekf when pos_i_raw[0]<0.
-    if abs(pos_i_ekf[0] - pos_i_raw[0]) < 10 and abs(pos_i_ekf[1] - pos_i_raw[1]) < 10:
-        pos_i = pos_i_ekf
-    else:
-        pos_i = pos_i_raw
-    print("pos_i_ekf: {}".format(pos_i_ekf))
-    print("pos_i: {}".format(pos_i))
-
+        pos_i = msg.data
+    # print("pos_i: {}".format(pos_i))
 
 def setArm():
    rospy.wait_for_service('/mavros/cmd/arming')
@@ -182,7 +164,7 @@ def setDisarm():
        print "Service arm call failed: %s"%e
 
 def setTakeoff(offb_set_mode):
-    diff_pos = np.array([mav_pos[0], mav_pos[1], 5.0]) - np.array(mav_pos)
+    diff_pos = np.array([mav_pos[0], mav_pos[1], 4.0]) - np.array(mav_pos)
     # for i in range(150):
     while np.linalg.norm(diff_pos) > 0.1:
         if not current_state.armed: setArm()
@@ -194,7 +176,7 @@ def setTakeoff(offb_set_mode):
         takeoff_command.twist.angular.z = 0.
         local_vel_pub.publish(takeoff_command)
         time.sleep(0.02)
-        diff_pos = np.array([mav_pos[0], mav_pos[1], 5.0]) - np.array(mav_pos)
+        diff_pos = np.array([mav_pos[0], mav_pos[1], 4.0]) - np.array(mav_pos)
 
 def setLandMode():
    rospy.wait_for_service('/mavros/cmd/land')
@@ -206,15 +188,12 @@ def setLandMode():
 
 
 def sphere_control(cnt):
-    global sphere_pos_x, sphere_pos_y, sphere_pos_z, v_x, v_y, v_z
+    global sphere_pos_x, sphere_pos_y, sphere_pos_z
     obj_msg = Obj()
     
     obj_msg.id = 100
     obj_msg.type = 152
-    # sphere_pos_x = 3*np.sin(cnt*1.0/500)
-    sphere_pos_x += v_x * 0.01
-    sphere_pos_y += v_y * 0.01
-    sphere_pos_z += v_z * 0.01
+    # obj_msg.position.x = sphere_pos_x + 5*np.sin(cnt*1.0/100)
     obj_msg.position.x = sphere_pos_x
     obj_msg.position.y = sphere_pos_y
     obj_msg.position.z = sphere_pos_z
@@ -287,9 +266,7 @@ if __name__=="__main__":
     else:
         raise Exception("Invalid MODE!", MODE)
     rospy.Subscriber("tracker/pos_image", Float32MultiArray, pos_image_cb)
-    rospy.Subscriber("tracker/pos_image_ekf", Float32MultiArray, pos_image_ekf_cb)
     local_vel_pub = rospy.Publisher('mavros/setpoint_velocity/cmd_vel', TwistStamped, queue_size=10)
-    ekf_state_pub = rospy.Publisher('ekf/state', UInt64, queue_size=1)
     print("Publisher and Subscriber Created")
 
     # rospy.wait_for_service("mavros/setpoint_velocity/mav_frame")
@@ -326,8 +303,6 @@ if __name__=="__main__":
     episode = 0
     dlt_pos_stash = list()
     cnt = -1
-    controller_reset = True
-    data = {"sphere_traj": [], "mav_traj": []}
     while not rospy.is_shutdown():
         print("time: {}".format(rospy.Time.now().to_sec() - last_request.to_sec()))
         print("episode: {}".format(episode))
@@ -337,7 +312,7 @@ if __name__=="__main__":
             if episode > 0:
                 r.Start()
                 time.sleep(20)
-
+            # sphere_control()
             sphere_control(cnt)
             time.sleep(0.2)
             setArm()
@@ -349,13 +324,8 @@ if __name__=="__main__":
                 last_request = rospy.Time.now()
             setTakeoff(offb_set_mode)
             statistic_state = "mission"
-	    obs_pos = [sphere_pos_x, sphere_pos_y, sphere_pos_z]
-            data["sphere_traj"].append(obs_pos)
-            data["mav_traj"].append(mav_pos)
-            ekf_state = 10
 
         if statistic_state == "mission":
-            sphere_control(cnt)
             pos_info = {"mav_pos": mav_pos, "mav_vel": mav_vel, "mav_R": mav_R, "R_bc": np.array([[0,0,1], [1,0,0], [0,1,0]]), 
                         "mav_original_angle": mav_original_angle, "Initial_pos": Initial_pos}
 
@@ -363,7 +333,7 @@ if __name__=="__main__":
             print("dlt_pos: {}".format(dlt_pos))
             dlt_pos_stash.append(np.linalg.norm(dlt_pos))
 
-            cmd = u.RotateAttackController(pos_info, pos_i, image_center, controller_reset)
+            cmd = u.RotateAttackController(pos_info, pos_i, image_center)
             # cmd = u.BasicAttackController(pos_info, pos_i, image_center)
             # 识别到图像才进行角速度控制
             if pos_i[1] > 0: 
@@ -380,15 +350,10 @@ if __name__=="__main__":
                 command.twist.angular.z = 0.
                 statistic_state = "stop"
 
-            obs_pos = [sphere_pos_x, sphere_pos_y, sphere_pos_z]
-            data["sphere_traj"].append(obs_pos)
-            data["mav_traj"].append(mav_pos)
-            controller_reset = False
-
+            obs_pos = np.array([sphere_pos_x, sphere_pos_y, sphere_pos_z]) 
             print("command: {}".format([command.twist.linear.x, command.twist.linear.y, command.twist.linear.z, command.twist.angular.z]))
             local_vel_pub.publish(command)
             rate.sleep()
-            ekf_state = 0
 
         if statistic_state == "stop":
             r.Stop()
@@ -400,24 +365,14 @@ if __name__=="__main__":
             min_distance = min(dlt_pos_stash)
             print("dlt_pos_stash: {}".format(dlt_pos_stash))
             print("min_distance: {}".format(min_distance))
-            data["min_distance"] = min_distance
-            datas.append(data)
-            f = open(os.path.join(os.path.expanduser('~'),"Rfly_Attack/src","datas_ekf.pkl"), 'w')
-            pickle.dump(datas, f)
+            CEP_raw.append(min_distance)
+            f = open(os.path.join(os.path.expanduser('~'),"Rfly_Attack/src","CEP_raw.pkl"), 'w')
+            pickle.dump(CEP_raw, f)
             f.close()
 
             dlt_pos_stash = list()
-            sphere_pos_x, sphere_pos_y, sphere_pos_z = 0, 18, 3  #-0.065, 7, 2.43 
-            vec = np.random.randn(3)
-            vec /= np.linalg.norm(vec)
-            v_x, v_y, v_z = vec[0], vec[1], vec[2]
-            cnt = -1
-            controller_reset = True
-            data = {"sphere_traj": [], "mav_traj": []}
+            sphere_pos_x, sphere_pos_y, sphere_pos_z = np.random.uniform(-5,5), 20+np.random.uniform(-5,5), 2  #-0.065, 7, 2.43 
             statistic_state = "start"
-            ekf_state = 0
             episode += 1
             if episode > 60:
                 break
-        
-        ekf_state_pub.publish(UInt64(ekf_state))

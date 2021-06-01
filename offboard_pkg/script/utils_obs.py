@@ -52,7 +52,7 @@ class Utils(object):
         self.v0 = self.h/2
         self.x0 = self.u0
         self.y0 = self.v0
-        self.cnt = 1
+        self.cnt = 0
         self.cnt_WP = 1
         self.v_norm_d = 15
         #realsense: fx:632.9640658678117  fy:638.2668942402212
@@ -145,7 +145,8 @@ class Utils(object):
         print("pos_i: {}\nimage_center: {}\ncmd: {}".format(pos_i, image_center, cmd))
         return cmd
 
-    def RotateAttackController(self, pos_info, pos_i, image_center):
+    def RotateAttackController(self, pos_info, pos_i, image_center, controller_reset):
+        if controller_reset: self.cnt = 0
         #calacute nc,the first idex(c:camera,b:body,e:earth) represent the frmae, the second idex(c,o) represent the camera or obstacle
         n_bc = self.R_cb.dot(self.n_cc)
         n_ec = pos_info["mav_R"].dot(n_bc)
@@ -165,7 +166,7 @@ class Utils(object):
         # case1: (0.02, 3, 10)
         # case2: (0.04, 3, 12)
         v_m[1] = self.sat(self.cnt * 0.02, 6)
-        v_m[0] = 3*v_b[0]
+        v_m[0] = 6*v_b[0]
         v_m[2] = 10*v_b[2]
         # v_f = self.sat(self.cnt*0.02*np.array([0.,1.,0.]), 10)
         # v_m = (1-cos_beta)*v_b + (cos_beta)*v_f

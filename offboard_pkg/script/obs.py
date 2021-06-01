@@ -267,6 +267,7 @@ if __name__=="__main__":
 
     # start
     cnt = -1
+    controller_reset = True
     while not rospy.is_shutdown():
         print("time: {}".format(rospy.Time.now().to_sec() - last_request.to_sec()))
         cnt += 1
@@ -311,7 +312,8 @@ if __name__=="__main__":
         # cmd = u.BasicAttackController(pos_info, pos_i_raw, image_center)
 
         if ch7 >= 1:
-            cmd = u.RotateAttackController(pos_info, pos_i, image_center)
+            cmd = u.RotateAttackController(pos_info, pos_i, image_center, controller_reset)
+            controller_reset = False
             # 识别到图像才进行角速度控制
             if pos_i[1] > 0: 
                 command.twist.linear.x = cmd[0]
@@ -331,6 +333,7 @@ if __name__=="__main__":
             command.twist.linear.y = 0.
             command.twist.linear.z = 0.
             command.twist.angular.z = 0.
+            controller_reset = True
         obs_pos = np.array([sphere_pos_x, sphere_pos_y, sphere_pos_z]) 
         print("command: {}".format([command.twist.linear.x, command.twist.linear.y, command.twist.linear.z, command.twist.angular.z]))
         local_vel_pub.publish(command)

@@ -7,21 +7,24 @@ import pickle
 # fontsize = 16
 data = []
 # 50Hz
-f = open(os.path.join(os.path.expanduser('~'),"Rfly_Attack/src","CEP_raw_50Hz.pkl"), 'r')
-CEP_raw = pickle.load(f)
+f = open(os.path.join(os.path.expanduser('~'),"Rfly_Attack/src","datas_50Hz.pkl"), 'r')
+datas = pickle.load(f)
 f.close()
+CEP_raw = [d["min_distance"] for d in datas]
 CEP_raw.sort()
 data.append(CEP_raw[:50])
 # 30Hz
-f = open(os.path.join(os.path.expanduser('~'),"Rfly_Attack/src","CEP_raw_30Hz.pkl"), 'r')
-CEP_raw = pickle.load(f)
+f = open(os.path.join(os.path.expanduser('~'),"Rfly_Attack/src","datas_30Hz.pkl"), 'r')
+datas = pickle.load(f)
 f.close()
+CEP_raw = [d["min_distance"] for d in datas]
 CEP_raw.sort()
 data.append(CEP_raw[:50])
 # 10Hz
-f = open(os.path.join(os.path.expanduser('~'),"Rfly_Attack/src","CEP_raw_10Hz.pkl"), 'r')
-CEP_raw = pickle.load(f)
+f = open(os.path.join(os.path.expanduser('~'),"Rfly_Attack/src","datas_10Hz.pkl"), 'r')
+datas = pickle.load(f)
 f.close()
+CEP_raw = [d["min_distance"] for d in datas]
 CEP_raw.sort()
 data.append(CEP_raw[:50])
 

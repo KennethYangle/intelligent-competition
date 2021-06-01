@@ -5,62 +5,88 @@ import matplotlib.patches as mpathes
 import os
 import pickle
 
-np.random.seed(777)
-
-f = open(os.path.join(os.path.expanduser('~'),"Rfly_Attack/src","CEP_with_rate.pkl"), 'r')
-data_deal = pickle.load(f)
-f.close()
 
 fig= plt.figure(1)
 ax = fig.add_subplot(111)
-raw = data_deal["10Hz"]
+f = open(os.path.join(os.path.expanduser('~'),"Rfly_Attack/src","datas_10Hz.pkl"), 'r')
+datas = pickle.load(f)
+f.close()
+datas.sort(key=lambda x: x["min_distance"])
+
+raw = [d["min_distance"] for d in datas]
 CEP_10 = raw[(len(raw)+1)//2-1]
-print("CEP_10: {}".format(CEP_10))
-data = {"x": [], "y": []}
-for d in data_deal["10Hz"]:
-    theta = np.random.uniform(0, 2*np.pi)
-    data["x"].append(d*np.cos(theta))
-    data["y"].append(d*np.sin(theta))
-plt.scatter(data["x"], data["y"])
+pts = []
+for d in datas:
+    for i in range(len(d["sphere_traj"])):
+        dlt_pos = np.array(d["mav_traj"][i]) - np.array(d["sphere_traj"][i])
+        if abs(np.linalg.norm(dlt_pos) - d["min_distance"]) < 1e-5:
+            pts.append(dlt_pos)
+            break
+
+plt.scatter([p[0] for p in pts], [p[2] for p in pts])
 circle = mpathes.Circle([0,0], CEP_10, fill=False)
 ax.add_patch(circle)
 plt.axis("square")
-plt.axis([-0.4, 0.4, -0.4, 0.4])
+plt.axis([-1, 1, -1, 1])
 plt.savefig("scatter_with_rate_10Hz.png", dpi=1200)
 plt.show()
 
+
 fig= plt.figure(2)
 ax = fig.add_subplot(111)
-raw = data_deal["30Hz"]
+f = open(os.path.join(os.path.expanduser('~'),"Rfly_Attack/src","datas_30Hz.pkl"), 'r')
+datas = pickle.load(f)
+f.close()
+datas.sort(key=lambda x: x["min_distance"])
+
+raw = [d["min_distance"] for d in datas]
 CEP_30 = raw[(len(raw)+1)//2-1]
-print("CEP_30: {}".format(CEP_30))
-data = {"x": [], "y": []}
-for d in data_deal["30Hz"]:
-    theta = np.random.uniform(0, 2*np.pi)
-    data["x"].append(d*np.cos(theta))
-    data["y"].append(d*np.sin(theta))
-plt.scatter(data["x"], data["y"])
+pts = []
+for d in datas:
+    for i in range(len(d["sphere_traj"])):
+        dlt_pos = np.array(d["mav_traj"][i]) - np.array(d["sphere_traj"][i])
+        if abs(np.linalg.norm(dlt_pos) - d["min_distance"]) < 1e-5:
+            pts.append(dlt_pos)
+            break
+
+plt.scatter([p[0] for p in pts], [p[2] for p in pts])
 circle = mpathes.Circle([0,0], CEP_30, fill=False)
 ax.add_patch(circle)
 plt.axis("square")
-plt.axis([-0.4, 0.4, -0.4, 0.4])
+plt.axis([-1, 1, -1, 1])
 plt.savefig("scatter_with_rate_30Hz.png", dpi=1200)
 plt.show()
 
+
 fig= plt.figure(3)
 ax = fig.add_subplot(111)
-raw = data_deal["50Hz"]
+f = open(os.path.join(os.path.expanduser('~'),"Rfly_Attack/src","datas_50Hz.pkl"), 'r')
+datas = pickle.load(f)
+f.close()
+datas.sort(key=lambda x: x["min_distance"])
+
+raw = [d["min_distance"] for d in datas]
 CEP_50 = raw[(len(raw)+1)//2-1]
-print("CEP_50: {}".format(CEP_50))
-data = {"x": [], "y": []}
-for d in data_deal["50Hz"]:
-    theta = np.random.uniform(0, 2*np.pi)
-    data["x"].append(d*np.cos(theta))
-    data["y"].append(d*np.sin(theta))
-plt.scatter(data["x"], data["y"])
+pts = []
+for d in datas:
+    for i in range(len(d["sphere_traj"])):
+        dlt_pos = np.array(d["mav_traj"][i]) - np.array(d["sphere_traj"][i])
+        if abs(np.linalg.norm(dlt_pos) - d["min_distance"]) < 1e-5:
+            pts.append(dlt_pos)
+            break
+
+plt.scatter([p[0] for p in pts], [p[2] for p in pts])
 circle = mpathes.Circle([0,0], CEP_50, fill=False)
 ax.add_patch(circle)
 plt.axis("square")
-plt.axis([-0.4, 0.4, -0.4, 0.4])
+plt.axis([-1, 1, -1, 1])
 plt.savefig("scatter_with_rate_50Hz.png", dpi=1200)
 plt.show()
+
+
+
+
+
+
+
+

@@ -8,17 +8,19 @@ import pickle
 data = []
 
 # 30Hz
-f = open(os.path.join(os.path.expanduser('~'),"Rfly_Attack/src","CEP_raw_30Hz.pkl"), 'r')
-CEP_raw = pickle.load(f)
+f = open(os.path.join(os.path.expanduser('~'),"Rfly_Attack/src","datas_30Hz.pkl"), 'r')
+datas = pickle.load(f)
 f.close()
+CEP_raw = [d["min_distance"] for d in datas]
 CEP_raw.sort()
 data.append(CEP_raw[:50])
 # delay-ekf
-f = open(os.path.join(os.path.expanduser('~'),"Rfly_Attack/src","CEP_raw_30Hz_ekf.pkl"), 'r')
-CEP_raw = pickle.load(f)
+f = open(os.path.join(os.path.expanduser('~'),"Rfly_Attack/src","datas_30Hz_ekf.pkl"), 'r')
+datas = pickle.load(f)
 f.close()
+CEP_raw = [d["min_distance"] for d in datas]
 CEP_raw.sort()
-data.append([a-0.02 for a in CEP_raw[:35]])
+data.append(CEP_raw[:50])
 
 labels = [30, "delay-ekf"]
 ave = [np.average(a) for a in data]
