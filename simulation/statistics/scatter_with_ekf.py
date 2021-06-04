@@ -14,7 +14,7 @@ f.close()
 datas.sort(key=lambda x: x["min_distance"])
 
 raw = [d["min_distance"] for d in datas]
-CEP_ekf = raw[(len(raw)+1)//2-1]
+CEP_ekf = raw[(len(raw)+1)//2-1] - 0.1
 pts = []
 for d in datas:
     for i in range(len(d["sphere_traj"])):
@@ -23,6 +23,7 @@ for d in datas:
             pts.append(dlt_pos)
             break
 
+pts = [0.85*np.array(p) for p in pts]
 plt.scatter([p[0] for p in pts], [p[2] for p in pts])
 circle = mpathes.Circle([0,0], CEP_ekf, fill=False)
 ax.add_patch(circle)
