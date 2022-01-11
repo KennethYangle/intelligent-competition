@@ -16,7 +16,7 @@ file_path = [j for i in file_path for j in i]
 
 rtext = sys.argv[1] #获取当前环境参数 即为$search_text 
 for f in file_path:
-    f1 = open(f,"r",encoding='UTF-8')
+    f1 = open(f,"r",encoding='UTF-8',errors='ignore')
     content = f1.read()
     f1.close()
 
