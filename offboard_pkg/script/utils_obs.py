@@ -165,7 +165,7 @@ class Utils(object):
         v_m = np.array([0., 0., 0.])
         # case1: (0.02, 3, 10)
         # case2: (0.04, 3, 12)
-        v_m[1] = self.sat(self.cnt * 0.02, 6)
+        v_m[1] = self.sat(self.cnt * 0.03, 10)
         v_m[0] = 6*v_b[0]
         v_m[2] = 10*v_b[2]
         # v_f = self.sat(self.cnt*0.02*np.array([0.,1.,0.]), 10)

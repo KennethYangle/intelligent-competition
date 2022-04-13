@@ -48,7 +48,7 @@ home_dx, home_dy = 0, 0
 depth = -1
 original_offset = np.array([0, 0, 0])
 
-sphere_pos_x, sphere_pos_y, sphere_pos_z = -5, 15, 1  #-0.065, 7, 2.43 
+sphere_pos_x, sphere_pos_y, sphere_pos_z = -5, 25, 1  #-0.065, 7, 2.43 
 sphere_vx, sphere_vy, sphere_vz = -1, 0, 0
 
 sphere_feb_pos = PoseStamped()

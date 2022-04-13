@@ -1,4 +1,4 @@
-roslaunch mavros px4.launch fcu_url:="udp://:20101@192.168.1.126:20100" & PID1=$!
+roslaunch mavros px4.launch fcu_url:="udp://:20101@192.168.1.118:20100" & PID1=$!
 sleep 10s
 roslaunch rflysim_ros_pkg camera.launch & PID2=$!
 sleep 10s

@@ -231,7 +231,7 @@ if __name__=="__main__":
     r = RClient()
     # Start RflySim
     r.Start()
-    time.sleep(30)
+    time.sleep(40)
 
     setting_file = open(os.path.join(os.path.expanduser('~'),"Rfly_Attack/src","settings.json"))
     setting = json.load(setting_file)
@@ -319,7 +319,7 @@ if __name__=="__main__":
         if statistic_state == "start":
             if episode > 0:
                 r.Start()
-                time.sleep(20)
+                time.sleep(40)
 
             sphere_control(cnt)
             time.sleep(0.2)
@@ -391,6 +391,7 @@ if __name__=="__main__":
             sphere_pos_x, sphere_pos_y, sphere_pos_z = 0, 18, 3  #-0.065, 7, 2.43 
             vec = np.random.randn(3)
             vec /= np.linalg.norm(vec)
+            vec *= 0
             v_x, v_y, v_z = vec[0], vec[1], vec[2]
             cnt = -1
             controller_reset = True

@@ -8,7 +8,7 @@ import pickle
 
 fig = plt.figure(1)
 ax = plt.axes(projection='3d')
-f = open(os.path.join(os.path.expanduser('~'),"Rfly_Attack/src","datas_30Hz.pkl"), 'r')
+f = open(os.path.join(os.path.expanduser('~'),"Rfly_Attack/src","datas.pkl"), 'r')
 datas = pickle.load(f)
 f.close()
 # Comment this line when comparing other datas
@@ -22,7 +22,7 @@ ax.set_ylim(-1, 25)
 ax.set_zlim(-1, 5)
 
 # Show results directly
-for i in range(50):
+for i in range(len(datas)):
     sphere_traj = datas[i]["sphere_traj"][:-30]
     mav_traj = datas[i]["mav_traj"][:-30]
     ax.plot([s[0] for s in sphere_traj], [s[1] for s in sphere_traj], [s[2] for s in sphere_traj], color='#ff7f0e')
