@@ -1,5 +1,4 @@
 import numpy as np
-import pandas as pd
 import matplotlib.pyplot as plt
 import matplotlib.patches as mpathes
 import os
@@ -8,13 +7,15 @@ import pickle
 
 fig= plt.figure(1)
 ax = fig.add_subplot(111)
-f = open(os.path.join(os.path.expanduser('~'),"Rfly_Attack/src","datas.pkl"), 'r')
+f = open(os.path.join("../../datas","datas_30Hz_ekf.pkl"), 'r')
 datas = pickle.load(f)
 f.close()
 datas.sort(key=lambda x: x["min_distance"])
 
 raw = [d["min_distance"] for d in datas]
 CEP_ekf = raw[(len(raw)+1)//2-1] - 0.1
+print("CEP_30Hz_ekf: {}".format(CEP_ekf))
+
 pts = []
 for d in datas:
     for i in range(len(d["sphere_traj"])):

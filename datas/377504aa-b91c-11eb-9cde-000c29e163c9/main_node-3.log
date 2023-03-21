@@ -1,0 +1,39 @@
+[rospy.client][INFO] 2021-05-20 11:34:41,108: init_node, name[/main_node], pid[4981]
+[xmlrpc][INFO] 2021-05-20 11:34:41,109: XML-RPC server binding to 0.0.0.0:0
+[xmlrpc][INFO] 2021-05-20 11:34:41,109: Started XML-RPC server [http://ubuntu:45685/]
+[rospy.impl.masterslave][INFO] 2021-05-20 11:34:41,109: _ready: http://ubuntu:45685/
+[xmlrpc][INFO] 2021-05-20 11:34:41,110: xml rpc node: starting XML-RPC server
+[rospy.init][INFO] 2021-05-20 11:34:41,110: ROS Slave URI: [http://ubuntu:45685/]
+[rospy.registration][INFO] 2021-05-20 11:34:41,111: Registering with master node http://localhost:11311
+[rospy.init][INFO] 2021-05-20 11:34:41,211: registered with master
+[rospy.rosout][INFO] 2021-05-20 11:34:41,212: initializing /rosout core topic
+[rospy.rosout][INFO] 2021-05-20 11:34:41,215: connected to core topic /rosout
+[rospy.simtime][INFO] 2021-05-20 11:34:41,217: /use_sim_time is not set, will not subscribe to simulated time [/clock] topic
+[rospy.internal][INFO] 2021-05-20 11:34:41,233: topic[/mavros/local_position/pose] adding connection to [http://ubuntu:44855/], count 0
+[rospy.internal][INFO] 2021-05-20 11:34:41,554: topic[/ue4_ros/obj] adding connection to [/obj_control], count 0
+[rospy.internal][INFO] 2021-05-20 11:34:41,562: topic[/mavros/local_position/velocity_local] adding connection to [http://ubuntu:44855/], count 0
+[rospy.internal][INFO] 2021-05-20 11:34:41,571: topic[/tracker/pos_image] adding connection to [http://ubuntu:40605/], count 0
+[rospy.internal][INFO] 2021-05-20 11:34:41,571: topic[/tracker/pos_image_ekf] adding connection to [http://ubuntu:43425/], count 0
+[rospy.internal][INFO] 2021-05-20 11:34:41,572: topic[/mavros/state] adding connection to [http://ubuntu:44855/], count 0
+[rospy.internal][INFO] 2021-05-20 11:34:41,657: topic[/rosout] adding connection to [/rosout], count 0
+[rospy.internal][INFO] 2021-05-20 11:34:41,829: topic[/mavros/setpoint_velocity/cmd_vel] adding connection to [/mavros], count 0
+[rospy.core][INFO] 2021-05-20 11:35:13,302: signal_shutdown [signal-2]
+[rospy.internal][INFO] 2021-05-20 11:35:13,308: topic[/ue4_ros/obj] removing connection to /obj_control
+[rospy.internal][INFO] 2021-05-20 11:35:13,309: topic[/rosout] removing connection to /rosout
+[rospy.internal][INFO] 2021-05-20 11:35:13,309: topic[/mavros/setpoint_velocity/cmd_vel] removing connection to /mavros
+[rospy.internal][INFO] 2021-05-20 11:35:13,309: topic[/mavros/state] removing connection to http://ubuntu:44855/
+[rospy.internal][INFO] 2021-05-20 11:35:13,310: topic[/tracker/pos_image_ekf] removing connection to http://ubuntu:43425/
+[rospy.internal][INFO] 2021-05-20 11:35:13,310: topic[/mavros/local_position/pose] removing connection to http://ubuntu:44855/
+[rospy.internal][INFO] 2021-05-20 11:35:13,310: topic[/tracker/pos_image] removing connection to http://ubuntu:40605/
+[rospy.internal][INFO] 2021-05-20 11:35:13,310: topic[/mavros/local_position/velocity_local] removing connection to http://ubuntu:44855/
+[rospy.impl.masterslave][INFO] 2021-05-20 11:35:13,310: signal-2
+[rospy.internal][WARNING] 2021-05-20 11:35:13,557: Unknown error initiating TCP/IP socket to ubuntu:45837 (http://ubuntu:43425/): Traceback (most recent call last):
+  File "/opt/ros/melodic/lib/python2.7/dist-packages/rospy/impl/tcpros_base.py", line 562, in connect
+    self.read_header()
+  File "/opt/ros/melodic/lib/python2.7/dist-packages/rospy/impl/tcpros_base.py", line 657, in read_header
+    self._validate_header(read_ros_handshake_header(sock, self.read_buff, self.protocol.buff_size))
+  File "/opt/ros/melodic/lib/python2.7/dist-packages/rosgraph/network.py", line 357, in read_ros_handshake_header
+    d = sock.recv(buff_size)
+error: [Errno 104] Connection reset by peer
+
+[rospy.core][INFO] 2021-05-20 11:35:16,416: signal_shutdown [atexit]

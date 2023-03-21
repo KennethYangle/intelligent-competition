@@ -8,7 +8,7 @@ import pickle
 
 fig = plt.figure(1)
 ax = plt.axes(projection='3d')
-f = open(os.path.join(os.path.expanduser('~'),"Rfly_Attack/src","datas.pkl"), 'r')
+f = open(os.path.join("../../datas","datas_30Hz_ekf.pkl"), 'r')
 datas = pickle.load(f)
 f.close()
 # Comment this line when comparing other datas

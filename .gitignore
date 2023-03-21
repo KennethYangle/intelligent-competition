@@ -16,7 +16,8 @@ data.mat
 *.bag
 *.bmp
 *.png
-*.pkl
+# *.pkl
+# *.log
 
 # # configs
 # settings.json

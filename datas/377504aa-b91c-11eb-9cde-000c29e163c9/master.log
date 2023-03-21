@@ -1,0 +1,745 @@
+[rosmaster.main][INFO] 2021-05-20 11:34:05,806: initialization complete, waiting for shutdown
+[rosmaster.main][INFO] 2021-05-20 11:34:05,806: Starting ROS Master Node
+[xmlrpc][INFO] 2021-05-20 11:34:05,810: XML-RPC server binding to 0.0.0.0:11311
+[xmlrpc][INFO] 2021-05-20 11:34:05,811: Started XML-RPC server [http://ubuntu:11311/]
+[rosmaster.master][INFO] 2021-05-20 11:34:05,811: Master initialized: port[11311], uri[http://ubuntu:11311/]
+[xmlrpc][INFO] 2021-05-20 11:34:05,812: xml rpc node: starting XML-RPC server
+[rosmaster.master][INFO] 2021-05-20 11:34:05,879: +PARAM [/run_id] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:05,880: +PARAM [/roslaunch/uris/host_ubuntu__34801] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,004: +PARAM [/mavros/mission/use_mission_item_int] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,006: +PARAM [/mavros/imu/linear_acceleration_stdev] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,006: +PARAM [/mavros/landing_target/tf/child_frame_id] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,006: +PARAM [/mavros/image/frame_id] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,007: +PARAM [/mavros/setpoint_attitude/tf/listen] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,007: +PARAM [/mavros/wheel_odometry/tf/send] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,007: +PARAM [/mavros/odometry/fcu/odom_child_id_des] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,007: +PARAM [/mavros/sys/disable_diag] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,007: +PARAM [/mavros/setpoint_position/tf/child_frame_id] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,007: +PARAM [/mavros/startup_px4_usb_quirk] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,007: +PARAM [/mavros/target_component_id] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,007: +PARAM [/mavros/setpoint_position/tf/rate_limit] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,007: +PARAM [/mavros/imu/orientation_stdev] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,007: +PARAM [/mavros/wheel_odometry/child_frame_id] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,007: +PARAM [/mavros/landing_target/tf/send] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,007: +PARAM [/mavros/wheel_odometry/count] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,008: +PARAM [/mavros/wheel_odometry/wheel1/radius] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,008: +PARAM [/mavros/fake_gps/tf/rate_limit] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,008: +PARAM [/mavros/safety_area/p2/x] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,008: +PARAM [/mavros/px4flow/ranger_fov] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,008: +PARAM [/mavros/landing_target/mav_frame] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,008: +PARAM [/mavros/safety_area/p2/y] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,008: +PARAM [/mavros/distance_sensor/lidarlite_pub/field_of_view] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,008: +PARAM [/mavros/fake_gps/geo_origin/lon] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,008: +PARAM [/mavros/local_position/tf/send] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,008: +PARAM [/mavros/plugin_blacklist] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,008: +PARAM [/mavros/imu/frame_id] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,008: +PARAM [/mavros/landing_target/tf/rate_limit] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,008: +PARAM [/mavros/landing_target/camera/fov_y] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,008: +PARAM [/mavros/landing_target/camera/fov_x] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,009: +PARAM [/mavros/local_position/frame_id] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,009: +PARAM [/mavros/wheel_odometry/wheel0/radius] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,009: +PARAM [/mavros/distance_sensor/hrlv_ez4_pub/id] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,009: +PARAM [/mavros/local_position/tf/frame_id] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,009: +PARAM [/mavros/time/timesync_mode] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,009: +PARAM [/mavros/setpoint_accel/send_force] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,009: +PARAM [/mavros/landing_target/tf/frame_id] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,009: +PARAM [/mavros/fake_gps/use_mocap] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,009: +PARAM [/mavros/distance_sensor/hrlv_ez4_pub/frame_id] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,009: +PARAM [/mavros/setpoint_attitude/reverse_thrust] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,009: +PARAM [/mavros/vision_speed/twist_cov] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,009: +PARAM [/mavros/local_position/tf/child_frame_id] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,009: +PARAM [/mavros/landing_target/target_size/x] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,009: +PARAM [/mavros/landing_target/target_size/y] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,009: +PARAM [/mavros/distance_sensor/laser_1_sub/id] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,009: +PARAM [/mavros/landing_target/image/width] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,009: +PARAM [/mavros/setpoint_position/tf/listen] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,009: +PARAM [/mavros/cmd/use_comp_id_system_control] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,012: +PARAM [/mavros/plugin_whitelist] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,012: +PARAM [/mavros/fake_gps/fix_type] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,012: +PARAM [/rosdistro] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,012: +PARAM [/mavros/conn/heartbeat_rate] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,012: +PARAM [/mavros/distance_sensor/sonar_1_sub/subscriber] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,012: +PARAM [/mavros/mocap/use_pose] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,012: +PARAM [/mavros/global_position/tf/frame_id] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,012: +PARAM [/mavros/tdr_radio/low_rssi] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,012: +PARAM [/mavros/global_position/tf/child_frame_id] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,013: +PARAM [/mavros/wheel_odometry/tf/frame_id] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,013: +PARAM [/mavros/setpoint_velocity/mav_frame] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,013: +PARAM [/mavros/global_position/use_relative_alt] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,013: +PARAM [/mavros/fcu_protocol] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,013: +PARAM [/mavros/wheel_odometry/use_rpm] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,013: +PARAM [/mavros/distance_sensor/lidarlite_pub/sensor_position/x] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,013: +PARAM [/mavros/distance_sensor/lidarlite_pub/sensor_position/y] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,013: +PARAM [/mavros/distance_sensor/lidarlite_pub/sensor_position/z] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,014: +PARAM [/mavros/setpoint_position/mav_frame] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,014: +PARAM [/mavros/fake_gps/geo_origin/alt] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,014: +PARAM [/mavros/setpoint_raw/thrust_scaling] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,014: +PARAM [/mavros/safety_area/p1/z] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,014: +PARAM [/mavros/safety_area/p1/y] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,014: +PARAM [/mavros/safety_area/p1/x] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,014: +PARAM [/mavros/fake_gps/eph] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,014: +PARAM [/mavros/global_position/tf/send] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,014: +PARAM [/mavros/vision_pose/tf/child_frame_id] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,014: +PARAM [/mavros/fake_gps/tf/listen] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,014: +PARAM [/mavros/vibration/frame_id] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,014: +PARAM [/mavros/fake_gps/tf/frame_id] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,014: +PARAM [/mavros/safety_area/p2/z] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,014: +PARAM [/mavros/setpoint_attitude/use_quaternion] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,015: +PARAM [/mavros/fake_gps/satellites_visible] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,015: +PARAM [/mavros/time/time_ref_source] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,015: +PARAM [/mavros/target_system_id] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,015: +PARAM [/mavros/conn/timesync_rate] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,015: +PARAM [/mavros/fake_gps/epv] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,015: +PARAM [/mavros/px4flow/ranger_max_range] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,015: +PARAM [/mavros/setpoint_attitude/tf/child_frame_id] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,015: +PARAM [/mavros/mission/pull_after_gcs] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,016: +PARAM [/mavros/gcs_url] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,016: +PARAM [/mavros/distance_sensor/lidarlite_pub/id] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,016: +PARAM [/mavros/imu/angular_velocity_stdev] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,016: +PARAM [/mavros/wheel_odometry/tf/child_frame_id] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,016: +PARAM [/mavros/distance_sensor/laser_1_sub/subscriber] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,016: +PARAM [/mavros/distance_sensor/sonar_1_sub/orientation] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,016: +PARAM [/mavros/wheel_odometry/send_raw] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,016: +PARAM [/mavros/wheel_odometry/wheel0/y] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,016: +PARAM [/mavros/wheel_odometry/wheel0/x] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,016: +PARAM [/mavros/vision_pose/tf/frame_id] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,016: +PARAM [/mavros/global_position/tf/global_frame_id] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,016: +PARAM [/mavros/vision_speed/listen_twist] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,016: +PARAM [/mavros/wheel_odometry/wheel1/x] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,016: +PARAM [/mavros/wheel_odometry/wheel1/y] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,016: +PARAM [/mavros/vision_pose/tf/rate_limit] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,016: +PARAM [/mavros/distance_sensor/sonar_1_sub/id] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,016: +PARAM [/mavros/global_position/rot_covariance] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,017: +PARAM [/mavros/landing_target/land_target_type] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,017: +PARAM [/mavros/distance_sensor/lidarlite_pub/frame_id] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,017: +PARAM [/mavros/distance_sensor/laser_1_sub/orientation] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,017: +PARAM [/mavros/landing_target/tf/listen] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,017: +PARAM [/mavros/wheel_odometry/vel_error] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,017: +PARAM [/mavros/fake_gps/mocap_transform] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,017: +PARAM [/mavros/setpoint_attitude/tf/frame_id] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,017: +PARAM [/mavros/mocap/use_tf] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,017: +PARAM [/mavros/landing_target/listen_lt] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,017: +PARAM [/mavros/conn/system_time_rate] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,017: +PARAM [/mavros/wheel_odometry/frame_id] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,017: +PARAM [/mavros/fake_gps/tf/child_frame_id] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,017: +PARAM [/mavros/global_position/child_frame_id] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,017: +PARAM [/mavros/px4flow/frame_id] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,017: +PARAM [/mavros/px4flow/ranger_min_range] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,018: +PARAM [/mavros/imu/magnetic_stdev] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,018: +PARAM [/mavros/conn/timeout] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,018: +PARAM [/mavros/distance_sensor/hrlv_ez4_pub/sensor_position/z] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,018: +PARAM [/mavros/distance_sensor/hrlv_ez4_pub/sensor_position/y] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,018: +PARAM [/mavros/distance_sensor/hrlv_ez4_pub/sensor_position/x] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,018: +PARAM [/mavros/distance_sensor/lidarlite_pub/orientation] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,018: +PARAM [/mavros/fake_gps/tf/send] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,018: +PARAM [/mavros/fcu_url] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,018: +PARAM [/mavros/odometry/fcu/odom_parent_id_des] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,018: +PARAM [/mavros/distance_sensor/hrlv_ez4_pub/field_of_view] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,018: +PARAM [/mavros/distance_sensor/hrlv_ez4_pub/send_tf] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,018: +PARAM [/mavros/distance_sensor/lidarlite_pub/send_tf] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,018: +PARAM [/mavros/landing_target/image/height] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,019: +PARAM [/mavros/setpoint_attitude/tf/rate_limit] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,019: +PARAM [/mavros/vision_pose/tf/listen] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,019: +PARAM [/mavros/wheel_odometry/send_twist] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,019: +PARAM [/mavros/distance_sensor/hrlv_ez4_pub/orientation] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,019: +PARAM [/rosversion] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,019: +PARAM [/mavros/setpoint_position/tf/frame_id] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,019: +PARAM [/mavros/sys/min_voltage] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,019: +PARAM [/mavros/fake_gps/geo_origin/lat] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,019: +PARAM [/mavros/fake_gps/gps_rate] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,019: +PARAM [/mavros/global_position/gps_uere] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,019: +PARAM [/mavros/global_position/frame_id] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,019: +PARAM [/mavros/local_position/tf/send_fcu] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,020: +PARAM [/mavros/time/timesync_avg_alpha] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,020: +PARAM [/mavros/fake_gps/use_vision] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:06,860: +SERVICE [/rosout/get_loggers] /rosout http://ubuntu:33987/
+[rosmaster.master][INFO] 2021-05-20 11:34:06,862: +SERVICE [/rosout/set_logger_level] /rosout http://ubuntu:33987/
+[rosmaster.master][INFO] 2021-05-20 11:34:06,864: +PUB [/rosout_agg] /rosout http://ubuntu:33987/
+[rosmaster.master][INFO] 2021-05-20 11:34:06,871: +SUB [/rosout] /rosout http://ubuntu:33987/
+[rosmaster.master][INFO] 2021-05-20 11:34:06,961: +PUB [/rosout] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:06,963: +SERVICE [/mavros/get_loggers] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:06,965: +SERVICE [/mavros/set_logger_level] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:06,967: +PUB [/diagnostics] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:07,015: publisherUpdate[/rosout] -> http://ubuntu:33987/ ['http://ubuntu:44855/']
+[rosmaster.master][INFO] 2021-05-20 11:34:07,018: publisherUpdate[/rosout] -> http://ubuntu:33987/ ['http://ubuntu:44855/']: sec=0.00, result=[1, '', 0]
+[rosmaster.master][INFO] 2021-05-20 11:34:07,170: +SUB [/tf] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:07,175: +SUB [/tf_static] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:07,176: +PUB [/tf] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:07,176: +PUB [/tf_static] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:07,218: publisherUpdate[/tf] -> http://ubuntu:44855/ ['http://ubuntu:44855/']
+[rosmaster.master][INFO] 2021-05-20 11:34:07,219: publisherUpdate[/tf] -> http://ubuntu:44855/ ['http://ubuntu:44855/']: sec=0.00, result=[1, '', 0]
+[rosmaster.master][INFO] 2021-05-20 11:34:07,219: publisherUpdate[/tf_static] -> http://ubuntu:44855/ ['http://ubuntu:44855/']
+[rosmaster.master][INFO] 2021-05-20 11:34:07,220: publisherUpdate[/tf_static] -> http://ubuntu:44855/ ['http://ubuntu:44855/']: sec=0.00, result=[1, '', 0]
+[rosmaster.master][INFO] 2021-05-20 11:34:07,884: +PUB [/mavlink/from] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:07,887: +SUB [/mavlink/to] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,045: +PUB [/mavros/radio_status] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,046: +PUB [/mavros/target_actuator_control] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,049: +SUB [/mavros/actuator_control] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,065: +PUB [/mavros/adsb/vehicle] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,072: +SUB [/mavros/adsb/send] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,073: +PUB [/mavros/altitude] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,074: +PUB [/mavros/cam_imu_sync/cam_imu_stamp] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,077: +SERVICE [/mavros/cmd/command] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,077: +SERVICE [/mavros/cmd/command_int] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,078: +SERVICE [/mavros/cmd/arming] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,078: +SERVICE [/mavros/cmd/set_home] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,079: +SERVICE [/mavros/cmd/takeoff] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,079: +SERVICE [/mavros/cmd/land] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,079: +SERVICE [/mavros/cmd/trigger_control] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,080: +SERVICE [/mavros/cmd/trigger_interval] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,080: +SERVICE [/mavros/cmd/vtol_transition] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,082: +SUB [/mavros/companion_process/status] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,084: +SUB [/mavros/debug_value/send] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,084: +PUB [/mavros/debug_value/debug] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,085: +PUB [/mavros/debug_value/debug_vector] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,086: +PUB [/mavros/debug_value/named_value_float] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,087: +PUB [/mavros/debug_value/named_value_int] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,088: +PUB [/mavros/esc_info] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,089: +PUB [/mavros/esc_status] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,101: +SUB [/mavros/fake_gps/mocap/tf] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,102: +SERVICE [/mavros/ftp/list] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,104: +SERVICE [/mavros/ftp/open] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,105: +SERVICE [/mavros/ftp/close] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,106: +SERVICE [/mavros/ftp/read] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,107: +SERVICE [/mavros/ftp/write] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,107: +SERVICE [/mavros/ftp/mkdir] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,108: +SERVICE [/mavros/ftp/rmdir] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,109: +SERVICE [/mavros/ftp/remove] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,109: +SERVICE [/mavros/ftp/truncate] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,110: +SERVICE [/mavros/ftp/reset] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,110: +SERVICE [/mavros/ftp/rename] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,111: +SERVICE [/mavros/ftp/checksum] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,128: +PUB [/mavros/global_position/raw/fix] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,129: +PUB [/mavros/global_position/raw/gps_vel] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,130: +PUB [/mavros/global_position/raw/satellites] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,130: +PUB [/mavros/global_position/global] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,131: +PUB [/mavros/global_position/local] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,131: +PUB [/mavros/global_position/rel_alt] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,132: +PUB [/mavros/global_position/compass_hdg] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,133: +PUB [/mavros/global_position/gp_origin] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,138: +SUB [/mavros/global_position/set_gp_origin] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,141: +SUB [/mavros/global_position/home] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,141: +PUB [/mavros/global_position/gp_lp_offset] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,145: +SUB [/mavros/gps_rtk/send_rtcm] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,146: +PUB [/mavros/gps_rtk/rtk_baseline] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,147: +PUB [/mavros/gpsstatus/gps1/raw] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,148: +PUB [/mavros/gpsstatus/gps2/raw] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,148: +PUB [/mavros/gpsstatus/gps1/rtk] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,150: +PUB [/mavros/gpsstatus/gps2/rtk] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,154: +SUB [/mavros/hil/state] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,157: +SUB [/mavros/hil/gps] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,159: +SUB [/mavros/hil/imu_ned] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,162: +SUB [/mavros/hil/optical_flow] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,165: +SUB [/mavros/hil/rc_inputs] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,169: +PUB [/mavros/hil/controls] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,171: +PUB [/mavros/hil/actuator_controls] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,172: +PUB [/mavros/home_position/home] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,175: +SUB [/mavros/home_position/set] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,176: +SERVICE [/mavros/home_position/req_update] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,184: +PUB [/mavros/imu/data] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,185: +PUB [/mavros/imu/mag] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,186: +PUB [/mavros/imu/temperature_imu] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,186: +PUB [/mavros/imu/temperature_baro] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,187: +PUB [/mavros/imu/static_pressure] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,187: +PUB [/mavros/imu/diff_pressure] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,188: +PUB [/mavros/imu/data_raw] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,204: +PUB [/mavros/landing_target/pose_in] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,205: +PUB [/mavros/landing_target/lt_marker] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,208: +SUB [/mavros/landing_target/pose] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,220: +PUB [/mavros/local_position/pose] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,220: +PUB [/mavros/local_position/pose_cov] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,221: +PUB [/mavros/local_position/velocity_local] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,222: +PUB [/mavros/local_position/velocity_body] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,222: +PUB [/mavros/local_position/velocity_body_cov] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,223: +PUB [/mavros/local_position/accel] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,223: +PUB [/mavros/local_position/odom] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,224: +PUB [/mavros/log_transfer/raw/log_entry] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,225: +PUB [/mavros/log_transfer/raw/log_data] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,226: +SERVICE [/mavros/log_transfer/raw/log_request_list] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,226: +SERVICE [/mavros/log_transfer/raw/log_request_data] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,227: +SERVICE [/mavros/log_transfer/raw/log_request_end] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,230: +PUB [/mavros/manual_control/control] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,234: +SUB [/mavros/manual_control/send] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,239: +SUB [/mavros/mocap/pose] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,242: +SUB [/mavros/mount_control/command] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,243: +PUB [/mavros/mount_control/orientation] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,243: +SERVICE [/mavros/mount_control/configure] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,253: +SUB [/mavros/obstacle/send] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,255: +PUB [/mavros/odometry/in] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,258: +SUB [/mavros/odometry/out] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,263: +SUB [/mavros/onboard_computer/status] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,264: +SERVICE [/mavros/param/pull] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,265: +SERVICE [/mavros/param/push] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,266: +SERVICE [/mavros/param/set] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,267: +SERVICE [/mavros/param/get] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,268: +PUB [/mavros/param/param_value] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,274: +PUB [/mavros/px4flow/raw/optical_flow_rad] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,276: +PUB [/mavros/px4flow/ground_distance] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,278: +PUB [/mavros/px4flow/temperature] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,283: +SUB [/mavros/px4flow/raw/send] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,285: +PUB [/mavros/rc/in] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,286: +PUB [/mavros/rc/out] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,289: +SUB [/mavros/rc/override] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,299: +SUB [/mavros/setpoint_accel/accel] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,313: +SUB [/mavros/setpoint_attitude/thrust] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,315: +SUB [/mavros/setpoint_attitude/cmd_vel] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,323: +SUB [/mavros/setpoint_position/local] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,331: +SUB [/mavros/setpoint_position/global] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,334: +SUB [/mavros/setpoint_position/global_to_local] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,338: +SUB [/mavros/global_position/global] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,342: +SUB [/mavros/local_position/pose] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,343: +SERVICE [/mavros/setpoint_position/mav_frame] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,346: +SUB [/mavros/setpoint_raw/local] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,349: +SUB [/mavros/setpoint_raw/global] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,351: +SUB [/mavros/setpoint_raw/attitude] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,351: +PUB [/mavros/setpoint_raw/target_local] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,352: +PUB [/mavros/setpoint_raw/target_global] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,352: +PUB [/mavros/setpoint_raw/target_attitude] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,356: +SUB [/mavros/setpoint_trajectory/local] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,356: +PUB [/mavros/setpoint_trajectory/desired] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,357: +SERVICE [/mavros/setpoint_trajectory/reset] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,357: +SERVICE [/mavros/setpoint_trajectory/mav_frame] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,362: +SUB [/mavros/setpoint_velocity/cmd_vel] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,365: +SUB [/mavros/setpoint_velocity/cmd_vel_unstamped] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,366: +SERVICE [/mavros/setpoint_velocity/mav_frame] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,374: +PUB [/mavros/state] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,374: +PUB [/mavros/extended_state] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,375: +PUB [/mavros/battery] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,375: +PUB [/mavros/estimator_status] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,376: +PUB [/mavros/statustext/recv] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,381: +SUB [/mavros/statustext/send] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,382: +SERVICE [/mavros/set_stream_rate] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,382: +SERVICE [/mavros/set_mode] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,383: +SERVICE [/mavros/vehicle_info_get] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,383: +SERVICE [/mavros/set_message_interval] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,391: +PUB [/mavros/time_reference] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,392: +PUB [/mavros/timesync_status] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,395: +SUB [/mavros/trajectory/generated] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,398: +SUB [/mavros/trajectory/path] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,398: +PUB [/mavros/trajectory/desired] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,400: +PUB [/mavros/vfr_hud] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,407: +SUB [/mavros/vision_pose/pose] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,411: +SUB [/mavros/vision_pose/pose_cov] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,416: +SUB [/mavros/vision_speed/speed_twist_cov] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,419: +PUB [/mavros/mission/waypoints] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,420: +PUB [/mavros/mission/reached] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,420: +SERVICE [/mavros/mission/pull] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,421: +SERVICE [/mavros/mission/push] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,422: +SERVICE [/mavros/mission/clear] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,423: +SERVICE [/mavros/mission/set_current] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:08,424: +PUB [/mavros/wind_estimation] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:34:10,500: +PARAM [/roslaunch/uris/host_ubuntu__44011] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:10,504: +PARAM [/rosversion] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:10,504: +PARAM [/rec_node_left/camera_id] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:10,504: +PARAM [/rosdistro] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:10,504: +PARAM [/rec_node_left/port] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:10,504: +PARAM [/rec_node_left/image_transport] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:12,882: +PUB [/rosout] /rec_node_left http://ubuntu:35983/
+[rosmaster.master][INFO] 2021-05-20 11:34:12,882: +SERVICE [/rec_node_left/get_loggers] /rec_node_left http://ubuntu:35983/
+[rosmaster.master][INFO] 2021-05-20 11:34:12,883: +SERVICE [/rec_node_left/set_logger_level] /rec_node_left http://ubuntu:35983/
+[rosmaster.master][INFO] 2021-05-20 11:34:12,955: publisherUpdate[/rosout] -> http://ubuntu:33987/ ['http://ubuntu:44855/', 'http://ubuntu:35983/']
+[rosmaster.master][INFO] 2021-05-20 11:34:12,957: publisherUpdate[/rosout] -> http://ubuntu:33987/ ['http://ubuntu:44855/', 'http://ubuntu:35983/']: sec=0.00, result=[1, '', 0]
+[rosmaster.master][INFO] 2021-05-20 11:34:12,973: +PUB [/camera/left/compressedDepth] /rec_node_left http://ubuntu:35983/
+[rosmaster.master][INFO] 2021-05-20 11:34:12,974: +SERVICE [/camera/left/compressedDepth/set_parameters] /rec_node_left http://ubuntu:35983/
+[rosmaster.master][INFO] 2021-05-20 11:34:12,975: +PUB [/camera/left/compressedDepth/parameter_descriptions] /rec_node_left http://ubuntu:35983/
+[rosmaster.master][INFO] 2021-05-20 11:34:12,975: +PUB [/camera/left/compressedDepth/parameter_updates] /rec_node_left http://ubuntu:35983/
+[rosmaster.master][INFO] 2021-05-20 11:34:12,981: +PARAM [/camera/left/compressedDepth/depth_max] by /rec_node_left
+[rosmaster.master][INFO] 2021-05-20 11:34:12,981: +PARAM [/camera/left/compressedDepth/depth_quantization] by /rec_node_left
+[rosmaster.master][INFO] 2021-05-20 11:34:12,982: +PARAM [/camera/left/compressedDepth/png_level] by /rec_node_left
+[rosmaster.master][INFO] 2021-05-20 11:34:12,982: +PARAM [/camera/left/compressedDepth/depth_max] by /rec_node_left
+[rosmaster.master][INFO] 2021-05-20 11:34:12,983: +PARAM [/camera/left/compressedDepth/depth_quantization] by /rec_node_left
+[rosmaster.master][INFO] 2021-05-20 11:34:12,983: +PARAM [/camera/left/compressedDepth/png_level] by /rec_node_left
+[rosmaster.master][INFO] 2021-05-20 11:34:12,988: +PUB [/camera/left/compressed] /rec_node_left http://ubuntu:35983/
+[rosmaster.master][INFO] 2021-05-20 11:34:12,989: +SERVICE [/camera/left/compressed/set_parameters] /rec_node_left http://ubuntu:35983/
+[rosmaster.master][INFO] 2021-05-20 11:34:12,990: +PUB [/camera/left/compressed/parameter_descriptions] /rec_node_left http://ubuntu:35983/
+[rosmaster.master][INFO] 2021-05-20 11:34:12,991: +PUB [/camera/left/compressed/parameter_updates] /rec_node_left http://ubuntu:35983/
+[rosmaster.master][INFO] 2021-05-20 11:34:12,997: +PARAM [/camera/left/compressed/format] by /rec_node_left
+[rosmaster.master][INFO] 2021-05-20 11:34:12,998: +PARAM [/camera/left/compressed/jpeg_quality] by /rec_node_left
+[rosmaster.master][INFO] 2021-05-20 11:34:12,998: +PARAM [/camera/left/compressed/png_level] by /rec_node_left
+[rosmaster.master][INFO] 2021-05-20 11:34:12,999: +PARAM [/camera/left/compressed/format] by /rec_node_left
+[rosmaster.master][INFO] 2021-05-20 11:34:13,000: +PARAM [/camera/left/compressed/jpeg_quality] by /rec_node_left
+[rosmaster.master][INFO] 2021-05-20 11:34:13,000: +PARAM [/camera/left/compressed/png_level] by /rec_node_left
+[rosmaster.master][INFO] 2021-05-20 11:34:13,007: +PUB [/camera/left] /rec_node_left http://ubuntu:35983/
+[rosmaster.master][INFO] 2021-05-20 11:34:13,039: +PUB [/camera/left/theora] /rec_node_left http://ubuntu:35983/
+[rosmaster.master][INFO] 2021-05-20 11:34:13,039: +SERVICE [/camera/left/theora/set_parameters] /rec_node_left http://ubuntu:35983/
+[rosmaster.master][INFO] 2021-05-20 11:34:13,040: +PUB [/camera/left/theora/parameter_descriptions] /rec_node_left http://ubuntu:35983/
+[rosmaster.master][INFO] 2021-05-20 11:34:13,040: +PUB [/camera/left/theora/parameter_updates] /rec_node_left http://ubuntu:35983/
+[rosmaster.master][INFO] 2021-05-20 11:34:13,043: +PARAM [/camera/left/theora/optimize_for] by /rec_node_left
+[rosmaster.master][INFO] 2021-05-20 11:34:13,043: +PARAM [/camera/left/theora/target_bitrate] by /rec_node_left
+[rosmaster.master][INFO] 2021-05-20 11:34:13,044: +PARAM [/camera/left/theora/quality] by /rec_node_left
+[rosmaster.master][INFO] 2021-05-20 11:34:13,044: +PARAM [/camera/left/theora/keyframe_frequency] by /rec_node_left
+[rosmaster.master][INFO] 2021-05-20 11:34:13,045: +PARAM [/camera/left/theora/optimize_for] by /rec_node_left
+[rosmaster.master][INFO] 2021-05-20 11:34:13,048: +PARAM [/camera/left/theora/target_bitrate] by /rec_node_left
+[rosmaster.master][INFO] 2021-05-20 11:34:13,049: +PARAM [/camera/left/theora/quality] by /rec_node_left
+[rosmaster.master][INFO] 2021-05-20 11:34:13,050: +PARAM [/camera/left/theora/keyframe_frequency] by /rec_node_left
+[rosmaster.master][INFO] 2021-05-20 11:34:20,628: +PARAM [/roslaunch/uris/host_ubuntu__45397] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:20,632: +PARAM [/obj_control/mav_z] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:20,632: +PARAM [/rosdistro] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:20,632: +PARAM [/obj_control/mav_y] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:20,632: +PARAM [/obj_control/ip] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:20,632: +PARAM [/obj_control/mav_x] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:20,632: +PARAM [/rosversion] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:25,940: +PARAM [/roslaunch/uris/host_ubuntu__33765] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:25,942: +PARAM [/rosversion] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:25,942: +PARAM [/rosdistro] by /roslaunch
+[rosmaster.master][INFO] 2021-05-20 11:34:31,255: +PUB [/rosout] /ekf_node http://ubuntu:43425/
+[rosmaster.master][INFO] 2021-05-20 11:34:31,256: +SERVICE [/ekf_node/get_loggers] /ekf_node http://ubuntu:43425/
+[rosmaster.master][INFO] 2021-05-20 11:34:31,257: +SERVICE [/ekf_node/set_logger_level] /ekf_node http://ubuntu:43425/
+[rosmaster.master][INFO] 2021-05-20 11:34:31,287: publisherUpdate[/rosout] -> http://ubuntu:33987/ ['http://ubuntu:44855/', 'http://ubuntu:35983/', 'http://ubuntu:43425/']
+[rosmaster.master][INFO] 2021-05-20 11:34:31,289: publisherUpdate[/rosout] -> http://ubuntu:33987/ ['http://ubuntu:44855/', 'http://ubuntu:35983/', 'http://ubuntu:43425/']: sec=0.00, result=[1, '', 0]
+[rosmaster.master][INFO] 2021-05-20 11:34:31,294: +SUB [/mavros/local_position/pose] /ekf_node http://ubuntu:43425/
+[rosmaster.master][INFO] 2021-05-20 11:34:31,329: +SUB [/mavros/local_position/velocity_local] /ekf_node http://ubuntu:43425/
+[rosmaster.master][INFO] 2021-05-20 11:34:31,331: +SUB [/mavros/imu/data] /ekf_node http://ubuntu:43425/
+[rosmaster.master][INFO] 2021-05-20 11:34:31,334: +SUB [/tracker/pos_image] /ekf_node http://ubuntu:43425/
+[rosmaster.master][INFO] 2021-05-20 11:34:31,342: +SUB [/camera/left/compressed] /ekf_node http://ubuntu:43425/
+[rosmaster.master][INFO] 2021-05-20 11:34:31,343: +PUB [/tracker/pos_image_ekf] /ekf_node http://ubuntu:43425/
+[rosmaster.master][INFO] 2021-05-20 11:34:35,334: +PUB [/rosout] /obj_control http://ubuntu:35163/
+[rosmaster.master][INFO] 2021-05-20 11:34:35,343: +SERVICE [/obj_control/get_loggers] /obj_control http://ubuntu:35163/
+[rosmaster.master][INFO] 2021-05-20 11:34:35,344: publisherUpdate[/rosout] -> http://ubuntu:33987/ ['http://ubuntu:44855/', 'http://ubuntu:35983/', 'http://ubuntu:43425/', 'http://ubuntu:35163/']
+[rosmaster.master][INFO] 2021-05-20 11:34:35,346: publisherUpdate[/rosout] -> http://ubuntu:33987/ ['http://ubuntu:44855/', 'http://ubuntu:35983/', 'http://ubuntu:43425/', 'http://ubuntu:35163/']: sec=0.00, result=[1, '', 0]
+[rosmaster.master][INFO] 2021-05-20 11:34:35,349: +SERVICE [/obj_control/set_logger_level] /obj_control http://ubuntu:35163/
+[rosmaster.master][INFO] 2021-05-20 11:34:35,356: +SUB [/ue4_ros/obj] /obj_control http://ubuntu:35163/
+[rosmaster.master][INFO] 2021-05-20 11:34:37,552: +PUB [/tracker/pos_image] /img_pub http://ubuntu:40605/
+[rosmaster.master][INFO] 2021-05-20 11:34:37,598: publisherUpdate[/tracker/pos_image] -> http://ubuntu:43425/ ['http://ubuntu:40605/']
+[rosmaster.master][INFO] 2021-05-20 11:34:37,599: publisherUpdate[/tracker/pos_image] -> http://ubuntu:43425/ ['http://ubuntu:40605/']: sec=0.00, result=[1, '', 0]
+[rosmaster.master][INFO] 2021-05-20 11:34:37,648: +PUB [/rosout] /img_pub http://ubuntu:40605/
+[rosmaster.master][INFO] 2021-05-20 11:34:37,653: +SERVICE [/img_pub/get_loggers] /img_pub http://ubuntu:40605/
+[rosmaster.master][INFO] 2021-05-20 11:34:37,657: +SERVICE [/img_pub/set_logger_level] /img_pub http://ubuntu:40605/
+[rosmaster.master][INFO] 2021-05-20 11:34:37,660: +SUB [/camera/left/compressed] /img_pub http://ubuntu:40605/
+[rosmaster.master][INFO] 2021-05-20 11:34:37,699: publisherUpdate[/rosout] -> http://ubuntu:33987/ ['http://ubuntu:44855/', 'http://ubuntu:35983/', 'http://ubuntu:43425/', 'http://ubuntu:35163/', 'http://ubuntu:40605/']
+[rosmaster.master][INFO] 2021-05-20 11:34:37,700: publisherUpdate[/rosout] -> http://ubuntu:33987/ ['http://ubuntu:44855/', 'http://ubuntu:35983/', 'http://ubuntu:43425/', 'http://ubuntu:35163/', 'http://ubuntu:40605/']: sec=0.00, result=[1, '', 0]
+[rosmaster.master][INFO] 2021-05-20 11:34:41,214: +PUB [/rosout] /main_node http://ubuntu:45685/
+[rosmaster.master][INFO] 2021-05-20 11:34:41,219: +SERVICE [/main_node/get_loggers] /main_node http://ubuntu:45685/
+[rosmaster.master][INFO] 2021-05-20 11:34:41,220: +SERVICE [/main_node/set_logger_level] /main_node http://ubuntu:45685/
+[rosmaster.master][INFO] 2021-05-20 11:34:41,221: publisherUpdate[/rosout] -> http://ubuntu:33987/ ['http://ubuntu:44855/', 'http://ubuntu:35983/', 'http://ubuntu:43425/', 'http://ubuntu:35163/', 'http://ubuntu:40605/', 'http://ubuntu:45685/']
+[rosmaster.master][INFO] 2021-05-20 11:34:41,222: publisherUpdate[/rosout] -> http://ubuntu:33987/ ['http://ubuntu:44855/', 'http://ubuntu:35983/', 'http://ubuntu:43425/', 'http://ubuntu:35163/', 'http://ubuntu:40605/', 'http://ubuntu:45685/']: sec=0.00, result=[1, '', 0]
+[rosmaster.master][INFO] 2021-05-20 11:34:41,223: +SUB [/mavros/state] /main_node http://ubuntu:45685/
+[rosmaster.master][INFO] 2021-05-20 11:34:41,224: +SUB [/mavros/local_position/pose] /main_node http://ubuntu:45685/
+[rosmaster.master][INFO] 2021-05-20 11:34:41,229: +SUB [/mavros/local_position/velocity_local] /main_node http://ubuntu:45685/
+[rosmaster.master][INFO] 2021-05-20 11:34:41,231: +PUB [/ue4_ros/obj] /main_node http://ubuntu:45685/
+[rosmaster.master][INFO] 2021-05-20 11:34:41,322: publisherUpdate[/ue4_ros/obj] -> http://ubuntu:35163/ ['http://ubuntu:45685/']
+[rosmaster.master][INFO] 2021-05-20 11:34:41,323: publisherUpdate[/ue4_ros/obj] -> http://ubuntu:35163/ ['http://ubuntu:45685/']: sec=0.00, result=[1, '', 0]
+[rosmaster.master][INFO] 2021-05-20 11:34:41,551: +SUB [/tracker/pos_image] /main_node http://ubuntu:45685/
+[rosmaster.master][INFO] 2021-05-20 11:34:41,555: +SUB [/tracker/pos_image_ekf] /main_node http://ubuntu:45685/
+[rosmaster.master][INFO] 2021-05-20 11:34:41,556: +PUB [/mavros/setpoint_velocity/cmd_vel] /main_node http://ubuntu:45685/
+[rosmaster.master][INFO] 2021-05-20 11:34:41,624: publisherUpdate[/mavros/setpoint_velocity/cmd_vel] -> http://ubuntu:44855/ ['http://ubuntu:45685/']
+[rosmaster.master][INFO] 2021-05-20 11:34:41,626: publisherUpdate[/mavros/setpoint_velocity/cmd_vel] -> http://ubuntu:44855/ ['http://ubuntu:45685/']: sec=0.00, result=[1, '', 0]
+[rosmaster.master][INFO] 2021-05-20 11:35:13,282: -SUB [/ue4_ros/obj] /obj_control http://ubuntu:35163/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,282: -PUB [/rosout] /obj_control http://ubuntu:35163/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,282: -SERVICE [/obj_control/set_logger_level] /obj_control rosrpc://ubuntu:34049
+[rosmaster.master][INFO] 2021-05-20 11:35:13,283: -SERVICE [/obj_control/get_loggers] /obj_control rosrpc://ubuntu:34049
+[rosmaster.master][INFO] 2021-05-20 11:35:13,294: publisherUpdate[/rosout] -> http://ubuntu:33987/ ['http://ubuntu:44855/', 'http://ubuntu:35983/', 'http://ubuntu:43425/', 'http://ubuntu:40605/', 'http://ubuntu:45685/']
+[rosmaster.master][INFO] 2021-05-20 11:35:13,297: publisherUpdate[/rosout] -> http://ubuntu:33987/ ['http://ubuntu:44855/', 'http://ubuntu:35983/', 'http://ubuntu:43425/', 'http://ubuntu:40605/', 'http://ubuntu:45685/']: sec=0.00, result=[1, '', 0]
+[rosmaster.master][INFO] 2021-05-20 11:35:13,304: -SUB [/mavros/state] /main_node http://ubuntu:45685/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,304: -SUB [/tracker/pos_image_ekf] /main_node http://ubuntu:45685/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,304: -SUB [/mavros/local_position/pose] /main_node http://ubuntu:45685/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,304: -SUB [/tracker/pos_image] /main_node http://ubuntu:45685/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,305: -SUB [/mavros/local_position/velocity_local] /main_node http://ubuntu:45685/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,305: -PUB [/ue4_ros/obj] /main_node http://ubuntu:45685/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,305: -PUB [/rosout] /main_node http://ubuntu:45685/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,305: -PUB [/mavros/setpoint_velocity/cmd_vel] /main_node http://ubuntu:45685/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,305: -SERVICE [/main_node/get_loggers] /main_node rosrpc://ubuntu:41515
+[rosmaster.master][INFO] 2021-05-20 11:35:13,306: -SERVICE [/main_node/set_logger_level] /main_node rosrpc://ubuntu:41515
+[rosmaster.master][INFO] 2021-05-20 11:35:13,313: -SUB [/camera/left/compressed] /img_pub http://ubuntu:40605/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,313: -PUB [/tracker/pos_image] /img_pub http://ubuntu:40605/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,313: -PUB [/rosout] /img_pub http://ubuntu:40605/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,313: -SERVICE [/img_pub/get_loggers] /img_pub rosrpc://ubuntu:40683
+[rosmaster.master][INFO] 2021-05-20 11:35:13,314: -SERVICE [/img_pub/set_logger_level] /img_pub rosrpc://ubuntu:40683
+[rosmaster.master][INFO] 2021-05-20 11:35:13,377: publisherUpdate[/rosout] -> http://ubuntu:33987/ ['http://ubuntu:44855/', 'http://ubuntu:35983/', 'http://ubuntu:43425/', 'http://ubuntu:40605/']
+[rosmaster.master][INFO] 2021-05-20 11:35:13,377: publisherUpdate[/rosout] -> http://ubuntu:33987/ ['http://ubuntu:44855/', 'http://ubuntu:35983/', 'http://ubuntu:43425/', 'http://ubuntu:40605/']: sec=0.00, result=[1, '', 0]
+[rosmaster.master][INFO] 2021-05-20 11:35:13,377: publisherUpdate[/mavros/setpoint_velocity/cmd_vel] -> http://ubuntu:44855/ []
+[rosmaster.master][INFO] 2021-05-20 11:35:13,380: publisherUpdate[/mavros/setpoint_velocity/cmd_vel] -> http://ubuntu:44855/ []: sec=0.00, result=[1, '', 0]
+[rosmaster.master][INFO] 2021-05-20 11:35:13,380: publisherUpdate[/tracker/pos_image] -> http://ubuntu:43425/ []
+[rosmaster.master][INFO] 2021-05-20 11:35:13,380: publisherUpdate[/rosout] -> http://ubuntu:33987/ ['http://ubuntu:44855/', 'http://ubuntu:35983/', 'http://ubuntu:43425/']
+[rosmaster.master][INFO] 2021-05-20 11:35:13,381: publisherUpdate[/rosout] -> http://ubuntu:33987/ ['http://ubuntu:44855/', 'http://ubuntu:35983/', 'http://ubuntu:43425/']: sec=0.00, result=[1, '', 0]
+[rosmaster.master][INFO] 2021-05-20 11:35:13,383: publisherUpdate[/tracker/pos_image] -> http://ubuntu:43425/ []: sec=0.00, result=[0, 'Unknown Error', 0]
+[rosmaster.master][INFO] 2021-05-20 11:35:13,384: -PUB [/rosout] /rec_node_left http://ubuntu:35983/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,386: -PUB [/camera/left/compressedDepth] /rec_node_left http://ubuntu:35983/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,387: -PUB [/camera/left/compressedDepth/parameter_descriptions] /rec_node_left http://ubuntu:35983/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,388: -PUB [/camera/left/compressedDepth/parameter_updates] /rec_node_left http://ubuntu:35983/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,389: -PUB [/camera/left/compressed] /rec_node_left http://ubuntu:35983/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,390: -PUB [/camera/left/compressed/parameter_descriptions] /rec_node_left http://ubuntu:35983/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,391: -PUB [/camera/left/compressed/parameter_updates] /rec_node_left http://ubuntu:35983/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,391: -PUB [/camera/left] /rec_node_left http://ubuntu:35983/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,392: -PUB [/camera/left/theora] /rec_node_left http://ubuntu:35983/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,393: -PUB [/camera/left/theora/parameter_descriptions] /rec_node_left http://ubuntu:35983/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,393: -PUB [/camera/left/theora/parameter_updates] /rec_node_left http://ubuntu:35983/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,394: -SERVICE [/rec_node_left/get_loggers] /rec_node_left rosrpc://ubuntu:50009
+[rosmaster.master][INFO] 2021-05-20 11:35:13,394: -SERVICE [/rec_node_left/set_logger_level] /rec_node_left rosrpc://ubuntu:50009
+[rosmaster.master][INFO] 2021-05-20 11:35:13,395: -SERVICE [/camera/left/compressedDepth/set_parameters] /rec_node_left rosrpc://ubuntu:50009
+[rosmaster.master][INFO] 2021-05-20 11:35:13,395: -SERVICE [/camera/left/compressed/set_parameters] /rec_node_left rosrpc://ubuntu:50009
+[rosmaster.master][INFO] 2021-05-20 11:35:13,395: -SERVICE [/camera/left/theora/set_parameters] /rec_node_left rosrpc://ubuntu:50009
+[rosmaster.master][INFO] 2021-05-20 11:35:13,398: publisherUpdate[/rosout] -> http://ubuntu:33987/ ['http://ubuntu:44855/', 'http://ubuntu:43425/']
+[rosmaster.master][INFO] 2021-05-20 11:35:13,398: publisherUpdate[/rosout] -> http://ubuntu:33987/ ['http://ubuntu:44855/', 'http://ubuntu:43425/']: sec=0.00, result=[1, '', 0]
+[rosmaster.master][INFO] 2021-05-20 11:35:13,398: publisherUpdate[/camera/left/compressed] -> http://ubuntu:43425/ []
+[rosmaster.master][INFO] 2021-05-20 11:35:13,399: publisherUpdate[/camera/left/compressed] -> http://ubuntu:43425/ []: sec=0.00, result=[0, 'Unknown Error', 0]
+[rosmaster.master][INFO] 2021-05-20 11:35:13,483: -PUB [/rosout] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,484: publisherUpdate[/rosout] -> http://ubuntu:33987/ ['http://ubuntu:43425/']
+[rosmaster.master][INFO] 2021-05-20 11:35:13,484: publisherUpdate[/rosout] -> http://ubuntu:33987/ ['http://ubuntu:43425/']: sec=0.00, result=[1, '', 0]
+[rosmaster.master][INFO] 2021-05-20 11:35:13,485: -PUB [/diagnostics] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,486: -PUB [/tf] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,486: -PUB [/tf_static] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,489: -PUB [/mavlink/from] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,492: -PUB [/mavros/radio_status] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,493: -PUB [/mavros/target_actuator_control] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,493: -PUB [/mavros/adsb/vehicle] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,494: -PUB [/mavros/altitude] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,495: -PUB [/mavros/cam_imu_sync/cam_imu_stamp] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,499: publisherUpdate[/tf] -> http://ubuntu:44855/ []
+[rosmaster.master][INFO] 2021-05-20 11:35:13,500: publisherUpdate[/tf] -> http://ubuntu:44855/ []: sec=0.00, exception=<Fault -1: 'publisherUpdate: unknown method name'>
+[rosmaster.master][INFO] 2021-05-20 11:35:13,505: -PUB [/rosout] /ekf_node http://ubuntu:43425/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,506: -PUB [/tracker/pos_image_ekf] /ekf_node http://ubuntu:43425/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,506: -SUB [/mavros/local_position/pose] /ekf_node http://ubuntu:43425/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,507: -SUB [/mavros/local_position/velocity_local] /ekf_node http://ubuntu:43425/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,507: -SUB [/mavros/imu/data] /ekf_node http://ubuntu:43425/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,508: -PUB [/mavros/debug_value/debug] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,509: -SUB [/tracker/pos_image] /ekf_node http://ubuntu:43425/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,510: -SUB [/camera/left/compressed] /ekf_node http://ubuntu:43425/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,511: -SERVICE [/ekf_node/get_loggers] /ekf_node rosrpc://ubuntu:45837
+[rosmaster.master][INFO] 2021-05-20 11:35:13,513: -PUB [/mavros/debug_value/debug_vector] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,514: -SERVICE [/ekf_node/set_logger_level] /ekf_node rosrpc://ubuntu:45837
+[rosmaster.master][INFO] 2021-05-20 11:35:13,515: -PUB [/mavros/debug_value/named_value_float] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,516: -PUB [/mavros/debug_value/named_value_int] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,517: -PUB [/mavros/esc_info] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,519: -PUB [/mavros/esc_status] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,519: -PUB [/mavros/global_position/raw/fix] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,521: -PUB [/mavros/global_position/raw/gps_vel] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,523: -PUB [/mavros/global_position/raw/satellites] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,525: -PUB [/mavros/global_position/global] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,526: -PUB [/mavros/global_position/local] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,527: -PUB [/mavros/global_position/rel_alt] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,528: -PUB [/mavros/global_position/compass_hdg] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,529: -PUB [/mavros/global_position/gp_origin] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,530: -PUB [/mavros/global_position/gp_lp_offset] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,531: -PUB [/mavros/gps_rtk/rtk_baseline] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,532: -PUB [/mavros/gpsstatus/gps1/raw] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,532: -PUB [/mavros/gpsstatus/gps2/raw] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,533: -PUB [/mavros/gpsstatus/gps1/rtk] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,533: -PUB [/mavros/gpsstatus/gps2/rtk] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,534: -PUB [/mavros/hil/controls] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,534: -PUB [/mavros/hil/actuator_controls] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,535: -PUB [/mavros/home_position/home] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,536: -PUB [/mavros/imu/data] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,537: -PUB [/mavros/imu/mag] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,540: -PUB [/mavros/imu/temperature_imu] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,541: -PUB [/mavros/imu/temperature_baro] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,541: -PUB [/mavros/imu/static_pressure] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,542: -PUB [/mavros/imu/diff_pressure] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,543: -PUB [/mavros/imu/data_raw] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,543: -PUB [/mavros/landing_target/pose_in] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,544: -PUB [/mavros/landing_target/lt_marker] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,546: -PUB [/mavros/local_position/pose] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,547: -PUB [/mavros/local_position/pose_cov] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,547: -PUB [/mavros/local_position/velocity_local] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,548: -PUB [/mavros/local_position/velocity_body] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,549: -PUB [/mavros/local_position/velocity_body_cov] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,549: -PUB [/mavros/local_position/accel] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,553: -PUB [/mavros/local_position/odom] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,556: -PUB [/mavros/log_transfer/raw/log_entry] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,557: -PUB [/mavros/log_transfer/raw/log_data] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,558: -PUB [/mavros/manual_control/control] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,560: -PUB [/mavros/mount_control/orientation] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,564: -PUB [/mavros/odometry/in] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,565: -PUB [/mavros/param/param_value] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,566: -PUB [/mavros/px4flow/raw/optical_flow_rad] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,567: -PUB [/mavros/px4flow/ground_distance] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,567: -PUB [/mavros/px4flow/temperature] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,569: -PUB [/mavros/rc/in] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,572: -PUB [/mavros/rc/out] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,573: -PUB [/mavros/setpoint_raw/target_local] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,574: -PUB [/mavros/setpoint_raw/target_global] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,575: -PUB [/mavros/setpoint_raw/target_attitude] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,576: -PUB [/mavros/setpoint_trajectory/desired] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,577: -PUB [/mavros/state] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,579: -PUB [/mavros/extended_state] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,581: -PUB [/mavros/battery] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,582: publisherUpdate[/tf_static] -> http://ubuntu:44855/ []
+[rosmaster.master][INFO] 2021-05-20 11:35:13,582: -PUB [/mavros/estimator_status] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,583: publisherUpdate[/tf_static] -> http://ubuntu:44855/ []: sec=0.00, exception=<Fault -1: 'publisherUpdate: unknown method name'>
+[rosmaster.master][INFO] 2021-05-20 11:35:13,583: -PUB [/mavros/statustext/recv] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,584: -PUB [/mavros/time_reference] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,585: publisherUpdate[/rosout] -> http://ubuntu:33987/ []
+[rosmaster.master][INFO] 2021-05-20 11:35:13,585: publisherUpdate[/rosout] -> http://ubuntu:33987/ []: sec=0.00, result=[1, '', 0]
+[rosmaster.master][INFO] 2021-05-20 11:35:13,585: publisherUpdate[/mavros/global_position/global] -> http://ubuntu:44855/ []
+[rosmaster.master][INFO] 2021-05-20 11:35:13,586: -PUB [/mavros/timesync_status] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,586: publisherUpdate[/mavros/global_position/global] -> http://ubuntu:44855/ []: sec=0.00, exception=<Fault -1: 'publisherUpdate: unknown method name'>
+[rosmaster.threadpool][ERROR] 2021-05-20 11:35:13,587: Traceback (most recent call last):
+  File "/opt/ros/melodic/lib/python2.7/dist-packages/rosmaster/threadpool.py", line 218, in run
+    result = cmd(*args)
+  File "/opt/ros/melodic/lib/python2.7/dist-packages/rosmaster/master_api.py", line 210, in publisher_update_task
+    ret = xmlrpcapi(api).publisherUpdate('/master', topic, pub_uris)
+  File "/usr/lib/python2.7/xmlrpclib.py", line 1243, in __call__
+    return self.__send(self.__name, args)
+  File "/usr/lib/python2.7/xmlrpclib.py", line 1602, in __request
+    verbose=self.__verbose
+  File "/usr/lib/python2.7/xmlrpclib.py", line 1283, in request
+    return self.single_request(host, handler, request_body, verbose)
+  File "/usr/lib/python2.7/xmlrpclib.py", line 1316, in single_request
+    return self.parse_response(response)
+  File "/usr/lib/python2.7/xmlrpclib.py", line 1493, in parse_response
+    return u.close()
+  File "/usr/lib/python2.7/xmlrpclib.py", line 800, in close
+    raise Fault(**self._stack[0])
+Fault: <Fault -1: 'publisherUpdate: unknown method name'>
+
+[rosmaster.master][INFO] 2021-05-20 11:35:13,587: publisherUpdate[/mavros/local_position/pose] -> http://ubuntu:44855/ []
+[rosmaster.threadpool][ERROR] 2021-05-20 11:35:13,588: Traceback (most recent call last):
+  File "/opt/ros/melodic/lib/python2.7/dist-packages/rosmaster/threadpool.py", line 218, in run
+    result = cmd(*args)
+  File "/opt/ros/melodic/lib/python2.7/dist-packages/rosmaster/master_api.py", line 210, in publisher_update_task
+    ret = xmlrpcapi(api).publisherUpdate('/master', topic, pub_uris)
+  File "/usr/lib/python2.7/xmlrpclib.py", line 1243, in __call__
+    return self.__send(self.__name, args)
+  File "/usr/lib/python2.7/xmlrpclib.py", line 1602, in __request
+    verbose=self.__verbose
+  File "/usr/lib/python2.7/xmlrpclib.py", line 1283, in request
+    return self.single_request(host, handler, request_body, verbose)
+  File "/usr/lib/python2.7/xmlrpclib.py", line 1316, in single_request
+    return self.parse_response(response)
+  File "/usr/lib/python2.7/xmlrpclib.py", line 1493, in parse_response
+    return u.close()
+  File "/usr/lib/python2.7/xmlrpclib.py", line 800, in close
+    raise Fault(**self._stack[0])
+Fault: <Fault -1: 'publisherUpdate: unknown method name'>
+
+[rosmaster.master][INFO] 2021-05-20 11:35:13,588: -PUB [/mavros/trajectory/desired] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,589: publisherUpdate[/mavros/local_position/pose] -> http://ubuntu:44855/ []: sec=0.00, exception=<Fault -1: 'publisherUpdate: unknown method name'>
+[rosmaster.threadpool][ERROR] 2021-05-20 11:35:13,589: Traceback (most recent call last):
+  File "/opt/ros/melodic/lib/python2.7/dist-packages/rosmaster/threadpool.py", line 218, in run
+    result = cmd(*args)
+  File "/opt/ros/melodic/lib/python2.7/dist-packages/rosmaster/master_api.py", line 210, in publisher_update_task
+    ret = xmlrpcapi(api).publisherUpdate('/master', topic, pub_uris)
+  File "/usr/lib/python2.7/xmlrpclib.py", line 1243, in __call__
+    return self.__send(self.__name, args)
+  File "/usr/lib/python2.7/xmlrpclib.py", line 1602, in __request
+    verbose=self.__verbose
+  File "/usr/lib/python2.7/xmlrpclib.py", line 1283, in request
+    return self.single_request(host, handler, request_body, verbose)
+  File "/usr/lib/python2.7/xmlrpclib.py", line 1316, in single_request
+    return self.parse_response(response)
+  File "/usr/lib/python2.7/xmlrpclib.py", line 1493, in parse_response
+    return u.close()
+  File "/usr/lib/python2.7/xmlrpclib.py", line 800, in close
+    raise Fault(**self._stack[0])
+Fault: <Fault -1: 'publisherUpdate: unknown method name'>
+
+[rosmaster.threadpool][ERROR] 2021-05-20 11:35:13,591: Traceback (most recent call last):
+  File "/opt/ros/melodic/lib/python2.7/dist-packages/rosmaster/threadpool.py", line 218, in run
+    result = cmd(*args)
+  File "/opt/ros/melodic/lib/python2.7/dist-packages/rosmaster/master_api.py", line 210, in publisher_update_task
+    ret = xmlrpcapi(api).publisherUpdate('/master', topic, pub_uris)
+  File "/usr/lib/python2.7/xmlrpclib.py", line 1243, in __call__
+    return self.__send(self.__name, args)
+  File "/usr/lib/python2.7/xmlrpclib.py", line 1602, in __request
+    verbose=self.__verbose
+  File "/usr/lib/python2.7/xmlrpclib.py", line 1283, in request
+    return self.single_request(host, handler, request_body, verbose)
+  File "/usr/lib/python2.7/xmlrpclib.py", line 1316, in single_request
+    return self.parse_response(response)
+  File "/usr/lib/python2.7/xmlrpclib.py", line 1493, in parse_response
+    return u.close()
+  File "/usr/lib/python2.7/xmlrpclib.py", line 800, in close
+    raise Fault(**self._stack[0])
+Fault: <Fault -1: 'publisherUpdate: unknown method name'>
+
+[rosmaster.master][INFO] 2021-05-20 11:35:13,591: -PUB [/mavros/vfr_hud] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,593: -PUB [/mavros/mission/waypoints] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,594: -PUB [/mavros/mission/reached] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,597: -PUB [/mavros/wind_estimation] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,598: -SUB [/tf] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,598: -SUB [/tf_static] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,599: -SUB [/mavlink/to] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,600: -SUB [/mavros/actuator_control] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,601: -SUB [/mavros/adsb/send] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,602: -SUB [/mavros/companion_process/status] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,603: -SUB [/mavros/debug_value/send] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,604: -SUB [/mavros/fake_gps/mocap/tf] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,605: -SUB [/mavros/global_position/set_gp_origin] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,606: -SUB [/mavros/global_position/home] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,606: -SUB [/mavros/gps_rtk/send_rtcm] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,607: -SUB [/mavros/hil/state] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,608: -SUB [/mavros/hil/gps] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,609: -SUB [/mavros/hil/imu_ned] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,609: -SUB [/mavros/hil/optical_flow] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,610: -SUB [/mavros/hil/rc_inputs] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,611: -SUB [/mavros/home_position/set] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,612: -SUB [/mavros/landing_target/pose] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,612: -SUB [/mavros/manual_control/send] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,613: -SUB [/mavros/mocap/pose] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,613: -SUB [/mavros/mount_control/command] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,614: -SUB [/mavros/obstacle/send] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,614: -SUB [/mavros/odometry/out] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,615: -SUB [/mavros/onboard_computer/status] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,615: -SUB [/mavros/px4flow/raw/send] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,615: -SUB [/mavros/rc/override] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,616: -SUB [/mavros/setpoint_accel/accel] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,616: -SUB [/mavros/setpoint_attitude/thrust] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,617: -SUB [/mavros/setpoint_attitude/cmd_vel] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,617: -SUB [/mavros/setpoint_position/local] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,618: -SUB [/mavros/setpoint_position/global] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,620: -SUB [/mavros/setpoint_position/global_to_local] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,621: -SUB [/mavros/global_position/global] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,625: -SUB [/mavros/local_position/pose] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,626: -SUB [/mavros/setpoint_raw/local] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,626: -SUB [/mavros/setpoint_raw/global] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,627: -SUB [/mavros/setpoint_raw/attitude] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,627: -SUB [/mavros/setpoint_trajectory/local] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,627: -SUB [/mavros/setpoint_velocity/cmd_vel] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,627: -SUB [/mavros/setpoint_velocity/cmd_vel_unstamped] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,628: -SUB [/mavros/statustext/send] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,628: -SUB [/mavros/trajectory/generated] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,628: -SUB [/mavros/trajectory/path] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,629: -SUB [/mavros/vision_pose/pose] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,629: -SUB [/mavros/vision_pose/pose_cov] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,629: -SUB [/mavros/vision_speed/speed_twist_cov] /mavros http://ubuntu:44855/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,630: -SERVICE [/mavros/get_loggers] /mavros rosrpc://ubuntu:56933
+[rosmaster.master][INFO] 2021-05-20 11:35:13,630: -SERVICE [/mavros/set_logger_level] /mavros rosrpc://ubuntu:56933
+[rosmaster.master][INFO] 2021-05-20 11:35:13,630: -SERVICE [/mavros/cmd/command] /mavros rosrpc://ubuntu:56933
+[rosmaster.master][INFO] 2021-05-20 11:35:13,631: -SERVICE [/mavros/cmd/command_int] /mavros rosrpc://ubuntu:56933
+[rosmaster.master][INFO] 2021-05-20 11:35:13,631: -SERVICE [/mavros/cmd/arming] /mavros rosrpc://ubuntu:56933
+[rosmaster.master][INFO] 2021-05-20 11:35:13,631: -SERVICE [/mavros/cmd/set_home] /mavros rosrpc://ubuntu:56933
+[rosmaster.master][INFO] 2021-05-20 11:35:13,631: -SERVICE [/mavros/cmd/takeoff] /mavros rosrpc://ubuntu:56933
+[rosmaster.master][INFO] 2021-05-20 11:35:13,632: -SERVICE [/mavros/cmd/land] /mavros rosrpc://ubuntu:56933
+[rosmaster.master][INFO] 2021-05-20 11:35:13,632: -SERVICE [/mavros/cmd/trigger_control] /mavros rosrpc://ubuntu:56933
+[rosmaster.master][INFO] 2021-05-20 11:35:13,632: -SERVICE [/mavros/cmd/trigger_interval] /mavros rosrpc://ubuntu:56933
+[rosmaster.master][INFO] 2021-05-20 11:35:13,633: -SERVICE [/mavros/cmd/vtol_transition] /mavros rosrpc://ubuntu:56933
+[rosmaster.master][INFO] 2021-05-20 11:35:13,633: -SERVICE [/mavros/ftp/list] /mavros rosrpc://ubuntu:56933
+[rosmaster.master][INFO] 2021-05-20 11:35:13,633: -SERVICE [/mavros/ftp/open] /mavros rosrpc://ubuntu:56933
+[rosmaster.master][INFO] 2021-05-20 11:35:13,634: -SERVICE [/mavros/ftp/close] /mavros rosrpc://ubuntu:56933
+[rosmaster.master][INFO] 2021-05-20 11:35:13,634: -SERVICE [/mavros/ftp/read] /mavros rosrpc://ubuntu:56933
+[rosmaster.master][INFO] 2021-05-20 11:35:13,634: -SERVICE [/mavros/ftp/write] /mavros rosrpc://ubuntu:56933
+[rosmaster.master][INFO] 2021-05-20 11:35:13,635: -SERVICE [/mavros/ftp/mkdir] /mavros rosrpc://ubuntu:56933
+[rosmaster.master][INFO] 2021-05-20 11:35:13,635: -SERVICE [/mavros/ftp/rmdir] /mavros rosrpc://ubuntu:56933
+[rosmaster.master][INFO] 2021-05-20 11:35:13,635: -SERVICE [/mavros/ftp/remove] /mavros rosrpc://ubuntu:56933
+[rosmaster.master][INFO] 2021-05-20 11:35:13,635: -SERVICE [/mavros/ftp/truncate] /mavros rosrpc://ubuntu:56933
+[rosmaster.master][INFO] 2021-05-20 11:35:13,636: -SERVICE [/mavros/ftp/reset] /mavros rosrpc://ubuntu:56933
+[rosmaster.master][INFO] 2021-05-20 11:35:13,636: -SERVICE [/mavros/ftp/rename] /mavros rosrpc://ubuntu:56933
+[rosmaster.master][INFO] 2021-05-20 11:35:13,636: -SERVICE [/mavros/ftp/checksum] /mavros rosrpc://ubuntu:56933
+[rosmaster.master][INFO] 2021-05-20 11:35:13,636: -SERVICE [/mavros/home_position/req_update] /mavros rosrpc://ubuntu:56933
+[rosmaster.master][INFO] 2021-05-20 11:35:13,637: -SERVICE [/mavros/log_transfer/raw/log_request_list] /mavros rosrpc://ubuntu:56933
+[rosmaster.master][INFO] 2021-05-20 11:35:13,637: -SERVICE [/mavros/log_transfer/raw/log_request_data] /mavros rosrpc://ubuntu:56933
+[rosmaster.master][INFO] 2021-05-20 11:35:13,637: -SERVICE [/mavros/log_transfer/raw/log_request_end] /mavros rosrpc://ubuntu:56933
+[rosmaster.master][INFO] 2021-05-20 11:35:13,638: -SERVICE [/mavros/mount_control/configure] /mavros rosrpc://ubuntu:56933
+[rosmaster.master][INFO] 2021-05-20 11:35:13,638: -SERVICE [/mavros/param/pull] /mavros rosrpc://ubuntu:56933
+[rosmaster.master][INFO] 2021-05-20 11:35:13,639: -SERVICE [/mavros/param/push] /mavros rosrpc://ubuntu:56933
+[rosmaster.master][INFO] 2021-05-20 11:35:13,639: -SERVICE [/mavros/param/set] /mavros rosrpc://ubuntu:56933
+[rosmaster.master][INFO] 2021-05-20 11:35:13,641: -SERVICE [/mavros/param/get] /mavros rosrpc://ubuntu:56933
+[rosmaster.master][INFO] 2021-05-20 11:35:13,642: -SERVICE [/mavros/setpoint_position/mav_frame] /mavros rosrpc://ubuntu:56933
+[rosmaster.master][INFO] 2021-05-20 11:35:13,642: -SERVICE [/mavros/setpoint_trajectory/reset] /mavros rosrpc://ubuntu:56933
+[rosmaster.master][INFO] 2021-05-20 11:35:13,642: -SERVICE [/mavros/setpoint_trajectory/mav_frame] /mavros rosrpc://ubuntu:56933
+[rosmaster.master][INFO] 2021-05-20 11:35:13,643: -SERVICE [/mavros/setpoint_velocity/mav_frame] /mavros rosrpc://ubuntu:56933
+[rosmaster.master][INFO] 2021-05-20 11:35:13,643: -SERVICE [/mavros/set_stream_rate] /mavros rosrpc://ubuntu:56933
+[rosmaster.master][INFO] 2021-05-20 11:35:13,643: -SERVICE [/mavros/set_mode] /mavros rosrpc://ubuntu:56933
+[rosmaster.master][INFO] 2021-05-20 11:35:13,644: -SERVICE [/mavros/vehicle_info_get] /mavros rosrpc://ubuntu:56933
+[rosmaster.master][INFO] 2021-05-20 11:35:13,644: -SERVICE [/mavros/set_message_interval] /mavros rosrpc://ubuntu:56933
+[rosmaster.master][INFO] 2021-05-20 11:35:13,644: -SERVICE [/mavros/mission/pull] /mavros rosrpc://ubuntu:56933
+[rosmaster.master][INFO] 2021-05-20 11:35:13,644: -SERVICE [/mavros/mission/push] /mavros rosrpc://ubuntu:56933
+[rosmaster.master][INFO] 2021-05-20 11:35:13,645: -SERVICE [/mavros/mission/clear] /mavros rosrpc://ubuntu:56933
+[rosmaster.master][INFO] 2021-05-20 11:35:13,645: -SERVICE [/mavros/mission/set_current] /mavros rosrpc://ubuntu:56933
+[rosmaster.master][INFO] 2021-05-20 11:35:13,887: -PUB [/rosout_agg] /rosout http://ubuntu:33987/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,887: -SUB [/rosout] /rosout http://ubuntu:33987/
+[rosmaster.master][INFO] 2021-05-20 11:35:13,888: -SERVICE [/rosout/get_loggers] /rosout rosrpc://ubuntu:39647
+[rosmaster.master][INFO] 2021-05-20 11:35:13,889: -SERVICE [/rosout/set_logger_level] /rosout rosrpc://ubuntu:39647
+[rosmaster.main][INFO] 2021-05-20 11:35:13,995: keyboard interrupt, will exit
+[rosmaster.main][INFO] 2021-05-20 11:35:13,995: stopping master...
+[rospy.core][INFO] 2021-05-20 11:35:13,995: signal_shutdown [atexit]
