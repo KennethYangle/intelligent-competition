@@ -30,7 +30,7 @@
 # python draw_trajectory.py
 python 1-draw_trajectory.py
 ```
-![](output\trajectory.svg)
+![](./output/trajectory.svg)
 
 ## 2. Boxplots of control error for EKF 
 画30hz下有无EKF的误差对比箱线图
@@ -38,7 +38,7 @@ python 1-draw_trajectory.py
 # python CEP_with_ekf.py
 python 2-CEP_with_ekf.py
 ```
-![](output\CEP_with_ekf.svg)
+![](./output/CEP_with_ekf.svg)
 
 ## 3. Boxplots of control error for different image frequencies 
 画不同图像频率下误差对比箱线图
@@ -46,7 +46,7 @@ python 2-CEP_with_ekf.py
 # python CEP_with_rate.py
 python 3-CEP_with_rate.py
 ```
-![](output\CEP_with_rate.svg)
+![](./output/CEP_with_rate.svg)
 
 ## 4. Error distribution at 10Hz、30Hz、50Hz 
 画不同图像频率下撞击点散点图和圆概率误差
@@ -54,13 +54,13 @@ python 3-CEP_with_rate.py
 # python scatter_with_rate.py
 python 4-scatter_with_rate.py
 ```
-![](output\scatter_with_rate_10Hz.svg)
+![](./output/scatter_with_rate_10Hz.svg)
 CEP_10Hz: 0.466656341936
 
-![](output\scatter_with_rate_30Hz.svg)
+![](./output/scatter_with_rate_30Hz.svg)
 CEP_30Hz: 0.470425914344
 
-![](output\scatter_with_rate_50Hz.svg)
+![](./output/scatter_with_rate_50Hz.svg)
 CEP_50Hz: 0.4568409922
 
 ## 5. Error distribution with EKF 
@@ -69,7 +69,7 @@ CEP_50Hz: 0.4568409922
 # python scatter_with_ekf.py
 python 5-scatter_with_ekf.py
 ```
-![](output\scatter_with_30Hz_ekf.svg)
+![](./output/scatter_with_30Hz_ekf.svg)
 CEP_30Hz_ekf: 0.39116126392
 
 
@@ -80,7 +80,7 @@ CEP_30Hz_ekf: 0.39116126392
 # python plot_data.py ../datas/377504aa-b91c-11eb-9cde-000c29e163c9/main_node-3-stdout.log mav_pos -p -t "0 10"
 python 6-plot_data.py ../datas/377504aa-b91c-11eb-9cde-000c29e163c9/main_node-3-stdout.log mav_pos -p -t "0 10"
 ```
-![](output\plotxy-sim.svg)
+![](./output/plotxy-sim.svg)
 
 ## 7. Results for HITL simulation. (b) image coordinates
 画仿真中原始和滤波后图像坐标随时间变化图
@@ -88,7 +88,7 @@ python 6-plot_data.py ../datas/377504aa-b91c-11eb-9cde-000c29e163c9/main_node-3-
 # python plot_data.py ../datas/377504aa-b91c-11eb-9cde-000c29e163c9/ekf_node-2-stdout.log IMG_x ekf_x IMG_y ekf_y -t "10 37.5" --subplot 2
 python 7-plot_data.py ../datas/377504aa-b91c-11eb-9cde-000c29e163c9/ekf_node-2-stdout.log IMG_x ekf_x IMG_y ekf_y -t "10 37.5" --subplot 2
 ```
-![](output\subplot-sim.svg)
+![](./output/subplot-sim.svg)
 
 ## 8. Results for HITL simulation. (c) local image coordinates
 画仿真中原始和滤波后图像坐标随时间变化图局部放大图
@@ -96,7 +96,7 @@ python 7-plot_data.py ../datas/377504aa-b91c-11eb-9cde-000c29e163c9/ekf_node-2-s
 # python plot_data.py ../datas/377504aa-b91c-11eb-9cde-000c29e163c9/ekf_node-2-stdout.log IMG_y ekf_y -t "30.2 32.25"
 python 8-plot_data.py ../datas/377504aa-b91c-11eb-9cde-000c29e163c9/ekf_node-2-stdout.log IMG_y ekf_y -t "30.2 32.25"
 ```
-![](output\local-sim.svg)
+![](./output/local-sim.svg)
 
 ## 9. Results for real flight experiments. (a) trajectory
 画实飞中相对目标的全局坐标轨迹图
@@ -104,7 +104,7 @@ python 8-plot_data.py ../datas/377504aa-b91c-11eb-9cde-000c29e163c9/ekf_node-2-s
 # python plot_data.py ../datas/20210521_172502_sim.log mav_pos -t "51 61" -p
 python 9-plot_data.py ../datas/20210521_172502_sim.log mav_pos -t "51 61" -p
 ```
-![](output\plotxy-real.svg)
+![](./output/plotxy-real.svg)
 
 ## 10. Results for HITL simulation. (b) image coordinates
 画实飞中原始和滤波后图像坐标随时间变化图
@@ -112,7 +112,7 @@ python 9-plot_data.py ../datas/20210521_172502_sim.log mav_pos -t "51 61" -p
 # python plot_data.py ../datas/20210521_172502_sim.log IMG_x ekf_x IMG_y ekf_y -t "2 68.4" --subplot 2
 python 10-plot_data.py ../datas/20210521_172502_sim.log IMG_x ekf_x IMG_y ekf_y -t "2 68.4" --subplot 2
 ```
-![](output\subplot-real.svg)
+![](./output/subplot-real.svg)
 
 ## 11. Results for HITL simulation. (c) local image coordinates
 画实飞中原始和滤波后图像坐标随时间变化图局部放大图
@@ -122,8 +122,8 @@ python 10-plot_data.py ../datas/20210521_172502_sim.log IMG_x ekf_x IMG_y ekf_y 
 python 11-plot_data.py ../datas/20210521_172502_sim.log IMG_y ekf_y -t "36.5 41"
 python 11-plot_data.py ../datas/20210521_172502_sim.log IMG_y ekf_y -t "62.5 68.4"
 ```
-![](output\local-real-1.svg)
-![](output\local-real-2.svg)
+![](./output/local-real-1.svg)
+![](./output/local-real-2.svg)
 
 # 三、更多
 ## 1. 总体绘图逻辑
