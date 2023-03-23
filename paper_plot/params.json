@@ -1,0 +1,18 @@
+{
+    "font.size": 6,                 // 全局字号
+    "font.family": "Times New Roman",   // 全局字体
+    "axes.titlesize": 6,            // 坐标系-标题-字号
+    "axes.labelsize": 6,            // 坐标系-标签-字号
+    "legend.fontsize": 6,           // 图例-字号
+    "xtick.labelsize": 6,           // 刻度-标签-字号
+    "ytick.labelsize": 6,           // 刻度-标签-字号
+    "figure.subplot.wspace": 0.2,   // 图-子图-宽度百分比
+    "figure.subplot.hspace": 0.4,   // 图-子图-高度百分比
+    // "axes.spines.right": false,     // 坐标系-右侧线
+    // "axes.spines.top": false,       // 坐标系-上侧线
+    "xtick.direction": "in",        // 刻度-方向
+    "ytick.direction": "in",        // 刻度-方向
+    "axes.grid": true,              // 打开网格
+    "grid.alpha": 0.3,              // transparency, between 0.0 and 1.0
+    "axes.axisbelow": true          // draw axis gridlines and ticks:  - below patches (True)  - above patches but below lines ('line')  - above all (False)
+}
