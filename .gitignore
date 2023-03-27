@@ -10,7 +10,7 @@ devel/
 simulation/log/
 offboard_pkg/log/
 ekf_pkg/log/
-csi_cam/
+# csi_cam/
 data.mat
 *.pyc
 *.bag

@@ -1,6 +1,7 @@
 # 一、运行
 ## 1. 仿真
 修改`settings.json`中`"MODE": "Simulation"`
+    "IsRC": false,
 
 运行
 `./simulation/shell/rfly-sitl.sh`
@@ -9,11 +10,56 @@
 
 ## 2. 实飞
 修改`settings.json`中`"MODE": "RealFlight"`
+    "IsRC": true,
 
 运行
 `./offboard_pkg/shell/all.sh`
 或者
 `./offboard_pkg/shell/all_high.sh`
+
+# 飞行前准备
+
+## 0. 物品清单
+北航
+* 飞机、遥控器、电池
+* 两个三脚架
+* 电脑、硬盘、充电宝、网口、网线
+* 代码备份
+优联
+* 气球、气罐、线
+* 备用机、遥控器
+* 若干电池、充电器
+* 钓鱼凳
+
+## 1. 测试气球
+充气一个气球，连接线并放飞和收回
+
+## 2. 测试颜色
+* 打开`csi_cam/src/csi_cam.cpp`第147到154行，编译。
+* 测试能否在图像上看到气球，是否干净。
+* 通过`simulation/script/get_hsv.py`获取合适的hsv值。
+`csi_cam/src/csi_cam.cpp`第25到30行，编译。
+* 测试多远到多近可以看到气球
+
+## 3. 改时间
+`sudo date -s "2023-03-28 00:12:30"`
+
+# 实验
+
+## 0. 关闭输出和显示
+测试完成后应关闭终端输出和图像显示
+
+## 1. 参数
+* 前向最大速度，`offboard_pkg/script/utils_obs.py`第57行
+`self.v_norm_d = 15`
+* 第59行焦距
+* 第168行加速度
+
+
+## oo. 实验后
+保存文件到移动硬盘
+* 保存`offboard_pkg/bag/`下本次bag
+* 保存`.ros/log/`下本次log文件夹
 
 
 # 二、画图

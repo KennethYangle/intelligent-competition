@@ -11,5 +11,5 @@ roslaunch offboard_pkg obs_high.launch & PID2=$!
 sleep 5s
 
 wait
-kill -9 PID0 PID1 PID2
+kill -9 PID0 PID1 PID2 &
 exit

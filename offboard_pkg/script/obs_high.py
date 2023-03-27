@@ -88,13 +88,13 @@ def rcin_cb(msg):
     is_initialize_rc = True
     last_ch5, last_ch6, last_ch7, last_ch8, last_ch10, last_ch11, last_ch14 = ch5, ch6, ch7, ch8, ch10, ch11, ch14
     chs = msg.channels
-    ch5 = 2 if chs[4] < 1300 else 1 if chs[4] < 1700 else 0
-    ch6 = 2 if chs[5] < 1300 else 1 if chs[5] < 1700 else 0
-    ch7 = 2 if chs[6] < 1300 else 1 if chs[6] < 1700 else 0
-    ch8 = 2 if chs[7] < 1300 else 1 if chs[7] < 1700 else 0
+    ch5 = 0 if chs[4] < 1300 else 1 if chs[4] < 1700 else 2
+    ch6 = 0 if chs[5] < 1300 else 1 if chs[5] < 1700 else 2
+    ch7 = 0 if chs[6] < 1300 else 1 if chs[6] < 1700 else 2
+    ch8 = 0 if chs[7] < 1300 else 1 if chs[7] < 1700 else 2
     ch10 = 0 if chs[9] < 1500 else 1
-    ch11 = 1 if chs[10] < 1500 else 0
-    ch14 = 1 if chs[13] < 1500 else 0
+    ch11 = 0 if chs[10] < 1500 else 1
+    ch14 = 0 if chs[13] < 1500 else 1
     if ch5!=last_ch5 or ch6!=last_ch6 or ch7!=last_ch7 or ch8!=last_ch8 or ch10!=last_ch10 or ch11!=last_ch11 or ch14!=last_ch14:
         print("ch5: {}, ch6: {}, ch7: {}, ch8: {}, ch10: {}, ch11: {}, ch14: {}".format(ch5, ch6, ch7, ch8, ch10, ch11, ch14))
 
@@ -270,6 +270,7 @@ if __name__=="__main__":
 
     # start
     cnt = -1
+    controller_reset = True
     target_position_local = list()
     controller_state = 0
     while not rospy.is_shutdown():
@@ -300,16 +301,6 @@ if __name__=="__main__":
                 last_request = rospy.Time.now()
             print("time: {}".format(rospy.Time.now().to_sec() - last_request.to_sec()))
         
-        # if ch7 == 0:
-        #     rate.sleep()
-        #     continue
-
-        # if current_state.mode == "OFFBOARD" and cnt % 100 == 0:
-        #     resp_frame = frame_client(8)
-        #     if resp_frame.success:
-        #         print("Set earth_FLU success!")
-        #     else:
-        #         print("Set frame failed!")
 
         pos_info = {"mav_pos": mav_pos, "mav_vel": mav_vel, "mav_R": mav_R, "mav_yaw": mav_yaw, "R_bc": np.array([[0,0,1], [1,0,0], [0,1,0]]), 
                     "mav_original_angle": mav_original_angle, "Initial_pos": Initial_pos}
@@ -330,13 +321,15 @@ if __name__=="__main__":
             pass
 
         # controllers
-        if ch7 >= 1:
-            if controller_state == 0:
-                cmd = u.WPController(pos_info, target_position_local)
-            elif controller_state == 1:
-                cmd = u.RotateHighspeedAttackController(pos_info, pos_i, image_center)
-            else:
-                cmd = [0., 0., 0., 0.]
+        if ch7 >= 1 and pos_i[1] > 0:
+            # if controller_state == 0:
+            #     cmd = u.WPController(pos_info, target_position_local)
+            # elif controller_state == 1:
+            #     cmd = u.RotateHighspeedAttackController(pos_info, pos_i, image_center)
+            # else:
+            #     cmd = [0., 0., 0., 0.]
+            cmd = u.RotateHighspeedAttackController(pos_info, pos_i, image_center)
+            controller_reset = False
 
             command.twist.linear.x = cmd[0]
             command.twist.linear.y = cmd[1]
@@ -349,6 +342,7 @@ if __name__=="__main__":
             command.twist.linear.y = 0.
             command.twist.linear.z = 0.
             command.twist.angular.z = 0.
+            controller_reset = True
         obs_pos = np.array([sphere_pos_x, sphere_pos_y, sphere_pos_z]) 
         print("command: {}".format([command.twist.linear.x, command.twist.linear.y, command.twist.linear.z, command.twist.angular.z]))
         local_vel_pub.publish(command)

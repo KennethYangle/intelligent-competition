@@ -1,5 +1,6 @@
 <launch>
     <node name="ekf_node" pkg="ekf_pkg" type="ekf_node" respawn ="true"/>
-    <node name="main_node" pkg="offboard_pkg" type="obs.py" output="screen" />
-    <node pkg="rosbag" type="record" name="bag_record" args="-a -o $(find offboard_pkg)/bag/fly"/>
+    <!-- <node name="main_node" pkg="offboard_pkg" type="obs.py" output="screen" /> -->
+    <node name="main_node" pkg="offboard_pkg" type="obs.py" />
+    <node pkg="rosbag" type="record" name="bag_record" args="/ekf/state /image_raw/compressed /mavros/local_position/pose /mavros/local_position/velocity_local /mavros/rc/in /mavros/setpoint_attitude/cmd_vel /mavros/state /tracker/pos_image /tracker/pos_image_ekf  -o $(find offboard_pkg)/bag/fly"/>
 </launch>
