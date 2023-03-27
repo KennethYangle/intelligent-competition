@@ -310,15 +310,20 @@ if __name__=="__main__":
         print("mav_pos: {}\nmav_vel: {}".format(mav_pos, mav_vel))
         
         # stages transition
-        if controller_state == 0 and target_position_local != list() and \
-           np.linalg.norm([mav_pos[0]-target_position_local[0], mav_pos[1]-target_position_local[1]]) < 10 and pos_i[1] > 0:
-            controller_state = 1
+        if ch7 >= 1:
             ekf_state_pub.publish(UInt64(1))
-        elif controller_state == 1 and pos_i[1] <= 0:
-            controller_state = 2
         else:
             ekf_state_pub.publish(UInt64(0))
-            pass
+
+        # if controller_state == 0 and target_position_local != list() and \
+        #    np.linalg.norm([mav_pos[0]-target_position_local[0], mav_pos[1]-target_position_local[1]]) < 10 and pos_i[1] > 0:
+        #     controller_state = 1
+        #     ekf_state_pub.publish(UInt64(1))
+        # elif controller_state == 1 and pos_i[1] <= 0:
+        #     controller_state = 2
+        # else:
+        #     ekf_state_pub.publish(UInt64(0))
+        #     pass
 
         # controllers
         if ch7 >= 1 and pos_i[1] > 0:
@@ -328,7 +333,7 @@ if __name__=="__main__":
             #     cmd = u.RotateHighspeedAttackController(pos_info, pos_i, image_center)
             # else:
             #     cmd = [0., 0., 0., 0.]
-            cmd = u.RotateHighspeedAttackController(pos_info, pos_i, image_center)
+            cmd = u.RotateHighspeedAttackController(pos_info, pos_i, image_center, controller_reset)
             controller_reset = False
 
             command.twist.linear.x = cmd[0]

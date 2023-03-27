@@ -1,5 +1,6 @@
 #! /bin/bash
 
+source ~/Rfly_Attack/devel/setup.bash
 # Set FC into Hex+ mode
 
 # roslaunch tracker_pkg calc_depth.launch & PID0=$!

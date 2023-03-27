@@ -22,12 +22,18 @@ using namespace cv;
 // const int highs = 220;
 // const int highv = 255;
 // Ballon
-const int lowh = 172;
-const int lows = 90;
-const int lowv = 100;
+const int lowh = 171;
+const int lows = 120;
+const int lowv = 80;
 const int highh = 181;
-const int highs = 180;
+const int highs = 256;
 const int highv = 256;
+const int lowh2 = 0;
+const int lows2 = 120;
+const int lowv2 = 80;
+const int highh2 = 2;
+const int highs2 = 256;
+const int highv2 = 256;
 ros::Publisher centerPointPub;
 
 string gstreamer_pipeline (int capture_width, int capture_height, int display_width, int display_height, int framerate, int flip_method)
@@ -94,9 +100,11 @@ int main( int argc, char** argv )
         equalizeHist(hsvSplit[2],hsvSplit[2]);
         merge(hsvSplit,imgHSV);
         
-        Mat imgThresholded;
+        Mat imgThresholded, imgThresholded1, imgThresholded2;
         
-        inRange(imgHSV,Scalar(lowh,lows,lowv),Scalar(highh,highs,highv),imgThresholded);
+        inRange(imgHSV,Scalar(lowh,lows,lowv),Scalar(highh,highs,highv),imgThresholded1);
+        inRange(imgHSV,Scalar(lowh2,lows2,lowv2),Scalar(highh2,highs2,highv2),imgThresholded2);
+        imgThresholded = imgThresholded1 + imgThresholded2;
         Mat element = getStructuringElement(MORPH_RECT,Size(3,3));
         morphologyEx(imgThresholded,imgThresholded,MORPH_RECT,element);
         // std::cout<<"111111111111111111"<<std::endl;
@@ -107,7 +115,7 @@ int main( int argc, char** argv )
         Moments moment;
         moment = moments(imgThresholded, true);
         m00 = moment.m00; //cvGetSpatialMoment( &moment, 0, 0 );
-        if( m00 >= 10) 
+        if( m00 >= 5) 
         {
             m10 =moment.m10;// cvGetSpatialMoment( &moment, 1, 0 );
             m01 = moment.m01;//cvGetSpatialMoment( &moment, 0, 1 );
@@ -144,7 +152,7 @@ int main( int argc, char** argv )
         img_pub.publish(out_msg.toImageMsg());
 
 
-        // /* Shown image on screen
+        // /* Shown image on screen */
         // imshow( "imgThresholded", imgThresholded );
         // imshow("CSI Camera",img);
 

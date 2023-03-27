@@ -49,12 +49,12 @@ class Utils(object):
         self.circley = None
         self.w, self.h = self.WIDTH, self.HEIGHT
         self.u0 = self.w/2
-        self.v0 = self.h/2
+        self.v0 = self.h/3
         self.x0 = self.u0
         self.y0 = self.v0
         self.cnt = 0
         self.cnt_WP = 1
-        self.v_norm_d = 15
+        self.v_norm_d = 10
         #realsense: fx:632.9640658678117  fy:638.2668942402212
         self.f = 150 #346.6  # 这个需要依据实际情况进行设定flength=(width/2)/tan(hfov/2),不同仿真环境以及真机实验中需要依据实际情况进行修改
         #camrea frame to mavros_body frame
@@ -211,10 +211,10 @@ class Utils(object):
         v_m = np.array([0., 0., 0.])
         # case1: (0.02, 3, 10)
         # case2: (0.05, 3, 12)
-        v_m[1] = self.sat(self.cnt * 0.03, self.v_norm_d)
+        v_m[1] = self.sat(self.cnt * 0.02, self.v_norm_d)
         # v_m[1] = self.v_norm_d
         v_m[0] = 12*v_b[0]
-        v_m[2] = 18*v_b[2]
+        v_m[2] = 6*v_b[2]
         # v_f = self.sat(self.cnt*0.02*np.array([0.,1.,0.]), 10)
         # v_m = (1-cos_beta)*v_b + (cos_beta)*v_f
         v = pos_info["mav_R"].dot(v_m)
