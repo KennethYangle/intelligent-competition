@@ -55,6 +55,8 @@
 ## 1. 参数
 * 前向最大速度，`offboard_pkg/script/utils_obs.py`第57行
 `self.v_norm_d = 15`
+* 第52行`self.v0 = self.h*0.43`图像中心
+* 第216-217行横向和纵向控制增益
 * 第59行焦距
 * 第168行加速度
 
