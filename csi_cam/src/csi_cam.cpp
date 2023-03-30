@@ -22,8 +22,8 @@ using namespace cv;
 // const int highs = 220;
 // const int highv = 255;
 // Ballon
-const int lowh = 171;
-const int lows = 120;
+const int lowh = 169;
+const int lows = 80;
 const int lowv = 80;
 const int highh = 181;
 const int highs = 256;
@@ -31,7 +31,7 @@ const int highv = 256;
 const int lowh2 = 0;
 const int lows2 = 120;
 const int lowv2 = 80;
-const int highh2 = 2;
+const int highh2 = 1;
 const int highs2 = 256;
 const int highv2 = 256;
 ros::Publisher centerPointPub;
@@ -105,7 +105,7 @@ int main( int argc, char** argv )
         inRange(imgHSV,Scalar(lowh,lows,lowv),Scalar(highh,highs,highv),imgThresholded1);
         inRange(imgHSV,Scalar(lowh2,lows2,lowv2),Scalar(highh2,highs2,highv2),imgThresholded2);
         imgThresholded = imgThresholded1 + imgThresholded2;
-        Mat element = getStructuringElement(MORPH_RECT,Size(3,3));
+        Mat element = getStructuringElement(MORPH_RECT,Size(2,2));
         morphologyEx(imgThresholded,imgThresholded,MORPH_RECT,element);
         // std::cout<<"111111111111111111"<<std::endl;
         // imshow("imgThresholded",imgThresholded);
