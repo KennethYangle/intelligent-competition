@@ -95,7 +95,7 @@ def main(args):
         plt.show()
 
     if args.subplot > 0:
-        figsize=set_size(83, fraction=1.2)
+        figsize=set_size(74.7, fraction=1.2, hw_ratio=0.65)
         fig, ax = plt.subplots(2, 1, figsize=figsize)
         gap = nvar // args.subplot
         # # 两种线型效果不好
@@ -107,7 +107,7 @@ def main(args):
         #             ax[i-1].plot(index[v], datas[v][0], label="{}".format(args.variable[v]), linewidth=args.linewidth, **style_dict["Orange_Solid"])
         for i in range(1, args.subplot+1):
             for v in range((i-1)*gap, i*gap):
-                ax[i-1].plot(index[v], datas[v][0], label="{}".format(args.variable[v]), linewidth=args.linewidth)
+                ax[i-1].plot(index[v], datas[v][0], label="{}".format(args.variable[v]), linewidth=1)
             # ax[i-1].legend(loc='upper center')
         ax[0].set_ylim(-50, 1000)
         fig.savefig("../output/subplot-sim.svg", format='svg', bbox_inches='tight')

@@ -18,7 +18,7 @@ plt.rcParams.update(params)
 style_dict = get_line_style()
 
 
-figsize=set_size(83, fraction=1.4)
+figsize=set_size(70, hw_ratio=0.8)
 fig, ax = plt.subplots(1, 1, figsize=figsize)
 ax = plt.axes(projection='3d')
 f = open(os.path.join("../datas","datas_30Hz_ekf.pkl"), 'r')
@@ -32,8 +32,8 @@ datas.sort(key=lambda x: x["min_distance"])
 for i in range(len(datas)):
     sphere_traj = datas[i]["sphere_traj"][:-30]
     mav_traj = datas[i]["mav_traj"][:-30]
-    ax.plot([s[0] for s in sphere_traj], [s[1] for s in sphere_traj], [s[2] for s in sphere_traj], linewidth=1, color='#ff7f0e')
-    ax.plot([m[0] for m in mav_traj], [m[1] for m in mav_traj], [m[2] for m in mav_traj], linewidth=1, color='#1f77b4')
+    ax.plot([s[0] for s in sphere_traj], [s[1] for s in sphere_traj], [s[2] for s in sphere_traj], linewidth=0.5, color='#ff7f0e')
+    ax.plot([m[0] for m in mav_traj], [m[1] for m in mav_traj], [m[2] for m in mav_traj], linewidth=0.5, color='#1f77b4')
 
 # # Show results directly
 # for t in range(0, len(datas[0]["sphere_traj"])-30, 10):
@@ -67,7 +67,7 @@ ax.set_xticks(new_ticks)
 ax.set_xlim(-10, 10)
 ax.set_ylim(-1, 25)
 ax.set_zlim(-1, 5)
-plt.legend(('Interceptor', 'Target'), frameon=False, loc='upper center', ncol=2, handlelength=2)    # 图例
+# plt.legend(('Interceptor', 'Target'), frameon=False, loc='upper center', ncol=2, handlelength=2)    # 图例
 
 # 保存图片
 # fig.savefig("../output/trajectory.raw", dpi=1200)

@@ -115,17 +115,17 @@ def main(args):
         plt.show()
 
     if not args.self and not args.plotxy and args.subplot<=0:
-        figsize=set_size(83, fraction=1.2)
+        figsize=set_size(36, fraction=1.2)
         fig, ax = plt.subplots(1, 1, figsize=figsize)
         for i in range(len(datas[0])):
             plt.figure(i)
             for v in range(nvar):
                 if i < len(datas[v]):
-                    ax.plot(index[v], datas[v][i], label="{}[{}]".format(args.variable[v], i), linewidth=args.linewidth)
+                    ax.plot(index[v], datas[v][i], label="{}[{}]".format(args.variable[v], i), linewidth=1)
                 else:
-                    ax.plot(index[v], datas[v][0], label="{}[{}]".format(args.variable[v], 0), linewidth=args.linewidth)
-        fig.savefig("../output/local-sim.svg", format='svg', bbox_inches='tight')
-        svg_to_emf("../output/local-sim.svg")
+                    ax.plot(index[v], datas[v][0], label="{}[{}]".format(args.variable[v], 0), linewidth=1)
+        fig.savefig("../output/local-sim-2.svg", format='svg', bbox_inches='tight')
+        svg_to_emf("../output/local-sim-2.svg")
         plt.show()
 
 

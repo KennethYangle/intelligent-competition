@@ -1,0 +1,671 @@
+[rosmaster.main][INFO] 2023-03-28 01:02:43,332: initialization complete, waiting for shutdown
+[rosmaster.main][INFO] 2023-03-28 01:02:43,333: Starting ROS Master Node
+[xmlrpc][INFO] 2023-03-28 01:02:43,335: XML-RPC server binding to 0.0.0.0:11311
+[xmlrpc][INFO] 2023-03-28 01:02:43,336: Started XML-RPC server [http://unionsys-desktop:11311/]
+[rosmaster.master][INFO] 2023-03-28 01:02:43,336: Master initialized: port[11311], uri[http://unionsys-desktop:11311/]
+[xmlrpc][INFO] 2023-03-28 01:02:43,337: xml rpc node: starting XML-RPC server
+[rosmaster.master][INFO] 2023-03-28 01:02:43,371: +PARAM [/run_id] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:43,374: +PARAM [/roslaunch/uris/host_unionsys_desktop__42809] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:43,571: +PARAM [/rosversion] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:43,572: +PARAM [/rosdistro] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:43,760: +SERVICE [/rosout/get_loggers] /rosout http://unionsys-desktop:43383/
+[rosmaster.master][INFO] 2023-03-28 01:02:43,762: +SERVICE [/rosout/set_logger_level] /rosout http://unionsys-desktop:43383/
+[rosmaster.master][INFO] 2023-03-28 01:02:43,767: +PUB [/rosout_agg] /rosout http://unionsys-desktop:43383/
+[rosmaster.master][INFO] 2023-03-28 01:02:43,777: +SUB [/rosout] /rosout http://unionsys-desktop:43383/
+[rosmaster.master][INFO] 2023-03-28 01:02:45,562: +PUB [/rosout] /csi_cam http://unionsys-desktop:39115/
+[rosmaster.master][INFO] 2023-03-28 01:02:45,565: +SERVICE [/csi_cam/get_loggers] /csi_cam http://unionsys-desktop:39115/
+[rosmaster.master][INFO] 2023-03-28 01:02:45,566: +SERVICE [/csi_cam/set_logger_level] /csi_cam http://unionsys-desktop:39115/
+[rosmaster.master][INFO] 2023-03-28 01:02:45,641: publisherUpdate[/rosout] -> http://unionsys-desktop:43383/ ['http://unionsys-desktop:39115/']
+[rosmaster.master][INFO] 2023-03-28 01:02:45,646: publisherUpdate[/rosout] -> http://unionsys-desktop:43383/ ['http://unionsys-desktop:39115/']: sec=0.00, result=[1, '', 0]
+[rosmaster.master][INFO] 2023-03-28 01:02:45,695: +PUB [/image_raw/compressedDepth] /csi_cam http://unionsys-desktop:39115/
+[rosmaster.master][INFO] 2023-03-28 01:02:45,697: +SERVICE [/image_raw/compressedDepth/set_parameters] /csi_cam http://unionsys-desktop:39115/
+[rosmaster.master][INFO] 2023-03-28 01:02:45,699: +PUB [/image_raw/compressedDepth/parameter_descriptions] /csi_cam http://unionsys-desktop:39115/
+[rosmaster.master][INFO] 2023-03-28 01:02:45,701: +PUB [/image_raw/compressedDepth/parameter_updates] /csi_cam http://unionsys-desktop:39115/
+[rosmaster.master][INFO] 2023-03-28 01:02:45,707: +PARAM [/image_raw/compressedDepth/depth_max] by /csi_cam
+[rosmaster.master][INFO] 2023-03-28 01:02:45,709: +PARAM [/image_raw/compressedDepth/depth_quantization] by /csi_cam
+[rosmaster.master][INFO] 2023-03-28 01:02:45,711: +PARAM [/image_raw/compressedDepth/png_level] by /csi_cam
+[rosmaster.master][INFO] 2023-03-28 01:02:45,713: +PARAM [/image_raw/compressedDepth/depth_max] by /csi_cam
+[rosmaster.master][INFO] 2023-03-28 01:02:45,715: +PARAM [/image_raw/compressedDepth/depth_quantization] by /csi_cam
+[rosmaster.master][INFO] 2023-03-28 01:02:45,716: +PARAM [/image_raw/compressedDepth/png_level] by /csi_cam
+[rosmaster.master][INFO] 2023-03-28 01:02:45,732: +PUB [/image_raw/compressed] /csi_cam http://unionsys-desktop:39115/
+[rosmaster.master][INFO] 2023-03-28 01:02:45,734: +SERVICE [/image_raw/compressed/set_parameters] /csi_cam http://unionsys-desktop:39115/
+[rosmaster.master][INFO] 2023-03-28 01:02:45,736: +PUB [/image_raw/compressed/parameter_descriptions] /csi_cam http://unionsys-desktop:39115/
+[rosmaster.master][INFO] 2023-03-28 01:02:45,738: +PUB [/image_raw/compressed/parameter_updates] /csi_cam http://unionsys-desktop:39115/
+[rosmaster.master][INFO] 2023-03-28 01:02:45,745: +PARAM [/image_raw/compressed/format] by /csi_cam
+[rosmaster.master][INFO] 2023-03-28 01:02:45,747: +PARAM [/image_raw/compressed/jpeg_quality] by /csi_cam
+[rosmaster.master][INFO] 2023-03-28 01:02:45,750: +PARAM [/image_raw/compressed/png_level] by /csi_cam
+[rosmaster.master][INFO] 2023-03-28 01:02:45,752: +PARAM [/image_raw/compressed/format] by /csi_cam
+[rosmaster.master][INFO] 2023-03-28 01:02:45,753: +PARAM [/image_raw/compressed/jpeg_quality] by /csi_cam
+[rosmaster.master][INFO] 2023-03-28 01:02:45,755: +PARAM [/image_raw/compressed/png_level] by /csi_cam
+[rosmaster.master][INFO] 2023-03-28 01:02:45,765: +PUB [/image_raw] /csi_cam http://unionsys-desktop:39115/
+[rosmaster.master][INFO] 2023-03-28 01:02:45,782: +PUB [/image_raw/theora] /csi_cam http://unionsys-desktop:39115/
+[rosmaster.master][INFO] 2023-03-28 01:02:45,787: +SERVICE [/image_raw/theora/set_parameters] /csi_cam http://unionsys-desktop:39115/
+[rosmaster.master][INFO] 2023-03-28 01:02:45,789: +PUB [/image_raw/theora/parameter_descriptions] /csi_cam http://unionsys-desktop:39115/
+[rosmaster.master][INFO] 2023-03-28 01:02:45,792: +PUB [/image_raw/theora/parameter_updates] /csi_cam http://unionsys-desktop:39115/
+[rosmaster.master][INFO] 2023-03-28 01:02:45,800: +PARAM [/image_raw/theora/optimize_for] by /csi_cam
+[rosmaster.master][INFO] 2023-03-28 01:02:45,803: +PARAM [/image_raw/theora/target_bitrate] by /csi_cam
+[rosmaster.master][INFO] 2023-03-28 01:02:45,804: +PARAM [/image_raw/theora/quality] by /csi_cam
+[rosmaster.master][INFO] 2023-03-28 01:02:45,806: +PARAM [/image_raw/theora/keyframe_frequency] by /csi_cam
+[rosmaster.master][INFO] 2023-03-28 01:02:45,809: +PARAM [/image_raw/theora/optimize_for] by /csi_cam
+[rosmaster.master][INFO] 2023-03-28 01:02:45,811: +PARAM [/image_raw/theora/target_bitrate] by /csi_cam
+[rosmaster.master][INFO] 2023-03-28 01:02:45,813: +PARAM [/image_raw/theora/quality] by /csi_cam
+[rosmaster.master][INFO] 2023-03-28 01:02:45,815: +PARAM [/image_raw/theora/keyframe_frequency] by /csi_cam
+[rosmaster.master][INFO] 2023-03-28 01:02:45,817: +PUB [/tracker/pos_image] /csi_cam http://unionsys-desktop:39115/
+[rosmaster.master][INFO] 2023-03-28 01:02:51,813: +PARAM [/roslaunch/uris/host_unionsys_desktop__36407] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,910: +PARAM [/mavros/mission/use_mission_item_int] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,910: +PARAM [/mavros/imu/linear_acceleration_stdev] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,911: +PARAM [/mavros/landing_target/tf/child_frame_id] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,912: +PARAM [/mavros/image/frame_id] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,913: +PARAM [/mavros/setpoint_attitude/tf/listen] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,913: +PARAM [/mavros/wheel_odometry/tf/send] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,913: +PARAM [/mavros/odometry/fcu/odom_child_id_des] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,914: +PARAM [/mavros/sys/disable_diag] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,914: +PARAM [/mavros/setpoint_position/tf/child_frame_id] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,915: +PARAM [/mavros/startup_px4_usb_quirk] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,915: +PARAM [/mavros/target_component_id] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,916: +PARAM [/mavros/setpoint_position/tf/rate_limit] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,918: +PARAM [/mavros/imu/orientation_stdev] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,919: +PARAM [/mavros/wheel_odometry/child_frame_id] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,920: +PARAM [/mavros/landing_target/tf/send] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,921: +PARAM [/mavros/wheel_odometry/count] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,921: +PARAM [/mavros/wheel_odometry/wheel1/radius] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,922: +PARAM [/mavros/fake_gps/tf/rate_limit] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,922: +PARAM [/mavros/safety_area/p2/x] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,923: +PARAM [/mavros/px4flow/ranger_fov] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,923: +PARAM [/mavros/landing_target/mav_frame] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,924: +PARAM [/mavros/safety_area/p2/y] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,924: +PARAM [/mavros/distance_sensor/lidarlite_pub/field_of_view] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,925: +PARAM [/mavros/fake_gps/geo_origin/lon] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,925: +PARAM [/mavros/local_position/tf/send] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,926: +PARAM [/mavros/plugin_blacklist] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,926: +PARAM [/mavros/imu/frame_id] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,926: +PARAM [/mavros/landing_target/tf/rate_limit] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,929: +PARAM [/mavros/landing_target/camera/fov_y] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,930: +PARAM [/mavros/landing_target/camera/fov_x] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,930: +PARAM [/mavros/local_position/frame_id] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,931: +PARAM [/mavros/wheel_odometry/wheel0/radius] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,931: +PARAM [/mavros/distance_sensor/hrlv_ez4_pub/id] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,932: +PARAM [/mavros/local_position/tf/frame_id] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,933: +PARAM [/mavros/time/timesync_mode] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,937: +PARAM [/mavros/setpoint_accel/send_force] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,938: +PARAM [/mavros/landing_target/tf/frame_id] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,938: +PARAM [/mavros/fake_gps/use_mocap] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,939: +PARAM [/mavros/distance_sensor/hrlv_ez4_pub/frame_id] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,939: +PARAM [/mavros/setpoint_attitude/reverse_thrust] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,939: +PARAM [/mavros/vision_speed/twist_cov] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,940: +PARAM [/mavros/local_position/tf/child_frame_id] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,940: +PARAM [/mavros/landing_target/target_size/x] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,941: +PARAM [/mavros/landing_target/target_size/y] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,941: +PARAM [/mavros/distance_sensor/laser_1_sub/id] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,941: +PARAM [/mavros/landing_target/image/width] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,942: +PARAM [/mavros/setpoint_position/tf/listen] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,942: +PARAM [/mavros/cmd/use_comp_id_system_control] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,942: +PARAM [/mavros/distance_sensor/sonar_1_sub/vertical_fov_ratio] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,943: +PARAM [/mavros/plugin_whitelist] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,943: +PARAM [/mavros/fake_gps/fix_type] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,943: +PARAM [/rosdistro] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,944: +PARAM [/mavros/conn/heartbeat_rate] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,944: +PARAM [/mavros/distance_sensor/sonar_1_sub/horizontal_fov_ratio] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,945: +PARAM [/mavros/distance_sensor/sonar_1_sub/subscriber] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,946: +PARAM [/mavros/mocap/use_pose] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,947: +PARAM [/mavros/global_position/tf/frame_id] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,947: +PARAM [/mavros/tdr_radio/low_rssi] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,948: +PARAM [/mavros/global_position/tf/child_frame_id] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,948: +PARAM [/mavros/wheel_odometry/tf/frame_id] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,949: +PARAM [/mavros/setpoint_velocity/mav_frame] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,949: +PARAM [/mavros/global_position/use_relative_alt] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,950: +PARAM [/mavros/fcu_protocol] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,950: +PARAM [/mavros/wheel_odometry/use_rpm] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,951: +PARAM [/mavros/distance_sensor/lidarlite_pub/sensor_position/x] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,951: +PARAM [/mavros/distance_sensor/lidarlite_pub/sensor_position/y] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,951: +PARAM [/mavros/distance_sensor/lidarlite_pub/sensor_position/z] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,952: +PARAM [/mavros/setpoint_position/mav_frame] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,952: +PARAM [/mavros/fake_gps/geo_origin/alt] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,952: +PARAM [/mavros/setpoint_raw/thrust_scaling] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,953: +PARAM [/mavros/safety_area/p1/z] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,953: +PARAM [/mavros/safety_area/p1/y] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,958: +PARAM [/mavros/safety_area/p1/x] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,958: +PARAM [/mavros/fake_gps/eph] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,959: +PARAM [/mavros/global_position/tf/send] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,959: +PARAM [/mavros/vision_pose/tf/child_frame_id] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,960: +PARAM [/mavros/fake_gps/tf/listen] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,960: +PARAM [/mavros/vibration/frame_id] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,960: +PARAM [/mavros/fake_gps/tf/frame_id] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,961: +PARAM [/mavros/safety_area/p2/z] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,961: +PARAM [/mavros/setpoint_attitude/use_quaternion] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,962: +PARAM [/mavros/fake_gps/satellites_visible] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,963: +PARAM [/mavros/time/time_ref_source] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,963: +PARAM [/mavros/target_system_id] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,964: +PARAM [/mavros/conn/timesync_rate] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,964: +PARAM [/mavros/fake_gps/epv] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,965: +PARAM [/mavros/px4flow/ranger_max_range] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,965: +PARAM [/mavros/setpoint_attitude/tf/child_frame_id] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,965: +PARAM [/mavros/mission/pull_after_gcs] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,966: +PARAM [/mavros/gcs_url] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,967: +PARAM [/mavros/distance_sensor/lidarlite_pub/id] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,967: +PARAM [/mavros/imu/angular_velocity_stdev] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,968: +PARAM [/mavros/wheel_odometry/tf/child_frame_id] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,968: +PARAM [/mavros/distance_sensor/laser_1_sub/subscriber] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,968: +PARAM [/mavros/distance_sensor/sonar_1_sub/orientation] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,969: +PARAM [/mavros/wheel_odometry/send_raw] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,969: +PARAM [/mavros/wheel_odometry/wheel0/y] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,970: +PARAM [/mavros/wheel_odometry/wheel0/x] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,970: +PARAM [/mavros/vision_pose/tf/frame_id] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,971: +PARAM [/mavros/global_position/tf/global_frame_id] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,971: +PARAM [/mavros/vision_speed/listen_twist] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,972: +PARAM [/mavros/wheel_odometry/wheel1/x] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,972: +PARAM [/mavros/wheel_odometry/wheel1/y] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,972: +PARAM [/mavros/vision_pose/tf/rate_limit] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,973: +PARAM [/mavros/distance_sensor/sonar_1_sub/id] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,973: +PARAM [/mavros/global_position/rot_covariance] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,974: +PARAM [/mavros/landing_target/land_target_type] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,975: +PARAM [/mavros/distance_sensor/lidarlite_pub/frame_id] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,975: +PARAM [/mavros/distance_sensor/laser_1_sub/orientation] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,975: +PARAM [/mavros/landing_target/tf/listen] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,976: +PARAM [/mavros/wheel_odometry/vel_error] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,976: +PARAM [/mavros/fake_gps/mocap_transform] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,976: +PARAM [/mavros/setpoint_attitude/tf/frame_id] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,977: +PARAM [/mavros/mocap/use_tf] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,977: +PARAM [/mavros/landing_target/listen_lt] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,978: +PARAM [/mavros/conn/system_time_rate] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,978: +PARAM [/mavros/wheel_odometry/frame_id] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,978: +PARAM [/mavros/fake_gps/tf/child_frame_id] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,979: +PARAM [/mavros/global_position/child_frame_id] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,980: +PARAM [/mavros/px4flow/frame_id] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,980: +PARAM [/mavros/px4flow/ranger_min_range] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,981: +PARAM [/mavros/imu/magnetic_stdev] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,982: +PARAM [/mavros/conn/timeout] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,983: +PARAM [/mavros/distance_sensor/hrlv_ez4_pub/sensor_position/z] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,983: +PARAM [/mavros/distance_sensor/hrlv_ez4_pub/sensor_position/y] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,983: +PARAM [/mavros/distance_sensor/hrlv_ez4_pub/sensor_position/x] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,984: +PARAM [/mavros/distance_sensor/lidarlite_pub/orientation] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,984: +PARAM [/mavros/fake_gps/tf/send] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,985: +PARAM [/mavros/fcu_url] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,985: +PARAM [/mavros/odometry/fcu/odom_parent_id_des] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,985: +PARAM [/mavros/distance_sensor/hrlv_ez4_pub/field_of_view] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,986: +PARAM [/mavros/distance_sensor/hrlv_ez4_pub/send_tf] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,986: +PARAM [/mavros/distance_sensor/lidarlite_pub/send_tf] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,987: +PARAM [/mavros/landing_target/image/height] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,987: +PARAM [/mavros/setpoint_attitude/tf/rate_limit] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,990: +PARAM [/mavros/vision_pose/tf/listen] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,991: +PARAM [/mavros/wheel_odometry/send_twist] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,991: +PARAM [/mavros/distance_sensor/hrlv_ez4_pub/orientation] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,992: +PARAM [/rosversion] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,992: +PARAM [/mavros/setpoint_position/tf/frame_id] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,992: +PARAM [/mavros/sys/min_voltage] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,993: +PARAM [/mavros/fake_gps/geo_origin/lat] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,993: +PARAM [/mavros/fake_gps/gps_rate] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,993: +PARAM [/mavros/global_position/gps_uere] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,994: +PARAM [/mavros/global_position/frame_id] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,994: +PARAM [/mavros/local_position/tf/send_fcu] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,995: +PARAM [/mavros/time/timesync_avg_alpha] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:51,995: +PARAM [/mavros/fake_gps/use_vision] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:02:52,413: +PUB [/rosout] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:52,423: +SERVICE [/mavros/get_loggers] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:52,427: +SERVICE [/mavros/set_logger_level] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:52,438: +PUB [/diagnostics] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:52,440: +CACHEDPARAM [/mavros/diagnostic_period] by /mavros
+[rosmaster.master][INFO] 2023-03-28 01:02:52,468: publisherUpdate[/rosout] -> http://unionsys-desktop:43383/ ['http://unionsys-desktop:39115/', 'http://unionsys-desktop:44071/']
+[rosmaster.master][INFO] 2023-03-28 01:02:52,473: publisherUpdate[/rosout] -> http://unionsys-desktop:43383/ ['http://unionsys-desktop:39115/', 'http://unionsys-desktop:44071/']: sec=0.00, result=[1, '', 0]
+[rosmaster.master][INFO] 2023-03-28 01:02:52,565: +SUB [/tf] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:52,584: +SUB [/tf_static] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:52,587: +PUB [/tf] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:52,591: +PUB [/tf_static] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:52,671: publisherUpdate[/tf] -> http://unionsys-desktop:44071/ ['http://unionsys-desktop:44071/']
+[rosmaster.master][INFO] 2023-03-28 01:02:52,674: publisherUpdate[/tf] -> http://unionsys-desktop:44071/ ['http://unionsys-desktop:44071/']: sec=0.00, result=[1, '', 0]
+[rosmaster.master][INFO] 2023-03-28 01:02:52,674: publisherUpdate[/tf_static] -> http://unionsys-desktop:44071/ ['http://unionsys-desktop:44071/']
+[rosmaster.master][INFO] 2023-03-28 01:02:52,679: publisherUpdate[/tf_static] -> http://unionsys-desktop:44071/ ['http://unionsys-desktop:44071/']: sec=0.00, result=[1, '', 0]
+[rosmaster.master][INFO] 2023-03-28 01:02:52,877: +CACHEDPARAM [/rosout_disable_topics_generation] by /mavros
+[rosmaster.master][INFO] 2023-03-28 01:02:52,890: +CACHEDPARAM [/rosout/omit_topics] by /rosout
+[rosmaster.master][INFO] 2023-03-28 01:02:52,926: +PUB [/mavlink/from] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:52,960: +SUB [/mavlink/to] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:53,058: +PUB [/mavros/radio_status] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:53,071: +PUB [/mavros/target_actuator_control] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:53,116: +SUB [/mavros/actuator_control] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:53,163: +PUB [/mavros/adsb/vehicle] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:53,200: +SUB [/mavros/adsb/send] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:53,207: +PUB [/mavros/altitude] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:53,215: +PUB [/mavros/cam_imu_sync/cam_imu_stamp] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:53,241: +SERVICE [/mavros/cmd/command] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:53,254: +SERVICE [/mavros/cmd/command_int] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:53,259: +SERVICE [/mavros/cmd/arming] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:53,268: +SERVICE [/mavros/cmd/set_home] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:53,276: +SERVICE [/mavros/cmd/takeoff] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:53,280: +SERVICE [/mavros/cmd/land] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:53,284: +SERVICE [/mavros/cmd/trigger_control] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:53,299: +SERVICE [/mavros/cmd/trigger_interval] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:53,307: +SERVICE [/mavros/cmd/vtol_transition] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:53,356: +SUB [/mavros/companion_process/status] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:53,384: +SUB [/mavros/debug_value/send] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:53,387: +PUB [/mavros/debug_value/debug] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:53,392: +PUB [/mavros/debug_value/debug_vector] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:53,400: +PUB [/mavros/debug_value/named_value_float] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:53,408: +PUB [/mavros/debug_value/named_value_int] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:53,417: +PUB [/mavros/esc_info] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:53,424: +PUB [/mavros/esc_status] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:53,670: +SUB [/mavros/fake_gps/mocap/tf] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:53,676: +SERVICE [/mavros/ftp/list] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:53,691: +SERVICE [/mavros/ftp/open] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:53,695: +SERVICE [/mavros/ftp/close] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:53,703: +SERVICE [/mavros/ftp/read] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:53,710: +SERVICE [/mavros/ftp/write] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:53,725: +SERVICE [/mavros/ftp/mkdir] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:53,731: +SERVICE [/mavros/ftp/rmdir] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:53,739: +SERVICE [/mavros/ftp/remove] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:53,759: +SERVICE [/mavros/ftp/truncate] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:53,762: +SERVICE [/mavros/ftp/reset] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:53,765: +SERVICE [/mavros/ftp/rename] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:53,769: +SERVICE [/mavros/ftp/checksum] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:53,783: +PUB [/mavros/geofence/waypoints] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:53,791: +SERVICE [/mavros/geofence/pull] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:53,804: +SERVICE [/mavros/geofence/push] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:53,816: +SERVICE [/mavros/geofence/clear] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:53,978: +PUB [/mavros/global_position/raw/fix] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:53,981: +PUB [/mavros/global_position/raw/gps_vel] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:54,019: +PUB [/mavros/global_position/raw/satellites] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:54,023: +PUB [/mavros/global_position/global] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:54,031: +PUB [/mavros/global_position/local] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:54,042: +PUB [/mavros/global_position/rel_alt] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:54,049: +PUB [/mavros/global_position/compass_hdg] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:54,060: +PUB [/mavros/global_position/gp_origin] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:54,097: +SUB [/mavros/global_position/set_gp_origin] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:54,199: +SUB [/mavros/global_position/home] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:54,216: +PUB [/mavros/global_position/gp_lp_offset] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:54,287: +SUB [/mavros/gps_rtk/send_rtcm] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:54,300: +PUB [/mavros/gps_rtk/rtk_baseline] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:54,323: +PUB [/mavros/gpsstatus/gps1/raw] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:54,327: +PUB [/mavros/gpsstatus/gps2/raw] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:54,343: +PUB [/mavros/gpsstatus/gps1/rtk] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:54,347: +PUB [/mavros/gpsstatus/gps2/rtk] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:54,410: +SUB [/mavros/hil/state] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:54,446: +SUB [/mavros/hil/gps] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:54,475: +SUB [/mavros/hil/imu_ned] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:54,509: +SUB [/mavros/hil/optical_flow] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:54,560: +SUB [/mavros/hil/rc_inputs] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:54,572: +PUB [/mavros/hil/controls] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:54,576: +PUB [/mavros/hil/actuator_controls] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:54,590: +PUB [/mavros/home_position/home] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:54,641: +SUB [/mavros/home_position/set] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:54,644: +SERVICE [/mavros/home_position/req_update] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:54,715: +PUB [/mavros/imu/data] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:54,719: +PUB [/mavros/imu/mag] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:54,723: +PUB [/mavros/imu/temperature_imu] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:54,730: +PUB [/mavros/imu/temperature_baro] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:54,735: +PUB [/mavros/imu/static_pressure] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:54,747: +PUB [/mavros/imu/diff_pressure] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:54,750: +PUB [/mavros/imu/data_raw] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:54,908: +PUB [/mavros/landing_target/pose_in] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:54,915: +PUB [/mavros/landing_target/lt_marker] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:54,941: +SUB [/mavros/landing_target/pose] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:54,981: +PUB [/mavros/local_position/pose] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:54,983: +PUB [/mavros/local_position/pose_cov] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:54,987: +PUB [/mavros/local_position/velocity_local] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:54,997: +PUB [/mavros/local_position/velocity_body] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:55,000: +PUB [/mavros/local_position/velocity_body_cov] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:55,003: +PUB [/mavros/local_position/accel] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:55,011: +PUB [/mavros/local_position/odom] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:55,017: +PUB [/mavros/log_transfer/raw/log_entry] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:55,020: +PUB [/mavros/log_transfer/raw/log_data] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:55,026: +SERVICE [/mavros/log_transfer/raw/log_request_list] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:55,032: +SERVICE [/mavros/log_transfer/raw/log_request_data] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:55,036: +SERVICE [/mavros/log_transfer/raw/log_request_end] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:55,046: +PUB [/mavros/manual_control/control] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:55,070: +SUB [/mavros/manual_control/send] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:55,131: +SUB [/mavros/mocap/pose] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:55,171: +SUB [/mavros/mount_control/command] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:55,180: +PUB [/mavros/mount_control/orientation] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:55,191: +SERVICE [/mavros/mount_control/configure] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:55,267: +SUB [/mavros/obstacle/send] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:55,300: +PUB [/mavros/odometry/in] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:55,336: +SUB [/mavros/odometry/out] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:55,369: +SUB [/mavros/onboard_computer/status] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:55,389: +SERVICE [/mavros/param/pull] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:55,395: +SERVICE [/mavros/param/push] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:55,401: +SERVICE [/mavros/param/set] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:55,406: +SERVICE [/mavros/param/get] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:55,439: +PUB [/mavros/param/param_value] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:55,483: +SUB [/mavros/play_tune] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:55,558: +PUB [/mavros/px4flow/raw/optical_flow_rad] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:55,562: +PUB [/mavros/px4flow/ground_distance] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:55,567: +PUB [/mavros/px4flow/temperature] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:55,611: +SUB [/mavros/px4flow/raw/send] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:55,644: +PUB [/mavros/rallypoint/waypoints] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:55,647: +SERVICE [/mavros/rallypoint/pull] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:55,658: +SERVICE [/mavros/rallypoint/push] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:55,661: +SERVICE [/mavros/rallypoint/clear] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:55,668: +PUB [/mavros/rc/in] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:55,679: +PUB [/mavros/rc/out] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:55,723: +SUB [/mavros/rc/override] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:55,795: +SUB [/mavros/setpoint_accel/accel] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:55,932: +SUB [/mavros/setpoint_attitude/thrust] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:55,969: +SUB [/mavros/setpoint_attitude/cmd_vel] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:56,050: +SUB [/mavros/setpoint_position/local] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:56,093: +SUB [/mavros/setpoint_position/global] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:56,120: +SUB [/mavros/setpoint_position/global_to_local] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:56,159: +SUB [/mavros/global_position/global] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:56,196: +SUB [/mavros/local_position/pose] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:56,210: +SERVICE [/mavros/setpoint_position/mav_frame] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:56,255: +SUB [/mavros/setpoint_raw/local] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:56,288: +SUB [/mavros/setpoint_raw/global] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:56,312: +SUB [/mavros/setpoint_raw/attitude] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:56,316: +PUB [/mavros/setpoint_raw/target_local] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:56,323: +PUB [/mavros/setpoint_raw/target_global] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:56,326: +PUB [/mavros/setpoint_raw/target_attitude] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:56,380: +SUB [/mavros/setpoint_trajectory/local] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:56,385: +PUB [/mavros/setpoint_trajectory/desired] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:56,388: +SERVICE [/mavros/setpoint_trajectory/reset] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:56,396: +SERVICE [/mavros/setpoint_trajectory/mav_frame] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:56,451: +SUB [/mavros/setpoint_velocity/cmd_vel] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:56,486: +SUB [/mavros/setpoint_velocity/cmd_vel_unstamped] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:56,494: +SERVICE [/mavros/setpoint_velocity/mav_frame] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:56,549: +PUB [/mavros/state] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:56,559: +PUB [/mavros/extended_state] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:56,569: +PUB [/mavros/battery] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:56,573: +PUB [/mavros/estimator_status] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:56,580: +PUB [/mavros/statustext/recv] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:56,604: +SUB [/mavros/statustext/send] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:56,607: +SERVICE [/mavros/set_stream_rate] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:56,610: +SERVICE [/mavros/set_mode] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:56,613: +SERVICE [/mavros/vehicle_info_get] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:56,618: +SERVICE [/mavros/set_message_interval] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:56,711: +PUB [/mavros/time_reference] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:56,713: +PUB [/mavros/timesync_status] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:56,764: +SUB [/mavros/trajectory/generated] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:56,801: +SUB [/mavros/trajectory/path] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:56,806: +PUB [/mavros/trajectory/desired] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:56,810: +PUB [/mavros/vfr_hud] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:56,892: +SUB [/mavros/vision_pose/pose] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:56,919: +SUB [/mavros/vision_pose/pose_cov] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:56,983: +SUB [/mavros/vision_speed/speed_twist_cov] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:57,019: +PUB [/mavros/mission/waypoints] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:57,021: +SERVICE [/mavros/mission/pull] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:57,024: +SERVICE [/mavros/mission/push] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:57,030: +SERVICE [/mavros/mission/clear] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:57,038: +PUB [/mavros/mission/reached] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:57,041: +SERVICE [/mavros/mission/set_current] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:57,054: +PUB [/mavros/wind_estimation] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:02:58,068: +PUB [/mavlink/gcs_ip] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:03:02,370: +PARAM [/roslaunch/uris/host_unionsys_desktop__38607] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:03:02,401: +PARAM [/rosversion] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:03:02,401: +PARAM [/rosdistro] by /roslaunch
+[rosmaster.master][INFO] 2023-03-28 01:03:03,136: +PUB [/rosout] /bag_record http://unionsys-desktop:42429/
+[rosmaster.master][INFO] 2023-03-28 01:03:03,143: publisherUpdate[/rosout] -> http://unionsys-desktop:43383/ ['http://unionsys-desktop:39115/', 'http://unionsys-desktop:44071/', 'http://unionsys-desktop:42429/']
+[rosmaster.master][INFO] 2023-03-28 01:03:03,146: publisherUpdate[/rosout] -> http://unionsys-desktop:43383/ ['http://unionsys-desktop:39115/', 'http://unionsys-desktop:44071/', 'http://unionsys-desktop:42429/']: sec=0.00, result=[1, '', 0]
+[rosmaster.master][INFO] 2023-03-28 01:03:03,156: +SERVICE [/bag_record/get_loggers] /bag_record http://unionsys-desktop:42429/
+[rosmaster.master][INFO] 2023-03-28 01:03:03,166: +SERVICE [/bag_record/set_logger_level] /bag_record http://unionsys-desktop:42429/
+[rosmaster.master][INFO] 2023-03-28 01:03:03,190: +CACHEDPARAM [/rosout_disable_topics_generation] by /bag_record
+[rosmaster.master][INFO] 2023-03-28 01:03:03,254: +SUB [/ekf/state] /bag_record http://unionsys-desktop:42429/
+[rosmaster.master][INFO] 2023-03-28 01:03:03,271: +PUB [/rosout] /ekf_node http://unionsys-desktop:45477/
+[rosmaster.master][INFO] 2023-03-28 01:03:03,277: publisherUpdate[/rosout] -> http://unionsys-desktop:43383/ ['http://unionsys-desktop:39115/', 'http://unionsys-desktop:44071/', 'http://unionsys-desktop:42429/', 'http://unionsys-desktop:45477/']
+[rosmaster.master][INFO] 2023-03-28 01:03:03,280: publisherUpdate[/rosout] -> http://unionsys-desktop:43383/ ['http://unionsys-desktop:39115/', 'http://unionsys-desktop:44071/', 'http://unionsys-desktop:42429/', 'http://unionsys-desktop:45477/']: sec=0.00, result=[1, '', 0]
+[rosmaster.master][INFO] 2023-03-28 01:03:03,287: +SERVICE [/ekf_node/get_loggers] /ekf_node http://unionsys-desktop:45477/
+[rosmaster.master][INFO] 2023-03-28 01:03:03,300: +SERVICE [/ekf_node/set_logger_level] /ekf_node http://unionsys-desktop:45477/
+[rosmaster.master][INFO] 2023-03-28 01:03:03,303: +SUB [/image_raw/compressed] /bag_record http://unionsys-desktop:42429/
+[rosmaster.master][INFO] 2023-03-28 01:03:03,375: +SUB [/mavros/local_position/pose] /ekf_node http://unionsys-desktop:45477/
+[rosmaster.master][INFO] 2023-03-28 01:03:03,391: +SUB [/mavros/imu/data] /bag_record http://unionsys-desktop:42429/
+[rosmaster.master][INFO] 2023-03-28 01:03:03,467: +SUB [/mavros/local_position/velocity_local] /ekf_node http://unionsys-desktop:45477/
+[rosmaster.master][INFO] 2023-03-28 01:03:03,482: +SUB [/mavros/local_position/pose] /bag_record http://unionsys-desktop:42429/
+[rosmaster.master][INFO] 2023-03-28 01:03:03,535: +SUB [/mavros/imu/data] /ekf_node http://unionsys-desktop:45477/
+[rosmaster.master][INFO] 2023-03-28 01:03:03,546: +SUB [/mavros/local_position/velocity_local] /bag_record http://unionsys-desktop:42429/
+[rosmaster.master][INFO] 2023-03-28 01:03:03,608: +SUB [/tracker/pos_image] /ekf_node http://unionsys-desktop:45477/
+[rosmaster.master][INFO] 2023-03-28 01:03:03,633: +SUB [/mavros/rc/in] /bag_record http://unionsys-desktop:42429/
+[rosmaster.master][INFO] 2023-03-28 01:03:03,696: +SUB [/camera/left/compressed] /ekf_node http://unionsys-desktop:45477/
+[rosmaster.master][INFO] 2023-03-28 01:03:03,716: +SUB [/mavros/setpoint_velocity/cmd_vel] /bag_record http://unionsys-desktop:42429/
+[rosmaster.master][INFO] 2023-03-28 01:03:03,768: +SUB [/ekf/state] /ekf_node http://unionsys-desktop:45477/
+[rosmaster.master][INFO] 2023-03-28 01:03:03,780: +PUB [/tracker/pos_image_ekf] /ekf_node http://unionsys-desktop:45477/
+[rosmaster.master][INFO] 2023-03-28 01:03:03,806: +SUB [/mavros/state] /bag_record http://unionsys-desktop:42429/
+[rosmaster.master][INFO] 2023-03-28 01:03:03,856: +SUB [/tracker/pos_image] /bag_record http://unionsys-desktop:42429/
+[rosmaster.master][INFO] 2023-03-28 01:03:03,913: +SUB [/tracker/pos_image_ekf] /bag_record http://unionsys-desktop:42429/
+[rosmaster.master][INFO] 2023-03-28 01:03:07,078: +PUB [/rosout] /main_node http://unionsys-desktop:45243/
+[rosmaster.master][INFO] 2023-03-28 01:03:07,096: +SERVICE [/main_node/get_loggers] /main_node http://unionsys-desktop:45243/
+[rosmaster.master][INFO] 2023-03-28 01:03:07,101: +SERVICE [/main_node/set_logger_level] /main_node http://unionsys-desktop:45243/
+[rosmaster.master][INFO] 2023-03-28 01:03:07,112: +SUB [/mavros/state] /main_node http://unionsys-desktop:45243/
+[rosmaster.master][INFO] 2023-03-28 01:03:07,119: publisherUpdate[/rosout] -> http://unionsys-desktop:43383/ ['http://unionsys-desktop:39115/', 'http://unionsys-desktop:44071/', 'http://unionsys-desktop:42429/', 'http://unionsys-desktop:45477/', 'http://unionsys-desktop:45243/']
+[rosmaster.master][INFO] 2023-03-28 01:03:07,122: publisherUpdate[/rosout] -> http://unionsys-desktop:43383/ ['http://unionsys-desktop:39115/', 'http://unionsys-desktop:44071/', 'http://unionsys-desktop:42429/', 'http://unionsys-desktop:45477/', 'http://unionsys-desktop:45243/']: sec=0.00, result=[1, '', 0]
+[rosmaster.master][INFO] 2023-03-28 01:03:07,136: +SUB [/mavros/local_position/pose] /main_node http://unionsys-desktop:45243/
+[rosmaster.master][INFO] 2023-03-28 01:03:07,149: +SUB [/mavros/local_position/velocity_local] /main_node http://unionsys-desktop:45243/
+[rosmaster.master][INFO] 2023-03-28 01:03:07,163: +SUB [/mavros/rc/in] /main_node http://unionsys-desktop:45243/
+[rosmaster.master][INFO] 2023-03-28 01:03:07,182: +SUB [/tracker/pos_image] /main_node http://unionsys-desktop:45243/
+[rosmaster.master][INFO] 2023-03-28 01:03:07,195: +PUB [/mavros/setpoint_velocity/cmd_vel] /main_node http://unionsys-desktop:45243/
+[rosmaster.master][INFO] 2023-03-28 01:03:07,220: +PUB [/ekf/state] /main_node http://unionsys-desktop:45243/
+[rosmaster.master][INFO] 2023-03-28 01:03:07,222: publisherUpdate[/mavros/setpoint_velocity/cmd_vel] -> http://unionsys-desktop:44071/ ['http://unionsys-desktop:45243/']
+[rosmaster.master][INFO] 2023-03-28 01:03:07,224: publisherUpdate[/mavros/setpoint_velocity/cmd_vel] -> http://unionsys-desktop:44071/ ['http://unionsys-desktop:45243/']: sec=0.00, result=[1, '', 0]
+[rosmaster.master][INFO] 2023-03-28 01:03:07,225: publisherUpdate[/mavros/setpoint_velocity/cmd_vel] -> http://unionsys-desktop:42429/ ['http://unionsys-desktop:45243/']
+[rosmaster.master][INFO] 2023-03-28 01:03:07,235: publisherUpdate[/mavros/setpoint_velocity/cmd_vel] -> http://unionsys-desktop:42429/ ['http://unionsys-desktop:45243/']: sec=0.01, result=[1, '', 0]
+[rosmaster.master][INFO] 2023-03-28 01:03:07,235: publisherUpdate[/ekf/state] -> http://unionsys-desktop:42429/ ['http://unionsys-desktop:45243/']
+[rosmaster.master][INFO] 2023-03-28 01:03:07,238: publisherUpdate[/ekf/state] -> http://unionsys-desktop:42429/ ['http://unionsys-desktop:45243/']: sec=0.00, result=[1, '', 0]
+[rosmaster.master][INFO] 2023-03-28 01:03:07,238: publisherUpdate[/ekf/state] -> http://unionsys-desktop:45477/ ['http://unionsys-desktop:45243/']
+[rosmaster.master][INFO] 2023-03-28 01:03:07,241: publisherUpdate[/ekf/state] -> http://unionsys-desktop:45477/ ['http://unionsys-desktop:45243/']: sec=0.00, result=[1, '', 0]
+[rosmaster.master][INFO] 2023-03-28 01:12:11,604: -PUB [/rosout] /csi_cam http://unionsys-desktop:39115/
+[rosmaster.master][INFO] 2023-03-28 01:12:11,607: -PUB [/image_raw/compressedDepth] /csi_cam http://unionsys-desktop:39115/
+[rosmaster.master][INFO] 2023-03-28 01:12:11,611: -PUB [/image_raw/compressedDepth/parameter_descriptions] /csi_cam http://unionsys-desktop:39115/
+[rosmaster.master][INFO] 2023-03-28 01:12:11,614: -PUB [/image_raw/compressedDepth/parameter_updates] /csi_cam http://unionsys-desktop:39115/
+[rosmaster.master][INFO] 2023-03-28 01:12:11,626: -PUB [/image_raw/compressed] /csi_cam http://unionsys-desktop:39115/
+[rosmaster.master][INFO] 2023-03-28 01:12:11,628: publisherUpdate[/rosout] -> http://unionsys-desktop:43383/ ['http://unionsys-desktop:44071/', 'http://unionsys-desktop:42429/', 'http://unionsys-desktop:45477/', 'http://unionsys-desktop:45243/']
+[rosmaster.master][INFO] 2023-03-28 01:12:11,630: -PUB [/image_raw/compressed/parameter_descriptions] /csi_cam http://unionsys-desktop:39115/
+[rosmaster.master][INFO] 2023-03-28 01:12:11,635: publisherUpdate[/rosout] -> http://unionsys-desktop:43383/ ['http://unionsys-desktop:44071/', 'http://unionsys-desktop:42429/', 'http://unionsys-desktop:45477/', 'http://unionsys-desktop:45243/']: sec=0.00, result=[1, '', 0]
+[rosmaster.master][INFO] 2023-03-28 01:12:11,638: publisherUpdate[/image_raw/compressed] -> http://unionsys-desktop:42429/ []
+[rosmaster.master][INFO] 2023-03-28 01:12:11,643: publisherUpdate[/image_raw/compressed] -> http://unionsys-desktop:42429/ []: sec=0.00, result=[1, '', 0]
+[rosmaster.master][INFO] 2023-03-28 01:12:11,646: -PUB [/image_raw/compressed/parameter_updates] /csi_cam http://unionsys-desktop:39115/
+[rosmaster.master][INFO] 2023-03-28 01:12:11,656: -PUB [/image_raw] /csi_cam http://unionsys-desktop:39115/
+[rosmaster.master][INFO] 2023-03-28 01:12:11,659: -PUB [/image_raw/theora] /csi_cam http://unionsys-desktop:39115/
+[rosmaster.master][INFO] 2023-03-28 01:12:11,664: -PUB [/image_raw/theora/parameter_descriptions] /csi_cam http://unionsys-desktop:39115/
+[rosmaster.master][INFO] 2023-03-28 01:12:11,669: -PUB [/image_raw/theora/parameter_updates] /csi_cam http://unionsys-desktop:39115/
+[rosmaster.master][INFO] 2023-03-28 01:12:11,671: -PUB [/tracker/pos_image] /csi_cam http://unionsys-desktop:39115/
+[rosmaster.master][INFO] 2023-03-28 01:12:11,688: -SERVICE [/csi_cam/get_loggers] /csi_cam rosrpc://unionsys-desktop:37523
+[rosmaster.master][INFO] 2023-03-28 01:12:11,691: publisherUpdate[/tracker/pos_image] -> http://unionsys-desktop:45477/ []
+[rosmaster.master][INFO] 2023-03-28 01:12:11,694: publisherUpdate[/tracker/pos_image] -> http://unionsys-desktop:45477/ []: sec=0.00, result=[1, '', 0]
+[rosmaster.master][INFO] 2023-03-28 01:12:11,694: publisherUpdate[/tracker/pos_image] -> http://unionsys-desktop:42429/ []
+[rosmaster.master][INFO] 2023-03-28 01:12:11,697: publisherUpdate[/tracker/pos_image] -> http://unionsys-desktop:42429/ []: sec=0.00, result=[1, '', 0]
+[rosmaster.master][INFO] 2023-03-28 01:12:11,697: publisherUpdate[/tracker/pos_image] -> http://unionsys-desktop:45243/ []
+[rosmaster.master][INFO] 2023-03-28 01:12:11,709: -SERVICE [/csi_cam/set_logger_level] /csi_cam rosrpc://unionsys-desktop:37523
+[rosmaster.master][INFO] 2023-03-28 01:12:11,725: publisherUpdate[/tracker/pos_image] -> http://unionsys-desktop:45243/ []: sec=0.03, result=[1, '', 0]
+[rosmaster.master][INFO] 2023-03-28 01:12:11,727: -SERVICE [/image_raw/compressedDepth/set_parameters] /csi_cam rosrpc://unionsys-desktop:37523
+[rosmaster.master][INFO] 2023-03-28 01:12:11,739: -SERVICE [/image_raw/compressed/set_parameters] /csi_cam rosrpc://unionsys-desktop:37523
+[rosmaster.master][INFO] 2023-03-28 01:12:11,745: -SERVICE [/image_raw/theora/set_parameters] /csi_cam rosrpc://unionsys-desktop:37523
+[rosmaster.master][INFO] 2023-03-28 01:12:12,478: -PUB [/rosout] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:12:12,481: -PUB [/diagnostics] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:12:12,484: -PUB [/tf] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:12:12,488: -PUB [/tf_static] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:12:12,491: -PUB [/mavlink/from] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:12:12,493: -PUB [/mavros/radio_status] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:12:12,496: -PUB [/mavros/target_actuator_control] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:12:12,499: -PUB [/mavros/adsb/vehicle] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:12:12,502: -PUB [/mavros/altitude] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:12:12,504: -PUB [/mavros/cam_imu_sync/cam_imu_stamp] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:12:12,507: -PUB [/mavros/debug_value/debug] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:12:12,509: publisherUpdate[/rosout] -> http://unionsys-desktop:43383/ ['http://unionsys-desktop:42429/', 'http://unionsys-desktop:45477/', 'http://unionsys-desktop:45243/']
+[rosmaster.master][INFO] 2023-03-28 01:12:12,511: publisherUpdate[/rosout] -> http://unionsys-desktop:43383/ ['http://unionsys-desktop:42429/', 'http://unionsys-desktop:45477/', 'http://unionsys-desktop:45243/']: sec=0.00, result=[1, '', 0]
+[rosmaster.master][INFO] 2023-03-28 01:12:12,511: publisherUpdate[/tf] -> http://unionsys-desktop:44071/ []
+[rosmaster.master][INFO] 2023-03-28 01:12:12,514: publisherUpdate[/tf] -> http://unionsys-desktop:44071/ []: sec=0.00, exception=<Fault -1: 'publisherUpdate: unknown method name'>
+[rosmaster.master][INFO] 2023-03-28 01:12:12,516: -PUB [/mavros/debug_value/debug_vector] /mavros http://unionsys-desktop:44071/
+[rosmaster.threadpool][ERROR] 2023-03-28 01:12:12,520: Traceback (most recent call last):
+  File "/opt/ros/melodic/lib/python2.7/dist-packages/rosmaster/threadpool.py", line 218, in run
+    result = cmd(*args)
+  File "/opt/ros/melodic/lib/python2.7/dist-packages/rosmaster/master_api.py", line 210, in publisher_update_task
+    ret = xmlrpcapi(api).publisherUpdate('/master', topic, pub_uris)
+  File "/usr/lib/python2.7/xmlrpclib.py", line 1243, in __call__
+    return self.__send(self.__name, args)
+  File "/usr/lib/python2.7/xmlrpclib.py", line 1602, in __request
+    verbose=self.__verbose
+  File "/usr/lib/python2.7/xmlrpclib.py", line 1283, in request
+    return self.single_request(host, handler, request_body, verbose)
+  File "/usr/lib/python2.7/xmlrpclib.py", line 1316, in single_request
+    return self.parse_response(response)
+  File "/usr/lib/python2.7/xmlrpclib.py", line 1493, in parse_response
+    return u.close()
+  File "/usr/lib/python2.7/xmlrpclib.py", line 800, in close
+    raise Fault(**self._stack[0])
+Fault: <Fault -1: 'publisherUpdate: unknown method name'>
+
+[rosmaster.master][INFO] 2023-03-28 01:12:12,520: publisherUpdate[/tf_static] -> http://unionsys-desktop:44071/ []
+[rosmaster.master][INFO] 2023-03-28 01:12:12,522: publisherUpdate[/tf_static] -> http://unionsys-desktop:44071/ []: sec=0.00, exception=<Fault -1: 'publisherUpdate: unknown method name'>
+[rosmaster.threadpool][ERROR] 2023-03-28 01:12:12,523: Traceback (most recent call last):
+  File "/opt/ros/melodic/lib/python2.7/dist-packages/rosmaster/threadpool.py", line 218, in run
+    result = cmd(*args)
+  File "/opt/ros/melodic/lib/python2.7/dist-packages/rosmaster/master_api.py", line 210, in publisher_update_task
+    ret = xmlrpcapi(api).publisherUpdate('/master', topic, pub_uris)
+  File "/usr/lib/python2.7/xmlrpclib.py", line 1243, in __call__
+    return self.__send(self.__name, args)
+  File "/usr/lib/python2.7/xmlrpclib.py", line 1602, in __request
+    verbose=self.__verbose
+  File "/usr/lib/python2.7/xmlrpclib.py", line 1283, in request
+    return self.single_request(host, handler, request_body, verbose)
+  File "/usr/lib/python2.7/xmlrpclib.py", line 1316, in single_request
+    return self.parse_response(response)
+  File "/usr/lib/python2.7/xmlrpclib.py", line 1493, in parse_response
+    return u.close()
+  File "/usr/lib/python2.7/xmlrpclib.py", line 800, in close
+    raise Fault(**self._stack[0])
+Fault: <Fault -1: 'publisherUpdate: unknown method name'>
+
+[rosmaster.master][INFO] 2023-03-28 01:12:12,524: -PUB [/mavros/debug_value/named_value_float] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:12:12,527: -PUB [/mavros/debug_value/named_value_int] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:12:12,529: -PUB [/mavros/esc_info] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:12:12,533: -PUB [/mavros/esc_status] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:12:12,537: -PUB [/mavros/geofence/waypoints] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:12:12,548: -PUB [/mavros/global_position/raw/fix] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:12:12,550: -PUB [/mavros/global_position/raw/gps_vel] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:12:12,577: -PUB [/mavros/global_position/raw/satellites] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:12:12,583: -PUB [/mavros/global_position/global] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:12:12,586: -PUB [/mavros/global_position/local] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:12:12,589: -PUB [/mavros/global_position/rel_alt] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:12:12,592: -PUB [/mavros/global_position/compass_hdg] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:12:12,596: -PUB [/mavros/global_position/gp_origin] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:12:12,601: -PUB [/mavros/global_position/gp_lp_offset] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:12:12,604: -PUB [/mavros/gps_rtk/rtk_baseline] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:12:12,608: -PUB [/mavros/gpsstatus/gps1/raw] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:12:12,611: -PUB [/mavros/gpsstatus/gps2/raw] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:12:12,614: -PUB [/mavros/gpsstatus/gps1/rtk] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:12:12,617: -PUB [/mavros/gpsstatus/gps2/rtk] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:12:12,620: -PUB [/mavros/hil/controls] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:12:12,623: publisherUpdate[/mavros/global_position/global] -> http://unionsys-desktop:44071/ []
+[rosmaster.master][INFO] 2023-03-28 01:12:12,625: publisherUpdate[/mavros/global_position/global] -> http://unionsys-desktop:44071/ []: sec=0.00, exception=<Fault -1: 'publisherUpdate: unknown method name'>
+[rosmaster.threadpool][ERROR] 2023-03-28 01:12:12,626: Traceback (most recent call last):
+  File "/opt/ros/melodic/lib/python2.7/dist-packages/rosmaster/threadpool.py", line 218, in run
+    result = cmd(*args)
+  File "/opt/ros/melodic/lib/python2.7/dist-packages/rosmaster/master_api.py", line 210, in publisher_update_task
+    ret = xmlrpcapi(api).publisherUpdate('/master', topic, pub_uris)
+  File "/usr/lib/python2.7/xmlrpclib.py", line 1243, in __call__
+    return self.__send(self.__name, args)
+  File "/usr/lib/python2.7/xmlrpclib.py", line 1602, in __request
+    verbose=self.__verbose
+  File "/usr/lib/python2.7/xmlrpclib.py", line 1283, in request
+    return self.single_request(host, handler, request_body, verbose)
+  File "/usr/lib/python2.7/xmlrpclib.py", line 1316, in single_request
+    return self.parse_response(response)
+  File "/usr/lib/python2.7/xmlrpclib.py", line 1493, in parse_response
+    return u.close()
+  File "/usr/lib/python2.7/xmlrpclib.py", line 800, in close
+    raise Fault(**self._stack[0])
+Fault: <Fault -1: 'publisherUpdate: unknown method name'>
+
+[rosmaster.master][INFO] 2023-03-28 01:12:12,626: -PUB [/mavros/hil/actuator_controls] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:12:12,634: -PUB [/mavros/home_position/home] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:12:12,643: -PUB [/mavros/imu/data] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:12:12,646: publisherUpdate[/mavros/imu/data] -> http://unionsys-desktop:42429/ []
+[rosmaster.master][INFO] 2023-03-28 01:12:12,648: publisherUpdate[/mavros/imu/data] -> http://unionsys-desktop:42429/ []: sec=0.00, result=[1, '', 0]
+[rosmaster.master][INFO] 2023-03-28 01:12:12,648: publisherUpdate[/mavros/imu/data] -> http://unionsys-desktop:45477/ []
+[rosmaster.master][INFO] 2023-03-28 01:12:12,651: publisherUpdate[/mavros/imu/data] -> http://unionsys-desktop:45477/ []: sec=0.00, result=[1, '', 0]
+[rosmaster.master][INFO] 2023-03-28 01:12:12,652: -PUB [/mavros/imu/mag] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:12:12,656: -PUB [/mavros/imu/temperature_imu] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:12:12,659: -PUB [/mavros/imu/temperature_baro] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:12:12,661: -PUB [/mavros/imu/static_pressure] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:12:12,665: -PUB [/mavros/imu/diff_pressure] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:12:12,667: -PUB [/mavros/imu/data_raw] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:12:12,671: -PUB [/mavros/landing_target/pose_in] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:12:12,676: -PUB [/mavros/landing_target/lt_marker] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:12:12,679: -PUB [/mavros/local_position/pose] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:12:12,703: -PUB [/mavros/local_position/pose_cov] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:12:12,726: publisherUpdate[/mavros/local_position/pose] -> http://unionsys-desktop:44071/ []
+[rosmaster.master][INFO] 2023-03-28 01:12:12,729: publisherUpdate[/mavros/local_position/pose] -> http://unionsys-desktop:44071/ []: sec=0.00, exception=<Fault -1: 'publisherUpdate: unknown method name'>
+[rosmaster.threadpool][ERROR] 2023-03-28 01:12:12,730: Traceback (most recent call last):
+  File "/opt/ros/melodic/lib/python2.7/dist-packages/rosmaster/threadpool.py", line 218, in run
+    result = cmd(*args)
+  File "/opt/ros/melodic/lib/python2.7/dist-packages/rosmaster/master_api.py", line 210, in publisher_update_task
+    ret = xmlrpcapi(api).publisherUpdate('/master', topic, pub_uris)
+  File "/usr/lib/python2.7/xmlrpclib.py", line 1243, in __call__
+    return self.__send(self.__name, args)
+  File "/usr/lib/python2.7/xmlrpclib.py", line 1602, in __request
+    verbose=self.__verbose
+  File "/usr/lib/python2.7/xmlrpclib.py", line 1283, in request
+    return self.single_request(host, handler, request_body, verbose)
+  File "/usr/lib/python2.7/xmlrpclib.py", line 1316, in single_request
+    return self.parse_response(response)
+  File "/usr/lib/python2.7/xmlrpclib.py", line 1493, in parse_response
+    return u.close()
+  File "/usr/lib/python2.7/xmlrpclib.py", line 800, in close
+    raise Fault(**self._stack[0])
+Fault: <Fault -1: 'publisherUpdate: unknown method name'>
+
+[rosmaster.master][INFO] 2023-03-28 01:12:12,730: publisherUpdate[/mavros/local_position/pose] -> http://unionsys-desktop:45477/ []
+[rosmaster.master][INFO] 2023-03-28 01:12:12,732: publisherUpdate[/mavros/local_position/pose] -> http://unionsys-desktop:42429/ []
+[rosmaster.master][INFO] 2023-03-28 01:12:12,733: publisherUpdate[/mavros/local_position/pose] -> http://unionsys-desktop:42429/ []: sec=0.00, result=[1, '', 0]
+[rosmaster.master][INFO] 2023-03-28 01:12:12,733: publisherUpdate[/mavros/local_position/pose] -> http://unionsys-desktop:45243/ []
+[rosmaster.master][INFO] 2023-03-28 01:12:12,727: -PUB [/mavros/local_position/velocity_local] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:12:12,737: publisherUpdate[/mavros/local_position/pose] -> http://unionsys-desktop:45477/ []: sec=0.01, result=[1, '', 0]
+[rosmaster.master][INFO] 2023-03-28 01:12:12,738: publisherUpdate[/mavros/local_position/velocity_local] -> http://unionsys-desktop:45477/ []
+[rosmaster.master][INFO] 2023-03-28 01:12:12,739: publisherUpdate[/mavros/local_position/velocity_local] -> http://unionsys-desktop:45477/ []: sec=0.00, result=[1, '', 0]
+[rosmaster.master][INFO] 2023-03-28 01:12:12,739: publisherUpdate[/mavros/local_position/velocity_local] -> http://unionsys-desktop:42429/ []
+[rosmaster.master][INFO] 2023-03-28 01:12:12,740: publisherUpdate[/mavros/local_position/pose] -> http://unionsys-desktop:45243/ []: sec=0.01, result=[1, '', 0]
+[rosmaster.master][INFO] 2023-03-28 01:12:12,741: publisherUpdate[/mavros/local_position/velocity_local] -> http://unionsys-desktop:45243/ []
+[rosmaster.master][INFO] 2023-03-28 01:12:12,744: publisherUpdate[/mavros/local_position/velocity_local] -> http://unionsys-desktop:42429/ []: sec=0.00, result=[1, '', 0]
+[rosmaster.master][INFO] 2023-03-28 01:12:12,750: -PUB [/mavros/local_position/velocity_body] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:12:12,752: publisherUpdate[/mavros/local_position/velocity_local] -> http://unionsys-desktop:45243/ []: sec=0.01, result=[1, '', 0]
+[rosmaster.master][INFO] 2023-03-28 01:12:12,755: -PUB [/mavros/local_position/velocity_body_cov] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:12:12,757: -PUB [/mavros/local_position/accel] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:12:12,759: -PUB [/mavros/local_position/odom] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:12:12,761: -PUB [/mavros/log_transfer/raw/log_entry] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:12:12,763: -PUB [/mavros/log_transfer/raw/log_data] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:12:12,765: -PUB [/mavros/manual_control/control] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:12:12,767: -PUB [/mavros/mount_control/orientation] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:12:12,784: -PUB [/mavros/odometry/in] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:12:12,786: -PUB [/mavros/param/param_value] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:12:12,789: -PUB [/mavros/px4flow/raw/optical_flow_rad] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:12:12,791: -PUB [/mavros/px4flow/ground_distance] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:12:12,794: -PUB [/mavros/px4flow/temperature] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:12:12,811: -PUB [/mavros/rallypoint/waypoints] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:12:12,814: -PUB [/rosout_agg] /rosout http://unionsys-desktop:43383/
+[rosmaster.master][INFO] 2023-03-28 01:12:12,818: -PUB [/mavros/rc/in] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:12:12,830: -SUB [/rosout] /rosout http://unionsys-desktop:43383/
+[rosmaster.master][INFO] 2023-03-28 01:12:12,834: -PUB [/mavros/rc/out] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:12:12,842: -PUB [/mavros/setpoint_raw/target_local] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:12:12,844: -SERVICE [/rosout/get_loggers] /rosout rosrpc://unionsys-desktop:54167
+[rosmaster.master][INFO] 2023-03-28 01:12:12,845: publisherUpdate[/mavros/rc/in] -> http://unionsys-desktop:42429/ []
+[rosmaster.master][INFO] 2023-03-28 01:12:12,847: -PUB [/mavros/setpoint_raw/target_global] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:12:12,848: publisherUpdate[/mavros/rc/in] -> http://unionsys-desktop:42429/ []: sec=0.00, result=[1, '', 0]
+[rosmaster.master][INFO] 2023-03-28 01:12:12,850: publisherUpdate[/mavros/rc/in] -> http://unionsys-desktop:45243/ []
+[rosmaster.master][INFO] 2023-03-28 01:12:12,855: publisherUpdate[/mavros/rc/in] -> http://unionsys-desktop:45243/ []: sec=0.00, result=[1, '', 0]
+[rosmaster.master][INFO] 2023-03-28 01:12:12,861: -SERVICE [/rosout/set_logger_level] /rosout rosrpc://unionsys-desktop:54167
+[rosmaster.master][INFO] 2023-03-28 01:12:12,877: -PUB [/mavros/setpoint_raw/target_attitude] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:12:12,880: -CACHEDPARAM [/rosout/omit_topics] by /rosout
+[rosmaster.master][INFO] 2023-03-28 01:12:12,896: -PUB [/mavros/setpoint_trajectory/desired] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:12:12,908: -PUB [/mavros/state] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:12:12,919: -PUB [/mavros/extended_state] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:12:12,926: -PUB [/mavros/battery] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:12:12,929: -PUB [/mavros/estimator_status] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:12:12,932: -PUB [/mavros/statustext/recv] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:12:12,935: -PUB [/mavros/time_reference] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:12:12,938: -PUB [/mavros/timesync_status] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:12:12,945: -PUB [/mavros/trajectory/desired] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:12:12,952: -PUB [/mavros/vfr_hud] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:12:12,953: publisherUpdate[/mavros/state] -> http://unionsys-desktop:42429/ []
+[rosmaster.master][INFO] 2023-03-28 01:12:12,953: publisherUpdate[/mavros/state] -> http://unionsys-desktop:45243/ []
+[rosmaster.master][INFO] 2023-03-28 01:12:12,959: publisherUpdate[/mavros/state] -> http://unionsys-desktop:42429/ []: sec=0.01, result=[1, '', 0]
+[rosmaster.master][INFO] 2023-03-28 01:12:12,963: publisherUpdate[/mavros/state] -> http://unionsys-desktop:45243/ []: sec=0.01, result=[1, '', 0]
+[rosmaster.master][INFO] 2023-03-28 01:12:12,962: -PUB [/mavros/mission/waypoints] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:12:12,966: -PUB [/mavros/mission/reached] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:12:12,968: -PUB [/mavros/wind_estimation] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:12:12,970: -PUB [/mavlink/gcs_ip] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:12:12,978: -SUB [/tf] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:12:12,982: -SUB [/tf_static] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:12:12,985: -SUB [/mavlink/to] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:12:12,987: -SUB [/mavros/actuator_control] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:12:12,990: -SUB [/mavros/adsb/send] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:12:12,993: -SUB [/mavros/companion_process/status] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:12:12,996: -SUB [/mavros/debug_value/send] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:12:12,999: -SUB [/mavros/fake_gps/mocap/tf] /mavros http://unionsys-desktop:44071/
+[rosmaster.master][INFO] 2023-03-28 01:12:13,001: -SUB [/mavros/global_position/set_gp_origin] /mavros http://unionsys-desktop:44071/
+[rosmaster.main][INFO] 2023-03-28 01:12:13,004: keyboard interrupt, will exit
+[rosmaster.main][INFO] 2023-03-28 01:12:13,004: stopping master...
+[rospy.core][INFO] 2023-03-28 01:12:13,006: signal_shutdown [atexit]

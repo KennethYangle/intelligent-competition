@@ -1,0 +1,111 @@
+[roslaunch][INFO] 2023-03-28 01:02:40,433: Checking log directory for disk usage. This may take a while.
+Press Ctrl-C to interrupt
+[roslaunch][INFO] 2023-03-28 01:02:40,447: Done checking log file disk usage. Usage is <1GB.
+[roslaunch][INFO] 2023-03-28 01:02:40,447: roslaunch starting with args ['/opt/ros/melodic/bin/roslaunch', 'csi_cam', 'main.launch']
+[roslaunch][INFO] 2023-03-28 01:02:40,448: roslaunch env is {'LC_NUMERIC': 'zh_CN.UTF-8', 'ROS_DISTRO': 'melodic', 'QT4_IM_MODULE': 'xim', 'WINDOWPATH': '1', 'XDG_CURRENT_DESKTOP': 'Unity:Unity7:ubuntu', 'XDG_SESSION_TYPE': 'x11', 'ROSLISP_PACKAGE_DIRECTORIES': '/home/unionsys/Rfly_Attack/devel/share/common-lisp:/home/unionsys/mavros_ws/devel/share/common-lisp', 'QT_IM_MODULE': 'ibus', 'LOGNAME': 'unionsys', 'USER': 'unionsys', 'PATH': '/opt/ros/melodic/bin:/home/unionsys/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin', 'LC_PAPER': 'zh_CN.UTF-8', 'HOME': '/home/unionsys', 'CMAKE_PREFIX_PATH': '/home/unionsys/Rfly_Attack/devel:/home/unionsys/mavros_ws/devel:/opt/ros/melodic', 'DISPLAY': ':0', 'XDG_RUNTIME_DIR': '/run/user/1000', 'LANG': 'en_US.UTF-8', 'MANAGERPID': '5359', 'SHELL': '/bin/bash', 'ROS_LOG_FILENAME': '/home/unionsys/.ros/log/2eb00a9e-ccc1-11ed-9ff8-c6766eff689d/roslaunch-unionsys-desktop-6866.log', 'XAUTHORITY': '/run/user/1000/gdm/Xauthority', 'JOURNAL_STREAM': '8:29503', 'SESSION_MANAGER': 'local/unionsys-desktop:@/tmp/.ICE-unix/6041,unix/unionsys-desktop:/tmp/.ICE-unix/6041', 'LC_MEASUREMENT': 'zh_CN.UTF-8', 'QT_ACCESSIBILITY': '1', 'LD_LIBRARY_PATH': '/home/unionsys/Rfly_Attack/devel/lib:/home/unionsys/mavros_ws/devel/lib:/opt/ros/melodic/lib', 'GTK_CSD': '0', 'GNOME_DESKTOP_SESSION_ID': 'this-is-deprecated', 'CLUTTER_IM_MODULE': 'xim', 'TEXTDOMAIN': 'im-config', 'DESKTOP_AUTOSTART_ID': '109b96ef5e759dcf35167993655119396200000060410001', 'TERM': 'xterm-256color', 'ROS_MASTER_URI': 'http://localhost:11311', 'GPG_AGENT_INFO': '/run/user/1000/gnupg/S.gpg-agent:0:1', 'ROS_PYTHON_VERSION': '2', 'INVOCATION_ID': '1351ee90eb924b968174442232d2d5c4', 'USERNAME': 'unionsys', 'XDG_SESSION_DESKTOP': 'unity', 'SHLVL': '3', 'ROS_VERSION': '1', 'GTK_IM_MODULE': 'ibus', 'LC_ADDRESS': 'zh_CN.UTF-8', 'PYTHONPATH': '/home/unionsys/Rfly_Attack/devel/lib/python2.7/dist-packages:/opt/ros/melodic/lib/python2.7/dist-packages', 'SSH_AUTH_SOCK': '/run/user/1000/openssh_agent', 'VTE_VERSION': '5202', 'ROS_ROOT': '/opt/ros/melodic/share/ros', 'GDMSESSION': 'unity', 'XMODIFIERS': '@im=ibus', 'LC_TIME': 'zh_CN.UTF-8', 'TEXTDOMAINDIR': '/usr/share/locale/', 'XDG_DATA_DIRS': '/usr/share/unity:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop', 'PKG_CONFIG_PATH': '/home/unionsys/Rfly_Attack/devel/lib/pkgconfig:/home/unionsys/mavros_ws/devel/lib/pkgconfig:/opt/ros/melodic/lib/pkgconfig', 'ROS_PACKAGE_PATH': '/home/unionsys/Rfly_Attack/src:/home/unionsys/mavros_ws/src:/opt/ros/melodic/share', 'DBUS_SESSION_BUS_ADDRESS': 'unix:path=/run/user/1000/bus', '_': '/opt/ros/melodic/bin/roslaunch', 'GNOME_TERMINAL_SERVICE': ':1.74', 'LD_PRELOAD': 'libgtk3-nocsd.so.0', 'LC_IDENTIFICATION': 'zh_CN.UTF-8', 'DESKTOP_SESSION': 'unity', 'IM_CONFIG_PHASE': '2', 'XDG_CONFIG_DIRS': '/etc/xdg/xdg-unity:/etc/xdg', 'GTK_MODULES': 'gail:atk-bridge:unity-gtk-module', 'LC_TELEPHONE': 'zh_CN.UTF-8', 'LC_MONETARY': 'zh_CN.UTF-8', 'PWD': '/home/unionsys', 'ROS_ETC_DIR': '/opt/ros/melodic/etc/ros', 'SSH_AGENT_LAUNCHER': 'openssh', 'COLORTERM': 'truecolor', 'LC_NAME': 'zh_CN.UTF-8', 'XDG_MENU_PREFIX': 'gnome-', 'GNOME_SESSION_XDG_SESSION_PATH': '', 'GNOME_TERMINAL_SCREEN': '/org/gnome/Terminal/screen/7fd5782f_268d_4256_a4f8_8342327d3c7c'}
+[roslaunch][INFO] 2023-03-28 01:02:40,448: starting in server mode
+[roslaunch.parent][INFO] 2023-03-28 01:02:40,449: starting roslaunch parent run
+[roslaunch][INFO] 2023-03-28 01:02:40,450: loading roscore config file /opt/ros/melodic/etc/ros/roscore.xml
+[roslaunch][INFO] 2023-03-28 01:02:42,503: Added core node of type [rosout/rosout] in namespace [/]
+[roslaunch.config][INFO] 2023-03-28 01:02:42,503: loading config file /home/unionsys/Rfly_Attack/src/csi_cam/launch/main.launch
+[roslaunch][INFO] 2023-03-28 01:02:42,506: Added node of type [csi_cam/csi_cam] in namespace [/]
+[roslaunch][INFO] 2023-03-28 01:02:42,506: ... selected machine [] for node of type [csi_cam/csi_cam]
+[roslaunch.pmon][INFO] 2023-03-28 01:02:42,511: start_process_monitor: creating ProcessMonitor
+[roslaunch.pmon][INFO] 2023-03-28 01:02:42,511: created process monitor <ProcessMonitor(ProcessMonitor-1, initial daemon)>
+[roslaunch.pmon][INFO] 2023-03-28 01:02:42,512: start_process_monitor: ProcessMonitor started
+[roslaunch.parent][INFO] 2023-03-28 01:02:42,512: starting parent XML-RPC server
+[roslaunch.server][INFO] 2023-03-28 01:02:42,513: starting roslaunch XML-RPC server
+[roslaunch.server][INFO] 2023-03-28 01:02:42,513: waiting for roslaunch XML-RPC server to initialize
+[xmlrpc][INFO] 2023-03-28 01:02:42,513: XML-RPC server binding to 0.0.0.0:0
+[xmlrpc][INFO] 2023-03-28 01:02:42,514: Started XML-RPC server [http://unionsys-desktop:42809/]
+[xmlrpc][INFO] 2023-03-28 01:02:42,515: xml rpc node: starting XML-RPC server
+[roslaunch][INFO] 2023-03-28 01:02:42,527: started roslaunch server http://unionsys-desktop:42809/
+[roslaunch.parent][INFO] 2023-03-28 01:02:42,527: ... parent XML-RPC server started
+[roslaunch][INFO] 2023-03-28 01:02:42,528: master.is_running[http://localhost:11311]
+[roslaunch][INFO] 2023-03-28 01:02:42,529: auto-starting new master
+[roslaunch][INFO] 2023-03-28 01:02:42,529: create_master_process: rosmaster, /opt/ros/melodic/share/ros, 11311, 3, None, False
+[roslaunch][INFO] 2023-03-28 01:02:42,530: process[master]: launching with args [['rosmaster', '--core', '-p', '11311', '-w', '3']]
+[roslaunch.pmon][INFO] 2023-03-28 01:02:42,530: ProcessMonitor.register[master]
+[roslaunch.pmon][INFO] 2023-03-28 01:02:42,530: ProcessMonitor.register[master] complete
+[roslaunch][INFO] 2023-03-28 01:02:42,531: process[master]: starting os process
+[roslaunch][INFO] 2023-03-28 01:02:42,531: process[master]: start w/ args [['rosmaster', '--core', '-p', '11311', '-w', '3', '__log:=/home/unionsys/.ros/log/2eb00a9e-ccc1-11ed-9ff8-c6766eff689d/master.log']]
+[roslaunch][INFO] 2023-03-28 01:02:42,532: process[master]: cwd will be [/home/unionsys/.ros]
+[roslaunch][INFO] 2023-03-28 01:02:42,545: process[master]: started with pid [6986]
+[roslaunch][INFO] 2023-03-28 01:02:42,546: master.is_running[http://localhost:11311]
+[roslaunch][INFO] 2023-03-28 01:02:42,647: master.is_running[http://localhost:11311]
+[roslaunch][INFO] 2023-03-28 01:02:42,749: master.is_running[http://localhost:11311]
+[roslaunch][INFO] 2023-03-28 01:02:42,850: master.is_running[http://localhost:11311]
+[roslaunch][INFO] 2023-03-28 01:02:42,952: master.is_running[http://localhost:11311]
+[roslaunch][INFO] 2023-03-28 01:02:43,053: master.is_running[http://localhost:11311]
+[roslaunch][INFO] 2023-03-28 01:02:43,155: master.is_running[http://localhost:11311]
+[roslaunch][INFO] 2023-03-28 01:02:43,256: master.is_running[http://localhost:11311]
+[roslaunch][INFO] 2023-03-28 01:02:43,358: master.is_running[http://localhost:11311]
+[roslaunch][INFO] 2023-03-28 01:02:43,364: master.is_running[http://localhost:11311]
+[roslaunch][INFO] 2023-03-28 01:02:43,366: ROS_MASTER_URI=http://localhost:11311
+[roslaunch][INFO] 2023-03-28 01:02:43,369: setting /run_id to 2eb00a9e-ccc1-11ed-9ff8-c6766eff689d
+[roslaunch][INFO] 2023-03-28 01:02:43,373: setting /roslaunch/uris/host_unionsys_desktop__42809' to http://unionsys-desktop:42809/
+[roslaunch][INFO] 2023-03-28 01:02:43,378: ... preparing to launch node of type [rosout/rosout]
+[roslaunch][INFO] 2023-03-28 01:02:43,379: create_node_process: package[rosout] type[rosout] machine[Machine(name[] env_loader[None] address[localhost] ssh_port[22] user[None] assignable[True] timeout[10.0])] master_uri[http://localhost:11311]
+[roslaunch][INFO] 2023-03-28 01:02:43,379: process[rosout-1]: env[{'LC_NUMERIC': 'zh_CN.UTF-8', 'ROS_DISTRO': 'melodic', 'GNOME_SESSION_XDG_SESSION_PATH': '', 'QT4_IM_MODULE': 'xim', 'COLORTERM': 'truecolor', 'XDG_CURRENT_DESKTOP': 'Unity:Unity7:ubuntu', 'XDG_SESSION_TYPE': 'x11', 'ROSLISP_PACKAGE_DIRECTORIES': '/home/unionsys/Rfly_Attack/devel/share/common-lisp:/home/unionsys/mavros_ws/devel/share/common-lisp', 'QT_IM_MODULE': 'ibus', 'LOGNAME': 'unionsys', 'USER': 'unionsys', 'PATH': '/opt/ros/melodic/bin:/home/unionsys/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin', 'LC_PAPER': 'zh_CN.UTF-8', 'HOME': '/home/unionsys', 'CMAKE_PREFIX_PATH': '/home/unionsys/Rfly_Attack/devel:/home/unionsys/mavros_ws/devel:/opt/ros/melodic', 'ROS_LOG_FILENAME': '/home/unionsys/.ros/log/2eb00a9e-ccc1-11ed-9ff8-c6766eff689d/roslaunch-unionsys-desktop-6866.log', 'LANG': 'en_US.UTF-8', 'MANAGERPID': '5359', 'SHELL': '/bin/bash', 'XAUTHORITY': '/run/user/1000/gdm/Xauthority', 'JOURNAL_STREAM': '8:29503', 'SESSION_MANAGER': 'local/unionsys-desktop:@/tmp/.ICE-unix/6041,unix/unionsys-desktop:/tmp/.ICE-unix/6041', 'LC_MEASUREMENT': 'zh_CN.UTF-8', 'CLUTTER_IM_MODULE': 'xim', 'DISPLAY': ':0', 'GTK_CSD': '0', 'GNOME_DESKTOP_SESSION_ID': 'this-is-deprecated', 'QT_ACCESSIBILITY': '1', 'WINDOWPATH': '1', 'DESKTOP_AUTOSTART_ID': '109b96ef5e759dcf35167993655119396200000060410001', 'XMODIFIERS': '@im=ibus', 'ROS_ETC_DIR': '/opt/ros/melodic/etc/ros', 'GPG_AGENT_INFO': '/run/user/1000/gnupg/S.gpg-agent:0:1', 'ROS_PYTHON_VERSION': '2', 'INVOCATION_ID': '1351ee90eb924b968174442232d2d5c4', 'USERNAME': 'unionsys', 'XDG_SESSION_DESKTOP': 'unity', 'XDG_RUNTIME_DIR': '/run/user/1000', 'LC_IDENTIFICATION': 'zh_CN.UTF-8', 'LC_ADDRESS': 'zh_CN.UTF-8', 'PYTHONPATH': '/home/unionsys/Rfly_Attack/devel/lib/python2.7/dist-packages:/opt/ros/melodic/lib/python2.7/dist-packages', 'SSH_AUTH_SOCK': '/run/user/1000/openssh_agent', 'TERM': 'xterm-256color', 'VTE_VERSION': '5202', 'GDMSESSION': 'unity', 'IM_CONFIG_PHASE': '2', 'TEXTDOMAINDIR': '/usr/share/locale/', 'DESKTOP_SESSION': 'unity', 'XDG_DATA_DIRS': '/usr/share/unity:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop', 'PKG_CONFIG_PATH': '/home/unionsys/Rfly_Attack/devel/lib/pkgconfig:/home/unionsys/mavros_ws/devel/lib/pkgconfig:/opt/ros/melodic/lib/pkgconfig', 'ROS_PACKAGE_PATH': '/home/unionsys/Rfly_Attack/src:/home/unionsys/mavros_ws/src:/opt/ros/melodic/share', 'ROS_ROOT': '/opt/ros/melodic/share/ros', 'DBUS_SESSION_BUS_ADDRESS': 'unix:path=/run/user/1000/bus', '_': '/opt/ros/melodic/bin/roslaunch', 'GTK_MODULES': 'gail:atk-bridge:unity-gtk-module', 'LD_PRELOAD': 'libgtk3-nocsd.so.0', 'GTK_IM_MODULE': 'ibus', 'LD_LIBRARY_PATH': '/home/unionsys/Rfly_Attack/devel/lib:/home/unionsys/mavros_ws/devel/lib:/opt/ros/melodic/lib', 'XDG_CONFIG_DIRS': '/etc/xdg/xdg-unity:/etc/xdg', 'GNOME_TERMINAL_SERVICE': ':1.74', 'LC_TELEPHONE': 'zh_CN.UTF-8', 'LC_MONETARY': 'zh_CN.UTF-8', 'SHLVL': '3', 'PWD': '/home/unionsys', 'ROS_MASTER_URI': 'http://localhost:11311', 'SSH_AGENT_LAUNCHER': 'openssh', 'ROS_VERSION': '1', 'TEXTDOMAIN': 'im-config', 'LC_NAME': 'zh_CN.UTF-8', 'XDG_MENU_PREFIX': 'gnome-', 'LC_TIME': 'zh_CN.UTF-8', 'GNOME_TERMINAL_SCREEN': '/org/gnome/Terminal/screen/7fd5782f_268d_4256_a4f8_8342327d3c7c'}]
+[roslaunch][INFO] 2023-03-28 01:02:43,547: process[rosout-1]: args[[u'/opt/ros/melodic/lib/rosout/rosout', u'__name:=rosout']]
+[roslaunch][INFO] 2023-03-28 01:02:43,548: ... created process [rosout-1]
+[roslaunch.pmon][INFO] 2023-03-28 01:02:43,548: ProcessMonitor.register[rosout-1]
+[roslaunch.pmon][INFO] 2023-03-28 01:02:43,549: ProcessMonitor.register[rosout-1] complete
+[roslaunch][INFO] 2023-03-28 01:02:43,549: ... registered process [rosout-1]
+[roslaunch][INFO] 2023-03-28 01:02:43,549: process[rosout-1]: starting os process
+[roslaunch][INFO] 2023-03-28 01:02:43,550: process[rosout-1]: start w/ args [[u'/opt/ros/melodic/lib/rosout/rosout', u'__name:=rosout', u'__log:=/home/unionsys/.ros/log/2eb00a9e-ccc1-11ed-9ff8-c6766eff689d/rosout-1.log']]
+[roslaunch][INFO] 2023-03-28 01:02:43,550: process[rosout-1]: cwd will be [/home/unionsys/.ros]
+[roslaunch][INFO] 2023-03-28 01:02:43,564: process[rosout-1]: started with pid [7001]
+[roslaunch][INFO] 2023-03-28 01:02:43,565: ... successfully launched [rosout-1]
+[roslaunch][INFO] 2023-03-28 01:02:43,565: load_parameters starting ...
+[roslaunch][INFO] 2023-03-28 01:02:43,574: ... load_parameters complete
+[roslaunch][INFO] 2023-03-28 01:02:43,574: launch_nodes: launching local nodes ...
+[roslaunch][INFO] 2023-03-28 01:02:43,574: ... preparing to launch node of type [csi_cam/csi_cam]
+[roslaunch][INFO] 2023-03-28 01:02:43,575: create_node_process: package[csi_cam] type[csi_cam] machine[Machine(name[] env_loader[None] address[localhost] ssh_port[22] user[None] assignable[True] timeout[10.0])] master_uri[http://localhost:11311]
+[roslaunch][INFO] 2023-03-28 01:02:43,575: process[csi_cam-2]: env[{'LC_NUMERIC': 'zh_CN.UTF-8', 'ROS_DISTRO': 'melodic', 'GNOME_SESSION_XDG_SESSION_PATH': '', 'QT4_IM_MODULE': 'xim', 'COLORTERM': 'truecolor', 'XDG_CURRENT_DESKTOP': 'Unity:Unity7:ubuntu', 'XDG_SESSION_TYPE': 'x11', 'ROSLISP_PACKAGE_DIRECTORIES': '/home/unionsys/Rfly_Attack/devel/share/common-lisp:/home/unionsys/mavros_ws/devel/share/common-lisp', 'QT_IM_MODULE': 'ibus', 'LOGNAME': 'unionsys', 'USER': 'unionsys', 'PATH': '/opt/ros/melodic/bin:/home/unionsys/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin', 'LC_PAPER': 'zh_CN.UTF-8', 'HOME': '/home/unionsys', 'CMAKE_PREFIX_PATH': '/home/unionsys/Rfly_Attack/devel:/home/unionsys/mavros_ws/devel:/opt/ros/melodic', 'ROS_LOG_FILENAME': '/home/unionsys/.ros/log/2eb00a9e-ccc1-11ed-9ff8-c6766eff689d/roslaunch-unionsys-desktop-6866.log', 'LANG': 'en_US.UTF-8', 'MANAGERPID': '5359', 'SHELL': '/bin/bash', 'XAUTHORITY': '/run/user/1000/gdm/Xauthority', 'JOURNAL_STREAM': '8:29503', 'SESSION_MANAGER': 'local/unionsys-desktop:@/tmp/.ICE-unix/6041,unix/unionsys-desktop:/tmp/.ICE-unix/6041', 'LC_MEASUREMENT': 'zh_CN.UTF-8', 'CLUTTER_IM_MODULE': 'xim', 'DISPLAY': ':0', 'GTK_CSD': '0', 'GNOME_DESKTOP_SESSION_ID': 'this-is-deprecated', 'QT_ACCESSIBILITY': '1', 'WINDOWPATH': '1', 'DESKTOP_AUTOSTART_ID': '109b96ef5e759dcf35167993655119396200000060410001', 'XMODIFIERS': '@im=ibus', 'ROS_ETC_DIR': '/opt/ros/melodic/etc/ros', 'GPG_AGENT_INFO': '/run/user/1000/gnupg/S.gpg-agent:0:1', 'ROS_PYTHON_VERSION': '2', 'INVOCATION_ID': '1351ee90eb924b968174442232d2d5c4', 'USERNAME': 'unionsys', 'XDG_SESSION_DESKTOP': 'unity', 'XDG_RUNTIME_DIR': '/run/user/1000', 'LC_IDENTIFICATION': 'zh_CN.UTF-8', 'LC_ADDRESS': 'zh_CN.UTF-8', 'PYTHONPATH': '/home/unionsys/Rfly_Attack/devel/lib/python2.7/dist-packages:/opt/ros/melodic/lib/python2.7/dist-packages', 'SSH_AUTH_SOCK': '/run/user/1000/openssh_agent', 'TERM': 'xterm-256color', 'VTE_VERSION': '5202', 'GDMSESSION': 'unity', 'IM_CONFIG_PHASE': '2', 'TEXTDOMAINDIR': '/usr/share/locale/', 'DESKTOP_SESSION': 'unity', 'XDG_DATA_DIRS': '/usr/share/unity:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop', 'PKG_CONFIG_PATH': '/home/unionsys/Rfly_Attack/devel/lib/pkgconfig:/home/unionsys/mavros_ws/devel/lib/pkgconfig:/opt/ros/melodic/lib/pkgconfig', 'ROS_PACKAGE_PATH': '/home/unionsys/Rfly_Attack/src:/home/unionsys/mavros_ws/src:/opt/ros/melodic/share', 'ROS_ROOT': '/opt/ros/melodic/share/ros', 'DBUS_SESSION_BUS_ADDRESS': 'unix:path=/run/user/1000/bus', '_': '/opt/ros/melodic/bin/roslaunch', 'GTK_MODULES': 'gail:atk-bridge:unity-gtk-module', 'LD_PRELOAD': 'libgtk3-nocsd.so.0', 'GTK_IM_MODULE': 'ibus', 'LD_LIBRARY_PATH': '/home/unionsys/Rfly_Attack/devel/lib:/home/unionsys/mavros_ws/devel/lib:/opt/ros/melodic/lib', 'XDG_CONFIG_DIRS': '/etc/xdg/xdg-unity:/etc/xdg', 'GNOME_TERMINAL_SERVICE': ':1.74', 'LC_TELEPHONE': 'zh_CN.UTF-8', 'LC_MONETARY': 'zh_CN.UTF-8', 'SHLVL': '3', 'PWD': '/home/unionsys', 'ROS_MASTER_URI': 'http://localhost:11311', 'SSH_AGENT_LAUNCHER': 'openssh', 'ROS_VERSION': '1', 'TEXTDOMAIN': 'im-config', 'LC_NAME': 'zh_CN.UTF-8', 'XDG_MENU_PREFIX': 'gnome-', 'LC_TIME': 'zh_CN.UTF-8', 'GNOME_TERMINAL_SCREEN': '/org/gnome/Terminal/screen/7fd5782f_268d_4256_a4f8_8342327d3c7c'}]
+[roslaunch][INFO] 2023-03-28 01:02:43,578: process[csi_cam-2]: args[[u'/home/unionsys/Rfly_Attack/devel/lib/csi_cam/csi_cam', u'__name:=csi_cam']]
+[roslaunch][INFO] 2023-03-28 01:02:43,578: ... created process [csi_cam-2]
+[roslaunch.pmon][INFO] 2023-03-28 01:02:43,578: ProcessMonitor.register[csi_cam-2]
+[roslaunch.pmon][INFO] 2023-03-28 01:02:43,579: ProcessMonitor.register[csi_cam-2] complete
+[roslaunch][INFO] 2023-03-28 01:02:43,579: ... registered process [csi_cam-2]
+[roslaunch][INFO] 2023-03-28 01:02:43,579: process[csi_cam-2]: starting os process
+[roslaunch][INFO] 2023-03-28 01:02:43,580: process[csi_cam-2]: start w/ args [[u'/home/unionsys/Rfly_Attack/devel/lib/csi_cam/csi_cam', u'__name:=csi_cam', u'__log:=/home/unionsys/.ros/log/2eb00a9e-ccc1-11ed-9ff8-c6766eff689d/csi_cam-2.log']]
+[roslaunch][INFO] 2023-03-28 01:02:43,580: process[csi_cam-2]: cwd will be [/home/unionsys/.ros]
+[roslaunch][INFO] 2023-03-28 01:02:43,606: process[csi_cam-2]: started with pid [7004]
+[roslaunch][INFO] 2023-03-28 01:02:43,607: ... successfully launched [csi_cam-2]
+[roslaunch][INFO] 2023-03-28 01:02:43,607: ... launch_nodes complete
+[roslaunch.pmon][INFO] 2023-03-28 01:02:43,608: registrations completed <ProcessMonitor(ProcessMonitor-1, started daemon 548418777584)>
+[roslaunch.parent][INFO] 2023-03-28 01:02:43,608: ... roslaunch parent running, waiting for process exit
+[roslaunch][INFO] 2023-03-28 01:02:43,608: spin
+[roslaunch.pmon][INFO] 2023-03-28 01:12:11,297: ProcessMonitor.shutdown <ProcessMonitor(ProcessMonitor-1, started daemon 548418777584)>
+[roslaunch.pmon][INFO] 2023-03-28 01:12:11,386: ProcessMonitor._post_run <ProcessMonitor(ProcessMonitor-1, started daemon 548418777584)>
+[roslaunch.pmon][INFO] 2023-03-28 01:12:11,387: ProcessMonitor._post_run <ProcessMonitor(ProcessMonitor-1, started daemon 548418777584)>: remaining procs are [<roslaunch.nodeprocess.LocalProcess object at 0x7fb0595850>, <roslaunch.nodeprocess.LocalProcess object at 0x7fb0595e50>, <roslaunch.nodeprocess.LocalProcess object at 0x7fb0595ad0>]
+[roslaunch.pmon][INFO] 2023-03-28 01:12:11,388: ProcessMonitor exit: killing csi_cam-2
+[roslaunch][INFO] 2023-03-28 01:12:11,392: [csi_cam-2] killing on exit
+[roslaunch][INFO] 2023-03-28 01:12:11,393: process[csi_cam-2]: killing os process with pid[7004] pgid[7004]
+[roslaunch][INFO] 2023-03-28 01:12:11,395: [csi_cam-2] sending SIGINT to pgid [7004]
+[roslaunch][INFO] 2023-03-28 01:12:11,395: [csi_cam-2] sent SIGINT to pgid [7004]
+[roslaunch][INFO] 2023-03-28 01:12:12,599: process[csi_cam-2]: SIGINT killed with return value 0
+[roslaunch.pmon][INFO] 2023-03-28 01:12:12,599: ProcessMonitor exit: killing rosout-1
+[roslaunch][INFO] 2023-03-28 01:12:12,600: [rosout-1] killing on exit
+[roslaunch][INFO] 2023-03-28 01:12:12,600: process[rosout-1]: killing os process with pid[7001] pgid[7001]
+[roslaunch][INFO] 2023-03-28 01:12:12,600: [rosout-1] sending SIGINT to pgid [7001]
+[roslaunch][INFO] 2023-03-28 01:12:12,601: [rosout-1] sent SIGINT to pgid [7001]
+[roslaunch][INFO] 2023-03-28 01:12:13,002: process[rosout-1]: SIGINT killed with return value 0
+[roslaunch.pmon][INFO] 2023-03-28 01:12:13,002: ProcessMonitor exit: killing master
+[roslaunch][INFO] 2023-03-28 01:12:13,002: [master] killing on exit
+[roslaunch][INFO] 2023-03-28 01:12:13,003: process[master]: killing os process with pid[6986] pgid[6986]
+[roslaunch][INFO] 2023-03-28 01:12:13,003: [master] sending SIGINT to pgid [6986]
+[roslaunch][INFO] 2023-03-28 01:12:13,003: [master] sent SIGINT to pgid [6986]
+[roslaunch][INFO] 2023-03-28 01:12:13,204: process[master]: SIGINT killed with return value 0
+[roslaunch.pmon][INFO] 2023-03-28 01:12:13,204: ProcessMonitor exit: cleaning up data structures and signals
+[roslaunch.pmon][INFO] 2023-03-28 01:12:13,205: ProcessMonitor exit: pmon has shutdown
+[roslaunch][INFO] 2023-03-28 01:12:13,221: process monitor is done spinning, initiating full shutdown
+[roslaunch][INFO] 2023-03-28 01:12:13,221: runner.stop()
+[roslaunch][INFO] 2023-03-28 01:12:13,222: shutting down processing monitor...
+[roslaunch][INFO] 2023-03-28 01:12:13,222: shutting down processing monitor <ProcessMonitor(ProcessMonitor-1, stopped daemon 548418777584)>
+[roslaunch.pmon][INFO] 2023-03-28 01:12:13,222: ProcessMonitor.shutdown <ProcessMonitor(ProcessMonitor-1, stopped daemon 548418777584)>
+[roslaunch][INFO] 2023-03-28 01:12:13,222: ... shutting down processing monitor complete
+[roslaunch][INFO] 2023-03-28 01:12:13,223: done
+[roslaunch.pmon][INFO] 2023-03-28 01:12:13,223: ProcessMonitor.shutdown <ProcessMonitor(ProcessMonitor-1, stopped daemon 548418777584)>
+[rospy.core][INFO] 2023-03-28 01:12:13,224: signal_shutdown [atexit]

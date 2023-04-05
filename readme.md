@@ -17,7 +17,7 @@
 或者
 `./offboard_pkg/shell/all_high.sh`
 
-# 飞行前准备
+# 二、飞行前准备
 
 ## 0. 物品清单
 北航
@@ -45,7 +45,7 @@
 ## 3. 改时间
 `sudo date -s "2023-03-28 00:12:30"`
 
-# 实验
+# 三、实验
 
 ## 0. 关闭输出和显示
 测试完成后应关闭终端输出和图像显示
@@ -67,7 +67,7 @@
 * 保存`.ros/log/`下本次log文件夹
 
 
-# 二、画图
+# 四、画图
 
 **[new] 论文图均在`paper_plot\`文件夹下运行**
 
@@ -146,11 +146,13 @@ python 7-plot_data.py ../datas/377504aa-b91c-11eb-9cde-000c29e163c9/ekf_node-2-s
 ```
 # python plot_data.py ../datas/377504aa-b91c-11eb-9cde-000c29e163c9/ekf_node-2-stdout.log IMG_y ekf_y -t "30.2 32.25"
 python 8-plot_data.py ../datas/377504aa-b91c-11eb-9cde-000c29e163c9/ekf_node-2-stdout.log IMG_y ekf_y -t "30.2 32.25"
+python 8-plot_data.py ../datas/377504aa-b91c-11eb-9cde-000c29e163c9/ekf_node-2-stdout.log IMG_y ekf_y -t "35 37.5"
 ```
 ![](./output/local-sim.svg)
+![](./output/local-sim-2.svg)
 
 ## 9. Results for real flight experiments. (a) trajectory
-画实飞中相对目标的全局坐标轨迹图
+画实飞静态目标中相对目标的全局坐标轨迹图
 ```
 # python plot_data.py ../datas/20210521_172502_sim.log mav_pos -t "51 61" -p
 python 9-plot_data.py ../datas/20210521_172502_sim.log mav_pos -t "51 61" -p
@@ -158,15 +160,15 @@ python 9-plot_data.py ../datas/20210521_172502_sim.log mav_pos -t "51 61" -p
 ![](./output/plotxy-real.svg)
 
 ## 10. Results for HITL simulation. (b) image coordinates
-画实飞中原始和滤波后图像坐标随时间变化图
+画实飞静态目标中原始和滤波后图像坐标随时间变化图
 ```
 # python plot_data.py ../datas/20210521_172502_sim.log IMG_x ekf_x IMG_y ekf_y -t "2 68.4" --subplot 2
-python 10-plot_data.py ../datas/20210521_172502_sim.log IMG_x ekf_x IMG_y ekf_y -t "2 68.4" --subplot 2
+python 10-plot_data.py ../datas/20210521_172502_sim.log IMG_x ekf_x IMG_y ekf_y -t "20 68.4" --subplot 2
 ```
 ![](./output/subplot-real.svg)
 
 ## 11. Results for HITL simulation. (c) local image coordinates
-画实飞中原始和滤波后图像坐标随时间变化图局部放大图
+画实飞静态目标中原始和滤波后图像坐标随时间变化图局部放大图
 ```
 # python plot_data.py ../datas/20210521_172502_sim.log IMG_y ekf_y -t "36.5 41"
 # python plot_data.py ../datas/20210521_172502_sim.log IMG_y ekf_y -t "62.5 68.4"
@@ -175,6 +177,29 @@ python 11-plot_data.py ../datas/20210521_172502_sim.log IMG_y ekf_y -t "62.5 68.
 ```
 ![](./output/local-real-1.svg)
 ![](./output/local-real-2.svg)
+
+## 12. Results for real flight experiments. (a) trajectory
+画实飞动态目标中相对目标的全局坐标轨迹图
+```
+python 12-plot_data.py ../datas/2eb00a9e-ccc1-11ed-9ff8-c6766eff689d/ekf_node-1-stdout.log mav_pos -t "285 298" -p
+```
+![](./output/plotxy-real-moving.svg)
+
+## 13. Results for HITL simulation. (b) image coordinates
+画实飞动态目标中原始和滤波后图像坐标随时间变化图
+```
+python 13-plot_data.py ../datas/2eb00a9e-ccc1-11ed-9ff8-c6766eff689d/ekf_node-1-stdout.log IMG_x ekf_x IMG_y ekf_y -t "278 295" --subplot 2
+```
+![](./output/subplot-real-moving.svg)
+
+## 14. Results for HITL simulation. (c) local image coordinates
+画实飞静态目标中原始和滤波后图像坐标随时间变化图局部放大图
+```
+python 14-plot_data.py ../datas/2eb00a9e-ccc1-11ed-9ff8-c6766eff689d/ekf_node-1-stdout.log IMG_x ekf_x -t "286 288.5"
+python 14-plot_data.py ../datas/2eb00a9e-ccc1-11ed-9ff8-c6766eff689d/ekf_node-1-stdout.log IMG_x ekf_x -t "291.5 294"
+```
+![](./output/local-real-moving-1.svg)
+![](./output/local-real-moving-2.svg)
 
 # 三、更多
 ## 1. 总体绘图逻辑

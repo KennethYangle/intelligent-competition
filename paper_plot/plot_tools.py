@@ -44,7 +44,7 @@ def get_line_style():
     return style_dict
 
 # 来自：https://jwalton.info/Embed-Publication-Matplotlib-Latex/
-def set_size(width, fraction=1):
+def set_size(width, fraction=1, hw_ratio=0.618):
     """Set figure dimensions to avoid scaling in LaTeX.
 
     Parameters
@@ -54,6 +54,8 @@ def set_size(width, fraction=1):
             Usually the single column is set to 83mm and the double column is set to 176mm.
     fraction: float, optional\n
             Fraction of the width which you wish the figure to occupy
+    hw_ratio: float, optional\n
+            Ratio of the hight to width, default is the Golden ratio
 
     Returns
     -------
@@ -66,14 +68,10 @@ def set_size(width, fraction=1):
     # Convert from pt to inches
     inches_per_mm = 0.03937008
 
-    # Golden ratio to set aesthetic figure height
-    # https://disq.us/p/2940ij3
-    golden_ratio = (5**.5 - 1) / 2
-
     # Figure width in inches
     fig_width_in = fig_width_mm * inches_per_mm
     # Figure height in inches
-    fig_height_in = fig_width_in * golden_ratio
+    fig_height_in = fig_width_in * hw_ratio
 
     fig_dim = (fig_width_in, fig_height_in)
 
@@ -82,7 +80,7 @@ def set_size(width, fraction=1):
 
 def svg_to_emf(svg_figpath):
     '''1. 如果是.svg的绝对路径，True改为False；
-       2. inlscape.exe的文件路径中必须是双斜杠\\，单斜杠\会出错；
+       2. inkscape.exe的文件路径中必须是双斜杠\\，单斜杠\会出错；
        3. subprocess.call中的shell=True不可省略，否则会报错。'''
     if True:
         cwd_path = os.getcwd()

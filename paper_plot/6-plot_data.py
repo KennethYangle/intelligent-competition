@@ -80,11 +80,11 @@ def main(args):
     if args.plotxy:
         for v in range(nvar):
             # plt.figure(v)
-            figsize=set_size(83, fraction=1.2)
+            figsize=set_size(54, hw_ratio=1.0)
             fig, ax = plt.subplots(1, 1, figsize=figsize)
             ax.xaxis.set_major_locator(MaxNLocator(5)) 
             ax.yaxis.set_major_locator(MaxNLocator(5)) 
-            ax.plot(datas[v][0], datas[v][1], label="{}[x:y]".format(args.variable[v]), linewidth=args.linewidth)
+            ax.plot(datas[v][0], datas[v][1], label="{}[x:y]".format(args.variable[v]), linewidth=1)
             if args.range is not None:
                 arange = [float(a) for a in re.findall(r'-?\d+\.?\d*e?[-+]?\d*', args.range)]
                 plt.axis(arange)

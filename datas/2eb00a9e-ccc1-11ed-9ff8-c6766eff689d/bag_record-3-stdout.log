@@ -1,0 +1,11 @@
+[0m[ INFO] [1679936583.182529171]: Subscribing to /ekf/state[0m
+[0m[ INFO] [1679936583.255551150]: Subscribing to /image_raw/compressed[0m
+[0m[ INFO] [1679936583.305102661]: Subscribing to /mavros/imu/data[0m
+[0m[ INFO] [1679936583.393540004]: Subscribing to /mavros/local_position/pose[0m
+[0m[ INFO] [1679936583.486880057]: Subscribing to /mavros/local_position/velocity_local[0m
+[0m[ INFO] [1679936583.550110213]: Subscribing to /mavros/rc/in[0m
+[0m[ INFO] [1679936583.638023546]: Subscribing to /mavros/setpoint_velocity/cmd_vel[0m
+[0m[ INFO] [1679936583.727299067]: Subscribing to /mavros/state[0m
+[0m[ INFO] [1679936583.808097661]: Subscribing to /tracker/pos_image[0m
+[0m[ INFO] [1679936583.860455213]: Subscribing to /tracker/pos_image_ekf[0m
+[0m[ INFO] [1679936583.927592244]: Recording to '/home/unionsys/Rfly_Attack/src/offboard_pkg/bag/fly_high_2023-03-28-01-03-03.bag'.[0m
