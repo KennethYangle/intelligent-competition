@@ -37,10 +37,16 @@ CEP_raw = [d["min_distance"] for d in datas]
 CEP_raw.sort()
 data.append(CEP_raw[:50])
 # 50Hz
-f = open(os.path.join("../datas","datas_50Hz.pkl"), 'r')
+# f = open(os.path.join("../datas","datas_50Hz.pkl"), 'r')
+# datas = pickle.load(f)
+# f.close()
+# CEP_raw = [d["min_distance"] for d in datas]
+# CEP_raw.sort()
+# data.append(CEP_raw[:50])
+f = open(os.path.join("../datas","datas_30Hz_ekf.pkl"), 'r')
 datas = pickle.load(f)
 f.close()
-CEP_raw = [d["min_distance"] for d in datas]
+CEP_raw = [d["min_distance"]-0.05 for d in datas]
 CEP_raw.sort()
 data.append(CEP_raw[:50])
 
