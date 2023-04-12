@@ -3,10 +3,14 @@
 修改`settings.json`中`"MODE": "Simulation"`
     "IsRC": false,
 
-运行
+将_ShootBall拷贝到Windows中。双击运行`_ShootBall/client_ue4_SITL.bat`
+
+Linux中运行
 `./simulation/shell/rfly-sitl.sh`
 或者
 `./simulation/shell/rfly-hitl.sh`
+
+QGC中起飞到4m左右，聚焦Linux小窗口上，按`O`进入offboard模式，按`A`开始打击。（相当于模拟遥控器按B键和A键）
 
 ## 2. 实飞
 修改`settings.json`中`"MODE": "RealFlight"`
