@@ -56,7 +56,7 @@ class Utils(object):
         self.cnt_WP = 1
         self.v_norm_d = 10
         #realsense: fx:632.9640658678117  fy:638.2668942402212
-        self.f = 240 #150 #346.6  # 这个需要依据实际情况进行设定flength=(width/2)/tan(hfov/2),不同仿真环境以及真机实验中需要依据实际情况进行修改
+        self.f = 320 #150 #346.6  # 这个需要依据实际情况进行设定flength=(width/2)/tan(hfov/2),不同仿真环境以及真机实验中需要依据实际情况进行修改
         #camrea frame to mavros_body frame
         self.R_cb = np.array([[1,0,0],\
                              [0,0,1],\
@@ -190,8 +190,16 @@ class Utils(object):
         n_bo = self.R_cb.dot(n_co)
         n_eo = pos_info["mav_R"].dot(n_bo)
 
+        n_td = np.array([-1, 0, 0], dtype=np.float64)
+        n_td /= np.linalg.norm(n_td)
+        v_1 = 2.0 * (n_eo - n_td)
+        v_2 = 1.0 * n_td
+
+        v_d = v_1 + v_2
+        v_d /= np.linalg.norm(v_d)
         V = np.linalg.norm(pos_info["mav_vel"])
-        v_d = min(V + 2, 10) * n_eo
+        v_d *= min(V + 1, 10)
+
         a_d = 1.0 * (v_d - pos_info["mav_vel"])
 
         yaw_rate = 0.002*(self.u0 - pos_i[0])
