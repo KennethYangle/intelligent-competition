@@ -190,10 +190,12 @@ class Utils(object):
         n_bo = self.R_cb.dot(n_co)
         n_eo = pos_info["mav_R"].dot(n_bo)
 
-        n_td = np.array([-1, 0, 0], dtype=np.float64)
+        # 两种用法：1）给定世界系下固定的n_td，限定打击方向；2）相对光轴一向量，随相机运动
+        # n_td = np.array([-1, 0, 0], dtype=np.float64)
+        n_td = n_ec
         n_td /= np.linalg.norm(n_td)
-        v_1 = 2.0 * (n_eo - n_td)
-        v_2 = 1.0 * n_td
+        v_1 = 2.0 * (n_eo - n_td)   # n_t -> n_td
+        v_2 = 1.0 * n_td            # v   -> n_td
 
         v_d = v_1 + v_2
         v_d /= np.linalg.norm(v_d)
