@@ -49,14 +49,14 @@ class Utils(object):
         self.circley = None
         self.w, self.h = self.WIDTH, self.HEIGHT
         self.u0 = self.w/2
-        self.v0 = self.h*0.43
+        self.v0 = self.h/2 #self.h*0.43
         self.x0 = self.u0
         self.y0 = self.v0
         self.cnt = 0
         self.cnt_WP = 1
         self.v_norm_d = 10
         #realsense: fx:632.9640658678117  fy:638.2668942402212
-        self.f = 150 #346.6  # 这个需要依据实际情况进行设定flength=(width/2)/tan(hfov/2),不同仿真环境以及真机实验中需要依据实际情况进行修改
+        self.f = 240 #150 #346.6  # 这个需要依据实际情况进行设定flength=(width/2)/tan(hfov/2),不同仿真环境以及真机实验中需要依据实际情况进行修改
         #camrea frame to mavros_body frame
         self.R_cb = np.array([[1,0,0],\
                              [0,0,1],\
@@ -177,6 +177,26 @@ class Utils(object):
         print("v_b: {}\nv_m: {}\nv: {}".format(v_b, v_m, v))
         print("yaw_rate: {}".format(yaw_rate))
         return [v[0], v[1], v[2], yaw_rate]
+
+    def RotateAttackAccelerationController(self, pos_info, pos_i, controller_reset):
+        if controller_reset: self.cnt = 0
+        #calacute nc,the first idex(c:camera,b:body,e:earth) represent the frmae, the second idex(c,o) represent the camera or obstacle
+        n_bc = self.R_cb.dot(self.n_cc)
+        n_ec = pos_info["mav_R"].dot(n_bc)
+        
+        #calacute the no
+        n_co = np.array([pos_i[0] - self.u0, pos_i[1] - self.v0, self.f], dtype=np.float64)
+        n_co /= np.linalg.norm(n_co)
+        n_bo = self.R_cb.dot(n_co)
+        n_eo = pos_info["mav_R"].dot(n_bo)
+
+        V = np.linalg.norm(pos_info["mav_vel"])
+        v_d = min(V + 2, 10) * n_eo
+        a_d = 1.0 * (v_d - pos_info["mav_vel"])
+
+        yaw_rate = 0.002*(self.u0 - pos_i[0])
+        
+        return [a_d[0], a_d[1], a_d[2], yaw_rate]
 
     def WPController(self, pos_info, target_position_local):
         self.cnt_WP += 1

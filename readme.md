@@ -56,12 +56,12 @@ QGC中起飞到4m左右，聚焦Linux小窗口上，按`O`进入offboard模式�
 
 `ekf_pkg/src/img_imu_ekf_node.cpp`第343-344行，显示图像并画ekf图像位置
 
-## 1. 参数
+## 1. 参数 ※※※※※
 * 前向最大速度，`offboard_pkg/script/utils_obs.py`第57行
 `self.v_norm_d = 15`
-* 第52行`self.v0 = self.h*0.43`图像中心
+* <kbd>第52行`self.v0 = self.h*0.43`图像中心
 * 第216-217行横向和纵向控制增益
-* 第59行焦距
+* <kbd>第59行焦距
 * 第168行加速度
 
 

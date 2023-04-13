@@ -9,13 +9,13 @@ import math
 import time
 import threading
 import Tkinter
-from geometry_msgs.msg import *
+from geometry_msgs.msg import TwistStamped, Quaternion, PoseStamped
 from std_msgs.msg import Float32MultiArray
 from std_srvs.srv import Empty
 from mavros_msgs.srv import CommandBool
 from mavros_msgs.srv import SetMode
 from mavros_msgs.srv import SetMavFrame
-from mavros_msgs.msg import State, RCIn, HomePosition
+from mavros_msgs.msg import State, RCIn, HomePosition, PositionTarget
 from mavros_msgs.msg import Thrust
 from utils_obs import Utils
 from Queue import Queue
@@ -40,7 +40,13 @@ pos_i_raw = [0, 0, 0, 0, 0]
 pos_i_ekf = [0, 0, 0, 0, 0]
 image_failed_cnt = 0
 state_name = "InitializeState"
-command = TwistStamped()
+# command = TwistStamped()
+command = PositionTarget()
+command.coordinate_frame = PositionTarget.FRAME_LOCAL_NED 
+command.type_mask = PositionTarget.IGNORE_PX + PositionTarget.IGNORE_PY + PositionTarget.IGNORE_PZ \
+                  + PositionTarget.IGNORE_VX + PositionTarget.IGNORE_VY + PositionTarget.IGNORE_VZ \
+                  + PositionTarget.IGNORE_YAW
+
 q = Queue()
 maxQ = 100
 sumQ = 0.0
@@ -230,6 +236,7 @@ if __name__=="__main__":
     rospy.Subscriber("tracker/pos_image", Float32MultiArray, pos_image_cb)
     rospy.Subscriber("tracker/pos_image_ekf", Float32MultiArray, pos_image_ekf_cb)
     local_vel_pub = rospy.Publisher('mavros/setpoint_velocity/cmd_vel', TwistStamped, queue_size=10)
+    local_acc_pub = rospy.Publisher('mavros/setpoint_raw/local', PositionTarget, queue_size=10)
     print("Publisher and Subscriber Created")
 
     # rospy.wait_for_service("mavros/setpoint_velocity/mav_frame")
@@ -253,7 +260,7 @@ if __name__=="__main__":
         rate.sleep()
 
     for i in range(100):
-        local_vel_pub.publish(command)
+        local_acc_pub.publish(command)
         rate.sleep()
         
     # switch into offboard
@@ -312,30 +319,30 @@ if __name__=="__main__":
         # cmd = u.BasicAttackController(pos_info, pos_i_raw, image_center)
 
         if ch7 >= 1:
-            cmd = u.RotateAttackController(pos_info, pos_i, image_center, controller_reset)
+            # cmd = u.RotateAttackController(pos_info, pos_i, image_center, controller_reset)
+            cmd = u.RotateAttackAccelerationController(pos_info, pos_i, controller_reset)
             controller_reset = False
             # 识别到图像才进行角速度控制
             if pos_i[1] > 0: 
-                command.twist.linear.x = cmd[0]
-                command.twist.linear.y = cmd[1]
-                command.twist.linear.z = cmd[2]
-                command.twist.angular.z = cmd[3]
+                command.acceleration_or_force.x = cmd[0]
+                command.acceleration_or_force.y = cmd[1]
+                command.acceleration_or_force.z = cmd[2]
+                command.yaw_rate = cmd[3]
                 print("cmd: {}".format(cmd))
             # # 否则hover
             else:
-                command.twist.linear.x = 0.
-                command.twist.linear.y = 0.
-                command.twist.linear.z = 0.
-                command.twist.angular.z = 0.
+                command.acceleration_or_force.x = 0.
+                command.acceleration_or_force.y = 0.
+                command.acceleration_or_force.z = 0.
+                command.yaw_rate = 0.
         else:
             Initial_pos = mav_pos
-            command.twist.linear.x = 0.
-            command.twist.linear.y = 0.
-            command.twist.linear.z = 0.
-            command.twist.angular.z = 0.
+            command.acceleration_or_force.x = 0.
+            command.acceleration_or_force.y = 0.
+            command.acceleration_or_force.z = 0.
+            command.yaw_rate = 0.
             controller_reset = True
         obs_pos = np.array([sphere_pos_x, sphere_pos_y, sphere_pos_z]) 
-        print("command: {}".format([command.twist.linear.x, command.twist.linear.y, command.twist.linear.z, command.twist.angular.z]))
-        local_vel_pub.publish(command)
+        local_acc_pub.publish(command)
         rate.sleep()
     rospy.spin()
