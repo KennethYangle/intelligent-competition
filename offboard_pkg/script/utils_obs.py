@@ -194,13 +194,13 @@ class Utils(object):
         # n_td = np.array([-1, 0, 0], dtype=np.float64)
         n_td = n_ec
         n_td /= np.linalg.norm(n_td)
-        v_1 = 2.0 * (n_eo - n_td)   # n_t -> n_td
+        v_1 = 2.5 * (n_eo - n_td)   # n_t -> n_td
         v_2 = 1.0 * n_td            # v   -> n_td
 
         v_d = v_1 + v_2
         v_d /= np.linalg.norm(v_d)
         V = np.linalg.norm(pos_info["mav_vel"])
-        v_d *= min(V + 1, 10)
+        v_d *= min(V + 3, 20)
 
         a_d = 1.0 * (v_d - pos_info["mav_vel"])
 
