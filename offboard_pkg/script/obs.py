@@ -54,8 +54,11 @@ home_dx, home_dy = 0, 0
 depth = -1
 original_offset = np.array([0, 0, 0])
 
-sphere_pos_x, sphere_pos_y, sphere_pos_z = 10, 25, 1  #-0.065, 7, 2.43 
-sphere_vx, sphere_vy, sphere_vz = -3, 0, 0
+sphere_pos = np.array([20, 25, 1])
+# sphere_vel = np.array([-5, 0, 2])
+# sphere_acc = np.array([0, 0, -0.5])
+sphere_vel = np.array([-5, 0, 0])
+sphere_acc = np.array([0, 0, 0])
 
 sphere_feb_pos = PoseStamped()
 # obj_state = ModelState()
@@ -161,18 +164,17 @@ def pos_image_ekf_cb(msg):
 
 
 def sphere_control(cnt, is_move=False):
-    global sphere_pos_x, sphere_pos_y, sphere_pos_z
+    global sphere_pos, sphere_vel, sphere_acc
     obj_msg = Obj()
     
     obj_msg.id = 100
     obj_msg.type = 152
     # obj_msg.position.x = sphere_pos_x + 5*np.sin(cnt*1.0/100)
-    sphere_pos_x +=  sphere_vx * 0.02 * is_move
-    sphere_pos_y +=  sphere_vy * 0.02 * is_move
-    sphere_pos_z +=  sphere_vz * 0.02 * is_move
-    obj_msg.position.x = sphere_pos_x
-    obj_msg.position.y = sphere_pos_y
-    obj_msg.position.z = sphere_pos_z
+    sphere_pos = sphere_pos + sphere_vel * 0.02 * is_move
+    sphere_vel = sphere_vel + sphere_acc * 0.02 * is_move
+    obj_msg.position.x = sphere_pos[0]
+    obj_msg.position.y = sphere_pos[1]
+    obj_msg.position.z = sphere_pos[2]
     obj_msg.size.x = 0.2
     obj_msg.size.y = 0.2
     obj_msg.size.z = 0.2
@@ -314,7 +316,7 @@ if __name__=="__main__":
         pos_info = {"mav_pos": mav_pos, "mav_vel": mav_vel, "mav_R": mav_R, "R_bc": np.array([[0,0,1], [1,0,0], [0,1,0]]), 
                     "mav_original_angle": mav_original_angle, "Initial_pos": Initial_pos}
 
-        dlt_pos = np.array([sphere_pos_x, sphere_pos_y, sphere_pos_z]) - np.array(mav_pos)
+        dlt_pos = sphere_pos - np.array(mav_pos)
         print("dlt_pos: {}".format(dlt_pos))
         print("mav_pos: {}".format(mav_pos))
         
@@ -345,7 +347,7 @@ if __name__=="__main__":
             command.acceleration_or_force.z = 0.
             command.yaw_rate = 0.
             controller_reset = True
-        obs_pos = np.array([sphere_pos_x, sphere_pos_y, sphere_pos_z]) 
+        obs_pos = sphere_pos
         local_acc_pub.publish(command)
         rate.sleep()
     rospy.spin()
