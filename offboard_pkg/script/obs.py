@@ -54,11 +54,11 @@ home_dx, home_dy = 0, 0
 depth = -1
 original_offset = np.array([0, 0, 0])
 
-sphere_pos = np.array([20, 25, 1])
-# sphere_vel = np.array([-5, 0, 2])
-# sphere_acc = np.array([0, 0, -0.5])
-sphere_vel = np.array([-5, 0, 0])
-sphere_acc = np.array([0, 0, 0])
+sphere_pos = np.array([20, 25, 2])
+sphere_vel = np.array([-5, 0, 2])
+sphere_acc = np.array([0, 0, -0.5])
+# sphere_vel = np.array([-5, 0, 0])
+# sphere_acc = np.array([0, 0, 0])
 
 sphere_feb_pos = PoseStamped()
 # obj_state = ModelState()

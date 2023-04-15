@@ -200,7 +200,7 @@ class Utils(object):
         v_d = v_1 + v_2
         v_d /= np.linalg.norm(v_d)
         V = np.linalg.norm(pos_info["mav_vel"])
-        v_d *= min(V + 3, 10)
+        v_d *= min(V + 4, 10)
 
         a_d = 1.0 * (v_d - pos_info["mav_vel"]) #+ np.array([0., 0., -0.5])
 
