@@ -99,8 +99,8 @@ def rcin_cb(msg):
     chs = msg.channels
     ch5 = 2 if chs[4] < 1300 else 1 if chs[4] < 1700 else 0
     ch6 = 2 if chs[5] < 1300 else 1 if chs[5] < 1700 else 0
-    ch7 = 2 if chs[6] < 1300 else 1 if chs[6] < 1700 else 0
-    ch8 = 2 if chs[7] < 1300 else 1 if chs[7] < 1700 else 0
+    ch7 = 0 if chs[6] < 1300 else 1 if chs[6] < 1700 else 2
+    ch8 = 0 if chs[7] < 1300 else 1 if chs[7] < 1700 else 2
     ch9 = 2 if chs[8] < 1300 else 1 if chs[8] < 1700 else 0
     ch11 = 1 if chs[10] < 1500 else 0
     ch14 = 1 if chs[10] < 1500 else 0
@@ -302,17 +302,6 @@ if __name__=="__main__":
                     print("Offboard enabled")
                 last_request = rospy.Time.now()
         
-        # if ch7 == 0:
-        #     rate.sleep()
-        #     continue
-
-        # if current_state.mode == "OFFBOARD" and cnt % 100 == 0:
-        #     resp_frame = frame_client(8)
-        #     if resp_frame.success:
-        #         print("Set earth_FLU success!")
-        #     else:
-        #         print("Set frame failed!")
-
         pos_info = {"mav_pos": mav_pos, "mav_vel": mav_vel, "mav_R": mav_R, "R_bc": np.array([[0,0,1], [1,0,0], [0,1,0]]), 
                     "mav_original_angle": mav_original_angle, "Initial_pos": Initial_pos}
 

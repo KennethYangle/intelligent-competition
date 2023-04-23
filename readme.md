@@ -44,7 +44,7 @@ QGC中起飞到4m左右，聚焦Linux小窗口上，按`O`进入offboard模式�
 充气一个气球，连接线并放飞和收回
 
 ## 2. 测试颜色
-* 打开`csi_cam/src/csi_cam.cpp`第147到154行，编译。
+* 打开`csi_cam/src/csi_cam.cpp`第155到162行，编译。
 * 测试能否在图像上看到气球，是否干净。
 * 通过`simulation/script/get_hsv.py`获取合适的hsv值。
 `csi_cam/src/csi_cam.cpp`第25到30行，编译。
