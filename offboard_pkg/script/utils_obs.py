@@ -56,7 +56,7 @@ class Utils(object):
         self.cnt_WP = 1
         self.v_norm_d = 10
         #realsense: fx:632.9640658678117  fy:638.2668942402212
-        self.f = 320 #150 #346.6  # 这个需要依据实际情况进行设定flength=(width/2)/tan(hfov/2),不同仿真环境以及真机实验中需要依据实际情况进行修改
+        self.f = 185 #150 #346.6  # 这个需要依据实际情况进行设定flength=(width/2)/tan(hfov/2),不同仿真环境以及真机实验中需要依据实际情况进行修改
         #camrea frame to mavros_body frame
         self.R_cb = np.array([[1,0,0],\
                              [0,0,1],\
@@ -200,7 +200,7 @@ class Utils(object):
         v_d = v_1 + v_2
         v_d /= np.linalg.norm(v_d)
         V = np.linalg.norm(pos_info["mav_vel"])
-        v_d *= min(V + 4, 10)
+        v_d *= min(V + 0.5, 5)
 
         a_d = 1.0 * (v_d - pos_info["mav_vel"]) #+ np.array([0., 0., -0.5])
 
