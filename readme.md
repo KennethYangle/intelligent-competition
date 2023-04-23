@@ -20,6 +20,10 @@ QGC中起飞到4m左右，聚焦Linux小窗口上，按`O`进入offboard模式�
 `./offboard_pkg/shell/all.sh`
 或者
 `./offboard_pkg/shell/all_high.sh`
+或者
+`./offboard_pkg/shell/all_acc.sh`
+或者
+`./offboard_pkg/shell/all_high_startup.sh`
 
 # 二、飞行前准备
 
