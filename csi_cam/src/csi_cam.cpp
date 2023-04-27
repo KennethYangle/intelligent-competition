@@ -31,7 +31,7 @@ const int highv = 256;
 const int lowh2 = 0;
 const int lows2 = 120;
 const int lowv2 = 80;
-const int highh2 = 1;
+const int highh2 = 5;
 const int highs2 = 256;
 const int highv2 = 256;
 ros::Publisher centerPointPub;
@@ -121,7 +121,7 @@ int main( int argc, char** argv )
             m01 = moment.m01;//cvGetSpatialMoment( &moment, 0, 1 );
             xy.x = (int) (m10/m00);
             xy.y = (int) (m01/m00);
-            std::cout<<xy.x<<","<<xy.y<<endl;
+            // std::cout<<xy.x<<","<<xy.y<<endl;
             float zhiling = 0.0;
             std_msgs::Float32MultiArray msg;
             msg.data.push_back(xy.x);
@@ -134,7 +134,7 @@ int main( int argc, char** argv )
             // circle(img,cvPoint(xy.x,xy.y),3,CV_RGB(0,0,255),5);
         }
         else{
-            std::cout<<" ------>>m00 = 0"<<std::endl;
+            // std::cout<<" ------>>m00 = 0"<<std::endl;
             std_msgs::Float32MultiArray msg;
             msg.data.push_back(-1.0);
             msg.data.push_back(-1.0);
@@ -160,7 +160,7 @@ int main( int argc, char** argv )
         // int keycode = cv::waitKey(1) & 0xff ; //ESC键退出
         // if (keycode == 27) 
         //     break ;
-        ros::spinOnce();
+        // ros::spinOnce();
     }
     
     cap.release();

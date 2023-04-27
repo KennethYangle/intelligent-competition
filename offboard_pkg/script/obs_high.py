@@ -130,7 +130,7 @@ def read_kbd_input():
 def pos_image_cb(msg):
     global is_initialize_img, pos_i, pos_i_raw, image_failed_cnt
     is_initialize_img = True
-    # print("msg_data: {}".format(msg.data))
+    # # print("msg_data: {}".format(msg.data))
     if msg.data[0] <= 0:
         image_failed_cnt += 1
     else:
@@ -140,7 +140,7 @@ def pos_image_cb(msg):
     else:
         pos_i_raw = msg.data
         pos_i = pos_i_raw
-    print("pos_i_raw: {}".format(pos_i_raw))
+    # print("pos_i_raw: {}".format(pos_i_raw))
 
 def pos_image_ekf_cb(msg):
     global pos_i_ekf, pos_i_raw, pos_i
@@ -150,8 +150,8 @@ def pos_image_ekf_cb(msg):
         pos_i = pos_i_ekf
     else:
         pos_i = pos_i_raw
-    print("pos_i_ekf: {}".format(pos_i_ekf))
-    print("pos_i: {}".format(pos_i))
+    # print("pos_i_ekf: {}".format(pos_i_ekf))
+    # print("pos_i: {}".format(pos_i))
 
 
 def sphere_control(cnt):
@@ -191,7 +191,7 @@ def angleLimiting(a):
 if __name__=="__main__":
     setting_file = open(os.path.join(os.path.expanduser('~'),"Rfly_Attack/src","settings.json"))
     setting = json.load(setting_file)
-    print(json.dumps(setting, indent=4))
+    # print(json.dumps(setting, indent=4))
 
     MODE = setting["MODE"]
     car_velocity = setting["car_velocity"]
@@ -233,26 +233,26 @@ if __name__=="__main__":
         rospy.Subscriber("tracker/pos_image_ekf", Float32MultiArray, pos_image_ekf_cb)
     local_vel_pub = rospy.Publisher('mavros/setpoint_velocity/cmd_vel', TwistStamped, queue_size=10)
     ekf_state_pub = rospy.Publisher('ekf/state', UInt64, queue_size=1)
-    print("Publisher and Subscriber Created")
+    # print("Publisher and Subscriber Created")
 
     # rospy.wait_for_service("mavros/setpoint_velocity/mav_frame")
     # frame_client = rospy.ServiceProxy('mavros/setpoint_velocity/mav_frame', SetMavFrame)
     # resp_frame = frame_client(8)
     # if resp_frame.success:
-    #     print("Set earth_FLU success!")
+    #     # print("Set earth_FLU success!")
     # else:
-    #     print("Set frame failed!")
+    #     # print("Set frame failed!")
 
     rospy.wait_for_service("mavros/cmd/arming")
     arming_client = rospy.ServiceProxy('mavros/cmd/arming', CommandBool)
     rospy.wait_for_service("mavros/set_mode")
     set_mode_client = rospy.ServiceProxy('mavros/set_mode', SetMode)
-    print("Clients Created")
+    # print("Clients Created")
     rate = rospy.Rate(50)#50
     
     # ensure the connection 
     while(not current_state.connected):
-        print("connected: {}".format(current_state.connected))
+        # print("connected: {}".format(current_state.connected))
         rate.sleep()
 
     for i in range(100):
@@ -260,7 +260,7 @@ if __name__=="__main__":
         rate.sleep()
         
     # switch into offboard
-    print("Creating Objects for services")
+    # print("Creating Objects for services")
     offb_set_mode = SetMode()
     offb_set_mode.custom_mode = "OFFBOARD"
     arm_cmd = CommandBool()
@@ -282,7 +282,7 @@ if __name__=="__main__":
         # get target position
         if ch10 == 1:
             target_position_local = mav_pos
-            print("Get target_position_local: {} !!!".format(target_position_local))
+            # print("Get target_position_local: {} !!!".format(target_position_local))
 
         if ch8 == 0:
             if current_state.mode == "OFFBOARD":
@@ -297,17 +297,17 @@ if __name__=="__main__":
             if current_state.mode != "OFFBOARD":
                 resp1 = set_mode_client( 0,offb_set_mode.custom_mode )
                 if resp1.mode_sent:
-                    print("Offboard enabled")
+                    # print("Offboard enabled")
                 last_request = rospy.Time.now()
-            print("time: {}".format(rospy.Time.now().to_sec() - last_request.to_sec()))
+            # print("time: {}".format(rospy.Time.now().to_sec() - last_request.to_sec()))
         
 
         pos_info = {"mav_pos": mav_pos, "mav_vel": mav_vel, "mav_R": mav_R, "mav_yaw": mav_yaw, "R_bc": np.array([[0,0,1], [1,0,0], [0,1,0]]), 
                     "mav_original_angle": mav_original_angle, "Initial_pos": Initial_pos}
 
         dlt_pos = np.array([sphere_pos_x, sphere_pos_y, sphere_pos_z]) - np.array(mav_pos)
-        print("dlt_pos: {}".format(dlt_pos))
-        print("mav_pos: {}\nmav_vel: {}".format(mav_pos, mav_vel))
+        # print("dlt_pos: {}".format(dlt_pos))
+        # print("mav_pos: {}\nmav_vel: {}".format(mav_pos, mav_vel))
         
         # stages transition
         if ch7 >= 1:
@@ -340,7 +340,7 @@ if __name__=="__main__":
             command.twist.linear.y = cmd[1]
             command.twist.linear.z = cmd[2]
             command.twist.angular.z = cmd[3]
-            print("cmd: {}\ncontroller_state: {}".format(cmd, controller_state))
+            # print("cmd: {}\ncontroller_state: {}".format(cmd, controller_state))
         else:
             Initial_pos = mav_pos
             command.twist.linear.x = 0.
@@ -349,7 +349,7 @@ if __name__=="__main__":
             command.twist.angular.z = 0.
             controller_reset = True
         obs_pos = np.array([sphere_pos_x, sphere_pos_y, sphere_pos_z]) 
-        print("command: {}".format([command.twist.linear.x, command.twist.linear.y, command.twist.linear.z, command.twist.angular.z]))
+        # print("command: {}".format([command.twist.linear.x, command.twist.linear.y, command.twist.linear.z, command.twist.angular.z]))
         local_vel_pub.publish(command)
         rate.sleep()
     rospy.spin()

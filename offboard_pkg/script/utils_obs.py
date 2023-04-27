@@ -49,7 +49,7 @@ class Utils(object):
         self.circley = None
         self.w, self.h = self.WIDTH, self.HEIGHT
         self.u0 = self.w/2
-        self.v0 = self.h*0.43 # self.h/2
+        self.v0 = self.h*0.45 # self.h*0.43 # self.h/2
         self.x0 = self.u0
         self.y0 = self.v0
         self.cnt = 0
@@ -78,7 +78,7 @@ class Utils(object):
         p1 = Point(circle[0], circle[1])
         p2 = Point(self.w / 2, self.h / 2)
         l = Getlen(p1, p2)
-        # print(self.circley)
+        # # print(self.circley)
         return l.getlen()
 
     def distance_y(self, circle):
@@ -127,7 +127,7 @@ class Utils(object):
         
         v_rd_b = np.array([0, 0, 0])#np.array([1, 0, 0])
         v_rd_e = pos_info["mav_R"].dot(v_rd_b)
-        print("vr:{}".format(v_rd_e))
+        # print("vr:{}".format(v_rd_e))
         
         v = vod + self.change * v_rd_e
         
@@ -136,13 +136,13 @@ class Utils(object):
         v[2] = v[2]
         v = self.sat(v,1.0)
         
-        print("v:{}".format(v))
+        # print("v:{}".format(v))
         return [v[0], v[1], v[2], 0]
 
     def BasicAttackController(self, pos_info, pos_i, image_center):
         yaw = pos_info["mav_original_angle"][0]
         cmd = [5*np.cos(yaw), 5*np.sin(yaw), 0.01*(image_center[1] - pos_i[1]), 0.01*(image_center[0] - pos_i[0])]
-        print("pos_i: {}\nimage_center: {}\ncmd: {}".format(pos_i, image_center, cmd))
+        # print("pos_i: {}\nimage_center: {}\ncmd: {}".format(pos_i, image_center, cmd))
         return cmd
 
     def RotateAttackController(self, pos_info, pos_i, image_center, controller_reset):
@@ -174,8 +174,8 @@ class Utils(object):
         # v = self.sat(v, 8)
         yaw_rate = 0.002*(image_center[0] - pos_i[0])
         
-        print("v_b: {}\nv_m: {}\nv: {}".format(v_b, v_m, v))
-        print("yaw_rate: {}".format(yaw_rate))
+        # print("v_b: {}\nv_m: {}\nv: {}".format(v_b, v_m, v))
+        # print("yaw_rate: {}".format(yaw_rate))
         return [v[0], v[1], v[2], yaw_rate]
 
     def RotateAttackAccelerationController(self, pos_info, pos_i, controller_reset):
@@ -191,21 +191,23 @@ class Utils(object):
         n_eo = pos_info["mav_R"].dot(n_bo)
 
         # 两种用法：1）给定世界系下固定的n_td，限定打击方向；2）相对光轴一向量，随相机运动
-        n_td = np.array([-1, 0, 0], dtype=np.float64)
+        n_td = np.array([0, -1, 0], dtype=np.float64)
         # n_td = n_ec
         # n_td /= np.linalg.norm(n_td)
-        v_1 = 2.5 * (n_eo - n_td)   # n_t -> n_td
+        v_1 = 2.8 * (n_eo - n_td)   # n_t -> n_td
         v_2 = 1.0 * n_td            # v   -> n_td
 
         v_d = v_1 + v_2
         v_d /= np.linalg.norm(v_d)
         V = np.linalg.norm(pos_info["mav_vel"])
-        v_d *= min(V + 0.5, 1)
+        # v_d *= min(V + 2.5, 12)
+        v_d *= V + 2.0
 
-        a_d = 1.0 * (v_d - pos_info["mav_vel"]) #+ np.array([0., 0., -0.5])
+        a_d = 1.5 * (v_d - pos_info["mav_vel"]) #+ np.array([0., 0., -0.5])
 
         yaw_rate = 0.002*(self.u0 - pos_i[0])
         
+        print("n_co:{}, n_bo:{}, n_eo:{}, v_1:{}, v_2:{}, v_d:{}".format(n_co, n_bo, n_eo, v_1, v_2, v_d))
         return [a_d[0], a_d[1], a_d[2], yaw_rate]
 
     def WPController(self, pos_info, target_position_local):
@@ -251,8 +253,8 @@ class Utils(object):
         # v = self.sat(v, self.v_norm_d+5)
         yaw_rate = 0.002*(image_center[0] - pos_i[0])
         
-        print("v_b: {}\nv_m: {}\nv: {}".format(v_b, v_m, v))
-        print("yaw_rate: {}".format(yaw_rate))
+        # print("v_b: {}\nv_m: {}\nv: {}".format(v_b, v_m, v))
+        # print("yaw_rate: {}".format(yaw_rate))
         return [v[0], v[1], v[2], yaw_rate]
 
     #期望位置，反馈位置，位置比例系数，速读限幅

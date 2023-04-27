@@ -137,7 +137,7 @@ def read_kbd_input():
 def pos_image_cb(msg):
     global is_initialize_img, pos_i, image_failed_cnt
     is_initialize_img = True
-    # print("msg_data: {}".format(msg.data))
+    # # print("msg_data: {}".format(msg.data))
     if msg.data[0] <= 0:
         image_failed_cnt += 1
     else:
@@ -146,14 +146,14 @@ def pos_image_cb(msg):
         pass
     else:
         pos_i = msg.data
-    # print("pos_i: {}".format(pos_i))
+    # # print("pos_i: {}".format(pos_i))
 
 def setArm():
    rospy.wait_for_service('/mavros/cmd/arming')
    try:
        armService = rospy.ServiceProxy('/mavros/cmd/arming', CommandBool)
        armService(True)
-       print("Arming!")
+       # print("Arming!")
    except rospy.ServiceException, e:
        print "Service arm call failed: %s"%e
 
@@ -162,7 +162,7 @@ def setDisarm():
    try:
        armService = rospy.ServiceProxy('/mavros/cmd/arming', CommandBool)
        armService(False)
-       print("Disarming!")
+       # print("Disarming!")
    except rospy.ServiceException, e:
        print "Service arm call failed: %s"%e
 
@@ -235,7 +235,7 @@ if __name__=="__main__":
 
     setting_file = open(os.path.join(os.path.expanduser('~'),"Rfly_Attack/src","settings.json"))
     setting = json.load(setting_file)
-    print(json.dumps(setting, indent=4))
+    # print(json.dumps(setting, indent=4))
 
     MODE = setting["MODE"]
     car_velocity = setting["car_velocity"]
@@ -273,24 +273,24 @@ if __name__=="__main__":
         raise Exception("Invalid MODE!", MODE)
     rospy.Subscriber("tracker/pos_image", Float32MultiArray, pos_image_cb)
     local_vel_pub = rospy.Publisher('mavros/setpoint_velocity/cmd_vel', TwistStamped, queue_size=10)
-    print("Publisher and Subscriber Created")
+    # print("Publisher and Subscriber Created")
 
     # rospy.wait_for_service("mavros/setpoint_velocity/mav_frame")
     # frame_client = rospy.ServiceProxy('mavros/setpoint_velocity/mav_frame', SetMavFrame)
     # resp_frame = frame_client(8)
     # if resp_frame.success:
-    #     print("Set earth_FLU success!")
+    #     # print("Set earth_FLU success!")
     # else:
-    #     print("Set frame failed!")
+    #     # print("Set frame failed!")
 
     rospy.wait_for_service("mavros/set_mode")
     set_mode_client = rospy.ServiceProxy('mavros/set_mode', SetMode)
-    print("Clients Created")
+    # print("Clients Created")
     rate = rospy.Rate(50)#50
     
     # ensure the connection 
     while(not current_state.connected):
-        print("connected: {}".format(current_state.connected))
+        # print("connected: {}".format(current_state.connected))
         rate.sleep()
 
     for i in range(100):
@@ -298,7 +298,7 @@ if __name__=="__main__":
         rate.sleep()
         
     # switch into offboard
-    print("Creating Objects for services")
+    # print("Creating Objects for services")
     offb_set_mode = SetMode()
     offb_set_mode.custom_mode = "OFFBOARD"
 
@@ -312,8 +312,8 @@ if __name__=="__main__":
     controller_reset = True
     data = {"sphere_traj": [], "mav_traj": []}
     while not rospy.is_shutdown():
-        print("time: {}".format(rospy.Time.now().to_sec() - last_request.to_sec()))
-        print("episode: {}".format(episode))
+        # print("time: {}".format(rospy.Time.now().to_sec() - last_request.to_sec()))
+        # print("episode: {}".format(episode))
         cnt += 1
 
         if statistic_state == "start":
@@ -342,7 +342,7 @@ if __name__=="__main__":
                         "mav_original_angle": mav_original_angle, "Initial_pos": Initial_pos}
 
             dlt_pos = np.array([sphere_pos_x, sphere_pos_y, sphere_pos_z]) - np.array(mav_pos)
-            print("dlt_pos: {}".format(dlt_pos))
+            # print("dlt_pos: {}".format(dlt_pos))
             dlt_pos_stash.append(np.linalg.norm(dlt_pos))
 
             cmd = u.RotateAttackController(pos_info, pos_i, image_center, controller_reset)
@@ -353,7 +353,7 @@ if __name__=="__main__":
                 command.twist.linear.y = cmd[1]
                 command.twist.linear.z = cmd[2]
                 command.twist.angular.z = cmd[3]
-                print("cmd: {}".format(cmd))
+                # print("cmd: {}".format(cmd))
             # # 否则hover
             else:
                 command.twist.linear.x = 0.
@@ -367,7 +367,7 @@ if __name__=="__main__":
             data["mav_traj"].append(mav_pos)
             controller_reset = False
 
-            print("command: {}".format([command.twist.linear.x, command.twist.linear.y, command.twist.linear.z, command.twist.angular.z]))
+            # print("command: {}".format([command.twist.linear.x, command.twist.linear.y, command.twist.linear.z, command.twist.angular.z]))
             local_vel_pub.publish(command)
             rate.sleep()
 
@@ -376,11 +376,11 @@ if __name__=="__main__":
             time.sleep(1)
             if current_state.mode == "OFFBOARD":
                 resp1 = set_mode_client(0, "POSCTL")	# (uint8 base_mode, string custom_mode)
-                print("Enter MANUAL mode")
+                # print("Enter MANUAL mode")
 
             min_distance = min(dlt_pos_stash)
-            print("dlt_pos_stash: {}".format(dlt_pos_stash))
-            print("min_distance: {}".format(min_distance))
+            # print("dlt_pos_stash: {}".format(dlt_pos_stash))
+            # print("min_distance: {}".format(min_distance))
             data["min_distance"] = min_distance
             datas.append(data)
             f = open(os.path.join(os.path.expanduser('~'),"Rfly_Attack/src","datas.pkl"), 'w')
