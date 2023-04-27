@@ -14,14 +14,7 @@
 
 using namespace std;
 using namespace cv;
-// Board
-// const int lowh = 174;
-// const int lows = 130;
-// const int lowv = 100;
-// const int highh = 181;
-// const int highs = 220;
-// const int highv = 255;
-// Ballon
+// 18/36 inch Ballon
 const int lowh = 171;
 const int lows = 240;
 const int lowv = 100;
@@ -34,6 +27,19 @@ const int lowv2 = 80;
 const int highh2 = 0;
 const int highs2 = 256;
 const int highv2 = 256;
+// // Yancun indoor Yellow ballon
+// const int lowh = 9;
+// const int lows = 50;
+// const int lowv = 100;
+// const int highh = 22;
+// const int highs = 130;
+// const int highv = 250;
+// const int lowh2 = 10;
+// const int lows2 = 120;
+// const int lowv2 = 80;
+// const int highh2 = 0;
+// const int highs2 = 256;
+// const int highv2 = 256;
 ros::Publisher centerPointPub;
 bool is_image_initialize = false;
 Mat img;

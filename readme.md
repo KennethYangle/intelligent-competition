@@ -16,6 +16,8 @@ QGC中起飞到4m左右，聚焦Linux小窗口上，按`O`进入offboard模式�
 修改`settings.json`中`"MODE": "RealFlight"`
     "IsRC": true,
 
+修改`offboard_pkg/script/utils_obs.py`第194行n_td打击方向
+
 运行
 `./offboard_pkg/shell/all.sh`
 或者
