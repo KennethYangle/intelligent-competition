@@ -40,7 +40,7 @@ pos_i_raw = [0, 0, 0, 0, 0]
 pos_i_ekf = [0, 0, 0, 0, 0]
 image_failed_cnt = 0
 state_name = "InitializeState"
-# command = TwistStamped()
+idle_command = TwistStamped()
 command = PositionTarget()
 command.coordinate_frame = PositionTarget.FRAME_LOCAL_NED 
 command.type_mask = PositionTarget.IGNORE_PX + PositionTarget.IGNORE_PY + PositionTarget.IGNORE_PZ \
@@ -265,7 +265,7 @@ if __name__=="__main__":
         rate.sleep()
 
     for i in range(100):
-        local_acc_pub.publish(command)
+        local_vel_pub.publish(idle_command)
         rate.sleep()
         
     # switch into offboard
@@ -287,20 +287,20 @@ if __name__=="__main__":
         if MODE == "Simulation":
             sphere_control(cnt, ch8==1)
             
-        if ch8 == 0:
-            if current_state.mode == "OFFBOARD":
-                resp1 = set_mode_client(0, "POSCTL")	# (uint8 base_mode, string custom_mode)
-            if cnt % 10 == 0:
-                print("Enter MANUAL mode")
-            Initial_pos = mav_pos
-            rate.sleep()
-            continue
-        else:
-            if current_state.mode != "OFFBOARD":
-                resp1 = set_mode_client( 0,offb_set_mode.custom_mode )
-                if resp1.mode_sent:
-                    print("Offboard enabled")
-                last_request = rospy.Time.now()
+        # if ch8 == 0:
+        #     if current_state.mode == "OFFBOARD":
+        #         resp1 = set_mode_client(0, "POSCTL")	# (uint8 base_mode, string custom_mode)
+        #     if cnt % 10 == 0:
+        #         print("Enter MANUAL mode")
+        #     Initial_pos = mav_pos
+        #     rate.sleep()
+        #     continue
+        # else:
+        #     if current_state.mode != "OFFBOARD":
+        #         resp1 = set_mode_client( 0,offb_set_mode.custom_mode )
+        #         if resp1.mode_sent:
+        #             print("Offboard enabled")
+        #         last_request = rospy.Time.now()
         
         pos_info = {"mav_pos": mav_pos, "mav_vel": mav_vel, "mav_R": mav_R, "R_bc": np.array([[0,0,1], [1,0,0], [0,1,0]]), 
                     "mav_original_angle": mav_original_angle, "Initial_pos": Initial_pos}
@@ -323,20 +323,14 @@ if __name__=="__main__":
                 command.acceleration_or_force.z = cmd[2]
                 command.yaw_rate = cmd[3]
                 print("cmd: {}".format(cmd))
+                local_acc_pub.publish(command)
             # # 否则hover
             else:
-                command.acceleration_or_force.x = 0.
-                command.acceleration_or_force.y = 0.
-                command.acceleration_or_force.z = 0.
-                command.yaw_rate = 0.
+                local_vel_pub.publish(idle_command)
         else:
             Initial_pos = mav_pos
-            command.acceleration_or_force.x = 0.
-            command.acceleration_or_force.y = 0.
-            command.acceleration_or_force.z = 0.
-            command.yaw_rate = 0.
             controller_reset = True
+            local_vel_pub.publish(idle_command)
         obs_pos = sphere_pos
-        local_acc_pub.publish(command)
         rate.sleep()
     rospy.spin()
