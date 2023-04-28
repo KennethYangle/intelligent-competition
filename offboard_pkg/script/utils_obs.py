@@ -49,7 +49,7 @@ class Utils(object):
         self.circley = None
         self.w, self.h = self.WIDTH, self.HEIGHT
         self.u0 = self.w/2
-        self.v0 = self.h*0.45 # self.h*0.43 # self.h/2
+        self.v0 = self.h*0.42 # self.h*0.43 # self.h/2
         self.x0 = self.u0
         self.y0 = self.v0
         self.cnt = 0
@@ -201,7 +201,7 @@ class Utils(object):
         v_d /= np.linalg.norm(v_d)
         V = np.linalg.norm(pos_info["mav_vel"])
         # v_d *= min(V + 2.5, 12)
-        v_d *= V + 1
+        v_d *= V + 2
 
         a_d = 1.5 * (v_d - pos_info["mav_vel"]) #+ np.array([0., 0., -0.5])
 
