@@ -160,7 +160,7 @@ int main( int argc, char** argv )
         // int keycode = cv::waitKey(1) & 0xff ; //ESC键退出
         // if (keycode == 27) 
         //     break ;
-        // ros::spinOnce();
+        ros::spinOnce();
     }
     
     cap.release();
