@@ -1,0 +1,99 @@
+[rosmaster.main][INFO] 2023-05-05 16:30:49,499: initialization complete, waiting for shutdown
+[rosmaster.main][INFO] 2023-05-05 16:30:49,499: Starting ROS Master Node
+[xmlrpc][INFO] 2023-05-05 16:30:49,500: XML-RPC server binding to 0.0.0.0:11311
+[xmlrpc][INFO] 2023-05-05 16:30:49,500: Started XML-RPC server [http://ubuntu:11311/]
+[xmlrpc][INFO] 2023-05-05 16:30:49,500: xml rpc node: starting XML-RPC server
+[rosmaster.master][INFO] 2023-05-05 16:30:49,500: Master initialized: port[11311], uri[http://ubuntu:11311/]
+[rosmaster.master][INFO] 2023-05-05 16:30:49,590: +PARAM [/run_id] by /roslaunch
+[rosmaster.master][INFO] 2023-05-05 16:30:49,590: +PARAM [/roslaunch/uris/host_ubuntu__44347] by /roslaunch
+[rosmaster.master][INFO] 2023-05-05 16:30:49,643: +PARAM [/rosversion] by /roslaunch
+[rosmaster.master][INFO] 2023-05-05 16:30:49,643: +PARAM [/rosdistro] by /roslaunch
+[rosmaster.master][INFO] 2023-05-05 16:30:49,645: +SERVICE [/rosout/get_loggers] /rosout http://ubuntu:44029/
+[rosmaster.master][INFO] 2023-05-05 16:30:49,646: +SERVICE [/rosout/set_logger_level] /rosout http://ubuntu:44029/
+[rosmaster.master][INFO] 2023-05-05 16:30:49,646: +PUB [/rosout_agg] /rosout http://ubuntu:44029/
+[rosmaster.master][INFO] 2023-05-05 16:30:49,648: +SUB [/rosout] /rosout http://ubuntu:44029/
+[rosmaster.master][INFO] 2023-05-05 16:30:51,793: +PUB [/rosout] /rqt_gui_py_node_7336 http://ubuntu:42529/
+[rosmaster.master][INFO] 2023-05-05 16:30:51,795: +SERVICE [/rqt_gui_py_node_7336/get_loggers] /rqt_gui_py_node_7336 http://ubuntu:42529/
+[rosmaster.master][INFO] 2023-05-05 16:30:51,795: +SERVICE [/rqt_gui_py_node_7336/set_logger_level] /rqt_gui_py_node_7336 http://ubuntu:42529/
+[rosmaster.master][INFO] 2023-05-05 16:30:51,818: publisherUpdate[/rosout] -> http://ubuntu:44029/ ['http://ubuntu:42529/']
+[rosmaster.master][INFO] 2023-05-05 16:30:51,818: publisherUpdate[/rosout] -> http://ubuntu:44029/ ['http://ubuntu:42529/']: sec=0.00, result=[1, '', 0]
+[rosmaster.master][INFO] 2023-05-05 16:32:05,585: -PUB [/rosout] /rqt_gui_py_node_7336 http://ubuntu:42529/
+[rosmaster.master][INFO] 2023-05-05 16:32:05,585: -SERVICE [/rqt_gui_py_node_7336/set_logger_level] /rqt_gui_py_node_7336 rosrpc://ubuntu:34863
+[rosmaster.master][INFO] 2023-05-05 16:32:05,585: -SERVICE [/rqt_gui_py_node_7336/get_loggers] /rqt_gui_py_node_7336 rosrpc://ubuntu:34863
+[rosmaster.master][INFO] 2023-05-05 16:32:05,607: publisherUpdate[/rosout] -> http://ubuntu:44029/ []
+[rosmaster.master][INFO] 2023-05-05 16:32:05,609: publisherUpdate[/rosout] -> http://ubuntu:44029/ []: sec=0.00, result=[1, '', 0]
+[rosmaster.master][INFO] 2023-05-05 16:34:30,194: +PARAM [/roslaunch/uris/host_ubuntu__34223] by /roslaunch
+[rosmaster.master][INFO] 2023-05-05 16:34:30,195: +PARAM [/rosversion] by /roslaunch
+[rosmaster.master][INFO] 2023-05-05 16:34:30,195: +PARAM [/rosdistro] by /roslaunch
+[rosmaster.master][INFO] 2023-05-05 16:34:30,254: +PUB [/rosout] /bag_play http://ubuntu:33159/
+[rosmaster.master][INFO] 2023-05-05 16:34:30,255: +SERVICE [/bag_play/get_loggers] /bag_play http://ubuntu:33159/
+[rosmaster.master][INFO] 2023-05-05 16:34:30,255: +SERVICE [/bag_play/set_logger_level] /bag_play http://ubuntu:33159/
+[rosmaster.master][INFO] 2023-05-05 16:34:30,256: +PUB [/clock] /bag_play http://ubuntu:33159/
+[rosmaster.master][INFO] 2023-05-05 16:34:30,256: +SERVICE [/bag_play/pause_playback] /bag_play http://ubuntu:33159/
+[rosmaster.master][INFO] 2023-05-05 16:34:30,281: publisherUpdate[/rosout] -> http://ubuntu:44029/ ['http://ubuntu:33159/']
+[rosmaster.master][INFO] 2023-05-05 16:34:30,282: +PUB [/rosout] /ekf_node http://ubuntu:38465/
+[rosmaster.master][INFO] 2023-05-05 16:34:30,282: +SERVICE [/ekf_node/get_loggers] /ekf_node http://ubuntu:38465/
+[rosmaster.master][INFO] 2023-05-05 16:34:30,282: publisherUpdate[/rosout] -> http://ubuntu:44029/ ['http://ubuntu:33159/']: sec=0.00, result=[1, '', 0]
+[rosmaster.master][INFO] 2023-05-05 16:34:30,282: publisherUpdate[/rosout] -> http://ubuntu:44029/ ['http://ubuntu:33159/', 'http://ubuntu:38465/']
+[rosmaster.master][INFO] 2023-05-05 16:34:30,283: +SERVICE [/ekf_node/set_logger_level] /ekf_node http://ubuntu:38465/
+[rosmaster.master][INFO] 2023-05-05 16:34:30,283: publisherUpdate[/rosout] -> http://ubuntu:44029/ ['http://ubuntu:33159/', 'http://ubuntu:38465/']: sec=0.00, result=[1, '', 0]
+[rosmaster.master][INFO] 2023-05-05 16:34:30,285: +SUB [/mavros/local_position/pose] /ekf_node http://ubuntu:38465/
+[rosmaster.master][INFO] 2023-05-05 16:34:30,286: +SUB [/mavros/local_position/velocity_local] /ekf_node http://ubuntu:38465/
+[rosmaster.master][INFO] 2023-05-05 16:34:30,288: +SUB [/mavros/imu/data] /ekf_node http://ubuntu:38465/
+[rosmaster.master][INFO] 2023-05-05 16:34:30,290: +SUB [/tracker/pos_image] /ekf_node http://ubuntu:38465/
+[rosmaster.master][INFO] 2023-05-05 16:34:30,293: +SUB [/camera/left/compressed] /ekf_node http://ubuntu:38465/
+[rosmaster.master][INFO] 2023-05-05 16:34:30,294: +SUB [/ekf/state] /ekf_node http://ubuntu:38465/
+[rosmaster.master][INFO] 2023-05-05 16:34:30,294: +PUB [/tracker/pos_image_ekf] /ekf_node http://ubuntu:38465/
+[rosmaster.master][INFO] 2023-05-05 16:34:30,379: +PUB [/mavros/imu/data] /bag_play http://ubuntu:33159/
+[rosmaster.master][INFO] 2023-05-05 16:34:30,379: +PUB [/image_raw/compressed] /bag_play http://ubuntu:33159/
+[rosmaster.master][INFO] 2023-05-05 16:34:30,379: +PUB [/mavros/local_position/pose] /bag_play http://ubuntu:33159/
+[rosmaster.master][INFO] 2023-05-05 16:34:30,379: +PUB [/mavros/local_position/velocity_local] /bag_play http://ubuntu:33159/
+[rosmaster.master][INFO] 2023-05-05 16:34:30,380: +PUB [/mavros/imu/data_raw] /bag_play http://ubuntu:33159/
+[rosmaster.master][INFO] 2023-05-05 16:34:30,380: +PUB [/mavros/rc/in] /bag_play http://ubuntu:33159/
+[rosmaster.master][INFO] 2023-05-05 16:34:30,380: +PUB [/mavros/state] /bag_play http://ubuntu:33159/
+[rosmaster.master][INFO] 2023-05-05 16:34:30,380: +PUB [/tracker/pos_image] /bag_play http://ubuntu:33159/
+[rosmaster.master][INFO] 2023-05-05 16:34:30,381: +PUB [/mavros/setpoint_raw/local] /bag_play http://ubuntu:33159/
+[rosmaster.master][INFO] 2023-05-05 16:34:30,384: publisherUpdate[/mavros/imu/data] -> http://ubuntu:38465/ ['http://ubuntu:33159/']
+[rosmaster.master][INFO] 2023-05-05 16:34:30,385: publisherUpdate[/mavros/imu/data] -> http://ubuntu:38465/ ['http://ubuntu:33159/']: sec=0.00, result=[1, '', 0]
+[rosmaster.master][INFO] 2023-05-05 16:34:30,385: publisherUpdate[/mavros/local_position/pose] -> http://ubuntu:38465/ ['http://ubuntu:33159/']
+[rosmaster.master][INFO] 2023-05-05 16:34:30,385: publisherUpdate[/mavros/local_position/pose] -> http://ubuntu:38465/ ['http://ubuntu:33159/']: sec=0.00, result=[1, '', 0]
+[rosmaster.master][INFO] 2023-05-05 16:34:30,385: publisherUpdate[/mavros/local_position/velocity_local] -> http://ubuntu:38465/ ['http://ubuntu:33159/']
+[rosmaster.master][INFO] 2023-05-05 16:34:30,385: publisherUpdate[/mavros/local_position/velocity_local] -> http://ubuntu:38465/ ['http://ubuntu:33159/']: sec=0.00, result=[1, '', 0]
+[rosmaster.master][INFO] 2023-05-05 16:34:30,385: publisherUpdate[/tracker/pos_image] -> http://ubuntu:38465/ ['http://ubuntu:33159/']
+[rosmaster.master][INFO] 2023-05-05 16:34:30,386: publisherUpdate[/tracker/pos_image] -> http://ubuntu:38465/ ['http://ubuntu:33159/']: sec=0.00, result=[1, '', 0]
+[rosmaster.master][INFO] 2023-05-05 16:34:38,840: -PUB [/rosout] /bag_play http://ubuntu:33159/
+[rosmaster.master][INFO] 2023-05-05 16:34:38,841: -PUB [/clock] /bag_play http://ubuntu:33159/
+[rosmaster.master][INFO] 2023-05-05 16:34:38,841: -PUB [/mavros/imu/data] /bag_play http://ubuntu:33159/
+[rosmaster.master][INFO] 2023-05-05 16:34:38,841: -PUB [/image_raw/compressed] /bag_play http://ubuntu:33159/
+[rosmaster.master][INFO] 2023-05-05 16:34:38,842: -PUB [/mavros/local_position/pose] /bag_play http://ubuntu:33159/
+[rosmaster.master][INFO] 2023-05-05 16:34:38,842: -PUB [/mavros/local_position/velocity_local] /bag_play http://ubuntu:33159/
+[rosmaster.master][INFO] 2023-05-05 16:34:38,842: -PUB [/mavros/imu/data_raw] /bag_play http://ubuntu:33159/
+[rosmaster.master][INFO] 2023-05-05 16:34:38,843: -PUB [/mavros/rc/in] /bag_play http://ubuntu:33159/
+[rosmaster.master][INFO] 2023-05-05 16:34:38,843: -PUB [/mavros/state] /bag_play http://ubuntu:33159/
+[rosmaster.master][INFO] 2023-05-05 16:34:38,843: -PUB [/tracker/pos_image] /bag_play http://ubuntu:33159/
+[rosmaster.master][INFO] 2023-05-05 16:34:38,844: -PUB [/mavros/setpoint_raw/local] /bag_play http://ubuntu:33159/
+[rosmaster.master][INFO] 2023-05-05 16:34:38,844: -SERVICE [/bag_play/get_loggers] /bag_play rosrpc://ubuntu:35937
+[rosmaster.master][INFO] 2023-05-05 16:34:38,844: -SERVICE [/bag_play/set_logger_level] /bag_play rosrpc://ubuntu:35937
+[rosmaster.master][INFO] 2023-05-05 16:34:38,845: -SERVICE [/bag_play/pause_playback] /bag_play rosrpc://ubuntu:35937
+[rosmaster.master][INFO] 2023-05-05 16:34:38,846: publisherUpdate[/rosout] -> http://ubuntu:44029/ ['http://ubuntu:38465/']
+[rosmaster.master][INFO] 2023-05-05 16:34:38,848: publisherUpdate[/rosout] -> http://ubuntu:44029/ ['http://ubuntu:38465/']: sec=0.00, result=[1, '', 0]
+[rosmaster.master][INFO] 2023-05-05 16:34:38,848: publisherUpdate[/mavros/imu/data] -> http://ubuntu:38465/ []
+[rosmaster.master][INFO] 2023-05-05 16:34:38,848: publisherUpdate[/mavros/imu/data] -> http://ubuntu:38465/ []: sec=0.00, result=[1, '', 0]
+[rosmaster.master][INFO] 2023-05-05 16:34:38,848: publisherUpdate[/mavros/local_position/pose] -> http://ubuntu:38465/ []
+[rosmaster.master][INFO] 2023-05-05 16:34:38,849: publisherUpdate[/mavros/local_position/pose] -> http://ubuntu:38465/ []: sec=0.00, result=[1, '', 0]
+[rosmaster.master][INFO] 2023-05-05 16:34:38,849: publisherUpdate[/mavros/local_position/velocity_local] -> http://ubuntu:38465/ []
+[rosmaster.master][INFO] 2023-05-05 16:34:38,849: publisherUpdate[/mavros/local_position/velocity_local] -> http://ubuntu:38465/ []: sec=0.00, result=[1, '', 0]
+[rosmaster.master][INFO] 2023-05-05 16:34:38,849: publisherUpdate[/tracker/pos_image] -> http://ubuntu:38465/ []
+[rosmaster.master][INFO] 2023-05-05 16:34:38,849: publisherUpdate[/tracker/pos_image] -> http://ubuntu:38465/ []: sec=0.00, result=[1, '', 0]
+[rosmaster.master][INFO] 2023-05-05 16:34:43,884: -PUB [/rosout] /ekf_node http://ubuntu:38465/
+[rosmaster.master][INFO] 2023-05-05 16:34:43,884: -PUB [/tracker/pos_image_ekf] /ekf_node http://ubuntu:38465/
+[rosmaster.master][INFO] 2023-05-05 16:34:43,884: -SUB [/mavros/local_position/pose] /ekf_node http://ubuntu:38465/
+[rosmaster.master][INFO] 2023-05-05 16:34:43,884: -SUB [/mavros/local_position/velocity_local] /ekf_node http://ubuntu:38465/
+[rosmaster.master][INFO] 2023-05-05 16:34:43,885: -SUB [/mavros/imu/data] /ekf_node http://ubuntu:38465/
+[rosmaster.master][INFO] 2023-05-05 16:34:43,885: -SUB [/tracker/pos_image] /ekf_node http://ubuntu:38465/
+[rosmaster.master][INFO] 2023-05-05 16:34:43,885: -SUB [/camera/left/compressed] /ekf_node http://ubuntu:38465/
+[rosmaster.master][INFO] 2023-05-05 16:34:43,885: -SUB [/ekf/state] /ekf_node http://ubuntu:38465/
+[rosmaster.master][INFO] 2023-05-05 16:34:43,885: -SERVICE [/ekf_node/get_loggers] /ekf_node rosrpc://ubuntu:48271
+[rosmaster.master][INFO] 2023-05-05 16:34:43,885: -SERVICE [/ekf_node/set_logger_level] /ekf_node rosrpc://ubuntu:48271
+[rosmaster.master][INFO] 2023-05-05 16:34:43,892: publisherUpdate[/rosout] -> http://ubuntu:44029/ []
+[rosmaster.master][INFO] 2023-05-05 16:34:43,892: publisherUpdate[/rosout] -> http://ubuntu:44029/ []: sec=0.00, result=[1, '', 0]

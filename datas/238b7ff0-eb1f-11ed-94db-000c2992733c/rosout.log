@@ -1,0 +1,4 @@
+
+
+1683275449.646722527  Node Startup
+1683275670.256792878 INFO /bag_play [/tmp/binarydeb/ros-melodic-rosbag-1.14.9/src/player.cpp:136(Player::publish)] [topics: /rosout, /clock] Opening /mnt/hgfs/??????_BY2103058/????????????/????????????230504/0504success/15.14flyballoon/fly_high_2023-04-28-11-21-08.bag

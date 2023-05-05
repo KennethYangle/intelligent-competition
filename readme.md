@@ -188,25 +188,33 @@ python 11-plot_data.py ../datas/20210521_172502_sim.log IMG_y ekf_y -t "62.5 68.
 ![](./output/local-real-1.svg)
 ![](./output/local-real-2.svg)
 
+
+
+** 接下来参照`ekf_pkg/launch/img_ekf.launch`单独运行ekf保证帧率。运行后的结果拷贝到datas/里。 **
+
 ## 12. Results for real flight experiments. (a) trajectory
 画实飞动态目标中相对目标的全局坐标轨迹图
 ```
-python 12-plot_data.py ../datas/2eb00a9e-ccc1-11ed-9ff8-c6766eff689d/ekf_node-1-stdout.log mav_pos -t "285 298" -p
+# python 12-plot_data.py ../datas/2eb00a9e-ccc1-11ed-9ff8-c6766eff689d/ekf_node-1-stdout.log mav_pos -t "285 298" -p
+python 12-plot_data.py ../datas/207692ec-eb14-11ed-94db-000c2992733c/ekf_node-1-stdout.log mav_pos -t "5 15" -p
 ```
 ![](./output/plotxy-real-moving.svg)
 
 ## 13. Results for HITL simulation. (b) image coordinates
 画实飞动态目标中原始和滤波后图像坐标随时间变化图
 ```
-python 13-plot_data.py ../datas/2eb00a9e-ccc1-11ed-9ff8-c6766eff689d/ekf_node-1-stdout.log IMG_x ekf_x IMG_y ekf_y -t "278 295" --subplot 2
+# python 13-plot_data.py ../datas/2eb00a9e-ccc1-11ed-9ff8-c6766eff689d/ekf_node-1-stdout.log IMG_x ekf_x IMG_y ekf_y -t "278 295" --subplot 2
+python 13-plot_data.py ../datas/207692ec-eb14-11ed-94db-000c2992733c/ekf_node-1-stdout.log IMG_x ekf_x IMG_y ekf_y -t "5 15" --subplot 2
 ```
 ![](./output/subplot-real-moving.svg)
 
 ## 14. Results for HITL simulation. (c) local image coordinates
 画实飞静态目标中原始和滤波后图像坐标随时间变化图局部放大图
 ```
-python 14-plot_data.py ../datas/2eb00a9e-ccc1-11ed-9ff8-c6766eff689d/ekf_node-1-stdout.log IMG_x ekf_x -t "286 288.5"
-python 14-plot_data.py ../datas/2eb00a9e-ccc1-11ed-9ff8-c6766eff689d/ekf_node-1-stdout.log IMG_x ekf_x -t "291.5 294"
+# python 14-plot_data.py ../datas/2eb00a9e-ccc1-11ed-9ff8-c6766eff689d/ekf_node-1-stdout.log IMG_x ekf_x -t "286 288.5"
+# python 14-plot_data.py ../datas/2eb00a9e-ccc1-11ed-9ff8-c6766eff689d/ekf_node-1-stdout.log IMG_x ekf_x -t "291.5 294"
+python 14-plot_data.py ../datas/207692ec-eb14-11ed-94db-000c2992733c/ekf_node-1-stdout.log IMG_x ekf_x -t "5.3 6.3"
+python 14-plot_data.py ../datas/207692ec-eb14-11ed-94db-000c2992733c/ekf_node-1-stdout.log IMG_y ekf_y -t "12.6 13.2"
 ```
 ![](./output/local-real-moving-1.svg)
 ![](./output/local-real-moving-2.svg)
