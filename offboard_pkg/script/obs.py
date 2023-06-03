@@ -303,7 +303,8 @@ if __name__=="__main__":
         u = Utils(setting["Simulation"])
 
     rospy.init_node('offb_node', anonymous=True)
-
+    mav_id = rospy.get_param("~mav_id")
+    print("mav_id:", mav_id)
     px = Px4Controller()
     
     spin_thread = threading.Thread(target = spin)
