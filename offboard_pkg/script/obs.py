@@ -91,7 +91,7 @@ sphere_acc = np.array([0, 0, -0.5])
 sphere_feb_pos = PoseStamped()
 # obj_state = ModelState()
 
-impact_distance = 0.3
+impact_distance = 0.6
 arrive_distance = 1
 target_num = 0
 sphere_pos = sphere_all_pos[target_num]
@@ -462,8 +462,8 @@ if __name__=="__main__":
                             local_vel_pub.publish(idle_command)
                 else:
                     px.moveToPositionOnceAsync(sphere_pos[0], sphere_pos[1], sphere_pos[2], target_yaw)
-                if target_distance > 2:
-                    rotate_cnt = 0
+                # if target_distance > 2:
+                #     rotate_cnt = 0
                     
 
         else:
