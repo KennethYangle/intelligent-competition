@@ -91,7 +91,7 @@ sphere_acc = np.array([0, 0, -0.5])
 sphere_feb_pos = PoseStamped()
 # obj_state = ModelState()
 
-impact_distance = 1
+impact_distance = 0.3
 arrive_distance = 1
 target_num = 0
 sphere_pos = sphere_all_pos[target_num]
@@ -248,9 +248,9 @@ def sphere_control(cnt, sphere_id, sphere_type, is_move=False):
     obj_msg.position.x = newpos[0]
     obj_msg.position.y = newpos[1]
     obj_msg.position.z = newpos[2]
-    obj_msg.size.x = 0.2
-    obj_msg.size.y = 0.2
-    obj_msg.size.z = 0.2
+    obj_msg.size.x = 0.05
+    obj_msg.size.y = 0.05
+    obj_msg.size.z = 0.05
 
     sphere_pub.publish(obj_msg)
 
