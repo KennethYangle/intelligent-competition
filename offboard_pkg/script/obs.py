@@ -449,12 +449,12 @@ if __name__=="__main__":
                 attack_flag = 1
             # # 否则
             else:
-                if attack_flag == 1
-                    attack_time += 1
-                    attack_time = 0
                 target_distance = np.linalg.norm(sphere_pos - mav_pos)
                 target_yaw = atan2(sphere_pos[1] - mav_pos[1], sphere_pos[0] - mav_pos[0])  
                 if target_distance < arrive_distance:
+                    if attack_flag == 1:
+                        attack_time += 1
+                        attack_flag = 0
                     # local_vel_pub.publish(idle_command)
                     local_acc_pub.publish(rotate_command)
                     rotate_cnt = rotate_cnt + 1
