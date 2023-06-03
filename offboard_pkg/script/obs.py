@@ -21,6 +21,10 @@ from utils_obs import Utils
 from Queue import Queue
 from rflysim_ros_pkg.msg import Obj
 
+from assemble_cmd import Px4Controller
+from math import atan2, pi
+from swarm_msgs.msg import BoundingBox, BoundingBoxes
+
 
 # Simulation of RealFlight
 current_state = State()
@@ -40,12 +44,26 @@ pos_i_raw = [0, 0, 0, 0, 0]
 pos_i_ekf = [0, 0, 0, 0, 0]
 image_failed_cnt = 0
 state_name = "InitializeState"
+
+#hover
 idle_command = TwistStamped()
+
+#attack
 command = PositionTarget()
 command.coordinate_frame = PositionTarget.FRAME_LOCAL_NED 
 command.type_mask = PositionTarget.IGNORE_PX + PositionTarget.IGNORE_PY + PositionTarget.IGNORE_PZ \
                   + PositionTarget.IGNORE_VX + PositionTarget.IGNORE_VY + PositionTarget.IGNORE_VZ \
                   + PositionTarget.IGNORE_YAW
+
+#rotate
+rotate_rat = pi / 4
+rotate_command = PositionTarget()
+rotate_command.coordinate_frame = PositionTarget.FRAME_LOCAL_NED 
+rotate_command.type_mask = PositionTarget.IGNORE_PX + PositionTarget.IGNORE_PY + PositionTarget.IGNORE_PZ \
+                         + PositionTarget.IGNORE_AFX + PositionTarget.IGNORE_AFY + PositionTarget.IGNORE_AFZ \
+                         + PositionTarget.IGNORE_YAW
+rotate_command.yaw_rate = rotate_rat
+rotate_command.velocity.x, rotate_command.velocity.y, rotate_command.velocity.z = 0, 0, 0
 
 q = Queue()
 maxQ = 100
@@ -54,14 +72,29 @@ home_dx, home_dy = 0, 0
 depth = -1
 original_offset = np.array([0, 0, 0])
 
-sphere_pos = np.array([20, 25, 2])
-sphere_vel = np.array([-5, 0, 2])
+sphere_pos_1 = np.array([10, 45, 2])
+sphere_pos_2 = np.array([30, 75, 2])
+sphere_pos_3 = np.array([50, 100, 2])
+sphere_all_pos = [sphere_pos_1, sphere_pos_2, sphere_pos_3]
+sphere_true_pos_1 = np.array([5, 40, 2])
+sphere_true_pos_2 = np.array([35, 80, 2])
+sphere_true_pos_3 = np.array([60, 100, 2])
+sphere_true_all_pos = [sphere_true_pos_1, sphere_true_pos_2, sphere_true_pos_3]
+sphere_all_id = [100, 101, 102]
+# sphere_vel = np.array([-5, 0, 2])
+sphere_vel = np.array([0, 0, 0])
 sphere_acc = np.array([0, 0, -0.5])
 # sphere_vel = np.array([-5, 0, 0])
 # sphere_acc = np.array([0, 0, 0])
 
 sphere_feb_pos = PoseStamped()
 # obj_state = ModelState()
+
+target_num = 0
+impact_distance = 1
+arrive_distance = 1
+sphere_pos = sphere_all_pos[target_num]
+
 
 def spin():
     rospy.spin()
@@ -140,20 +173,45 @@ def pos_image_cb(msg):
     global is_initialize_img, pos_i_raw, pos_i, image_failed_cnt
     is_initialize_img = True
     # print("msg_data: {}".format(msg.data))
-    if msg.data[0] <= 0:
-        image_failed_cnt += 1
-    else:
-        image_failed_cnt = 0
-    if image_failed_cnt <= 20 and image_failed_cnt > 0:
-        pass
-    else:
-        pos_i_raw = msg.data
+    sphere_num = len(msg.bounding_boxes)
+    if sphere_num > 0:
+        xmiddle = (msg.bounding_boxes[0].xmin + msg.bounding_boxes[0].xmax) / 2
+        ymiddle = (msg.bounding_boxes[0].ymin + msg.bounding_boxes[0].ymax) / 2
+        picwidth = msg.bounding_boxes[0].xmax - msg.bounding_boxes[0].xmin
+        picheight = msg.bounding_boxes[0].ymax - msg.bounding_boxes[0].ymin
+        outdata = [xmiddle, ymiddle, picwidth, picheight]
+        pos_i_raw = outdata
         pos_i = pos_i_raw
+    else:
+        outdata = [-1, -1, -1, -1]
+        pos_i_raw = outdata
+        pos_i = pos_i_raw
+    
+    # if xmiddle <= 0:
+    #     image_failed_cnt += 1
+    # else:
+    #     image_failed_cnt = 0
+    # if image_failed_cnt <= 20 and image_failed_cnt > 0:
+    #     pass
+    # else:
+    #     ymiddle = (msg.bounding_boxes[0].ymin + msg.bounding_boxes[0].ymax) / 2
+    #     picwidth = msg.bounding_boxes[0].xmax - msg.bounding_boxes[0].xmin
+    #     picheight = msg.bounding_boxes[0].ymax - msg.bounding_boxes[0].ymin
+    #     outdata = [xmiddle, ymiddle, picwidth, picheight]
+    #     pos_i_raw = outdata
+    #     pos_i = pos_i_raw
     # print("pos_i_raw: {}".format(pos_i_raw))
 
 def pos_image_ekf_cb(msg):
     global pos_i_ekf, pos_i_raw, pos_i
-    pos_i_ekf = msg.data
+
+    # xmiddle = (msg.bounding_boxes[0].xmin + msg.bounding_boxes[0].xmax) / 2
+    # ymiddle = (msg.bounding_boxes[0].ymin + msg.bounding_boxes[0].ymax) / 2
+    # picwidth = msg.bounding_boxes[0].xmax - msg.bounding_boxes[0].xmin
+    # picheight = msg.bounding_boxes[0].ymax - msg.bounding_boxes[0].ymin
+    # outdata = [xmiddle, ymiddle, picwidth, picheight]
+    # pos_i_ekf = outdata
+    pos_i_ekf = msg_data
     # If we don't consider the safety of the aircraft when the target is lost, use pos_i_ekf when pos_i_raw[0]<0.
     if abs(pos_i_ekf[0] - pos_i_raw[0]) < 10 and abs(pos_i_ekf[1] - pos_i_raw[1]) < 10:
         pos_i = pos_i_ekf
@@ -163,18 +221,21 @@ def pos_image_ekf_cb(msg):
     # print("pos_i: {}".format(pos_i))
 
 
-def sphere_control(cnt, is_move=False):
-    global sphere_pos, sphere_vel, sphere_acc
+def sphere_control(cnt, sphere_id, sphere_type, is_move=False):
+    global sphere_pos, sphere_vel, sphere_acc, sphere_all_pos 
     obj_msg = Obj()
     
-    obj_msg.id = 100
-    obj_msg.type = 152
+    obj_msg.id = sphere_id
+    sphere_num = sphere_all_id.index(sphere_id)
+    # obj_msg.type = 152
+    obj_msg.type = sphere_type
     # obj_msg.position.x = sphere_pos_x + 5*np.sin(cnt*1.0/100)
-    sphere_pos = sphere_pos + sphere_vel * 0.02 * is_move
-    sphere_vel = sphere_vel + sphere_acc * 0.02 * is_move
-    obj_msg.position.x = sphere_pos[0]
-    obj_msg.position.y = sphere_pos[1]
-    obj_msg.position.z = sphere_pos[2]
+    # sphere_pos = sphere_pos + sphere_vel * 0.02 * is_move
+    # sphere_vel = sphere_vel + sphere_acc * 0.02 * is_move
+    newpos = sphere_true_all_pos[sphere_num]
+    obj_msg.position.x = newpos[0]
+    obj_msg.position.y = newpos[1]
+    obj_msg.position.z = newpos[2]
     obj_msg.size.x = 0.2
     obj_msg.size.y = 0.2
     obj_msg.size.z = 0.2
@@ -198,6 +259,32 @@ def angleLimiting(a):
     return a
 
 
+def sphere_set():
+    global sphere_all_id
+    for i in range(len(sphere_all_id)):
+        sphere_control(cnt, sphere_all_id[i], 152, ch8==1)
+
+
+def sphere_impact():
+    global sphere_true_all_pos, sphere_all_id, sphere_pos, mav_pos, impact_distance
+    if len(sphere_all_id) > 0:
+        for i in range(len(sphere_all_id)):
+            print(len(sphere_all_id))
+            diff_distance = np.linalg.norm(sphere_true_all_pos[i] - mav_pos)
+            if diff_distance < impact_distance:
+                sphere_control(cnt, sphere_all_id[i], 102, ch8==1)
+                # del sphere_all_pos[i]
+                # del sphere_all_id[i]
+                # if len(sphere_all_id) > 0:
+                #     sphere_pos = sphere_all_pos[0]
+                # break
+
+
+
+
+
+
+
 
 if __name__=="__main__":
     setting_file = open(os.path.join(os.path.expanduser('~'),"Rfly_Attack/src","settings.json"))
@@ -216,6 +303,9 @@ if __name__=="__main__":
         u = Utils(setting["Simulation"])
 
     rospy.init_node('offb_node', anonymous=True)
+
+    px = Px4Controller()
+    
     spin_thread = threading.Thread(target = spin)
     spin_thread.start()
 
@@ -238,7 +328,10 @@ if __name__=="__main__":
             inputThread.start()
     else:
         raise Exception("Invalid MODE!", MODE)
-    rospy.Subscriber("tracker/pos_image", Float32MultiArray, pos_image_cb)
+    
+
+    #rospy.Subscriber("tracker/pos_image", Float32MultiArray, pos_image_cb)
+    rospy.Subscriber("tracker/pos_image", BoundingBoxes, pos_image_cb)
     rospy.Subscriber("tracker/pos_image_ekf", Float32MultiArray, pos_image_ekf_cb)
     local_vel_pub = rospy.Publisher('mavros/setpoint_velocity/cmd_vel', TwistStamped, queue_size=10)
     local_acc_pub = rospy.Publisher('mavros/setpoint_raw/local', PositionTarget, queue_size=10)
@@ -280,27 +373,34 @@ if __name__=="__main__":
     # start
     cnt = -1
     controller_reset = True
+
+
+    if MODE == "Simulation":
+        sphere_set()
+
+
+
     while not rospy.is_shutdown():
         # print("time: {}".format(rospy.Time.now().to_sec() - last_request.to_sec()))
         cnt += 1
         # sphere_control()
-        if MODE == "Simulation":
-            sphere_control(cnt, ch8==1)
             
-        # if ch8 == 0:
-        #     if current_state.mode == "OFFBOARD":
-        #         resp1 = set_mode_client(0, "POSCTL")	# (uint8 base_mode, string custom_mode)
-        #     if cnt % 10 == 0:
-        #         # print("Enter MANUAL mode")
-        #     Initial_pos = mav_pos
-        #     rate.sleep()
-        #     continue
-        # else:
-        #     if current_state.mode != "OFFBOARD":
-        #         resp1 = set_mode_client( 0,offb_set_mode.custom_mode )
-        #         if resp1.mode_sent:
-        #             # print("Offboard enabled")
-        #         last_request = rospy.Time.now()
+        sphere_impact()
+
+        if ch8 == 0:
+            if current_state.mode == "OFFBOARD":
+                resp1 = set_mode_client(0, "POSCTL")	# (uint8 base_mode, string custom_mode)
+            if cnt % 10 == 0:
+                print("Enter MANUAL mode")
+            Initial_pos = mav_pos
+            rate.sleep()
+            continue
+        else:
+            if current_state.mode != "OFFBOARD":
+                resp1 = set_mode_client( 0,offb_set_mode.custom_mode )
+                if resp1.mode_sent:
+                    print("Offboard enabled")
+                last_request = rospy.Time.now()
         
         pos_info = {"mav_pos": mav_pos, "mav_vel": mav_vel, "mav_R": mav_R, "R_bc": np.array([[0,0,1], [1,0,0], [0,1,0]]), 
                     "mav_original_angle": mav_original_angle, "Initial_pos": Initial_pos}
@@ -324,9 +424,24 @@ if __name__=="__main__":
                 command.yaw_rate = cmd[3]
                 # print("cmd: {}".format(cmd))
                 local_acc_pub.publish(command)
-            # # 否则hover
+            # # 否则
             else:
-                local_vel_pub.publish(idle_command)
+                target_distance = np.linalg.norm(sphere_pos - mav_pos)
+                target_yaw = atan2(sphere_pos[1] - mav_pos[1], sphere_pos[0] - mav_pos[0])  
+                if target_distance < arrive_distance:
+                    # local_vel_pub.publish(idle_command)
+                    local_acc_pub.publish(rotate_command)
+                    rotate_cnt = rotate_cnt + 1
+                    if rotate_cnt > 2 * pi / rotate_rat * 1000 / 20:
+                        target_num = target_num + 1
+                        if target_num < len(sphere_all_id):
+                            sphere_pos = sphere_all_pos[target_num]
+                        else:
+                            local_vel_pub.publish(idle_command)
+                else:
+                    px.moveToPositionOnceAsync(sphere_pos[0], sphere_pos[1], sphere_pos[2], target_yaw)
+                    rotate_cnt = 0
+
         else:
             Initial_pos = mav_pos
             controller_reset = True

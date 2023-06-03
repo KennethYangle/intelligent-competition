@@ -1,12 +1,16 @@
 {
     "Docs": "settings.md",
-    "MODE": "RealFlight",
-    "IsRC": true,
+    "MODE": "Simulation",
+    "IsRC": false,
     "UseEKF": false,
     "car_velocity": 1,
     "follow_mode": 0,
     "follow_distance": 3,
     "FLIGHT_H": 3,
+    "Debug": {
+        "is_show_rgb": true,
+        "is_show_hsv": true
+    },
     "Utils": {
         "P": 0.5,
         "D": 0.5,
