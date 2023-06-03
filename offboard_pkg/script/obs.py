@@ -93,6 +93,7 @@ sphere_feb_pos = PoseStamped()
 
 impact_distance = 0.6
 arrive_distance = 1
+attack_start_distance = 20
 target_num = 0
 sphere_pos = sphere_all_pos[target_num]
 
@@ -438,8 +439,9 @@ if __name__=="__main__":
             # cmd = u.RotateAttackController(pos_info, pos_i, image_center, controller_reset)
             cmd = u.RotateAttackAccelerationController(pos_info, pos_i, controller_reset)
             controller_reset = False
+            target_distance = np.linalg.norm(sphere_pos - mav_pos)
             # 识别到图像才进行角速度控制
-            if pos_i[1] > 0 and attack_time < 2: 
+            if pos_i[1] > 0 and attack_time < 2 and target_distance < attack_start_distance: 
                 command.acceleration_or_force.x = cmd[0]
                 command.acceleration_or_force.y = cmd[1]
                 command.acceleration_or_force.z = cmd[2]
