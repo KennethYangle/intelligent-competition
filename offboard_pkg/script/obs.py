@@ -21,8 +21,9 @@ from utils_obs import Utils
 from Queue import Queue
 from rflysim_ros_pkg.msg import Obj
 
-from assemble_cmd import Px4Controller
 from math import atan2, pi
+from random import random
+from assemble_cmd import Px4Controller
 from swarm_msgs.msg import BoundingBox, BoundingBoxes
 
 
@@ -46,7 +47,7 @@ pos_i_ekf = [0, 0, 0, 0, 0]
 image_failed_cnt = 0
 state_name = "InitializeState"
 
-#hover
+#oldhover
 idle_command = TwistStamped()
 
 #attack
@@ -66,6 +67,16 @@ rotate_command.type_mask = PositionTarget.IGNORE_PX + PositionTarget.IGNORE_PY +
 rotate_command.yaw_rate = rotate_rat
 rotate_command.velocity.x, rotate_command.velocity.y, rotate_command.velocity.z = 0, 0, 0
 
+#hover
+hover_command = PositionTarget()
+hover_command.coordinate_frame = PositionTarget.FRAME_LOCAL_NED 
+hover_command.type_mask = PositionTarget.IGNORE_PX + PositionTarget.IGNORE_PY + PositionTarget.IGNORE_PZ \
+                        + PositionTarget.IGNORE_AFX + PositionTarget.IGNORE_AFY + PositionTarget.IGNORE_AFZ \
+                        + PositionTarget.IGNORE_YAW
+hover_command.yaw_rate = 0
+hover_command.velocity.x, rotate_command.velocity.y, rotate_command.velocity.z = 0, 0, 0
+
+
 q = Queue()
 maxQ = 100
 sumQ = 0.0
@@ -73,13 +84,26 @@ home_dx, home_dy = 0, 0
 depth = -1
 original_offset = np.array([0, 0, 0])
 
-sphere_pos_1 = np.array([10, 45, 2])
-sphere_pos_2 = np.array([30, 75, 2])
-sphere_pos_3 = np.array([50, 100, 2])
+
+impact_distance = 0.6
+arrive_distance = 1
+left_distance = 2
+attack_start_distance = 20
+highspeed_distance = 20
+middlespeed_distance = 10
+offset_distance = 5
+high_speed = 5
+middle_speed = 3
+slow_speed = 1
+
+
+sphere_pos_1 = np.array([-30, 80, 10])
+sphere_pos_2 = np.array([0, 100, 10])
+sphere_pos_3 = np.array([25, 120, 10])
 sphere_all_pos = [sphere_pos_1, sphere_pos_2, sphere_pos_3]
-sphere_true_pos_1 = np.array([-30, 80, 2])
-sphere_true_pos_2 = np.array([0, 100, 2])
-sphere_true_pos_3 = np.array([25, 120, 2])
+sphere_true_pos_1 = sphere_pos_1 + offset_distance *(2 * np.array([random(), random(), 0.3 * random()]) - np.array([1, 1, 0.3]))
+sphere_true_pos_2 = sphere_pos_2 + offset_distance *(2 * np.array([random(), random(), 0.3 * random()]) - np.array([1, 1, 0.3]))
+sphere_true_pos_3 = sphere_pos_3 + offset_distance *(2 * np.array([random(), random(), 0.3 * random()]) - np.array([1, 1, 0.3]))
 sphere_true_all_pos = [sphere_true_pos_1, sphere_true_pos_2, sphere_true_pos_3]
 sphere_all_id = [100, 101, 102]
 # sphere_vel = np.array([-5, 0, 2])
@@ -91,16 +115,6 @@ sphere_acc = np.array([0, 0, -0.5])
 sphere_feb_pos = PoseStamped()
 # obj_state = ModelState()
 
-impact_distance = 0.6
-arrive_distance = 1
-left_distance = 2
-attack_start_distance = 20
-highspeed_distance = 30
-middlespeed_distance = 20
-high_speed = 5
-middle_speed = 3
-slow_speed = 1
- 
 target_num = 0
 sphere_pos = sphere_all_pos[target_num]
 
@@ -241,7 +255,7 @@ def pos_image_ekf_cb(msg):
     # print("pos_i: {}".format(pos_i))
 
 
-def sphere_control(cnt, sphere_id, sphere_type, is_move=False):
+def sphere_control(time, sphere_id, sphere_type, is_move=False):
     global sphere_pos, sphere_vel, sphere_acc, sphere_all_id 
     obj_msg = Obj()
     
@@ -282,7 +296,7 @@ def angleLimiting(a):
 def sphere_set():
     global sphere_all_id
     for i in range(len(sphere_all_id)):
-        sphere_control(cnt, sphere_all_id[i], 152, ch8==1)
+        sphere_control(0, sphere_all_id[i], 152, ch8==1)
 
 
 def sphere_impact():
@@ -292,7 +306,7 @@ def sphere_impact():
             print(len(sphere_all_id))
             diff_distance = np.linalg.norm(sphere_true_all_pos[i] - mav_pos)
             if diff_distance < impact_distance:
-                sphere_control(cnt, sphere_all_id[i], 102, ch8==1)
+                sphere_control(0, sphere_all_id[i], 102, ch8==1)
                 # del sphere_all_pos[i]
                 # del sphere_all_id[i]
                 # if len(sphere_all_id) > 0:
@@ -413,7 +427,6 @@ if __name__=="__main__":
     while not rospy.is_shutdown():
         # print("time: {}".format(rospy.Time.now().to_sec() - last_request.to_sec()))
         cnt += 1
-        # sphere_control()
             
         sphere_impact()
 
@@ -473,7 +486,8 @@ if __name__=="__main__":
                         if target_num < len(sphere_all_id):
                             sphere_pos = sphere_all_pos[target_num]
                         else:
-                            local_vel_pub.publish(idle_command)
+                            #local_vel_pub.publish(idle_command)
+                            local_acc_pub.publish(hover_command)
                 else:
                     if target_distance > highspeed_distance:
                         mav_speed = high_speed
@@ -489,7 +503,8 @@ if __name__=="__main__":
         else:
             Initial_pos = mav_pos
             controller_reset = True
-            local_vel_pub.publish(idle_command)
+            #local_vel_pub.publish(idle_command)
+            local_acc_pub.publish(hover_command)
         obs_pos = sphere_pos
         rate.sleep()
     rospy.spin()
