@@ -444,6 +444,7 @@ if __name__=="__main__":
                 command.yaw_rate = cmd[3]
                 # print("cmd: {}".format(cmd))
                 local_acc_pub.publish(command)
+                target_distance = np.linalg.norm(sphere_pos - mav_pos)
             # # 否则
             else:
                 target_distance = np.linalg.norm(sphere_pos - mav_pos)
@@ -461,6 +462,8 @@ if __name__=="__main__":
                             local_vel_pub.publish(idle_command)
                 else:
                     px.moveToPositionOnceAsync(sphere_pos[0], sphere_pos[1], sphere_pos[2], target_yaw)
+                if target_distance > 2:
+                    rotate_cnt = 0
                     
 
         else:
