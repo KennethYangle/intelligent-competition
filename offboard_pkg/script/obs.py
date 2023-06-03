@@ -76,7 +76,7 @@ original_offset = np.array([0, 0, 0])
 sphere_pos_1 = np.array([10, 45, 2])
 sphere_pos_2 = np.array([30, 75, 2])
 sphere_pos_3 = np.array([50, 100, 2])
-sphere_all_pos = [sphere_pos_1, sphere_pos_2, sphere_pos_3]
+
 sphere_true_pos_1 = np.array([5, 40, 2])
 sphere_true_pos_2 = np.array([35, 80, 2])
 sphere_true_pos_3 = np.array([60, 100, 2])
@@ -91,11 +91,10 @@ sphere_acc = np.array([0, 0, -0.5])
 sphere_feb_pos = PoseStamped()
 # obj_state = ModelState()
 
-target_num = 0
 impact_distance = 1
 arrive_distance = 1
+target_num = 0
 sphere_pos = sphere_all_pos[target_num]
-
 
 def spin():
     rospy.spin()
@@ -234,7 +233,7 @@ def pos_image_ekf_cb(msg):
 
 
 def sphere_control(cnt, sphere_id, sphere_type, is_move=False):
-    global sphere_pos, sphere_vel, sphere_acc, sphere_all_pos 
+    global sphere_pos, sphere_vel, sphere_acc, sphere_all_id 
     obj_msg = Obj()
     
     obj_msg.id = sphere_id
@@ -269,6 +268,14 @@ def angleLimiting(a):
     if a < -np.pi:
         return a + 2*np.pi
     return a
+
+
+def sphere_order():
+    global mav_id
+    if mav_id == 1:
+        sphere_all_pos = [sphere_pos_1, sphere_pos_2, sphere_pos_3]
+    else:
+        sphere_all_pos = [sphere_pos_3, sphere_pos_2, sphere_pos_1]
 
 
 def sphere_set():
@@ -313,6 +320,7 @@ if __name__=="__main__":
         u = Utils(setting["Utils"])
     elif MODE == "Simulation":
         u = Utils(setting["Simulation"])
+
 
     rospy.init_node('offb_node', anonymous=True)
     mav_id = rospy.get_param("~mav_id")
