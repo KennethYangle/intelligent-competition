@@ -399,6 +399,8 @@ if __name__=="__main__":
         sphere_set()
 
     rotate_cnt = 0
+    attack_time = 0
+    attack_flag = 0
 
     while not rospy.is_shutdown():
         # print("time: {}".format(rospy.Time.now().to_sec() - last_request.to_sec()))
@@ -437,16 +439,19 @@ if __name__=="__main__":
             cmd = u.RotateAttackAccelerationController(pos_info, pos_i, controller_reset)
             controller_reset = False
             # 识别到图像才进行角速度控制
-            if pos_i[1] > 0: 
+            if pos_i[1] > 0 and attack_time < 2: 
                 command.acceleration_or_force.x = cmd[0]
                 command.acceleration_or_force.y = cmd[1]
                 command.acceleration_or_force.z = cmd[2]
                 command.yaw_rate = cmd[3]
                 # print("cmd: {}".format(cmd))
                 local_acc_pub.publish(command)
-                target_distance = np.linalg.norm(sphere_pos - mav_pos)
+                attack_flag = 1
             # # 否则
             else:
+                if attack_flag == 1
+                    attack_time += 1
+                    attack_time = 0
                 target_distance = np.linalg.norm(sphere_pos - mav_pos)
                 target_yaw = atan2(sphere_pos[1] - mav_pos[1], sphere_pos[0] - mav_pos[0])  
                 if target_distance < arrive_distance:
@@ -455,6 +460,7 @@ if __name__=="__main__":
                     rotate_cnt = rotate_cnt + 1
                     if rotate_cnt > 2 * pi / rotate_rat * 1000 / 20:
                         rotate_cnt = 0
+                        attack_time = 0
                         target_num = target_num + 1
                         if target_num < len(sphere_all_id):
                             sphere_pos = sphere_all_pos[target_num]
@@ -462,8 +468,9 @@ if __name__=="__main__":
                             local_vel_pub.publish(idle_command)
                 else:
                     px.moveToPositionOnceAsync(sphere_pos[0], sphere_pos[1], sphere_pos[2], target_yaw)
-                # if target_distance > 2:
-                #     rotate_cnt = 0
+                target_distance = np.linalg.norm(sphere_pos - mav_pos)
+                if target_distance > 2:
+                    rotate_cnt = 0
                     
 
         else:
