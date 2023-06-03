@@ -77,9 +77,9 @@ sphere_pos_1 = np.array([10, 45, 2])
 sphere_pos_2 = np.array([30, 75, 2])
 sphere_pos_3 = np.array([50, 100, 2])
 sphere_all_pos = [sphere_pos_1, sphere_pos_2, sphere_pos_3]
-sphere_true_pos_1 = np.array([5, 40, 2])
-sphere_true_pos_2 = np.array([35, 80, 2])
-sphere_true_pos_3 = np.array([60, 100, 2])
+sphere_true_pos_1 = np.array([-30, 80, 2])
+sphere_true_pos_2 = np.array([0, 100, 2])
+sphere_true_pos_3 = np.array([25, 120, 2])
 sphere_true_all_pos = [sphere_true_pos_1, sphere_true_pos_2, sphere_true_pos_3]
 sphere_all_id = [100, 101, 102]
 # sphere_vel = np.array([-5, 0, 2])
@@ -93,7 +93,14 @@ sphere_feb_pos = PoseStamped()
 
 impact_distance = 0.6
 arrive_distance = 1
+left_distance = 2
 attack_start_distance = 20
+highspeed_distance = 30
+middlespeed_distance = 20
+high_speed = 5
+middle_speed = 3
+slow_speed = 1
+ 
 target_num = 0
 sphere_pos = sphere_all_pos[target_num]
 
@@ -451,7 +458,6 @@ if __name__=="__main__":
                 attack_flag = 1
             # # 否则
             else:
-                target_distance = np.linalg.norm(sphere_pos - mav_pos)
                 target_yaw = atan2(sphere_pos[1] - mav_pos[1], sphere_pos[0] - mav_pos[0])  
                 if target_distance < arrive_distance:
                     if attack_flag == 1:
@@ -469,9 +475,14 @@ if __name__=="__main__":
                         else:
                             local_vel_pub.publish(idle_command)
                 else:
-                    px.moveToPositionOnceAsync(sphere_pos[0], sphere_pos[1], sphere_pos[2], target_yaw)
-                target_distance = np.linalg.norm(sphere_pos - mav_pos)
-                if target_distance > 2:
+                    if target_distance > highspeed_distance:
+                        mav_speed = high_speed
+                    elif target_distance <= highspeed_distance and target_distance > middlespeed_distance:
+                        mav_speed = middle_speed
+                    else:
+                        mav_speed = slow_speed
+                    px.moveToPositionOnceAsync(sphere_pos[0], sphere_pos[1], sphere_pos[2], target_yaw, mav_speed)
+                if target_distance > left_distance:
                     rotate_cnt = 0
                     
 
