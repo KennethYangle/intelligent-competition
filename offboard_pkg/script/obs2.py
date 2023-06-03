@@ -33,17 +33,17 @@ ch5, ch6, ch7, ch8, ch9, ch11, ch14 = 0, 0, 0, 0, 1, 1, 1
 is_initialize_mav, is_initialize_vel, is_initialize_rc, is_initialize_img = False, False, False, False
 
 ch20 = 0
-mav_pos = [0, 0, 0]
-mav_original_angle = [0, 0, 0]
+mav_pos = [0., 0., 0.]
+mav_original_angle = [0., 0., 0.]
 # mav_vel = [0, 0, 0]
-mav_vel = np.array([0, 0, 0])
+mav_vel = np.array([0., 0., 0.])
 mav_yaw = 0
 mav_R = np.zeros((3,3))
 mav_id = 1
-Initial_pos = [0, 0, 0]
-pos_i = [0, 0, 0, 0, 0]
-pos_i_raw = [0, 0, 0, 0, 0]
-pos_i_ekf = [0, 0, 0, 0, 0]
+Initial_pos = [0., 0., 0.]
+pos_i = [0., 0., 0., 0., 0.]
+pos_i_raw = [0., 0., 0., 0., 0.]
+pos_i_ekf = [0., 0., 0., 0., 0.]
 image_failed_cnt = 0
 state_name = "InitializeState"
 
@@ -72,8 +72,8 @@ hover_command = PositionTarget()
 hover_command.coordinate_frame = PositionTarget.FRAME_LOCAL_NED 
 hover_command.type_mask = PositionTarget.IGNORE_PX + PositionTarget.IGNORE_PY + PositionTarget.IGNORE_PZ \
                         + PositionTarget.IGNORE_AFX + PositionTarget.IGNORE_AFY + PositionTarget.IGNORE_AFZ \
-                        + PositionTarget.IGNORE_YAW_RATE
-hover_command.yaw = 0
+                        + PositionTarget.IGNORE_YAW
+hover_command.yaw_rate = 0
 hover_command.velocity.x, rotate_command.velocity.y, rotate_command.velocity.z = 0, 0, 0
 
 
@@ -82,7 +82,7 @@ maxQ = 100
 sumQ = 0.0
 home_dx, home_dy = 0, 0
 depth = -1
-original_offset = np.array([0, 0, 0])
+original_offset = np.array([0., 0., 0.])
 
 
 impact_distance = 0.6
@@ -95,20 +95,32 @@ offset_distance = 5
 high_speed = 5
 middle_speed = 3
 slow_speed = 1
+sphere_speed = 3
 
 
-sphere_pos_1 = np.array([-30, 80, 10])
-sphere_pos_2 = np.array([0, 100, 10])
-sphere_pos_3 = np.array([25, 120, 10])
-sphere_all_pos = [sphere_pos_1, sphere_pos_2, sphere_pos_3]
-sphere_true_pos_1 = sphere_pos_1 + offset_distance *(2 * np.array([random(), random(), 0.3 * random()]) - np.array([1, 1, 0.3]))
-sphere_true_pos_2 = sphere_pos_2 + offset_distance *(2 * np.array([random(), random(), 0.3 * random()]) - np.array([1, 1, 0.3]))
-sphere_true_pos_3 = sphere_pos_3 + offset_distance *(2 * np.array([random(), random(), 0.3 * random()]) - np.array([1, 1, 0.3]))
-sphere_true_all_pos = [sphere_true_pos_1, sphere_true_pos_2, sphere_true_pos_3]
-sphere_all_id = [100, 101, 102]
+
+sphere_pos_1 = np.array([10., 50., 10., pi / 2])
+sphere_pos_2 = np.array([30., 140., 10., - pi / 2])
+sphere_all_pos = [sphere_pos_1, sphere_pos_2]
+sphere_all_id = [100, 101]
+
+sphere_true_pos_1 = np.array([10., 45., 10.])
+sphere_true_pos_2 = np.array([30., 145., 10.])
+sphere_true_all_pos = [sphere_true_pos_1, sphere_true_pos_2]
+
+sphere_disappear_flag = [0, 0]
+
+
+# sphere_pos_3 = np.array([25, 120, 10])
+# sphere_all_pos = [sphere_pos_1, sphere_pos_2, sphere_pos_3]
+# sphere_true_pos_1 = sphere_pos_1 + offset_distance *(2 * np.array([random(), random(), 0.3 * random()]) - np.array([1, 1, 0.3]))
+# sphere_true_pos_2 = sphere_pos_2 + offset_distance *(2 * np.array([random(), random(), 0.3 * random()]) - np.array([1, 1, 0.3]))
+# sphere_true_pos_3 = sphere_pos_3 + offset_distance *(2 * np.array([random(), random(), 0.3 * random()]) - np.array([1, 1, 0.3]))
+# sphere_true_all_pos = [sphere_true_pos_1, sphere_true_pos_2, sphere_true_pos_3]
+# sphere_all_id = [100, 101, 102]
 # sphere_vel = np.array([-5, 0, 2])
-sphere_vel = np.array([0, 0, 0])
-sphere_acc = np.array([0, 0, -0.5])
+sphere_vel = np.array([0., 0., 0.])
+sphere_acc = np.array([0., 0., -0.5])
 # sphere_vel = np.array([-5, 0, 0])
 # sphere_acc = np.array([0, 0, 0])
 
@@ -116,7 +128,7 @@ sphere_feb_pos = PoseStamped()
 # obj_state = ModelState()
 
 target_num = 0
-sphere_pos = sphere_all_pos[target_num]
+sphere_pos = sphere_all_pos[target_num][0:3]
 
 
 def spin():
@@ -205,10 +217,7 @@ def pos_image_cb(msg):
         pass
     else:
         if sphere_num > 0:
-            if mav_id == 1:
-                impact_num = 0
-            else:
-                impact_num = sphere_num - 1
+            impact_num = 0
             xmiddle = (msg.bounding_boxes[impact_num].xmin + msg.bounding_boxes[impact_num].xmax) / 2
             ymiddle = (msg.bounding_boxes[impact_num].ymin + msg.bounding_boxes[impact_num].ymax) / 2
             picwidth = msg.bounding_boxes[impact_num].xmax - msg.bounding_boxes[impact_num].xmin
@@ -254,19 +263,49 @@ def pos_image_ekf_cb(msg):
     # print("pos_i_ekf: {}".format(pos_i_ekf))
     # print("pos_i: {}".format(pos_i))
 
+sphere_road_num = [1, 3]
 
 def sphere_control(time, sphere_id, sphere_type, is_move=False):
-    global sphere_pos, sphere_vel, sphere_acc, sphere_all_id 
+
+    global sphere_true_all_pos, sphere_all_id, sphere_road_num
     obj_msg = Obj()
     
     obj_msg.id = sphere_id
     sphere_num = sphere_all_id.index(sphere_id)
+
     # obj_msg.type = 152
     obj_msg.type = sphere_type
-    # obj_msg.position.x = sphere_pos_x + 5*np.sin(cnt*1.0/100)
-    # sphere_pos = sphere_pos + sphere_vel * 0.02 * is_move
-    # sphere_vel = sphere_vel + sphere_acc * 0.02 * is_move
     newpos = sphere_true_all_pos[sphere_num]
+    sphere_road = sphere_road_num[sphere_num]
+
+    if sphere_road == 2:
+        newpos[1] = 145
+        newpos[0] = newpos[0] + sphere_speed * 0.02
+        if newpos[0] > 30:
+            newpos[0] = 30
+            sphere_road_num[sphere_num] = 3
+    elif sphere_road == 3:
+        newpos[1] = newpos[1] - sphere_speed * 0.02
+        newpos[0] = 30
+        if newpos[1] < 45:
+            newpos[1] = 45
+            sphere_road_num[sphere_num] = 4
+    elif sphere_road == 4:
+        newpos[1] = 45
+        newpos[0] = newpos[0] - sphere_speed * 0.02
+        if newpos[0] < 10:
+            newpos[0] = 10
+            sphere_road_num[sphere_num] = 1
+    else:
+        newpos[1] = newpos[1] + sphere_speed * 0.02
+        newpos[0] = 10
+        if newpos[1] > 145:
+            newpos[1] = 145
+            sphere_road_num[sphere_num] = 2
+
+
+    sphere_true_all_pos[sphere_num] = newpos
+
     obj_msg.position.x = newpos[0]
     obj_msg.position.y = newpos[1]
     obj_msg.position.z = newpos[2]
@@ -275,6 +314,7 @@ def sphere_control(time, sphere_id, sphere_type, is_move=False):
     obj_msg.size.z = 0.05
 
     sphere_pub.publish(obj_msg)
+
 
 def minAngleDiff(a, b):
     diff = a - b
@@ -297,22 +337,21 @@ def sphere_set():
     global sphere_all_id, mav_id
     if mav_id == 1:
         for i in range(len(sphere_all_id)):
-            sphere_control(0, sphere_all_id[i], 152, ch8==1)
+            if sphere_disappear_flag[i] == 0:
+                sphere_control(0, sphere_all_id[i], 152, ch8==1)
+            else:
+                sphere_control(0, sphere_all_id[i], 102, ch8==1)
 
 
 def sphere_impact():
     global sphere_true_all_pos, sphere_all_id, sphere_pos, mav_pos, impact_distance
     if len(sphere_all_id) > 0:
         for i in range(len(sphere_all_id)):
-            print(len(sphere_all_id))
+            # print(len(sphere_all_id))
             diff_distance = np.linalg.norm(sphere_true_all_pos[i] - mav_pos)
             if diff_distance < impact_distance:
-                sphere_control(0, sphere_all_id[i], 102, ch8==1)
-                # del sphere_all_pos[i]
-                # del sphere_all_id[i]
-                # if len(sphere_all_id) > 0:
-                #     sphere_pos = sphere_all_pos[0]
-                # break
+                sphere_disappear_flag[i] = 1
+
 
 
 
@@ -342,10 +381,11 @@ if __name__=="__main__":
     mav_id = rospy.get_param("~mav_id")
     print("mav_id:", mav_id)
     if mav_id == 1:
-        sphere_all_pos = [sphere_pos_1, sphere_pos_2, sphere_pos_3]
+        sphere_all_pos = [sphere_pos_1, sphere_pos_2]
     else:
-        sphere_all_pos = [sphere_pos_3, sphere_pos_2, sphere_pos_1]
-    sphere_pos = sphere_all_pos[target_num]
+        sphere_all_pos = [sphere_pos_2, sphere_pos_1]
+    sphere_pos = sphere_all_pos[target_num][0:3]
+    drone_yaw = sphere_all_pos[target_num][3]
 
     px = Px4Controller()
     
@@ -421,14 +461,11 @@ if __name__=="__main__":
     if MODE == "Simulation":
         sphere_set()
 
-    rotate_cnt = 0
-    attack_time = 0
-    attack_flag = 0
 
     while not rospy.is_shutdown():
         # print("time: {}".format(rospy.Time.now().to_sec() - last_request.to_sec()))
         cnt += 1
-            
+        sphere_set()    
         sphere_impact()
 
         if ch8 == 0:
@@ -458,37 +495,22 @@ if __name__=="__main__":
 
         if ch7 >= 1:
             # cmd = u.RotateAttackController(pos_info, pos_i, image_center, controller_reset)
-            cmd = u.RotateAttackAccelerationController(pos_info, pos_i, controller_reset)
+            cmd = u.RotateAttackAccelerationController2(pos_info, pos_i, controller_reset)
             controller_reset = False
             target_distance = np.linalg.norm(sphere_pos - mav_pos)
             # 识别到图像才进行角速度控制
-            if pos_i[1] > 0 and attack_time < 2 and target_distance < attack_start_distance: 
+            if pos_i[1] > 0: 
                 command.acceleration_or_force.x = cmd[0]
                 command.acceleration_or_force.y = cmd[1]
                 command.acceleration_or_force.z = cmd[2]
                 command.yaw_rate = cmd[3]
                 # print("cmd: {}".format(cmd))
                 local_acc_pub.publish(command)
-                attack_flag = 1
             # # 否则
             else:
                 target_yaw = atan2(sphere_pos[1] - mav_pos[1], sphere_pos[0] - mav_pos[0])  
                 if target_distance < arrive_distance:
-                    if attack_flag == 1:
-                        attack_time += 1
-                        attack_flag = 0
-                    # local_vel_pub.publish(idle_command)
-                    local_acc_pub.publish(rotate_command)
-                    rotate_cnt = rotate_cnt + 1
-                    if rotate_cnt > 2 * pi / rotate_rat * 1000 / 20:
-                        rotate_cnt = 0
-                        attack_time = 0
-                        target_num = target_num + 1
-                        if target_num < len(sphere_all_id):
-                            sphere_pos = sphere_all_pos[target_num]
-                        else:
-                            #local_vel_pub.publish(idle_command)
-                            local_acc_pub.publish(hover_command)
+                    local_acc_pub.publish(hover_command)
                 else:
                     if target_distance > highspeed_distance:
                         mav_speed = high_speed
@@ -496,9 +518,9 @@ if __name__=="__main__":
                         mav_speed = middle_speed
                     else:
                         mav_speed = slow_speed
-                    px.moveToPositionOnceAsync(sphere_pos[0], sphere_pos[1], sphere_pos[2], target_yaw, mav_speed)
-                if target_distance > left_distance:
-                    rotate_cnt = 0
+                    
+                    px.moveToPositionOnceAsync(sphere_pos[0], sphere_pos[1], sphere_pos[2], drone_yaw, mav_speed)
+                    
                     
 
         else:
