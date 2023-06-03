@@ -439,6 +439,7 @@ if __name__=="__main__":
                     local_acc_pub.publish(rotate_command)
                     rotate_cnt = rotate_cnt + 1
                     if rotate_cnt > 2 * pi / rotate_rat * 1000 / 20:
+                        rotate_cnt = 0
                         target_num = target_num + 1
                         if target_num < len(sphere_all_id):
                             sphere_pos = sphere_all_pos[target_num]
@@ -446,7 +447,7 @@ if __name__=="__main__":
                             local_vel_pub.publish(idle_command)
                 else:
                     px.moveToPositionOnceAsync(sphere_pos[0], sphere_pos[1], sphere_pos[2], target_yaw)
-                    rotate_cnt = 0
+                    
 
         else:
             Initial_pos = mav_pos
