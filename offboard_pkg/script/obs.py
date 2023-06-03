@@ -176,21 +176,28 @@ def pos_image_cb(msg):
     # print("msg_data: {}".format(msg.data))
     sphere_num = len(msg.bounding_boxes)
     if sphere_num > 0:
-        if mav_id == 1:
-            impact_num = 0
-        else:
-            impact_num = sphere_num - 1
-        xmiddle = (msg.bounding_boxes[impact_num].xmin + msg.bounding_boxes[impact_num].xmax) / 2
-        ymiddle = (msg.bounding_boxes[impact_num].ymin + msg.bounding_boxes[impact_num].ymax) / 2
-        picwidth = msg.bounding_boxes[impact_num].xmax - msg.bounding_boxes[impact_num].xmin
-        picheight = msg.bounding_boxes[impact_num].ymax - msg.bounding_boxes[impact_num].ymin
-        outdata = [xmiddle, ymiddle, picwidth, picheight]
-        pos_i_raw = outdata
-        pos_i = pos_i_raw
+        image_failed_cnt = 0
     else:
-        outdata = [-1, -1, -1, -1]
-        pos_i_raw = outdata
-        pos_i = pos_i_raw
+        image_failed_cnt += 1
+    if image_failed_cnt <= 20 and image_failed_cnt > 0:
+        pass
+    else:
+        if sphere_num > 0:
+            if mav_id == 1:
+                impact_num = 0
+            else:
+                impact_num = sphere_num - 1
+            xmiddle = (msg.bounding_boxes[impact_num].xmin + msg.bounding_boxes[impact_num].xmax) / 2
+            ymiddle = (msg.bounding_boxes[impact_num].ymin + msg.bounding_boxes[impact_num].ymax) / 2
+            picwidth = msg.bounding_boxes[impact_num].xmax - msg.bounding_boxes[impact_num].xmin
+            picheight = msg.bounding_boxes[impact_num].ymax - msg.bounding_boxes[impact_num].ymin
+            outdata = [xmiddle, ymiddle, picwidth, picheight]
+            pos_i_raw = outdata
+            pos_i = pos_i_raw
+        else:
+            outdata = [-1, -1, -1, -1]
+            pos_i_raw = outdata
+            pos_i = pos_i_raw
     
     # if xmiddle <= 0:
     #     image_failed_cnt += 1
@@ -384,7 +391,7 @@ if __name__=="__main__":
     if MODE == "Simulation":
         sphere_set()
 
-
+    rotate_cnt = 0
 
     while not rospy.is_shutdown():
         # print("time: {}".format(rospy.Time.now().to_sec() - last_request.to_sec()))
