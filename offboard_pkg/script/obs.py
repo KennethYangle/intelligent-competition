@@ -94,6 +94,7 @@ sphere_feb_pos = PoseStamped()
 impact_distance = 1
 arrive_distance = 1
 target_num = 0
+sphere_pos = sphere_all_pos[target_num]
 
 
 def spin():
@@ -321,6 +322,7 @@ if __name__=="__main__":
         sphere_all_pos = [sphere_pos_1, sphere_pos_2, sphere_pos_3]
     else:
         sphere_all_pos = [sphere_pos_3, sphere_pos_2, sphere_pos_1]
+    sphere_pos = sphere_all_pos[target_num]
 
     px = Px4Controller()
     
