@@ -76,7 +76,7 @@ original_offset = np.array([0, 0, 0])
 sphere_pos_1 = np.array([10, 45, 2])
 sphere_pos_2 = np.array([30, 75, 2])
 sphere_pos_3 = np.array([50, 100, 2])
-
+sphere_all_pos = [sphere_pos_1, sphere_pos_2, sphere_pos_3]
 sphere_true_pos_1 = np.array([5, 40, 2])
 sphere_true_pos_2 = np.array([35, 80, 2])
 sphere_true_pos_3 = np.array([60, 100, 2])
@@ -94,7 +94,7 @@ sphere_feb_pos = PoseStamped()
 impact_distance = 1
 arrive_distance = 1
 target_num = 0
-sphere_pos = sphere_all_pos[target_num]
+
 
 def spin():
     rospy.spin()
@@ -270,14 +270,6 @@ def angleLimiting(a):
     return a
 
 
-def sphere_order():
-    global mav_id
-    if mav_id == 1:
-        sphere_all_pos = [sphere_pos_1, sphere_pos_2, sphere_pos_3]
-    else:
-        sphere_all_pos = [sphere_pos_3, sphere_pos_2, sphere_pos_1]
-
-
 def sphere_set():
     global sphere_all_id
     for i in range(len(sphere_all_id)):
@@ -325,6 +317,11 @@ if __name__=="__main__":
     rospy.init_node('offb_node', anonymous=True)
     mav_id = rospy.get_param("~mav_id")
     print("mav_id:", mav_id)
+    if mav_id == 1:
+        sphere_all_pos = [sphere_pos_1, sphere_pos_2, sphere_pos_3]
+    else:
+        sphere_all_pos = [sphere_pos_3, sphere_pos_2, sphere_pos_1]
+
     px = Px4Controller()
     
     spin_thread = threading.Thread(target = spin)
