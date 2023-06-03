@@ -38,6 +38,7 @@ mav_original_angle = [0, 0, 0]
 mav_vel = np.array([0, 0, 0])
 mav_yaw = 0
 mav_R = np.zeros((3,3))
+mav_id = 1
 Initial_pos = [0, 0, 0]
 pos_i = [0, 0, 0, 0, 0]
 pos_i_raw = [0, 0, 0, 0, 0]
@@ -170,15 +171,19 @@ def read_kbd_input():
     win.mainloop()
 
 def pos_image_cb(msg):
-    global is_initialize_img, pos_i_raw, pos_i, image_failed_cnt
+    global is_initialize_img, pos_i_raw, pos_i, image_failed_cnt, mav_id
     is_initialize_img = True
     # print("msg_data: {}".format(msg.data))
     sphere_num = len(msg.bounding_boxes)
     if sphere_num > 0:
-        xmiddle = (msg.bounding_boxes[0].xmin + msg.bounding_boxes[0].xmax) / 2
-        ymiddle = (msg.bounding_boxes[0].ymin + msg.bounding_boxes[0].ymax) / 2
-        picwidth = msg.bounding_boxes[0].xmax - msg.bounding_boxes[0].xmin
-        picheight = msg.bounding_boxes[0].ymax - msg.bounding_boxes[0].ymin
+        if mav_id == 1:
+            impact_num = 0
+        else:
+            impact_num = sphere_num - 1
+        xmiddle = (msg.bounding_boxes[impact_num].xmin + msg.bounding_boxes[impact_num].xmax) / 2
+        ymiddle = (msg.bounding_boxes[impact_num].ymin + msg.bounding_boxes[impact_num].ymax) / 2
+        picwidth = msg.bounding_boxes[impact_num].xmax - msg.bounding_boxes[impact_num].xmin
+        picheight = msg.bounding_boxes[impact_num].ymax - msg.bounding_boxes[impact_num].ymin
         outdata = [xmiddle, ymiddle, picwidth, picheight]
         pos_i_raw = outdata
         pos_i = pos_i_raw
