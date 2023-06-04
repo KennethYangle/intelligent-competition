@@ -33,7 +33,7 @@ ch5, ch6, ch7, ch8, ch9, ch11, ch14 = 0, 0, 0, 0, 1, 1, 1
 is_initialize_mav, is_initialize_vel, is_initialize_rc, is_initialize_img = False, False, False, False
 
 ch20 = 0
-mav_pos = [50., 50., 0.]
+mav_pos = [0., 0., 0.]
 mav_original_angle = [0., 0., 0.]
 # mav_vel = [0, 0, 0]
 mav_vel = np.array([0., 0., 0.])
@@ -295,11 +295,11 @@ def sphere_control(cnt, sphere_id, sphere_type, is_move=False):
 
 
     if sphere_id == 100:
-        newpos[1] = trajectory_middle_x + trajectory_size * cos(cnt * sphere_control_omega) / (1 + sin(cnt * sphere_control_omega) * sin(cnt * sphere_control_omega))
-        newpos[0] = trajectory_middle_y + trajectory_size * sin(cnt * sphere_control_omega) * cos(cnt * sphere_control_omega) / (1 + sin(cnt * sphere_control_omega) * sin(cnt * sphere_control_omega))
+        newpos[1] = trajectory_middle_y + trajectory_size * cos(cnt * sphere_control_omega) / (1 + sin(cnt * sphere_control_omega) * sin(cnt * sphere_control_omega))
+        newpos[0] = trajectory_middle_x + trajectory_size * sin(cnt * sphere_control_omega) * cos(cnt * sphere_control_omega) / (1 + sin(cnt * sphere_control_omega) * sin(cnt * sphere_control_omega))
     else:
-        newpos[1] = trajectory_middle_x + trajectory_size * cos(cnt * sphere_control_omega + pi / 2) / (1 + sin(cnt * sphere_control_omega + pi / 2) * sin(cnt * sphere_control_omega + pi / 2))
-        newpos[0] = trajectory_middle_y + trajectory_size * sin(cnt * sphere_control_omega + pi / 2) * cos(cnt * sphere_control_omega + pi / 2) / (1 + sin(cnt * sphere_control_omega + pi / 2) * sin(cnt * sphere_control_omega + pi / 2))
+        newpos[1] = trajectory_middle_y + trajectory_size * cos(cnt * sphere_control_omega + pi / 2) / (1 + sin(cnt * sphere_control_omega + pi / 2) * sin(cnt * sphere_control_omega + pi / 2))
+        newpos[0] = trajectory_middle_x + trajectory_size * sin(cnt * sphere_control_omega + pi / 2) * cos(cnt * sphere_control_omega + pi / 2) / (1 + sin(cnt * sphere_control_omega + pi / 2) * sin(cnt * sphere_control_omega + pi / 2))
 
     sphere_true_all_pos[sphere_num] = newpos
 
