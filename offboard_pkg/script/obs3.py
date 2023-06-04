@@ -104,9 +104,9 @@ trajectory_middle_x = 0.
 trajectory_middle_y = 50.
 
 
-sphere_pos_1 = np.array([-10., 18, 10.])
-attack_yaw = pi / 3
-sphere_pos_2 = np.array([10., 82., 10.])
+sphere_pos_1 = np.array([0., 18, 10.])
+attack_yaw = pi / 4
+sphere_pos_2 = np.array([0., 82., 10.])
 drone_all_yaw = [attack_yaw, - attack_yaw]
 sphere_all_pos = [sphere_pos_1, sphere_pos_2]
 sphere_all_id = [100, 101]
@@ -170,7 +170,7 @@ def mav_vel_cb(msg):
     mav_vel = np.array([msg.twist.linear.x, msg.twist.linear.y, msg.twist.linear.z])
 
 def rcin_cb(msg):
-    global ch5, ch6, ch7, ch8, ch9, ch11, ch14, is_initialize_rc
+    global ch5, ch6, ch7, ch8, ch9, ch11, ch14, is_initialize_rcdrone_yaw
     is_initialize_rc = True
     last_ch5, last_ch6, last_ch7, last_ch8, last_ch9, last_ch11, last_ch14 = ch5, ch6, ch7, ch8, ch9, ch11, ch14
     chs = msg.channels
@@ -493,7 +493,7 @@ if __name__=="__main__":
 
         if ch7 >= 1:
             # cmd = u.RotateAttackController(pos_info, pos_i, image_center, controller_reset)
-            cmd = u.RotateAttackAccelerationController2(pos_info, pos_i, controller_reset, drone_yaw)
+            cmd = u.RotateAttackAccelerationController2(pos_info, pos_i, controller_reset, pi / 2)
             controller_reset = False
             target_distance = np.linalg.norm(sphere_pos - mav_pos)
             # 识别到图像才进行角速度控制
