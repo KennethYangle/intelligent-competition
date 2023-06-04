@@ -85,7 +85,7 @@ depth = -1
 original_offset = np.array([0., 0., 0.])
 
 
-picminsize = 50.0
+picminsize = 30.0
 impact_distance = 0.6
 arrive_distance = 1.
 left_distance = 2.
