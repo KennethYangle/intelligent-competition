@@ -338,12 +338,12 @@ def angleLimiting(a):
 
 def sphere_set():
     global sphere_all_id, mav_id
-    if mav_id == 1:
-        for i in range(len(sphere_all_id)):
-            if sphere_disappear_flag[i] == 0:
+    for i in range(len(sphere_all_id)):
+        if sphere_disappear_flag[i] == 0:
+            if mav_id == 1:
                 sphere_control(0, sphere_all_id[i], 152, ch8==1)
-            else:
-                sphere_control(0, sphere_all_id[i], 102, ch8==1)
+        else:
+            sphere_control(0, sphere_all_id[i], 102, ch8==1)
 
 
 def sphere_impact():
