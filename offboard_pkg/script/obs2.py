@@ -85,6 +85,7 @@ depth = -1
 original_offset = np.array([0., 0., 0.])
 
 
+picminsize = 50.0
 impact_distance = 0.6
 arrive_distance = 1.
 left_distance = 2.
@@ -225,7 +226,10 @@ def pos_image_cb(msg):
             ymiddle = (msg.bounding_boxes[impact_num].ymin + msg.bounding_boxes[impact_num].ymax) / 2
             picwidth = msg.bounding_boxes[impact_num].xmax - msg.bounding_boxes[impact_num].xmin
             picheight = msg.bounding_boxes[impact_num].ymax - msg.bounding_boxes[impact_num].ymin
-            outdata = [xmiddle, ymiddle, picwidth, picheight]
+            if picwidth * picheight > picminsize:
+                outdata = [xmiddle, ymiddle, picwidth, picheight]
+            else:
+                outdata = [-1, -1, -1, -1]
             pos_i_raw = outdata
             pos_i = pos_i_raw
         else:
