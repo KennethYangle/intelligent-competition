@@ -86,26 +86,29 @@ original_offset = np.array([0., 0., 0.])
 
 
 impact_distance = 0.6
-arrive_distance = 1
-left_distance = 2
-attack_start_distance = 20
-highspeed_distance = 20
-middlespeed_distance = 10
-offset_distance = 5
-high_speed = 5
-middle_speed = 3
-slow_speed = 1
-sphere_speed = 3
+arrive_distance = 1.
+left_distance = 2.
+attack_start_distance = 20.
+highspeed_distance = 20.
+middlespeed_distance = 10.
+offset_distance = 5.
+high_speed = 5.
+middle_speed = 3.
+slow_speed = 1.
+sphere_speed = 3.
 
 
 
-sphere_pos_1 = np.array([10., 50., 10., pi / 2])
-sphere_pos_2 = np.array([30., 140., 10., - pi / 2])
+sphere_pos_1 = np.array([8., 50., 10.])
+sphere_pos_2 = np.array([32., 140., 10.])
+drone_all_yaw = [pi / 2, - pi / 2]
 sphere_all_pos = [sphere_pos_1, sphere_pos_2]
 sphere_all_id = [100, 101]
 
 sphere_true_pos_1 = np.array([10., 45., 10.])
 sphere_true_pos_2 = np.array([30., 145., 10.])
+sphere_true_pos_3 = np.array([10., 45., 10.])
+sphere_true_pos_4 = np.array([30., 145., 10.])
 sphere_true_all_pos = [sphere_true_pos_1, sphere_true_pos_2]
 
 sphere_disappear_flag = [0, 0]
@@ -128,7 +131,7 @@ sphere_feb_pos = PoseStamped()
 # obj_state = ModelState()
 
 target_num = 0
-sphere_pos = sphere_all_pos[target_num][0:3]
+sphere_pos = sphere_all_pos[target_num]
 
 
 def spin():
@@ -382,10 +385,12 @@ if __name__=="__main__":
     print("mav_id:", mav_id)
     if mav_id == 1:
         sphere_all_pos = [sphere_pos_1, sphere_pos_2]
+        drone_yaw = drone_all_yaw[0]
     else:
         sphere_all_pos = [sphere_pos_2, sphere_pos_1]
-    sphere_pos = sphere_all_pos[target_num][0:3]
-    drone_yaw = sphere_all_pos[target_num][3]
+        drone_yaw = drone_all_yaw[1]
+    sphere_pos = sphere_all_pos[target_num]
+
 
     px = Px4Controller()
     
@@ -495,7 +500,7 @@ if __name__=="__main__":
 
         if ch7 >= 1:
             # cmd = u.RotateAttackController(pos_info, pos_i, image_center, controller_reset)
-            cmd = u.RotateAttackAccelerationController2(pos_info, pos_i, controller_reset)
+            cmd = u.RotateAttackAccelerationController2(pos_info, pos_i, controller_reset, drone_yaw)
             controller_reset = False
             target_distance = np.linalg.norm(sphere_pos - mav_pos)
             # 识别到图像才进行角速度控制

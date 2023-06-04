@@ -210,7 +210,7 @@ class Utils(object):
         # print("n_co:{}, n_bo:{}, n_eo:{}, v_1:{}, v_2:{}, v_d:{}".format(n_co, n_bo, n_eo, v_1, v_2, v_d))
         return [a_d[0], a_d[1], a_d[2], yaw_rate]
 
-    def RotateAttackAccelerationController2(self, pos_info, pos_i, controller_reset):
+    def RotateAttackAccelerationController2(self, pos_info, pos_i, controller_reset, yaw_d=np.pi/2):
         if controller_reset: self.cnt = 0
         #calacute nc,the first idex(c:camera,b:body,e:earth) represent the frmae, the second idex(c,o) represent the camera or obstacle
         n_bc = self.R_cb.dot(self.n_cc)
@@ -223,7 +223,7 @@ class Utils(object):
         n_eo = pos_info["mav_R"].dot(n_bo)
 
         # 两种用法：1）给定世界系下固定的n_td，限定打击方向；2）相对光轴一向量，随相机运动
-        n_td = np.array([0, 1, 0], dtype=np.float64)
+        n_td = np.array([np.cos(yaw_d), np.sin(yaw_d), 0], dtype=np.float64)
         # n_td = n_ec
         # n_td /= np.linalg.norm(n_td)
         v_1 = 1.0 * (n_eo - n_td)   # n_t -> n_td
