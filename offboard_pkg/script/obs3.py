@@ -104,8 +104,8 @@ trajectory_middle_x = 50.
 trajectory_middle_y = 50.
 
 
-sphere_pos_1 = np.array([8., 50., 10.])
-sphere_pos_2 = np.array([32., 140., 10.])
+sphere_pos_1 = np.array([50., 18, 10.])
+sphere_pos_2 = np.array([50., 82., 10.])
 drone_all_yaw = [pi / 2, - pi / 2]
 sphere_all_pos = [sphere_pos_1, sphere_pos_2]
 sphere_all_id = [100, 101]
@@ -288,11 +288,11 @@ def sphere_control(cnt, sphere_id, sphere_type, is_move=False):
     obj_msg.type = sphere_type
     newpos = sphere_true_all_pos[sphere_num]
     if sphere_id == 100:
-        newpos[0] = trajectory_middle_x + trajectory_size * cos(cnt * 1.0 / 100) / (1 + sin(cnt * 1.0 / 100) * sin(cnt * 1.0 / 100))
-        newpos[1] = trajectory_middle_y + trajectory_size * sin(cnt * 1.0 / 100) * cos(cnt * 1.0 / 100) / (1 + sin(cnt * 1.0 / 100) * sin(cnt * 1.0 / 100))
+        newpos[1] = trajectory_middle_x + trajectory_size * cos(cnt * 1.0 / 100) / (1 + sin(cnt * 1.0 / 100) * sin(cnt * 1.0 / 100))
+        newpos[0] = trajectory_middle_y + trajectory_size * sin(cnt * 1.0 / 100) * cos(cnt * 1.0 / 100) / (1 + sin(cnt * 1.0 / 100) * sin(cnt * 1.0 / 100))
     else:
-        newpos[0] = trajectory_middle_x + trajectory_size * cos(cnt * 1.0 / 100 + pi / 2) / (1 + sin(cnt * 1.0 / 100 + pi / 2) * sin(cnt * 1.0 / 100 + pi / 2))
-        newpos[1] = trajectory_middle_y + trajectory_size * sin(cnt * 1.0 / 100 + pi / 2) * cos(cnt * 1.0 / 100 + pi / 2) / (1 + sin(cnt * 1.0 / 100 + pi / 2) * sin(cnt * 1.0 / 100 + pi / 2))
+        newpos[1] = trajectory_middle_x + trajectory_size * cos(cnt * 1.0 / 100 + pi / 2) / (1 + sin(cnt * 1.0 / 100 + pi / 2) * sin(cnt * 1.0 / 100 + pi / 2))
+        newpos[0] = trajectory_middle_y + trajectory_size * sin(cnt * 1.0 / 100 + pi / 2) * cos(cnt * 1.0 / 100 + pi / 2) / (1 + sin(cnt * 1.0 / 100 + pi / 2) * sin(cnt * 1.0 / 100 + pi / 2))
 
     sphere_true_all_pos[sphere_num] = newpos
 
