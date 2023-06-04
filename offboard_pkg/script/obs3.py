@@ -98,15 +98,15 @@ high_speed = 5.
 middle_speed = 3.
 slow_speed = 1.
 sphere_speed = 3.
-attack_yaw = pi / 3
 
 trajectory_size = 30.
-trajectory_middle_x = 50.
+trajectory_middle_x = 0.
 trajectory_middle_y = 50.
 
 
-sphere_pos_1 = np.array([50., 18, 10.])
-sphere_pos_2 = np.array([50., 82., 10.])
+sphere_pos_1 = np.array([-10., 18, 10.])
+attack_yaw = pi / 3
+sphere_pos_2 = np.array([10., 82., 10.])
 drone_all_yaw = [attack_yaw, - attack_yaw]
 sphere_all_pos = [sphere_pos_1, sphere_pos_2]
 sphere_all_id = [100, 101]
