@@ -7,6 +7,8 @@ set(UNION_SUBPROJECT_MAJOR_VERSION 0)
 set(UNION_SUBPROJECT_MINOR_VERSION 0)
 set(UNION_SUBPROJECT_PATCH_VERSION 0)
 set(UNION_SUBPROJECT_VERSION ${UNION_SUBPROJECT_MAJOR_VERSION}.${UNION_SUBPROJECT_MINOR_VERSION}.${UNION_SUBPROJECT_PATCH_VERSION})
+SET(OpenCV_INCLUDE_DIRS /home/nvidia/opencv-3.4.1/include/opencv2/)
+SET(OpenCV_DIR  /home/nvidia/opencv-3.4.1/share/OpenCV/)
 #编译参数说明：
 # -O 优化等级（0,不做优化 1,默认优化 2，继续优化 数字越大，优化程度越高）
 # -Wall 警告信息全开
@@ -48,14 +50,14 @@ find_package(catkin REQUIRED COMPONENTS
         roscpp
 )
 
-find_package(OpenCV REQUIRED)
+find_package(OpenCV 3 REQUIRED PATHS /home/nvidia/opencv-3.4.1/build/lib NO_DEFAULT_PATH)
 
 catkin_package(
   LIBRARIES
   CATKIN_DEPENDS roscpp std_msgs sensor_msgs cv_bridge image_transport)
 
 #-------------------------------------- 添加头文件 --------------------------------------
-include_directories(include ${catkin_INCLUDE_DIRS})
+include_directories(include ${catkin_INCLUDE_DIRS} ${OpenCV_INCLUDE_DIRS})
 
 #--------------------------------------  生成项目  --------------------------------------
 file(GLOB_RECURSE SOURCE_FILES src/*.cpp)

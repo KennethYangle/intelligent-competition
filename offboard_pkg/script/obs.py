@@ -19,7 +19,6 @@ from mavros_msgs.msg import State, RCIn, HomePosition, PositionTarget
 from mavros_msgs.msg import Thrust
 from utils_obs import Utils
 from Queue import Queue
-from rflysim_ros_pkg.msg import Obj
 
 from math import atan2, pi
 from random import random
@@ -97,9 +96,9 @@ middle_speed = 3
 slow_speed = 1
 
 
-sphere_pos_1 = np.array([-30, 80, 10])
-sphere_pos_2 = np.array([0, 100, 10])
-sphere_pos_3 = np.array([25, 120, 10])
+sphere_pos_1 = np.array([10., -30., 5.])
+sphere_pos_2 = np.array([0., -50., 5.])
+sphere_pos_3 = np.array([0., -50., 5.])
 sphere_all_pos = [sphere_pos_1, sphere_pos_2, sphere_pos_3]
 sphere_true_pos_1 = sphere_pos_1 + offset_distance *(2 * np.array([random(), random(), 0.3 * random()]) - np.array([1, 1, 0.3]))
 sphere_true_pos_2 = sphere_pos_2 + offset_distance *(2 * np.array([random(), random(), 0.3 * random()]) - np.array([1, 1, 0.3]))
@@ -245,7 +244,7 @@ def pos_image_ekf_cb(msg):
     # picheight = msg.bounding_boxes[0].ymax - msg.bounding_boxes[0].ymin
     # outdata = [xmiddle, ymiddle, picwidth, picheight]
     # pos_i_ekf = outdata
-    pos_i_ekf = msg_data
+    pos_i_ekf = msg
     # If we don't consider the safety of the aircraft when the target is lost, use pos_i_ekf when pos_i_raw[0]<0.
     if abs(pos_i_ekf[0] - pos_i_raw[0]) < 10 and abs(pos_i_ekf[1] - pos_i_raw[1]) < 10:
         pos_i = pos_i_ekf
@@ -361,6 +360,7 @@ if __name__=="__main__":
         rospy.Subscriber("mavros/rc/in", RCIn, rcin_cb)
         image_center = [setting["Utils"]["WIDTH"] / 2.0, setting["Utils"]["HEIGHT"] / 2.0]
     elif MODE == "Simulation":
+        from rflysim_ros_pkg.msg import Obj
         sphere_pub = rospy.Publisher("ue4_ros/obj", Obj, queue_size=10)
         image_center = [setting["Simulation"]["WIDTH"] / 2.0, setting["Simulation"]["HEIGHT"] / 2.0]
 
@@ -429,7 +429,8 @@ if __name__=="__main__":
         # print("time: {}".format(rospy.Time.now().to_sec() - last_request.to_sec()))
         cnt += 1
             
-        sphere_impact()
+        if MODE == "Simulation":
+            sphere_impact()
 
         # if ch8 == 0:
         #     if current_state.mode == "OFFBOARD":
@@ -447,7 +448,7 @@ if __name__=="__main__":
         #         last_request = rospy.Time.now()
         
         pos_info = {"mav_pos": mav_pos, "mav_vel": mav_vel, "mav_R": mav_R, "R_bc": np.array([[0,0,1], [1,0,0], [0,1,0]]), 
-                    "mav_original_angle": mav_original_angle, "Initial_pos": Initial_pos}
+                    "mav_yaw": mav_yaw, "mav_original_angle": mav_original_angle, "Initial_pos": Initial_pos}
 
         dlt_pos = sphere_pos - np.array(mav_pos)
         # print("dlt_pos: {}".format(dlt_pos))
@@ -487,8 +488,8 @@ if __name__=="__main__":
                         if target_num < len(sphere_all_id):
                             sphere_pos = sphere_all_pos[target_num]
                         else:
-                            #local_vel_pub.publish(idle_command)
-                            local_acc_pub.publish(hover_command)
+                            local_vel_pub.publish(idle_command)
+                            # local_acc_pub.publish(hover_command)
                 else:
                     if target_distance > highspeed_distance:
                         mav_speed = high_speed
@@ -504,8 +505,8 @@ if __name__=="__main__":
         else:
             Initial_pos = mav_pos
             controller_reset = True
-            #local_vel_pub.publish(idle_command)
-            local_acc_pub.publish(hover_command)
+            local_vel_pub.publish(idle_command)
+            # local_acc_pub.publish(hover_command)
         obs_pos = sphere_pos
         rate.sleep()
     rospy.spin()
