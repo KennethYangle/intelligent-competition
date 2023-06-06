@@ -3,7 +3,7 @@
     <!-- <node name="ekf_node" pkg="ekf_pkg" type="ekf_node" respawn ="true" output="screen"/> -->
     <!-- <node name="ekf_node" pkg="ekf_pkg" type="ekf_node" respawn ="true"/> -->
     <!-- <node name="main_node" pkg="offboard_pkg" type="obs_high.py" output="screen" /> -->
-    <node name="main_node" pkg="offboard_pkg" type="obs.py" >
+    <node name="main_node" pkg="offboard_pkg" type="obs3.py" >
         <param name="mav_id" value="$(arg mav_id)"/>
     </node>
     <node pkg="rosbag" type="record" name="bag_record" args="/ekf/state /d435i/color/image_raw /image_raw/compressed /mavros/local_position/pose /mavros/local_position/velocity_local /mavros/imu/data /mavros/imu/data_raw /mavros/rc/in /mavros/setpoint_velocity/cmd_vel /mavros/state /tracker/pos_image /tracker/pos_image_ekf /mavros/setpoint_raw/local -o $(find offboard_pkg)/bag/fly_high"/>

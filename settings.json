@@ -1,24 +1,24 @@
 {
     "Docs": "settings.md",
-    "MODE": "Simulation",
-    "IsRC": false,
+    "MODE": "RealFlight",
+    "IsRC": true,
     "UseEKF": false,
     "car_velocity": 1,
     "follow_mode": 0,
     "follow_distance": 3,
     "FLIGHT_H": 3,
     "Debug": {
-        "is_show_rgb": true,
-        "is_show_hsv": true
+        "is_show_rgb": false,
+        "is_show_hsv": false
     },
     "Utils": {
         "P": 0.5,
         "D": 0.5,
         "P_i": 0.005,
         "P_h": 0.005,
-        "WIDTH": 360,
-        "HEIGHT": 640,
-        "FOC": 185,
+        "WIDTH": 1280,
+        "HEIGHT": 720,
+        "FOC": 370,
         "Ea": 6378137,
         "Eb": 6356725,
         "saftyz": 1.0,
