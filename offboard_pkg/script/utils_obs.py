@@ -231,11 +231,11 @@ class Utils(object):
         v_d = v_1 + v_2
         v_d /= np.linalg.norm(v_d)
         V = np.linalg.norm(pos_info["mav_vel"])
-        v_d *= V + 1.5
-        # v_d *= V + 2
+        # v_d *= V + 1.5
+        v_d *= V + 2.0
 
         a_d = self.sat(1.0 * (v_d - pos_info["mav_vel"]), 6.)
-        a_d[2] = self.sat(a_d[2], 1.)
+        a_d[2] = self.sat(a_d[2], 2.)
 
         yaw_rate = 0.002*(self.u0 - pos_i[0])
         

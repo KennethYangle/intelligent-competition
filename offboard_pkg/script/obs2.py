@@ -19,7 +19,6 @@ from mavros_msgs.msg import State, RCIn, HomePosition, PositionTarget
 from mavros_msgs.msg import Thrust
 from utils_obs import Utils
 from Queue import Queue
-from rflysim_ros_pkg.msg import Obj
 
 from math import atan2, pi
 from random import random
@@ -409,6 +408,7 @@ if __name__=="__main__":
         rospy.Subscriber("mavros/rc/in", RCIn, rcin_cb)
         image_center = [setting["Utils"]["WIDTH"] / 2.0, setting["Utils"]["HEIGHT"] / 2.0]
     elif MODE == "Simulation":
+        from rflysim_ros_pkg.msg import Obj
         sphere_pub = rospy.Publisher("ue4_ros/obj", Obj, queue_size=10)
         image_center = [setting["Simulation"]["WIDTH"] / 2.0, setting["Simulation"]["HEIGHT"] / 2.0]
 
@@ -473,8 +473,9 @@ if __name__=="__main__":
     while not rospy.is_shutdown():
         # print("time: {}".format(rospy.Time.now().to_sec() - last_request.to_sec()))
         cnt += 1
-        sphere_set()    
-        sphere_impact()
+        if MODE == "Simulation":
+            sphere_set()    
+            sphere_impact()
 
         # if ch8 == 0:
         #     if current_state.mode == "OFFBOARD":

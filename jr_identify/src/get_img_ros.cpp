@@ -141,7 +141,7 @@ int main(int argc, char **argv)
 {
   cudaSetDevice(DEVICE);
 
-  std::string engine_name = "/home/nvidia/fisheye_ws/src/jr_identify/src/ballon.engine";
+  std::string engine_name = "/home/nvidia/Rfly_Attack/src/jr_identify/src/ballon.engine";
 
   // deserialize the .engine and run inference
   std::ifstream file(engine_name, std::ios::binary);
