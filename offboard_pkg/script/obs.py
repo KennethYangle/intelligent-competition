@@ -97,9 +97,9 @@ middle_speed = 3
 slow_speed = 1
 
 
-sphere_pos_1 = np.array([10., -30., 5.])
-sphere_pos_2 = np.array([20., -50., 5.])
-sphere_pos_3 = np.array([0., -50., 5.])
+sphere_pos_1 = np.array([10., -30., 10.])
+sphere_pos_2 = np.array([20., -50., 10.])
+sphere_pos_3 = np.array([0., -50., 10.])
 sphere_all_pos = [sphere_pos_1, sphere_pos_2, sphere_pos_3]
 sphere_true_pos_1 = sphere_pos_1 + offset_distance *(2 * np.array([random(), random(), 0.3 * random()]) - np.array([1, 1, 0.3]))
 sphere_true_pos_2 = sphere_pos_2 + offset_distance *(2 * np.array([random(), random(), 0.3 * random()]) - np.array([1, 1, 0.3]))
