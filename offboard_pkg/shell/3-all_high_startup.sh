@@ -1,5 +1,6 @@
 #! /bin/bash
 MAVID=1
+sleep 20s
 
 gnome-terminal -x bash -c "source ${HOME}/Rfly_Attack/devel/setup.bash; roslaunch mavros px4.launch fcu_url:="/dev/ttyACM0:57600"; exec bash"
 sleep 10s
