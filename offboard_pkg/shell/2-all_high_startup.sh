@@ -10,7 +10,7 @@ sleep 10s
 gnome-terminal -x bash -c "source ${HOME}/Rfly_Attack/devel/setup.bash; rosrun jr_identify jr_identify; exec bash"
 sleep 10s
 
-gnome-terminal -x bash -c "source ${HOME}/Rfly_Attack/devel/setup.bash; roslaunch union_ros_serial main.launch mav_id:=${mav_id}; exec bash"
+gnome-terminal -x bash -c "source ${HOME}/Rfly_Attack/devel/setup.bash; roslaunch union_ros_serial main.launch mav_id:=${MAVID}; exec bash"
 sleep 10s
 
 gnome-terminal -x bash -c "source ${HOME}/Rfly_Attack/devel/setup.bash; roslaunch offboard_pkg obs_acc2.launch mav_id:=${MAVID}; exec bash"
