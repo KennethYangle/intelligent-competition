@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="mav_id" default="1" />
+  <rosparam file="$(env HOME)/p900_test/src/p900_rt/union_ros_serial/UART.yaml" command="load" ns="union_ros_serial"/> 
+  <node pkg="union_ros_serial" type="union_ros_serial" name="union_ros_serial" respawn="false" output="screen">
+  <!--remap from="cmd_vel_smoothed" to="cmd_vel_manual"/--> 
+      <param name="mav_id" value="$(arg mav_id)"/>
+  </node>
+</launch>

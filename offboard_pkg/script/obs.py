@@ -24,6 +24,7 @@ from math import atan2, pi
 from random import random
 from assemble_cmd import Px4Controller
 from swarm_msgs.msg import BoundingBox, BoundingBoxes
+from obs_avoidance import Avoidance
 
 
 # Simulation of RealFlight
@@ -347,6 +348,7 @@ if __name__=="__main__":
     sphere_pos = sphere_all_pos[target_num]
 
     px = Px4Controller()
+    oa = Avoidance()
     
     spin_thread = threading.Thread(target = spin)
     spin_thread.start()
@@ -454,8 +456,10 @@ if __name__=="__main__":
         # print("dlt_pos: {}".format(dlt_pos))
         # print("mav_pos: {}".format(mav_pos))
         
-        # cmd = u.DockingControllerFusion(pos_info, pos_i_raw)
-        # cmd = u.BasicAttackController(pos_info, pos_i_raw, image_center)
+        if oa.obs_distance < oa.obs_distance_min:
+            oa.local_obs_avoidance()
+            rate.sleep()
+            continue
 
         if ch7 >= 1:
             # cmd = u.RotateAttackController(pos_info, pos_i, image_center, controller_reset)

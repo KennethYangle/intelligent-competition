@@ -49,7 +49,7 @@ class Utils(object):
         self.circley = None
         self.w, self.h = self.WIDTH, self.HEIGHT
         self.u0 = self.w/2
-        self.v0 = self.h*0.45 # self.h*0.43 # self.h/2
+        self.v0 = self.h*0.44 # self.h*0.43 # self.h/2
         self.x0 = self.u0
         self.y0 = self.v0
         self.cnt = 0

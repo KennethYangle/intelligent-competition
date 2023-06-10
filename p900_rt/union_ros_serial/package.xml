@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<package>
+<name>union_ros_serial</name>
+<version>0.0.0</version>
+<description>The union_sys union_ros_serial package</description>
+<maintainer email="1548791037@qq.com">Wang Yan</maintainer>
+<license>union_sys</license>
+<url type="website"></url>
+<author email="1548791037@qq.com">Wang Yan</author>
+
+<buildtool_depend>catkin</buildtool_depend>
+<build_depend>std_msgs</build_depend>
+<build_depend>roscpp</build_depend>
+<build_depend>serial</build_depend>
+<build_depend>unionsys_msgs</build_depend>
+
+<run_depend>std_msgs</run_depend>
+<run_depend>roscpp</run_depend>
+<run_depend>serial</run_depend>
+<run_depend>unionsys_msgs</run_depend>
+
+</package>
