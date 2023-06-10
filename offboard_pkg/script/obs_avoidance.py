@@ -42,8 +42,8 @@ class Avoidance:
         self.another_mav_vel = np.array([0., 0., 0.])
         self.another_mav_R = np.identity(3)
         self.obs_distance = 100.0
-        self.obs_distance_min = 5.0
-        self.k_oa = 2.0
+        self.obs_distance_min = 3.0
+        self.k_oa = 4.0
         self.delta_x = 100.0
         self.delta_y = 100.0
 

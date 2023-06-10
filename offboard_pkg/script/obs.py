@@ -88,7 +88,7 @@ original_offset = np.array([0, 0, 0])
 impact_distance = 0.6
 arrive_distance = 1
 left_distance = 2
-attack_start_distance = 20
+attack_start_distance = 100
 highspeed_distance = 20
 middlespeed_distance = 10
 offset_distance = 5
@@ -456,7 +456,7 @@ if __name__=="__main__":
         # print("dlt_pos: {}".format(dlt_pos))
         # print("mav_pos: {}".format(mav_pos))
         
-        if oa.obs_distance < oa.obs_distance_min:
+        if oa.obs_distance < oa.obs_distance_min and mav_id==2:
             oa.local_obs_avoidance()
             rate.sleep()
             continue
