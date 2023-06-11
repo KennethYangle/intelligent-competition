@@ -92,6 +92,8 @@ left_distance = 2      #judge attack
 attack_start_distance = 1000   #
 highspeed_distance = 20     #
 middlespeed_distance = 10    #
+attack_max_time = 2    #
+image_failed_max_cnt = 20 #
 offset_distance = 5
 high_speed = 5      #
 middle_speed = 3     #
@@ -206,7 +208,7 @@ def pos_image_cb(msg):
         image_failed_cnt = 0
     else:
         image_failed_cnt += 1
-    if image_failed_cnt <= 20 and image_failed_cnt > 0:
+    if image_failed_cnt <= image_failed_max_cnt and image_failed_cnt > 0:
         pass
     else:
         if sphere_num > 0:
@@ -472,7 +474,7 @@ if __name__=="__main__":
             controller_reset = False
             target_distance = np.linalg.norm(sphere_pos - mav_pos)
             # 识别到图像才进行角速度控制
-            if pos_i[1] > 0 and attack_time < 2 and target_distance < attack_start_distance: 
+            if pos_i[1] > 0 and attack_time < attack_max_time and target_distance < attack_start_distance: 
                 command.acceleration_or_force.x = cmd[0]
                 command.acceleration_or_force.y = cmd[1]
                 command.acceleration_or_force.z = cmd[2]
