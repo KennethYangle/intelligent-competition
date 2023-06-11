@@ -200,7 +200,7 @@ def read_kbd_input():
     win.mainloop()
 
 def pos_image_cb(msg):
-    global is_initialize_img, pos_i_raw, pos_i, image_failed_cnt, mav_id
+    global is_initialize_img, pos_i_raw, pos_i, image_failed_cnt, mav_id, image_failed_max_cnt
     is_initialize_img = True
     # print("msg_data: {}".format(msg.data))
     sphere_num = len(msg.bounding_boxes)
