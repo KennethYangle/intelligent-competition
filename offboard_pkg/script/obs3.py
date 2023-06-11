@@ -104,9 +104,9 @@ trajectory_middle_x = 0.
 trajectory_middle_y = 50.
 
 
-sphere_pos_1 = np.array([15., -5, 10.])
+sphere_pos_1 = np.array([15., -5, 13.])
 attack_yaw = - pi / 4
-sphere_pos_2 = np.array([15., -45., 10.])
+sphere_pos_2 = np.array([15., -45., 13.])
 drone_all_yaw = [attack_yaw, - attack_yaw]
 sphere_all_pos = [sphere_pos_1, sphere_pos_2]
 sphere_all_id = [100, 101]
