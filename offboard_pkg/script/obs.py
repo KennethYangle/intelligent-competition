@@ -85,22 +85,27 @@ depth = -1
 original_offset = np.array([0, 0, 0])
 
 
+
 impact_distance = 0.6
-arrive_distance = 1
-left_distance = 2
-attack_start_distance = 100
-highspeed_distance = 20
-middlespeed_distance = 10
+arrive_distance = 1    #arrive thres
+left_distance = 2      #judge attack
+attack_start_distance = 1000   #
+highspeed_distance = 20     #
+middlespeed_distance = 10    #
 offset_distance = 5
-high_speed = 5
-middle_speed = 3
-slow_speed = 1
+high_speed = 5      #
+middle_speed = 3     #
+slow_speed = 1      #
 
 
+#real
 sphere_pos_1 = np.array([10., -30., 10.])
 sphere_pos_2 = np.array([20., -50., 10.])
 sphere_pos_3 = np.array([0., -50., 10.])
 sphere_all_pos = [sphere_pos_1, sphere_pos_2, sphere_pos_3]
+
+
+#sim
 sphere_true_pos_1 = sphere_pos_1 + offset_distance *(2 * np.array([random(), random(), 0.3 * random()]) - np.array([1, 1, 0.3]))
 sphere_true_pos_2 = sphere_pos_2 + offset_distance *(2 * np.array([random(), random(), 0.3 * random()]) - np.array([1, 1, 0.3]))
 sphere_true_pos_3 = sphere_pos_3 + offset_distance *(2 * np.array([random(), random(), 0.3 * random()]) - np.array([1, 1, 0.3]))
@@ -492,7 +497,9 @@ if __name__=="__main__":
                         if target_num < len(sphere_all_id):
                             sphere_pos = sphere_all_pos[target_num]
                         else:
-                            local_vel_pub.publish(idle_command)
+                            target_num = 0
+                            sphere_pos = sphere_all_pos[target_num]
+                            #local_vel_pub.publish(idle_command)
                             # local_acc_pub.publish(hover_command)
                 else:
                     if target_distance > highspeed_distance:

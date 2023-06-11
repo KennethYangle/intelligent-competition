@@ -97,14 +97,17 @@ middle_speed = 3.
 slow_speed = 1.
 sphere_speed = 3.
 
-
-
-sphere_pos_1 = np.array([8., 50., 10.])
-sphere_pos_2 = np.array([32., 140., 10.])
-drone_all_yaw = [pi / 2, - pi / 2]
+#real
+#drone position (need to change)
+sphere_pos_1 = np.array([0., -12., 12.])
+sphere_pos_2 = np.array([15., -58., 12.])
+#drone yaw
+drone_all_yaw = [- pi / 2, pi / 2]
 sphere_all_pos = [sphere_pos_1, sphere_pos_2]
 sphere_all_id = [100, 101]
 
+
+#sim
 sphere_true_pos_1 = np.array([10., 45., 10.])
 sphere_true_pos_2 = np.array([30., 145., 10.])
 sphere_true_pos_3 = np.array([10., 45., 10.])
