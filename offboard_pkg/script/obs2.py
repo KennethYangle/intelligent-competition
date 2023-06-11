@@ -96,6 +96,7 @@ high_speed = 5.
 middle_speed = 3.
 slow_speed = 1.
 sphere_speed = 3.
+image_failed_max_cnt = 30
 
 #real
 #drone position (need to change)
@@ -219,7 +220,7 @@ def pos_image_cb(msg):
         image_failed_cnt = 0
     else:
         image_failed_cnt += 1
-    if image_failed_cnt <= 20 and image_failed_cnt > 0:
+    if image_failed_cnt <= image_failed_max_cnt and image_failed_cnt > 0:
         pass
     else:
         if sphere_num > 0:
