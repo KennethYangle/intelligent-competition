@@ -84,7 +84,7 @@ depth = -1
 original_offset = np.array([0., 0., 0.])
 
 
-picminsize = 30.0
+picminsize = 10.0
 impact_distance = 0.6
 arrive_distance = 1.
 left_distance = 2.
@@ -100,10 +100,11 @@ image_failed_max_cnt = 30
 
 #real
 #drone position (need to change)
-sphere_pos_1 = np.array([0., -12., 12.])
-sphere_pos_2 = np.array([15., -58., 12.])
+sphere_pos_1 = np.array([5*1.732, 5., 12.])
+sphere_pos_2 = np.array([5*1.732, 5., 12.])
+# sphere_pos_2 = np.array([100*1.732, 100., 12.])
 #drone yaw
-drone_all_yaw = [- pi / 2, pi / 2]
+drone_all_yaw = [pi / 6, pi / 6]
 sphere_all_pos = [sphere_pos_1, sphere_pos_2]
 sphere_all_id = [100, 101]
 
@@ -264,7 +265,7 @@ def pos_image_ekf_cb(msg):
     # picheight = msg.bounding_boxes[0].ymax - msg.bounding_boxes[0].ymin
     # outdata = [xmiddle, ymiddle, picwidth, picheight]
     # pos_i_ekf = outdata
-    pos_i_ekf = msg_data
+    pos_i_ekf = msg
     # If we don't consider the safety of the aircraft when the target is lost, use pos_i_ekf when pos_i_raw[0]<0.
     if abs(pos_i_ekf[0] - pos_i_raw[0]) < 10 and abs(pos_i_ekf[1] - pos_i_raw[1]) < 10:
         pos_i = pos_i_ekf
@@ -496,7 +497,7 @@ if __name__=="__main__":
         #             print("Offboard enabled")
         #         last_request = rospy.Time.now()
         
-        pos_info = {"mav_pos": mav_pos, "mav_vel": mav_vel, "mav_R": mav_R, "R_bc": np.array([[0,0,1], [1,0,0], [0,1,0]]), 
+        pos_info = {"mav_pos": mav_pos, "mav_vel": mav_vel, "mav_yaw": mav_yaw, "mav_R": mav_R, "R_bc": np.array([[0,0,1], [1,0,0], [0,1,0]]), 
                     "mav_original_angle": mav_original_angle, "Initial_pos": Initial_pos}
 
         dlt_pos = sphere_pos - np.array(mav_pos)

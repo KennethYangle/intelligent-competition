@@ -17,6 +17,9 @@ from mavros_msgs.srv import SetMode
 from mavros_msgs.srv import SetMavFrame
 from mavros_msgs.msg import State, RCIn, HomePosition, PositionTarget
 from mavros_msgs.msg import Thrust
+
+from sensor_msgs.msg import NavSatFix
+
 from utils_obs import Utils
 from Queue import Queue
 
@@ -27,10 +30,12 @@ from swarm_msgs.msg import BoundingBox, BoundingBoxes
 from obs_avoidance import Avoidance
 
 
+
 # Simulation of RealFlight
 current_state = State()
 ch5, ch6, ch7, ch8, ch9, ch11, ch14 = 0, 0, 0, 0, 1, 1, 1
 is_initialize_mav, is_initialize_vel, is_initialize_rc, is_initialize_img = False, False, False, False
+count_home_req = 0
 
 ch20 = 0
 mav_pos = [0, 0, 0]
@@ -101,9 +106,12 @@ slow_speed = 1      #
 
 
 #real
-sphere_pos_1 = np.array([10., -30., 10.])
-sphere_pos_2 = np.array([20., -50., 10.])
-sphere_pos_3 = np.array([0., -50., 10.])
+sphere_pos_1 = np.array([0., 0., 0.])
+sphere_pos_2 = np.array([0., 0., 0.])
+sphere_pos_3 = np.array([0., 0., 0.])
+sphere_pos_1_gps = np.array([40.815602, 113.338689, 8.])
+sphere_pos_2_gps = np.array([40.815602, 113.338689, 8.])
+sphere_pos_3_gps = np.array([40.815602, 113.338689, 8.])
 sphere_all_pos = [sphere_pos_1, sphere_pos_2, sphere_pos_3]
 
 
@@ -212,15 +220,31 @@ def pos_image_cb(msg):
         pass
     else:
         if sphere_num > 0:
-            if mav_id == 1:
-                impact_num = 0
-            else:
-                impact_num = sphere_num - 1
-            xmiddle = (msg.bounding_boxes[impact_num].xmin + msg.bounding_boxes[impact_num].xmax) / 2
-            ymiddle = (msg.bounding_boxes[impact_num].ymin + msg.bounding_boxes[impact_num].ymax) / 2
-            picwidth = msg.bounding_boxes[impact_num].xmax - msg.bounding_boxes[impact_num].xmin
-            picheight = msg.bounding_boxes[impact_num].ymax - msg.bounding_boxes[impact_num].ymin
+            max_pro = 0
+            xmiddle = (msg.bounding_boxes[0].xmin + msg.bounding_boxes[0].xmax) / 2
+            ymiddle = (msg.bounding_boxes[0].ymin + msg.bounding_boxes[0].ymax) / 2
+            picwidth = msg.bounding_boxes[0].xmax - msg.bounding_boxes[0].xmin
+            picheight = msg.bounding_boxes[0].ymax - msg.bounding_boxes[0].ymin
             outdata = [xmiddle, ymiddle, picwidth, picheight]
+            for bbox in msg.bounding_boxes:
+                if bbox.probability > max_pro:
+                    max_pro = bbox.probability
+                    xmiddle = (bbox.xmin + bbox.xmax) / 2
+                    ymiddle = (bbox.ymin + bbox.ymax) / 2
+                    picwidth = bbox.xmax - bbox.xmin
+                    picheight = bbox.ymax - bbox.ymin
+                    outdata = [xmiddle, ymiddle, picwidth, picheight]
+            if max_pro < 0.6:
+                outdata = [-1, -1, -1, -1]
+            # if mav_id == 1:
+            #     impact_num = 0
+            # else:
+            #     impact_num = sphere_num - 1
+            # xmiddle = (msg.bounding_boxes[impact_num].xmin + msg.bounding_boxes[impact_num].xmax) / 2
+            # ymiddle = (msg.bounding_boxes[impact_num].ymin + msg.bounding_boxes[impact_num].ymax) / 2
+            # picwidth = msg.bounding_boxes[impact_num].xmax - msg.bounding_boxes[impact_num].xmin
+            # picheight = msg.bounding_boxes[impact_num].ymax - msg.bounding_boxes[impact_num].ymin
+            # outdata = [xmiddle, ymiddle, picwidth, picheight]
             pos_i_raw = outdata
             pos_i = pos_i_raw
         else:
@@ -322,8 +346,46 @@ def sphere_impact():
                 # break
 
 
+def mav_home_cb(msg):
+    global count_home_req
+    global mav_home_pos
+
+    global sphere_pos_1_gps, sphere_pos_2_gps, sphere_pos_3_gps
+    global sphere_pos_1, sphere_pos_2, sphere_pos_3
+    if count_home_req > 5:
+        return
+    mav_home_pos = np.array([msg.latitude, msg.longitude, msg.altitude])
+    count_home_req = count_home_req + 1
+    x1, y1 = calc_target_local_position(sphere_pos_1_gps)
+    x2, y2 = calc_target_local_position(sphere_pos_2_gps)
+    x3, y3 = calc_target_local_position(sphere_pos_3_gps)
+
+    sphere_pos_1[0] = x1
+    sphere_pos_1[1] = y1
+    sphere_pos_1[2] = sphere_pos_1_gps[2]
+    sphere_pos_2[0] = x2
+    sphere_pos_2[1] = y2
+    sphere_pos_2[2] = sphere_pos_2_gps[2]
+    sphere_pos_3[0] = x3
+    sphere_pos_3[1] = y3
+    sphere_pos_3[2] = sphere_pos_2_gps[2]
+    
+
+    print("sphere_pos_1: {}".format(sphere_pos_1))
+    print("sphere_pos_2: {}".format(sphere_pos_2))
+    print("sphere_pos_3: {}".format(sphere_pos_3))
+    
 
 
+
+def calc_target_local_position(target_gps):
+    global mav_home_pos
+
+    deg2rad = np.pi / 180.0
+    x = -(mav_home_pos[1] - target_gps[1])*111318.0*np.cos((mav_home_pos[0] + target_gps[0])/2*deg2rad)
+    y = -(mav_home_pos[0] - target_gps[0])*110946.0
+
+    return x, y
 
 
 
@@ -363,6 +425,10 @@ if __name__=="__main__":
     rospy.Subscriber("mavros/state", State, state_cb)
     rospy.Subscriber("mavros/local_position/pose", PoseStamped, mav_pose_cb)
     rospy.Subscriber("mavros/local_position/velocity_local", TwistStamped, mav_vel_cb)
+    
+    rospy.Subscriber("mavros/global_position/raw/fix", NavSatFix, mav_home_cb)
+
+
     #HIL使用遥控器进行控制
     IsRC = setting["IsRC"]
     if MODE == "RealFlight":
@@ -402,7 +468,7 @@ if __name__=="__main__":
     rospy.wait_for_service("mavros/set_mode")
     set_mode_client = rospy.ServiceProxy('mavros/set_mode', SetMode)
     # print("Clients Created")
-    rate = rospy.Rate(50)#50
+    rate = rospy.Rate(150)#50
     
     # ensure the connection 
     while(not current_state.connected):
