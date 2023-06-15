@@ -109,9 +109,9 @@ slow_speed = 1      #
 sphere_pos_1 = np.array([0., 0., 0.])
 sphere_pos_2 = np.array([0., 0., 0.])
 sphere_pos_3 = np.array([0., 0., 0.])
-sphere_pos_1_gps = np.array([40.815602, 113.338689, 8.])
-sphere_pos_2_gps = np.array([40.815602, 113.338689, 8.])
-sphere_pos_3_gps = np.array([40.815602, 113.338689, 8.])
+sphere_pos_1_gps = np.array([40.815490, 113.338600, 12.])
+sphere_pos_2_gps = np.array([40.815490, 113.338600, 12.])
+sphere_pos_3_gps = np.array([40.815490, 113.338600, 12.])
 sphere_all_pos = [sphere_pos_1, sphere_pos_2, sphere_pos_3]
 
 
