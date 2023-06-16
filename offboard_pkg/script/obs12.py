@@ -112,11 +112,20 @@ sphere_pos_2 = np.array([0., 0., 0.])
 
 d1_sphere_pos_1 = np.array([0., 0., 8.])
 d1_sphere_pos_2 = np.array([0., 0., 8.])
+d1_sphere_pos_3 = np.array([0., 0., 8.])
+d1_sphere_pos_4 = np.array([0., 0., 8.])
+
 d2_sphere_pos_1 = np.array([0., 0., 8.])
 d2_sphere_pos_2 = np.array([0., 0., 8.])
+d2_sphere_pos_3 = np.array([0., 0., 8.])
+d2_sphere_pos_4 = np.array([0., 0., 8.])
 
-center_pos = np.array([0., 0., 0.])
-center_pos_gps = np.array([40.807140, 113.328400, 10.])
+center_pos_sky = np.array([0., 0., 0.])
+pos_land = np.array([0., 0., 0.])
+pos_land_2 = np.array([0., 0., 0.])
+center_pos_gps_sky = np.array([40.807140, 113.328400, 10.])
+pos_gps_land = np.array([40.806960, 113.328900, 8.])
+pos_gps_land_2 = np.array([40.806860, 113.328770, 8.])
 
 # sphere_pos_1_gps = np.array([40.815602, 113.338689, 8.])
 # sphere_pos_2_gps = np.array([40.815602, 113.338689, 8.])
@@ -131,7 +140,7 @@ sphere_true_pos_2 = sphere_pos_2 + offset_distance *(2 * np.array([random(), ran
 sphere_true_all_pos = [sphere_true_pos_1, sphere_true_pos_2]
 # sphere_true_all_pos = [sphere_true_pos_1, sphere_true_pos_2, sphere_true_pos_3]
 # sphere_all_id = [100, 101, 102]
-sphere_all_id = [100, 101]
+sphere_all_id = [100, 101, 102, 103]
 # sphere_vel = np.array([-5, 0, 2])
 sphere_vel = np.array([0, 0, 0])
 sphere_acc = np.array([0, 0, -0.5])
@@ -370,34 +379,69 @@ def mav_home_cb(msg):
     global mav_home_pos
 
     # global d1_sphere_pos_1_gps, d1_sphere_pos_2_gps, d2_sphere_pos_1_gps, d2_sphere_pos_2_gps
-    global center_pos
-    global d1_sphere_pos_1, d1_sphere_pos_2, d2_sphere_pos_1, d2_sphere_pos_2
+    global center_pos_sky, pos_land, pos_land_2
+    global d1_sphere_pos_1, d1_sphere_pos_2, d1_sphere_pos_3, d1_sphere_pos_4
+    global d2_sphere_pos_1, d2_sphere_pos_2, d2_sphere_pos_3, d2_sphere_pos_4
     if count_home_req > 5:
         return
     mav_home_pos = np.array([msg.latitude, msg.longitude, msg.altitude])
     count_home_req = count_home_req + 1
-    x1, y1 = calc_target_local_position(center_pos_gps)
+    x1, y1 = calc_target_local_position(center_pos_gps_sky)
+    xland, yland = calc_target_local_position(pos_gps_land)
+    xland_2, yland_2 = calc_target_local_position(pos_gps_land_2)
     
-    center_pos[0] = x1
-    center_pos[1] = y1
+    center_pos_sky[0] = x1
+    center_pos_sky[1] = y1
+    pos_land[0] = xland
+    pos_land[1] = yland
+    pos_land_2[0] = yland_2
+    pos_land_2[1] = yland_2
 
     dis = 15
-    d1_sphere_pos_1[0] = x1 + dis
-    d1_sphere_pos_1[1] = y1 + dis
-    d1_sphere_pos_2[0] = x1 + dis
-    d1_sphere_pos_2[1] = y1 - dis
-    d2_sphere_pos_1[0] = x1 - dis
-    d2_sphere_pos_1[1] = y1 - dis
-    d2_sphere_pos_2[0] = x1 - dis
-    d2_sphere_pos_2[1] = y1 + dis
+    d1_sphere_pos_1[0] = xland
+    d1_sphere_pos_1[1] = yland
+    d1_sphere_pos_1[2] = pos_gps_land[2]
+
+    d1_sphere_pos_2[0] = xland
+    d1_sphere_pos_2[1] = yland
+    d1_sphere_pos_2[2] = pos_gps_land[2]
+
+    d1_sphere_pos_3[0] = x1 + dis
+    d1_sphere_pos_3[1] = y1 + dis
+    d1_sphere_pos_3[2] = center_pos_gps_sky[2]
+
+    d1_sphere_pos_4[0] = x1 + dis
+    d1_sphere_pos_4[1] = y1 - dis
+    d1_sphere_pos_4[2] = center_pos_gps_sky[2]
+
+    d2_sphere_pos_1[0] = xland_2
+    d2_sphere_pos_1[1] = yland_2
+    d2_sphere_pos_1[2] = pos_gps_land_2[2]
+
+    d2_sphere_pos_2[0] = xland_2
+    d2_sphere_pos_2[1] = yland_2
+    d2_sphere_pos_2[2] = pos_gps_land_2[2]
+
+    d2_sphere_pos_3[0] = x1 - dis
+    d2_sphere_pos_3[1] = y1 - dis
+    d2_sphere_pos_3[2] = center_pos_gps_sky[2]
+
+    d2_sphere_pos_4[0] = x1 - dis
+    d2_sphere_pos_4[1] = y1 + dis
+    d2_sphere_pos_4[2] = center_pos_gps_sky[2]
 
     # sphere_pos_3[0] = x3
     # sphere_pos_3[1] = y3
 
     print("d1_sphere_pos_1: {}".format(d1_sphere_pos_1))
     print("d1_sphere_pos_2: {}".format(d1_sphere_pos_2))
+    print("d1_sphere_pos_3: {}".format(d1_sphere_pos_3))
+    print("d1_sphere_pos_4: {}".format(d1_sphere_pos_4))
+
     print("d2_sphere_pos_1: {}".format(d2_sphere_pos_1))
     print("d2_sphere_pos_2: {}".format(d2_sphere_pos_2))
+    print("d2_sphere_pos_3: {}".format(d2_sphere_pos_3))
+    print("d2_sphere_pos_4: {}".format(d2_sphere_pos_4))
     # print("sphere_pos_3: {}".format(sphere_pos_3))
     
 
@@ -435,9 +479,9 @@ if __name__=="__main__":
     mav_id = rospy.get_param("~mav_id")
     print("mav_id:", mav_id)
     if mav_id == 1:
-        sphere_all_pos = [d1_sphere_pos_1, d1_sphere_pos_2]
+        sphere_all_pos = [d1_sphere_pos_1, d1_sphere_pos_2, d1_sphere_pos_3, d1_sphere_pos_4]
     else:
-        sphere_all_pos = [d2_sphere_pos_1, d2_sphere_pos_2]
+        sphere_all_pos = [d2_sphere_pos_1, d2_sphere_pos_2, d2_sphere_pos_3, d2_sphere_pos_4]
     sphere_pos = sphere_all_pos[target_num]
 
     px = Px4Controller()
@@ -574,7 +618,7 @@ if __name__=="__main__":
                 attack_flag = 1
             # # 否则
             else:
-                target_yaw = atan2(center_pos[1] - mav_pos[1], center_pos[0] - mav_pos[0])  
+                target_yaw = atan2(center_pos_sky[1] - mav_pos[1], center_pos_sky[0] - mav_pos[0])  
                 if target_distance < arrive_distance:
                     if attack_flag == 1:
                         attack_time += 1
