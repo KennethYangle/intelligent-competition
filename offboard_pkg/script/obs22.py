@@ -231,22 +231,23 @@ def pos_image_cb(msg):
         pass
     else:
         if sphere_num > 0:
-            max_pro = 0
-            xmiddle = (msg.bounding_boxes[0].xmin + msg.bounding_boxes[0].xmax) / 2
-            ymiddle = (msg.bounding_boxes[0].ymin + msg.bounding_boxes[0].ymax) / 2
-            picwidth = msg.bounding_boxes[0].xmax - msg.bounding_boxes[0].xmin
-            picheight = msg.bounding_boxes[0].ymax - msg.bounding_boxes[0].ymin
-            outdata = [xmiddle, ymiddle, picwidth, picheight]
-            for bbox in msg.bounding_boxes:
-                if bbox.probability > max_pro:
-                    max_pro = bbox.probability
-                    xmiddle = (bbox.xmin + bbox.xmax) / 2
-                    ymiddle = (bbox.ymin + bbox.ymax) / 2
-                    picwidth = bbox.xmax - bbox.xmin
-                    picheight = bbox.ymax - bbox.ymin
-                    outdata = [xmiddle, ymiddle, picwidth, picheight]
-            if max_pro < 0.6:
-                outdata = [-1, -1, -1, -1]
+            # max_pro = 0
+            # xmiddle = (msg.bounding_boxes[0].xmin + msg.bounding_boxes[0].xmax) / 2
+            # ymiddle = (msg.bounding_boxes[0].ymin + msg.bounding_boxes[0].ymax) / 2
+            # picwidth = msg.bounding_boxes[0].xmax - msg.bounding_boxes[0].xmin
+            # picheight = msg.bounding_boxes[0].ymax - msg.bounding_boxes[0].ymin
+            # outdata = [xmiddle, ymiddle, picwidth, picheight]
+            # for bbox in msg.bounding_boxes:
+            #     if bbox.probability > max_pro:
+            #         max_pro = bbox.probability
+            #         xmiddle = (bbox.xmin + bbox.xmax) / 2
+            #         ymiddle = (bbox.ymin + bbox.ymax) / 2
+            #         picwidth = bbox.xmax - bbox.xmin
+            #         picheight = bbox.ymax - bbox.ymin
+            #         outdata = [xmiddle, ymiddle, picwidth, picheight]
+            # if max_pro < 0.6:
+            #     outdata = [-1, -1, -1, -1]
+            
             # if mav_id == 1:
             #     impact_num = 0
             # else:
@@ -256,6 +257,13 @@ def pos_image_cb(msg):
             # picwidth = msg.bounding_boxes[impact_num].xmax - msg.bounding_boxes[impact_num].xmin
             # picheight = msg.bounding_boxes[impact_num].ymax - msg.bounding_boxes[impact_num].ymin
             # outdata = [xmiddle, ymiddle, picwidth, picheight]
+
+            xmiddle = (msg.bounding_boxes[0].xmin + msg.bounding_boxes[0].xmax) / 2
+            ymiddle = (msg.bounding_boxes[0].ymin + msg.bounding_boxes[0].ymax) / 2
+            picwidth = msg.bounding_boxes[0].xmax - msg.bounding_boxes[0].xmin
+            picheight = msg.bounding_boxes[0].ymax - msg.bounding_boxes[0].ymin
+            outdata = [xmiddle, ymiddle, picwidth, picheight]
+
             pos_i_raw = outdata
             pos_i = pos_i_raw
         else:

@@ -47,22 +47,6 @@ float* buffers[2];
 IExecutionContext* context;
 ros::Publisher pub; //tracker/img
 
-const int lowh = 169;
-const int lows = 80;
-const int lowv = 80;
-const int highh = 181;
-const int highs = 256;
-const int highv = 256;
-const int lowh2 = 0;
-const int lows2 = 120;
-const int lowv2 = 80;
-const int highh2 = 5;
-const int highs2 = 256;
-const int highv2 = 256;
-cv::Point3d xy;
-
-const int ballon_pixels_num = 4;
-const float perc_red_ballon = 0.4;
 void doInference(IExecutionContext& context, cudaStream_t& stream, void **buffers, float* output, int batchSize) {
     // infer on the batch asynchronously, and DMA output back to host
     context.enqueue(batchSize, buffers, stream, nullptr);
@@ -74,7 +58,7 @@ class mycomp2{
   public:
     bool operator()(Yolo::Detection a, Yolo::Detection b)
     {
-      return ((a.bbox[2]*a.bbox[3]) > (b.bbox[2]*b.bbox[3]));
+      return (a.bbox[0] < b.bbox[0]);
     }
 };
 
@@ -89,19 +73,7 @@ void imageCallback(const sensor_msgs::ImageConstPtr& msg)
     // Get image
     float* buffer_idx = (float*)buffers[inputIndex];
 
-    cv::Mat img = cv_ptr->image;
-
-    cv::Mat img2 = img;
-    cv::Mat imgHSV;
-    std::vector<cv::Mat> hsvSplit;
-    cv::cvtColor(img2,imgHSV,cv::COLOR_BGR2HSV);
-    cv::split(imgHSV,hsvSplit);
-    cv::equalizeHist(hsvSplit[2],hsvSplit[2]);
-    cv::merge(hsvSplit,imgHSV);
-    cv::Mat imgThresholded, imgThresholded1, imgThresholded2;
-    cv::inRange(imgHSV,cv::Scalar(lowh,lows,lowv),cv::Scalar(highh,highs,highv),imgThresholded1);
-    cv::inRange(imgHSV,cv::Scalar(lowh2,lows2,lowv2),cv::Scalar(highh2,highs2,highv2),imgThresholded2);
-    imgThresholded = imgThresholded1 + imgThresholded2;
+cv::Mat img = cv_ptr->image;
 
     size_t  size_image = img.cols * img.rows * 3;
     size_t  size_image_dst = INPUT_H * INPUT_W * 3;
@@ -116,7 +88,8 @@ void imageCallback(const sensor_msgs::ImageConstPtr& msg)
     auto start = std::chrono::system_clock::now();
 
     doInference(*context, stream, (void**)buffers, prob, BATCH_SIZE);
-
+    auto end = std::chrono::system_clock::now();
+    // std::cout << "inference time: " << std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count() << "ms" << std::endl;
 
     std::vector<std::vector<Yolo::Detection>> batch_res(1);
     for (int b = 0; b < 1; b++) {
@@ -126,47 +99,34 @@ void imageCallback(const sensor_msgs::ImageConstPtr& msg)
       std::sort(res.begin(), res.end(), mycomp2());
 
       for (size_t j = 0; j < res.size(); j++) {
-        double m00, m10, m01;
-        cv::Moments moment;
-        int xmin_temp= std::max((int)(res[j].bbox[0]-0.5*res[j].bbox[2]),2);
-        int ymin_temp = std::max((int)(res[j].bbox[1]-0.5*res[j].bbox[3]),2);
-        int xmax_temp = std::min((int)(res[j].bbox[0]+0.5*res[j].bbox[2]),1278);
-        int ymax_temp = std::min((int)(res[j].bbox[1]+0.5*res[j].bbox[3]),718);
-        // int xmin_temp= (int)(res[j].bbox[0]-0.5*res[j].bbox[2]);
-        // int ymin_temp = (int)(res[j].bbox[1]-0.5*res[j].bbox[3]);
-        // int xmax_temp = (int)(res[j].bbox[0]+0.5*res[j].bbox[2]);
-        // int ymax_temp = (int)(res[j].bbox[1]+0.5*res[j].bbox[3]);
-        cv::Mat crop = imgThresholded(cv::Range(ymin_temp,ymax_temp),cv::Range(xmin_temp,xmax_temp)); 
-        moment = moments(crop, true);
-        m00 = moment.m00; //cvGetSpatialMoment( &moment, 0, 0 );
-        if( m00 >= (int)(perc_red_ballon * res[j].bbox[2] * res[j].bbox[3])) // perc_red_ballon*100% red range
-        {
           swarm_msgs::BoundingBox msg_BoundingBox;
           msg_BoundingBox.probability=res[j].conf;
-          msg_BoundingBox.xmin = xmin_temp;
-          msg_BoundingBox.xmax = xmax_temp;
-          msg_BoundingBox.ymin = ymin_temp;
-          msg_BoundingBox.ymax = ymax_temp;
+          msg_BoundingBox.xmin=res[j].bbox[0]-0.5*res[j].bbox[2];
+          msg_BoundingBox.xmax=res[j].bbox[0]+0.5*res[j].bbox[2];
+          msg_BoundingBox.ymin=res[j].bbox[1]-0.5*res[j].bbox[3];
+          msg_BoundingBox.ymax=res[j].bbox[1]+0.5*res[j].bbox[3];
           msg_BoundingBox.id=j;
           msg_BoundingBox.Class="Ballon";
+
+          //std::cout<<"class_id"<<std::endl;
+          //std::cout<<res[j].class_id<<std::endl;
           // std::cout<<res[j].conf<<std::endl;
+          //std::cout<<res[j].bbox[0]<<std::endl;
+          //std::cout<<res[j].bbox[1]<<std::endl;
+          //std::cout<<res[j].bbox[2]<<std::endl;
+          //std::cout<<res[j].bbox[3]<<std::endl;
           msg_BoundingBoxes.bounding_boxes.push_back(msg_BoundingBox);
-        }
-       //cv::Mat img1 = img;
-       //cv::Rect r = get_rect(img1, res[j].bbox);
-       //cv::rectangle(img1, r, cv::Scalar(0x27, 0xC1, 0x36), 2);
-       //cv::putText(img1, std::to_string((int)res[j].class_id), cv::Point(r.x, r.y - 1), cv::FONT_HERSHEY_PLAIN, 1.2, cv::Scalar(0xFF, 0xFF, 0xFF), 2);
-      // cv::imshow("res", img1);
+
+        //  cv::putText(img, std::to_string((int)res[j].class_id), cv::Point(r.x, r.y - 1), cv::FONT_HERSHEY_PLAIN, 1.2, cv::Scalar(0xFF, 0xFF, 0xFF), 2);
+    
       }
       // std::cout<<msg_BoundingBoxes<<std::endl;
       pub.publish(msg_BoundingBoxes);
 
     }
-    // auto end = std::chrono::system_clock::now();
-    // std::cout << "inference time: " << std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count() << "ms" << std::endl;
 
     //cv::imshow("view", img);
-    //cv::waitKey(1);
+    cv::waitKey(1);
   }
   catch (cv_bridge::Exception& e)
   {
