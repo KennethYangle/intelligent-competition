@@ -56,7 +56,6 @@ state_name = "InitializeState"
 idle_command = TwistStamped()
 
 #attack
-vel_command = TwistStamped()
 command = PositionTarget()
 command.coordinate_frame = PositionTarget.FRAME_LOCAL_NED 
 command.type_mask = PositionTarget.IGNORE_PX + PositionTarget.IGNORE_PY + PositionTarget.IGNORE_PZ \
@@ -64,7 +63,7 @@ command.type_mask = PositionTarget.IGNORE_PX + PositionTarget.IGNORE_PY + Positi
                   + PositionTarget.IGNORE_YAW
 
 #rotate
-rotate_rat = 3 * pi / 4
+rotate_rat = pi / 4
 rotate_command = PositionTarget()
 rotate_command.coordinate_frame = PositionTarget.FRAME_LOCAL_NED 
 rotate_command.type_mask = PositionTarget.IGNORE_PX + PositionTarget.IGNORE_PY + PositionTarget.IGNORE_PZ \
@@ -101,9 +100,9 @@ middlespeed_distance = 10    #
 attack_max_time = 2    #
 image_failed_max_cnt = 20 #
 offset_distance = 5
-high_speed = 5      #
-middle_speed = 3     #
-slow_speed = 1      #
+high_speed = 8      #
+middle_speed = 4     #
+slow_speed = 2      #
 
 
 #real
@@ -111,20 +110,27 @@ sphere_pos_1 = np.array([0., 0., 0.])
 sphere_pos_2 = np.array([0., 0., 0.])
 # sphere_pos_3 = np.array([0., 0., 0.])
 
-d1_sphere_pos_1 = np.array([0., 0., 8.])
-d1_sphere_pos_2 = np.array([0., 0., 8.])
-d2_sphere_pos_1 = np.array([0., 0., 8.])
-d2_sphere_pos_2 = np.array([0., 0., 8.])
+init_angel = 35
+d1_sphere_pos_1 = np.array([50.*np.cos(init_angel/180.*np.pi), 50.*np.sin(init_angel/180.*np.pi), 18.5])
+d1_sphere_pos_2 = np.array([70.*np.cos(init_angel/180.*np.pi), 100.*np.sin(init_angel/180.*np.pi), 18.5])
+d1_sphere_pos_3 = np.array([90.*np.cos(init_angel/180.*np.pi), 150.*np.sin(init_angel/180.*np.pi), 18.5])
 
-center_pos = np.array([0., 0., 0.])
-# center_pos_gps = np.array([40.814710, 113.337990, 18.5])
-center_pos_gps = np.array([40.814840, 113.338060, 18.5])
+d2_sphere_pos_1 = np.array([50.*np.cos(init_angel/180.*np.pi), 50.*np.sin(init_angel/180.*np.pi), 18.5])
+d2_sphere_pos_2 = np.array([70.*np.cos(init_angel/180.*np.pi), 100.*np.sin(init_angel/180.*np.pi), 18.5])
+
+d3_sphere_pos_1 = np.array([50*np.cos(init_angel/180.*np.pi), 50.*np.sin(init_angel/180.*np.pi), 18.5])
+d3_sphere_pos_2 = np.array([70*np.cos(init_angel/180.*np.pi), 100.*np.sin(init_angel/180.*np.pi), 18.5])
+d3_sphere_pos_3 = np.array([90*np.cos(init_angel/180.*np.pi), 150.*np.sin(init_angel/180.*np.pi), 18.5])
+
 
 # sphere_pos_1_gps = np.array([40.815602, 113.338689, 8.])
 # sphere_pos_2_gps = np.array([40.815602, 113.338689, 8.])
 # sphere_pos_3_gps = np.array([40.815602, 113.338689, 8.])
 sphere_all_pos = [sphere_pos_1, sphere_pos_2]
-
+d1_sphere_all_pos = [d1_sphere_pos_1, d1_sphere_pos_2, d1_sphere_pos_3]
+d2_sphere_all_pos = [d2_sphere_pos_1, d2_sphere_pos_2]
+d3_sphere_all_pos = [d3_sphere_pos_1, d3_sphere_pos_2, d3_sphere_pos_3]
+print(d1_sphere_all_pos, d2_sphere_all_pos, d3_sphere_all_pos)
 
 #sim
 sphere_true_pos_1 = sphere_pos_1 + offset_distance *(2 * np.array([random(), random(), 0.3 * random()]) - np.array([1, 1, 0.3]))
@@ -133,7 +139,7 @@ sphere_true_pos_2 = sphere_pos_2 + offset_distance *(2 * np.array([random(), ran
 sphere_true_all_pos = [sphere_true_pos_1, sphere_true_pos_2]
 # sphere_true_all_pos = [sphere_true_pos_1, sphere_true_pos_2, sphere_true_pos_3]
 # sphere_all_id = [100, 101, 102]
-sphere_all_id = [100, 101]
+sphere_all_id = [100, 102, 103]
 # sphere_vel = np.array([-5, 0, 2])
 sphere_vel = np.array([0, 0, 0])
 sphere_acc = np.array([0, 0, -0.5])
@@ -367,63 +373,6 @@ def sphere_impact():
                 # break
 
 
-def mav_home_cb(msg):
-    global count_home_req
-    global mav_home_pos
-
-    # global d1_sphere_pos_1_gps, d1_sphere_pos_2_gps, d2_sphere_pos_1_gps, d2_sphere_pos_2_gps
-    global center_pos
-    global d1_sphere_pos_1, d1_sphere_pos_2, d2_sphere_pos_1, d2_sphere_pos_2
-    if count_home_req > 5:
-        return
-    mav_home_pos = np.array([msg.latitude, msg.longitude, msg.altitude])
-    count_home_req = count_home_req + 1
-    x1, y1 = calc_target_local_position(center_pos_gps)
-    
-    center_pos[0] = x1
-    center_pos[1] = y1
-
-    dis = 20
-    d1_sphere_pos_1[0] = x1 + dis
-    d1_sphere_pos_1[1] = y1 + dis
-    d1_sphere_pos_1[2] = center_pos_gps[2]+0.5
-
-    d1_sphere_pos_2[0] = x1 + dis
-    d1_sphere_pos_2[1] = y1 - dis
-    d1_sphere_pos_2[2] = center_pos_gps[2]-0.5
-
-    d2_sphere_pos_1[0] = x1 - dis
-    d2_sphere_pos_1[1] = y1 - dis
-    d2_sphere_pos_1[2] = center_pos_gps[2]+0.5
-    
-    d2_sphere_pos_2[0] = x1 - dis
-    d2_sphere_pos_2[1] = y1 + dis
-    d2_sphere_pos_2[2] = center_pos_gps[2]-0.5
-
-    # sphere_pos_3[0] = x3
-    # sphere_pos_3[1] = y3
-
-    print("center_pos: {}".format(center_pos))
-    print("d1_sphere_pos_1: {}".format(d1_sphere_pos_1))
-    print("d1_sphere_pos_2: {}".format(d1_sphere_pos_2))
-    print("d2_sphere_pos_1: {}".format(d2_sphere_pos_1))
-    print("d2_sphere_pos_2: {}".format(d2_sphere_pos_2))
-    # print("sphere_pos_3: {}".format(sphere_pos_3))
-    
-
-
-def calc_target_local_position(target_gps):
-    global mav_home_pos
-
-    deg2rad = np.pi / 180.0
-    x = -(mav_home_pos[1] - target_gps[1])*111318.0*np.cos((mav_home_pos[0] + target_gps[0])/2*deg2rad)
-    y = -(mav_home_pos[0] - target_gps[0])*110946.0
-
-    return x, y
-
-
-
-
 if __name__=="__main__":
     setting_file = open(os.path.join(os.path.expanduser('~'),"Rfly_Attack/src","settings.json"))
     setting = json.load(setting_file)
@@ -445,9 +394,15 @@ if __name__=="__main__":
     mav_id = rospy.get_param("~mav_id")
     print("mav_id:", mav_id)
     if mav_id == 1:
-        sphere_all_pos = [d1_sphere_pos_1, d1_sphere_pos_2]
+        sphere_all_pos = d1_sphere_all_pos
+        print(sphere_all_pos)
+    elif mav_id == 2:
+        sphere_all_pos = d2_sphere_all_pos
+        print(sphere_all_pos)
     else:
-        sphere_all_pos = [d2_sphere_pos_1, d2_sphere_pos_2]
+        sphere_all_pos = d3_sphere_all_pos
+        print(sphere_all_pos)
+        
     sphere_pos = sphere_all_pos[target_num]
 
     px = Px4Controller()
@@ -460,7 +415,7 @@ if __name__=="__main__":
     rospy.Subscriber("mavros/local_position/pose", PoseStamped, mav_pose_cb)
     rospy.Subscriber("mavros/local_position/velocity_local", TwistStamped, mav_vel_cb)
     
-    rospy.Subscriber("mavros/global_position/raw/fix", NavSatFix, mav_home_cb)
+    # rospy.Subscriber("mavros/global_position/raw/fix", NavSatFix, mav_home_cb)
 
 
     #HIL使用遥控器进行控制
@@ -556,7 +511,7 @@ if __name__=="__main__":
         #             print("Offboard enabled")
         #         last_request = rospy.Time.now()
         
-        pos_info = {"mav_pos": mav_pos, "mav_vel": mav_vel, "mav_R": mav_R, "R_bc": np.array([[0,0,1], [1,0,0], [0,1,0]]), 
+        pos_info = {"mav_pos": mav_pos, "mav_vel": mav_vel, "mav_yaw": mav_yaw, "mav_R": mav_R, "R_bc": np.array([[0,0,1], [1,0,0], [0,1,0]]), 
                     "mav_yaw": mav_yaw, "mav_original_angle": mav_original_angle, "Initial_pos": Initial_pos}
 
         dlt_pos = sphere_pos - np.array(mav_pos)
@@ -570,27 +525,23 @@ if __name__=="__main__":
 
         if ch7 >= 1:
             # cmd = u.RotateAttackController(pos_info, pos_i, image_center, controller_reset)
-            # cmd = u.RotateAttackAccelerationController2(pos_info, pos_i, controller_reset)
-            cmd = u.RotateAttackAccelerationController2VelCmd(pos_info, pos_i, controller_reset)
+            cmd = u.RotateAttackAccelerationController2(pos_info, pos_i, controller_reset)
             controller_reset = False
             target_distance = np.linalg.norm(sphere_pos - mav_pos)
             # 识别到图像才进行角速度控制
             if pos_i[1] > 0 and attack_time < attack_max_time and target_distance < attack_start_distance: 
-                # command.acceleration_or_force.x = cmd[0]
-                # command.acceleration_or_force.y = cmd[1]
-                # command.acceleration_or_force.z = cmd[2]
-                # command.yaw_rate = cmd[3]
+                command.acceleration_or_force.x = cmd[0]
+                command.acceleration_or_force.y = cmd[1]
+                command.acceleration_or_force.z = cmd[2]
+                command.yaw_rate = cmd[3]
                 # print("cmd: {}".format(cmd))
-                # local_acc_pub.publish(command)
-                vel_command.twist.linear.x = cmd[0]
-                vel_command.twist.linear.y = cmd[1]
-                vel_command.twist.linear.z = cmd[2]
-                vel_command.twist.angular.z = cmd[3]
-                local_vel_pub.publish(vel_command)
+                local_acc_pub.publish(command)
                 attack_flag = 1
+                sphere_all_pos = [sphere_all_pos[0]]
+                print("Update:", sphere_all_pos)
             # # 否则
             else:
-                target_yaw = atan2(center_pos[1] - mav_pos[1], center_pos[0] - mav_pos[0])  
+                target_yaw = atan2(sphere_all_pos[target_num][1] - mav_pos[1], sphere_all_pos[target_num][0] - mav_pos[0])
                 if target_distance < arrive_distance:
                     if attack_flag == 1:
                         attack_time += 1
@@ -598,11 +549,11 @@ if __name__=="__main__":
                     # local_vel_pub.publish(idle_command)
                     local_acc_pub.publish(rotate_command)
                     rotate_cnt = rotate_cnt + 1
-                    if rotate_cnt > 2 * pi / rotate_rat * 3000 / 20 * 1.5:
+                    if rotate_cnt > 2 * pi / rotate_rat * 1000 / 20 * 1.5:
                         rotate_cnt = 0
                         attack_time = 0
                         target_num = target_num + 1
-                        if target_num < len(sphere_all_id):
+                        if target_num < len(sphere_all_pos):
                             sphere_pos = sphere_all_pos[target_num]
                         else:
                             target_num = 0

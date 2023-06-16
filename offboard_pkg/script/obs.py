@@ -101,18 +101,18 @@ middlespeed_distance = 10    #
 attack_max_time = 2    #
 image_failed_max_cnt = 20 #
 offset_distance = 5
-high_speed = 5      #
-middle_speed = 3     #
-slow_speed = 1      #
+high_speed = 8      #
+middle_speed = 4     #
+slow_speed = 2      #
 
 
 #real
 sphere_pos_1 = np.array([0., 0., 0.])
 sphere_pos_2 = np.array([0., 0., 0.])
 sphere_pos_3 = np.array([0., 0., 0.])
-sphere_pos_1_gps = np.array([40.815490, 113.338600, 12.])
-sphere_pos_2_gps = np.array([40.815490, 113.338600, 12.])
-sphere_pos_3_gps = np.array([40.815490, 113.338600, 12.])
+sphere_pos_1_gps = np.array([39.714980, 116.041740, 6.])
+sphere_pos_2_gps = np.array([39.714980, 116.041740, 6.])
+sphere_pos_3_gps = np.array([39.714980, 116.041740, 6.])
 sphere_all_pos = [sphere_pos_1, sphere_pos_2, sphere_pos_3]
 
 

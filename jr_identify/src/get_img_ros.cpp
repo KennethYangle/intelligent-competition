@@ -48,15 +48,15 @@ IExecutionContext* context;
 ros::Publisher pub; //tracker/img
 
 const int lowh = 165;
-const int lows = 80;
-const int lowv = 50;
+const int lows = 60;
+const int lowv = 40;
 const int highh = 181;
 const int highs = 256;
 const int highv = 256;
 const int lowh2 = 0;
-const int lows2 = 80;
-const int lowv2 = 50;
-const int highh2 = 5;
+const int lows2 = 60;
+const int lowv2 = 40;
+const int highh2 = 8;
 const int highs2 = 256;
 const int highv2 = 256;
 cv::Point3d xy;
