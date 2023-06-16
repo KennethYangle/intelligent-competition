@@ -116,7 +116,7 @@ d2_sphere_pos_1 = np.array([0., 0., 8.])
 d2_sphere_pos_2 = np.array([0., 0., 8.])
 
 center_pos = np.array([0., 0., 0.])
-center_pos_gps = np.array([40.807140, 113.328400, 10.])
+center_pos_gps = np.array([40.807730, 113.328410, 10.])
 
 # sphere_pos_1_gps = np.array([40.815602, 113.338689, 8.])
 # sphere_pos_2_gps = np.array([40.815602, 113.338689, 8.])
@@ -394,6 +394,7 @@ def mav_home_cb(msg):
     # sphere_pos_3[0] = x3
     # sphere_pos_3[1] = y3
 
+    print("center_pos: {}".format(center_pos))
     print("d1_sphere_pos_1: {}".format(d1_sphere_pos_1))
     print("d1_sphere_pos_2: {}".format(d1_sphere_pos_2))
     print("d2_sphere_pos_1: {}".format(d2_sphere_pos_1))
