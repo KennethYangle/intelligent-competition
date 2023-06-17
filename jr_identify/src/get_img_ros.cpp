@@ -47,15 +47,15 @@ float* buffers[2];
 IExecutionContext* context;
 ros::Publisher pub; //tracker/img
 
-const int lowh = 169;
+const int lowh = 165;
 const int lows = 80;
-const int lowv = 80;
+const int lowv = 50;
 const int highh = 181;
 const int highs = 256;
 const int highv = 256;
 const int lowh2 = 0;
-const int lows2 = 120;
-const int lowv2 = 80;
+const int lows2 = 80;
+const int lowv2 = 50;
 const int highh2 = 5;
 const int highs2 = 256;
 const int highv2 = 256;

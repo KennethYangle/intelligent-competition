@@ -64,7 +64,7 @@ command.type_mask = PositionTarget.IGNORE_PX + PositionTarget.IGNORE_PY + Positi
                   + PositionTarget.IGNORE_YAW
 
 #rotate
-rotate_rat = pi / 4
+rotate_rat = pi / 2
 rotate_command = PositionTarget()
 rotate_command.coordinate_frame = PositionTarget.FRAME_LOCAL_NED 
 rotate_command.type_mask = PositionTarget.IGNORE_PX + PositionTarget.IGNORE_PY + PositionTarget.IGNORE_PZ \
@@ -117,7 +117,7 @@ d2_sphere_pos_1 = np.array([0., 0., 8.])
 d2_sphere_pos_2 = np.array([0., 0., 8.])
 
 center_pos = np.array([0., 0., 0.])
-center_pos_gps = np.array([40.807730, 113.328410, 10.])
+center_pos_gps = np.array([40.814700, 113.337530, 10.])
 
 # sphere_pos_1_gps = np.array([40.815602, 113.338689, 8.])
 # sphere_pos_2_gps = np.array([40.815602, 113.338689, 8.])
@@ -590,7 +590,7 @@ if __name__=="__main__":
                     # local_vel_pub.publish(idle_command)
                     local_acc_pub.publish(rotate_command)
                     rotate_cnt = rotate_cnt + 1
-                    if rotate_cnt > 2 * pi / rotate_rat * 1000 / 20 * 1.5:
+                    if rotate_cnt > 2 * pi / rotate_rat * 3000 / 20 * 1.5:
                         rotate_cnt = 0
                         attack_time = 0
                         target_num = target_num + 1
