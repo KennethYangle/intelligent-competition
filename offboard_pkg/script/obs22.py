@@ -548,7 +548,7 @@ if __name__=="__main__":
         #             print("Offboard enabled")
         #         last_request = rospy.Time.now()
         
-        pos_info = {"mav_pos": mav_pos, "mav_vel": mav_vel, "mav_yaw": mav_yaw, "mav_R": mav_R, "R_bc": np.array([[0,0,1], [1,0,0], [0,1,0]]), 
+        pos_info = {"mav_pos": mav_pos, "mav_vel": mav_vel, "mav_R": mav_R, "R_bc": np.array([[0,0,1], [1,0,0], [0,1,0]]), 
                     "mav_yaw": mav_yaw, "mav_original_angle": mav_original_angle, "Initial_pos": Initial_pos}
 
         dlt_pos = sphere_pos - np.array(mav_pos)

@@ -56,6 +56,7 @@ state_name = "InitializeState"
 idle_command = TwistStamped()
 
 #attack
+vel_command = TwistStamped()
 command = PositionTarget()
 command.coordinate_frame = PositionTarget.FRAME_LOCAL_NED 
 command.type_mask = PositionTarget.IGNORE_PX + PositionTarget.IGNORE_PY + PositionTarget.IGNORE_PZ \
@@ -63,7 +64,7 @@ command.type_mask = PositionTarget.IGNORE_PX + PositionTarget.IGNORE_PY + Positi
                   + PositionTarget.IGNORE_YAW
 
 #rotate
-rotate_rat = pi / 4
+rotate_rat = pi / 2
 rotate_command = PositionTarget()
 rotate_command.coordinate_frame = PositionTarget.FRAME_LOCAL_NED 
 rotate_command.type_mask = PositionTarget.IGNORE_PX + PositionTarget.IGNORE_PY + PositionTarget.IGNORE_PZ \
@@ -246,7 +247,7 @@ def pos_image_cb(msg):
             # picwidth = msg.bounding_boxes[impact_num].xmax - msg.bounding_boxes[impact_num].xmin
             # picheight = msg.bounding_boxes[impact_num].ymax - msg.bounding_boxes[impact_num].ymin
             # outdata = [xmiddle, ymiddle, picwidth, picheight]
-            
+
             xmiddle = (msg.bounding_boxes[0].xmin + msg.bounding_boxes[0].xmax) / 2
             ymiddle = (msg.bounding_boxes[0].ymin + msg.bounding_boxes[0].ymax) / 2
             picwidth = msg.bounding_boxes[0].xmax - msg.bounding_boxes[0].xmin
@@ -544,17 +545,23 @@ if __name__=="__main__":
 
         if ch7 >= 1:
             # cmd = u.RotateAttackController(pos_info, pos_i, image_center, controller_reset)
-            cmd = u.RotateAttackAccelerationController(pos_info, pos_i, controller_reset)
+            # cmd = u.RotateAttackAccelerationController2(pos_info, pos_i, controller_reset)
+            cmd = u.RotateAttackAccelerationController2VelCmd(pos_info, pos_i, controller_reset)
             controller_reset = False
             target_distance = np.linalg.norm(sphere_pos - mav_pos)
             # 识别到图像才进行角速度控制
             if pos_i[1] > 0 and attack_time < attack_max_time and target_distance < attack_start_distance: 
-                command.acceleration_or_force.x = cmd[0]
-                command.acceleration_or_force.y = cmd[1]
-                command.acceleration_or_force.z = cmd[2]
-                command.yaw_rate = cmd[3]
+                # command.acceleration_or_force.x = cmd[0]
+                # command.acceleration_or_force.y = cmd[1]
+                # command.acceleration_or_force.z = cmd[2]
+                # command.yaw_rate = cmd[3]
                 # print("cmd: {}".format(cmd))
-                local_acc_pub.publish(command)
+                # local_acc_pub.publish(command)
+                vel_command.twist.linear.x = cmd[0]
+                vel_command.twist.linear.y = cmd[1]
+                vel_command.twist.linear.z = cmd[2]
+                vel_command.twist.angular.z = cmd[3]
+                local_vel_pub.publish(vel_command)
                 attack_flag = 1
             # # 否则
             else:
@@ -566,7 +573,7 @@ if __name__=="__main__":
                     # local_vel_pub.publish(idle_command)
                     local_acc_pub.publish(rotate_command)
                     rotate_cnt = rotate_cnt + 1
-                    if rotate_cnt > 2 * pi / rotate_rat * 1000 / 20:
+                    if rotate_cnt > 2 * pi / rotate_rat * 3000 / 20 * 1.5:
                         rotate_cnt = 0
                         attack_time = 0
                         target_num = target_num + 1
