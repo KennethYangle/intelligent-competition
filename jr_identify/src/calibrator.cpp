@@ -1,7 +1,7 @@
 #include <iostream>
 #include <iterator>
 #include <fstream>
-#include <opencv4/opencv2/dnn/dnn.hpp>
+#include <opencv2/dnn/dnn.hpp>
 #include "calibrator.h"
 #include "cuda_utils.h"
 #include "utils.h"

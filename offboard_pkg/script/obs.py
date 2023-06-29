@@ -64,7 +64,7 @@ command.type_mask = PositionTarget.IGNORE_PX + PositionTarget.IGNORE_PY + Positi
                   + PositionTarget.IGNORE_YAW
 
 #rotate
-rotate_rat = pi / 2
+rotate_rat = pi / 3
 rotate_command = PositionTarget()
 rotate_command.coordinate_frame = PositionTarget.FRAME_LOCAL_NED 
 rotate_command.type_mask = PositionTarget.IGNORE_PX + PositionTarget.IGNORE_PY + PositionTarget.IGNORE_PZ \

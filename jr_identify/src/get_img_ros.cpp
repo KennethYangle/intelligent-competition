@@ -91,17 +91,6 @@ void imageCallback(const sensor_msgs::ImageConstPtr& msg)
 
     cv::Mat img = cv_ptr->image;
 
-    cv::Mat img2 = img;
-    cv::Mat imgHSV;
-    std::vector<cv::Mat> hsvSplit;
-    cv::cvtColor(img2,imgHSV,cv::COLOR_BGR2HSV);
-    cv::split(imgHSV,hsvSplit);
-    cv::equalizeHist(hsvSplit[2],hsvSplit[2]);
-    cv::merge(hsvSplit,imgHSV);
-    cv::Mat imgThresholded, imgThresholded1, imgThresholded2;
-    cv::inRange(imgHSV,cv::Scalar(lowh,lows,lowv),cv::Scalar(highh,highs,highv),imgThresholded1);
-    cv::inRange(imgHSV,cv::Scalar(lowh2,lows2,lowv2),cv::Scalar(highh2,highs2,highv2),imgThresholded2);
-    imgThresholded = imgThresholded1 + imgThresholded2;
 
     size_t  size_image = img.cols * img.rows * 3;
     size_t  size_image_dst = INPUT_H * INPUT_W * 3;
@@ -114,9 +103,7 @@ void imageCallback(const sensor_msgs::ImageConstPtr& msg)
 
     // Run inference
     auto start = std::chrono::system_clock::now();
-
     doInference(*context, stream, (void**)buffers, prob, BATCH_SIZE);
-
 
     std::vector<std::vector<Yolo::Detection>> batch_res(1);
     for (int b = 0; b < 1; b++) {
@@ -126,37 +113,20 @@ void imageCallback(const sensor_msgs::ImageConstPtr& msg)
       std::sort(res.begin(), res.end(), mycomp2());
 
       for (size_t j = 0; j < res.size(); j++) {
-        double m00, m10, m01;
-        cv::Moments moment;
-        int xmin_temp= std::max((int)(res[j].bbox[0]-0.5*res[j].bbox[2]),2);
-        int ymin_temp = std::max((int)(res[j].bbox[1]-0.5*res[j].bbox[3]),2);
-        int xmax_temp = std::min((int)(res[j].bbox[0]+0.5*res[j].bbox[2]),1278);
-        int ymax_temp = std::min((int)(res[j].bbox[1]+0.5*res[j].bbox[3]),718);
-        // int xmin_temp= (int)(res[j].bbox[0]-0.5*res[j].bbox[2]);
-        // int ymin_temp = (int)(res[j].bbox[1]-0.5*res[j].bbox[3]);
-        // int xmax_temp = (int)(res[j].bbox[0]+0.5*res[j].bbox[2]);
-        // int ymax_temp = (int)(res[j].bbox[1]+0.5*res[j].bbox[3]);
-        cv::Mat crop = imgThresholded(cv::Range(ymin_temp,ymax_temp),cv::Range(xmin_temp,xmax_temp)); 
-        moment = moments(crop, true);
-        m00 = moment.m00; //cvGetSpatialMoment( &moment, 0, 0 );
-        if( m00 >= (int)(perc_red_ballon * res[j].bbox[2] * res[j].bbox[3])) // perc_red_ballon*100% red range
-        {
+        int xmin_temp= (int)(res[j].bbox[0]-0.5*res[j].bbox[2]);
+        int ymin_temp = (int)(res[j].bbox[1]-0.5*res[j].bbox[3]);
+        int xmax_temp = (int)(res[j].bbox[0]+0.5*res[j].bbox[2]);
+        int ymax_temp = (int)(res[j].bbox[1]+0.5*res[j].bbox[3]);
           swarm_msgs::BoundingBox msg_BoundingBox;
           msg_BoundingBox.probability=res[j].conf;
-          msg_BoundingBox.xmin = xmin_temp;
-          msg_BoundingBox.xmax = xmax_temp;
-          msg_BoundingBox.ymin = ymin_temp;
-          msg_BoundingBox.ymax = ymax_temp;
+          msg_BoundingBox.xmin = xmin_temp/640.0*1280;
+          msg_BoundingBox.xmax = xmax_temp/640.0*1280;
+          msg_BoundingBox.ymin = ymin_temp/640.0*720;
+          msg_BoundingBox.ymax = ymax_temp/640.0*720;
           msg_BoundingBox.id=j;
           msg_BoundingBox.Class="Ballon";
           // std::cout<<res[j].conf<<std::endl;
           msg_BoundingBoxes.bounding_boxes.push_back(msg_BoundingBox);
-        }
-       //cv::Mat img1 = img;
-       //cv::Rect r = get_rect(img1, res[j].bbox);
-       //cv::rectangle(img1, r, cv::Scalar(0x27, 0xC1, 0x36), 2);
-       //cv::putText(img1, std::to_string((int)res[j].class_id), cv::Point(r.x, r.y - 1), cv::FONT_HERSHEY_PLAIN, 1.2, cv::Scalar(0xFF, 0xFF, 0xFF), 2);
-      // cv::imshow("res", img1);
       }
       // std::cout<<msg_BoundingBoxes<<std::endl;
       pub.publish(msg_BoundingBoxes);
