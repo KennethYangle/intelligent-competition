@@ -18,14 +18,9 @@ QGC中起飞到4m左右，聚焦Linux小窗口上，按`O`进入offboard模式�
 
 修改`offboard_pkg/script/utils_obs.py`第194行n_td打击方向
 
-运行
-`./offboard_pkg/shell/all.sh`
-或者
-`./offboard_pkg/shell/all_high.sh`
-或者
-`./offboard_pkg/shell/all_acc.sh`
-或者
-`./offboard_pkg/shell/all_high_startup.sh`
+~~运行 `./offboard_pkg/shell/all.sh`~~
+本仓库为CSI相机+颜色检测设计。YOLO版本迁移至https://gitee.com/Why0808/intelligent-competition
+适配CSI和USB相机，适配Orin NX
 
 # 二、飞行前准备
 
